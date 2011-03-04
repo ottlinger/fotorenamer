@@ -29,6 +29,13 @@
       <artifactId>sanselan</artifactId>
       <version>0.97-incubator</version>
     </dependency>
+<!-- no release found yet
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-sanselan</artifactId>
+      <version>0.98-SNAPSHOT</version>
+    </dependency>
+-->
   </dependencies>
   <!--    
   <repositories>
@@ -67,7 +74,7 @@
   </build>
   <profiles>
     <profile>
-      <id>code-generator</id>
+      <id>live-demo</id>
       <build>
         <plugins>
           <plugin>

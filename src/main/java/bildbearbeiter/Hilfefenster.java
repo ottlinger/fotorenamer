@@ -51,7 +51,7 @@ public class Hilfefenster extends JFrame implements ActionListener {
 		this.textfeld.setContentType("text/html");
 		this.textfeld.setEditable(false);
 		try {
-			this.textfeld.setPage(Hilfefenster.class.getResource("html/hilfe.html"));
+			this.textfeld.setPage(Hilfefenster.class.getResource("../html/hilfe.html"));
 			this.oben.add(textfeld);
 		} catch(Exception e) {
 			this.oben.setLayout(new GridLayout(3,1));
@@ -66,7 +66,7 @@ public class Hilfefenster extends JFrame implements ActionListener {
 		this.rollpanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	
 		// Ende-Knopf	
-		this.ende = new JButton("Schliessen");
+		this.ende = new JButton("Schließen");
 		this.ende.addActionListener(this);
 		this.ende.setMnemonic('S');
 		this.unten.add(this.ende);

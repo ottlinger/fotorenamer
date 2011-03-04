@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import bildbearbeiter.ausnahmen.*;
+import org.apache.sanselan.ImageReadException;
 
 /**
  * Sinn: CanonBilder umbenennen und BildErzeugungsdatum in Namen schreiben
@@ -32,7 +33,7 @@ public class DateinamenManipulierer implements Runnable {
 	 * @param verzeichnis
 	 */
 	public DateinamenManipulierer(String verzeichnis) 
-			throws UngueltigesVerzeichnis, KeineDateienEnthalten {
+			throws UngueltigesVerzeichnisException, KeineDateienEnthaltenException {
 		this.aktuellesVerzeichnis = new File(verzeichnis);
 		// erst starten, wenn die Eingabepr�fung erfolgreich war
 		pruefeEingabeUndInit();
@@ -45,18 +46,18 @@ public class DateinamenManipulierer implements Runnable {
 	 * sonst Ausnahme<br>
 	 * (intern werden auch Parameter gesetzt)
 	 * 
-	 * @throws KeineDateienEnthalten,UngueltigesVerzeichnis
+	 * @throws bildbearbeiter.ausnahmen.KeineDateienEnthaltenException,bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException
 	 */
 	public void pruefeEingabeUndInit() 
-			throws KeineDateienEnthalten, UngueltigesVerzeichnis{
+			throws KeineDateienEnthaltenException, UngueltigesVerzeichnisException {
 		// Verzeichnis gültig ?
 		if (!this.aktuellesVerzeichnis.isDirectory()) 
-			throw new UngueltigesVerzeichnis(this.aktuellesVerzeichnis);
+			throw new UngueltigesVerzeichnisException(this.aktuellesVerzeichnis);
 		
 		// Dateien da ?
 		this.dateiliste = this.aktuellesVerzeichnis.listFiles();
 		if (dateiliste.length == 0 || dateiliste == null) 
-			throw new KeineDateienEnthalten(this.aktuellesVerzeichnis);
+			throw new KeineDateienEnthaltenException(this.aktuellesVerzeichnis);
 		
 		// internen Zustand setzen
 		this.obergrenze = this.dateiliste.length;
@@ -66,11 +67,12 @@ public class DateinamenManipulierer implements Runnable {
 	 * PRE: pruefeEingabenUndInit() aufgerufen  
 	 * Benennt alle Dateien im Verzeichnis so um,
 	 * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
-	 * was im Kamerfall das Aufnahmedatum ist
+	 * was im Kamerafall das Aufnahmedatum ist
 	 * 
 	 * @see #pruefeEingabeUndInit()
+     * @throws Exception if any errors occur.
 	 */
-	public void umbenennen() throws UmbenennenFehlgeschlagen {
+	public void umbenennen() throws UmbenennenFehlgeschlagenException {
 		String name = "";
 		String zusatz = "";
 		SimpleDateFormat sf = 
@@ -78,8 +80,15 @@ public class DateinamenManipulierer implements Runnable {
 
 		for(int i=0; i<this.obergrenze; i++) {
 			// Daten holen
-			zusatz = sf.format(new Date(this.dateiliste[i].lastModified()));
-			name = this.dateiliste[i].getName();
+            try {
+            zusatz = MetaDataExtractor.generateCreationDateInCorrectFormat(this.dateiliste[i]);
+            } catch (Exception e) {
+                throw new UmbenennenFehlgeschlagenException(e.getLocalizedMessage());
+            }
+
+            // OLD version:
+			// zusatz = sf.format(new Date(this.dateiliste[i].lastModified()));
+            name = this.dateiliste[i].getName();
 
 			// Fortschrittsbalken updaten...
 				this.grafik.setFortschritt(i);
@@ -93,7 +102,7 @@ public class DateinamenManipulierer implements Runnable {
 							new File(
 								this.dateiliste[i].getParent()+zusatz+
 								this.dateiliste[i].getName())))  
-					throw new UmbenennenFehlgeschlagen("\tFehler bei Bild"
+					throw new UmbenennenFehlgeschlagenException("\tFehler bei Bild"
 													+this.dateiliste[i].getName());
 			} // end if - isFile()
 		} // end of for
@@ -112,9 +121,9 @@ public class DateinamenManipulierer implements Runnable {
 		
 			try { 
 				umbenennen(); 
-			} 	catch(UmbenennenFehlgeschlagen uf) {
+			} 	catch(UmbenennenFehlgeschlagenException uf) {
 					JOptionPane.showMessageDialog(null,
-								"W�hrend der Bearbeitung der Datei\n"+
+								"Während der Bearbeitung der Datei\n"+
 								uf.getMessage()+" trat ein Fehler beim Umbennen auf.",
 								 "Fehler beim Umbenennen",
 								 JOptionPane.ERROR_MESSAGE);

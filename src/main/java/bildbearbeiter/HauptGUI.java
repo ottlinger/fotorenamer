@@ -7,11 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import java.util.concurrent.ExecutionException;
+import javax.swing.*;
 
 import bildbearbeiter.ausnahmen.*;
 
@@ -31,6 +28,7 @@ public class HauptGUI extends JFrame implements ActionListener {
 	private JPanel verzeichnis = null;
 	private VerzeichnisWaehler verzeichnisauswahl = null;
 	private JPanel knoepfe = null;
+    private SwingWorker<Void, Void> worker;
 
 	/**
 	 * erzeugt die GUI und initialisiert die Komponenten
@@ -47,14 +45,14 @@ public class HauptGUI extends JFrame implements ActionListener {
 		os+=" "+System.getProperty("os.version");
 		os+=" "+System.getProperty("os.arch")+"]";
 		
-		this.setTitle("IXUS-DateinamenKonverter "+os);
+		this.setTitle("fotorenamer-DateinamenKonverter "+os);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(3);
 		
 		// Dateiauswahl
 		this.verzeichnis = new JPanel(new BorderLayout());
 		this.verzeichnisauswahl = new VerzeichnisWaehler(true, 
-							FensterZentrierer.createImageIcon("image/ixusButton.png"));
+							FensterZentrierer.createImageIcon("../image/ixusButton.png"));
 		this.verzeichnis.add(verzeichnisauswahl);
 		
 		// Hilfe
@@ -82,7 +80,7 @@ public class HauptGUI extends JFrame implements ActionListener {
 		this.starten.setMnemonic('s');
 		this.knoepfe.add(this.starten);
 		
-		// R�ckg�ngig machen
+		// Rückgängig machen
 		this.rueckgaengig = new JButton("Rückgängig machen");
 		this.rueckgaengig.addActionListener(this);
 		this.rueckgaengig.setMnemonic('r');
@@ -96,7 +94,7 @@ public class HauptGUI extends JFrame implements ActionListener {
 		this.setVisible(true);
 	} // end of init
 
-	public void actionPerformed(ActionEvent ereignis) {
+	public void actionPerformed(final ActionEvent ereignis) {
 		// Ende
 		if( ereignis.getSource() == this.ende ) {
 			System.exit(0);
@@ -113,8 +111,63 @@ public class HauptGUI extends JFrame implements ActionListener {
 						 "Versionsinfo",
 						 JOptionPane.INFORMATION_MESSAGE);
 		} else if( (ereignis.getSource() == this.rueckgaengig) || 
-					(ereignis.getSource() == this.starten)) {   
+					(ereignis.getSource() == this.starten)) {
+// Construct a new SwingWorker
+// READ from http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
+            worker = new SwingWorker<Void, Void>() {
+              @Override
+              protected Void doInBackground() {
 		// Rückgängig oder Starten machen
+				if(!verzeichnisauswahl.isSelected()) {
+					JOptionPane.showMessageDialog(null,
+						"Bitte ein Verzeichnis eingeben und\ndann starten.",
+						 "Ungültiges Verzeichnis angegegen",
+						 JOptionPane.ERROR_MESSAGE);
+					return null;
+				} // end if
+
+				// Umbenennen ....
+				try {
+					if(ereignis.getSource() == starten) {
+                        starten.setEnabled(false);
+                        starten.setText("in progress");
+						new DateinamenManipulierer(verzeichnisauswahl.toString());
+					} else {
+						new DateinamenZurueckUmbenenner(verzeichnisauswahl.toString());
+                        rueckgaengig.setEnabled(false);
+                        rueckgaengig.setText("in progress");
+
+					} // end if
+				} catch(UngueltigesVerzeichnisException uv) {
+					JOptionPane.showMessageDialog(null,
+						"Das eingegebene Verzeichnis \t"+uv.getMessage()+
+						" ist ungültig - bitte erneut versuchen.",
+						 "Ungültiges Verzeichnis angegegen",
+						 JOptionPane.ERROR_MESSAGE);
+				} catch(KeineDateienEnthaltenException kde) {
+					JOptionPane.showMessageDialog(null,
+					"Im Verzeichnis\t"+kde.getMessage()+
+					"existieren keine umbenennbaren Dateien - bitte erneut versuchen.",
+					 "Keine Dateien vorhanden",
+					 JOptionPane.ERROR_MESSAGE);
+                } // end of catch kde
+                  return null;
+              }
+
+              @Override
+              protected void done(){
+                  starten.setEnabled(true);
+                  starten.setText("Starten");
+                  rueckgaengig.setEnabled(true);
+                  rueckgaengig.setText("Rückgängig machen");
+              }
+            };
+            // Execute the SwingWorker; the GUI will not freeze
+            worker.execute();
+
+
+
+		/** Rückgängig oder Starten machen
 				if(!verzeichnisauswahl.isSelected()) {
 					JOptionPane.showMessageDialog(null,
 						"Bitte ein Verzeichnis eingeben und\ndann starten.",
@@ -130,14 +183,14 @@ public class HauptGUI extends JFrame implements ActionListener {
 					} else {
 						new DateinamenZurueckUmbenenner(verzeichnisauswahl.toString()); 
 					} // end if
-				} catch(UngueltigesVerzeichnis uv) {
+				} catch(UngueltigesVerzeichnisException uv) {
 					JOptionPane.showMessageDialog(null,
 						"Das eingegebene Verzeichnis \t"+uv.getMessage()+
 						" ist ungültig - bitte erneut versuchen.",
 						 "Ungültiges Verzeichnis angegegen",
 						 JOptionPane.ERROR_MESSAGE);
 					return;
-				} catch(KeineDateienEnthalten kde) {
+				} catch(KeineDateienEnthaltenException kde) {
 					JOptionPane.showMessageDialog(null,
 					"Im Verzeichnis\t"+kde.getMessage()+
 					"existieren keine umbenennbaren Dateien - bitte erneut versuchen.",
@@ -145,7 +198,8 @@ public class HauptGUI extends JFrame implements ActionListener {
 					 JOptionPane.ERROR_MESSAGE);
 					return;
 				} // end of catch kde
-		} // end if-getSource  
+            */
+        } // end if-getSource
 	} // end of actionPerformed
 
 	/** 

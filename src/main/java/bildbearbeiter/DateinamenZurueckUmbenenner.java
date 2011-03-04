@@ -26,11 +26,11 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
 	/**
 	 * @param verzeichnis
-	 * @throws UngueltigesVerzeichnis
-	 * @throws KeineDateienEnthalten
+	 * @throws bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException
+	 * @throws bildbearbeiter.ausnahmen.KeineDateienEnthaltenException
 	 */
 	public DateinamenZurueckUmbenenner(String verzeichnis)
-		throws UngueltigesVerzeichnis, KeineDateienEnthalten {
+		throws UngueltigesVerzeichnisException, KeineDateienEnthaltenException {
 			this.aktuellesVerzeichnis = new File(verzeichnis);
 			// erst starten, wenn die Eingabeprüfung erfolgreich war
 			pruefeEingabeUndInit();
@@ -45,7 +45,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 	 * 
 	 * @see #pruefeEingabeUndInit()
 	 */
-	public void umbenennen() throws UmbenennenFehlgeschlagen {
+	public void umbenennen() throws UmbenennenFehlgeschlagenException {
 		String name = "";
 		String nameNeu = "";
 		String muster = "\\d{8}[_]\\d{4}[_]\\p{ASCII}*";
@@ -70,7 +70,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 			if (this.dateiliste[i].isFile()) {
 				if (!this.dateiliste[i].renameTo(
 						new File(this.dateiliste[i].getParent()+File.separatorChar+nameNeu)))   
-					throw new UmbenennenFehlgeschlagen("\tFehler bei Bild "
+					throw new UmbenennenFehlgeschlagenException("\tFehler bei Bild "
 											+this.dateiliste[i].getName());
 			} // end if - isFile()
 		} // end of for
@@ -81,18 +81,18 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 	 * sonst Ausnahme<br>
 	 * (intern werden auch Parameter gesetzt)
 	 * 
-	 * @throws KeineDateienEnthalten,UngueltigesVerzeichnis
+	 * @throws bildbearbeiter.ausnahmen.KeineDateienEnthaltenException,bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException
 	 */
 	public void pruefeEingabeUndInit() 
-			throws KeineDateienEnthalten, UngueltigesVerzeichnis{
+			throws KeineDateienEnthaltenException, UngueltigesVerzeichnisException {
 		// Verzeichnis gültig ?
 		if (!this.aktuellesVerzeichnis.isDirectory()) 
-			throw new UngueltigesVerzeichnis(this.aktuellesVerzeichnis);
+			throw new UngueltigesVerzeichnisException(this.aktuellesVerzeichnis);
 		
 		// Dateien da ?
 		this.dateiliste = this.aktuellesVerzeichnis.listFiles();
 		if (dateiliste.length == 0 || dateiliste == null) 
-			throw new KeineDateienEnthalten(this.aktuellesVerzeichnis);
+			throw new KeineDateienEnthaltenException(this.aktuellesVerzeichnis);
 		
 		// internen Zustand setzen
 		this.obergrenze = this.dateiliste.length;
@@ -111,7 +111,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
 			try { 
 				umbenennen(); 
-			} 	catch(UmbenennenFehlgeschlagen uf) {
+			} 	catch(UmbenennenFehlgeschlagenException uf) {
 					JOptionPane.showMessageDialog(null,
 								"W�hrend der Bearbeitung der Datei\n"+
 								uf.getMessage()+" trat ein Fehler beim Umbennen auf.",
