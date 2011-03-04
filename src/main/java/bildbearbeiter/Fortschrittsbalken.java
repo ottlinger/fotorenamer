@@ -19,7 +19,7 @@ public class Fortschrittsbalken extends JFrame{
 	/**
 	 * erzeugt einen Fortschrittsbalken, dess mit obergrenze 
 	 * als 100%-Marke
-	 * @param obergrenze Höchststand 
+	 * @param obergrenze HÃ¶chststand
 	 */ 
 	public Fortschrittsbalken(int obergrenze){
 		super("Fortschritt");
@@ -48,7 +48,7 @@ public class Fortschrittsbalken extends JFrame{
 	} // end of init
 	
 	/**
-	 * Nach Änderung der Werte die Komponenten neu zeichnen
+	 * Nach ï¿½nderung der Werte die Komponenten neu zeichnen
 	 * und mittig anordnen
 	 */
 	public void updateUI() {

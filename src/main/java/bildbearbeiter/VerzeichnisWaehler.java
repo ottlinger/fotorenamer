@@ -7,7 +7,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Sinn: Verzeichnis zur Dateinamen‰nderung ausw‰hlen
+ * Sinn: Verzeichnis zur Dateinamen√§nderung ausw√§hlen
  * @author hirsch, 13.10.2003
  * @version 2004-01-08
  */
@@ -19,9 +19,9 @@ public class VerzeichnisWaehler extends JPanel {
 		private boolean directory = false;
 
 	/**
-	 * erzeugt einen neuen Verzeichnisw‰hler, wenn nur Verzeichnisse
-	 * ausw‰hlbar sein sollen TRUE ¸bergeben
-	 * @param directoryOnly sollen nur Verzeichnisse w‰hlbar sein ?
+	 * erzeugt einen neuen Verzeichnisw√§hler, wenn nur Verzeichnisse
+	 * ausw√§hlbar sein sollen TRUE √ºbergeben
+	 * @param directoryOnly sollen nur Verzeichnisse w√§hlbar sein ?
 	 */
 	public VerzeichnisWaehler(boolean directoryOnly) 	{
 		super();
@@ -30,8 +30,8 @@ public class VerzeichnisWaehler extends JPanel {
 	} // end of Konstruktor
 
 	/**
-	 * erzeugt Verzeichnisw‰hler mit einem ImageIcon als 
-	 * Bild f¸r den Auswahlknopf
+	 * erzeugt Verzeichnisw√§hler mit einem ImageIcon als
+	 * Bild f√ºr den Auswahlknopf
 	 * 
 	 * @param directory
 	 * @param icon
@@ -122,12 +122,12 @@ public class VerzeichnisWaehler extends JPanel {
 				
 				if (directory) 				{
 					fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-					fileDlg.setDialogTitle("Bitte Verzeichnis ausw‰hlen.");
+					fileDlg.setDialogTitle("Bitte Verzeichnis ausw√§hlen.");
 				} else {
 					fileDlg.setFileSelectionMode(JFileChooser.FILES_ONLY);
-					fileDlg.setDialogTitle("Bitte eine Datei ausw‰hlen");
+					fileDlg.setDialogTitle("Bitte eine Datei ausw√§hlen");
 				} // end if
-				fileDlg.setApproveButtonText("Ausw‰hlen");
+				fileDlg.setApproveButtonText("Ausw√§hlen");
 				
 				if (fileDlg.showOpenDialog(VerzeichnisWaehler.this) ==
 					JFileChooser.APPROVE_OPTION) 	{
@@ -139,7 +139,7 @@ public class VerzeichnisWaehler extends JPanel {
 	} // end of init
 
 	/**
-	 * ausgew‰hltes Element ist Repr‰sentation dieses Verzeichnisw‰hlers
+	 * ausgew√§hltes Element ist Repr√§sentation dieses Verzeichnisw√§hlers
 	 */
 	public String toString() {
 			return this.selection;

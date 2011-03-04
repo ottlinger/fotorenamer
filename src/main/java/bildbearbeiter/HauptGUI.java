@@ -21,7 +21,7 @@ import bildbearbeiter.ausnahmen.*;
  * @version 2004-01-08
  */
 public class HauptGUI extends JFrame implements ActionListener {
-	public static String version = "2004-01-08beta";
+	public static String version = "2011-03-04-0.1-SNAPSHOT";
 	private static Hilfefenster hilfefenster = new Hilfefenster();
 	private JButton hilfe = null;
 	private JButton starten = null;
@@ -82,8 +82,8 @@ public class HauptGUI extends JFrame implements ActionListener {
 		this.starten.setMnemonic('s');
 		this.knoepfe.add(this.starten);
 		
-		// Rückgängig machen
-		this.rueckgaengig = new JButton("Rückgängig machen");
+		// Rï¿½ckgï¿½ngig machen
+		this.rueckgaengig = new JButton("RÃ¼ckgÃ¤ngig machen");
 		this.rueckgaengig.addActionListener(this);
 		this.rueckgaengig.setMnemonic('r');
 		this.knoepfe.add(this.rueckgaengig);
@@ -106,18 +106,19 @@ public class HauptGUI extends JFrame implements ActionListener {
 		} else if( ereignis.getSource() == this.info ) {
 		// Info
 			JOptionPane.showMessageDialog(null,
-						"\nbildbearbeiter - CanonIXUSFotonamenBearbeiter\n\n"+
+						"\nbildbearbeiter - fotorenamer\n\n"+
 						"Version: "+version+
-						"\n\nAutor: P.Ottlinger, \nURL: http://www.po-computer.de" +						"\n (C) 1996-2004",
+						"\n\nAutor: P.Ottlinger, \nURL: http://www.aiki-it.de" +
+						"\n (C) 1996-2011",
 						 "Versionsinfo",
 						 JOptionPane.INFORMATION_MESSAGE);
 		} else if( (ereignis.getSource() == this.rueckgaengig) || 
 					(ereignis.getSource() == this.starten)) {   
-		// Rückgängig oder Starten machen
+		// RÃ¼ckgÃ¤ngig oder Starten machen
 				if(!verzeichnisauswahl.isSelected()) {
 					JOptionPane.showMessageDialog(null,
 						"Bitte ein Verzeichnis eingeben und\ndann starten.",
-						 "Ungültiges Verzeichnis angegegen",
+						 "UngÃ¼ltiges Verzeichnis angegegen",
 						 JOptionPane.ERROR_MESSAGE);
 					return;
 				} // end if
@@ -132,8 +133,8 @@ public class HauptGUI extends JFrame implements ActionListener {
 				} catch(UngueltigesVerzeichnis uv) {
 					JOptionPane.showMessageDialog(null,
 						"Das eingegebene Verzeichnis \t"+uv.getMessage()+
-						" ist ungültig - bitte erneut versuchen.",
-						 "Ungültiges Verzeichnis angegegen",
+						" ist ungÃ¼ltig - bitte erneut versuchen.",
+						 "UngÃ¼ltiges Verzeichnis angegegen",
 						 JOptionPane.ERROR_MESSAGE);
 					return;
 				} catch(KeineDateienEnthalten kde) {

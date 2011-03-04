@@ -18,7 +18,7 @@ import javax.swing.ImageIcon;
 
 public class FensterZentrierer {
 	/**
-	 * zentriert die übergebene Swing-Komponente
+	 * zentriert die Ã¼bergebene Swing-Komponente
 	 * @param w
 	 */
 	public static void makeCentered(Component w)    {
@@ -32,8 +32,8 @@ public class FensterZentrierer {
 	} // end of makeCentered	
 	
 	/**
-	 * übernimmt einen Pfad und macht daraus ein ImageIcon,
-	 * im Fehlerfall wird einfach null zurückgegeben
+	 * Ãœbernimmt einen Pfad und macht daraus ein ImageIcon,
+	 * im Fehlerfall wird einfach null zurÃ¼ckgegeben
 	 * @param path
 	 * @return ImageIcon-Bild
 	 */
@@ -43,7 +43,8 @@ public class FensterZentrierer {
 		 if (imgURL != null) {
 			 return new ImageIcon(imgURL);
 		 } else {
-			 System.err.println("FensterZentrierer.createImageIcon():" +			 	"\nURL ungültig: " + path);
+			 System.err.println("FensterZentrierer.createImageIcon():" +
+			 	"\nURL ungÃ¼ltig: " + path);
 			 return null;
 		 } // end if
 	 } // end of createImageIcon	

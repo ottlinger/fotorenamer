@@ -24,24 +24,24 @@ public class DateinamenManipulierer implements Runnable {
 	private int obergrenze = 0; 
 
 	/**
-	 * Übernimmt ein Verzeichnis. Dessen Dateien werden in
-	 * ZuletztGeändertDatum_ZuletztGeändertUhrzeit_Dateiname umbenannt.<br>
+	 * ï¿½bernimmt ein Verzeichnis. Dessen Dateien werden in
+	 * ZuletztGeï¿½ndertDatum_ZuletztGeï¿½ndertUhrzeit_Dateiname umbenannt.<br>
 	 * Bei den IXUS-Bildern bedeutet das, dass den Dateinamen der Zeitpunkt
-	 * der Bildaufnahme mit hinzugefügt wird.
+	 * der Bildaufnahme mit hinzugefï¿½gt wird.
 	 * <br>
 	 * @param verzeichnis
 	 */
 	public DateinamenManipulierer(String verzeichnis) 
 			throws UngueltigesVerzeichnis, KeineDateienEnthalten {
 		this.aktuellesVerzeichnis = new File(verzeichnis);
-		// erst starten, wenn die Eingabeprüfung erfolgreich war
+		// erst starten, wenn die Eingabeprï¿½fung erfolgreich war
 		pruefeEingabeUndInit();
 
 		new Thread(this).start();
 	} // end of Konstruktor
 
 	/**
-	 * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält, 
+	 * prï¿½ft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthï¿½lt, 
 	 * sonst Ausnahme<br>
 	 * (intern werden auch Parameter gesetzt)
 	 * 
@@ -49,7 +49,7 @@ public class DateinamenManipulierer implements Runnable {
 	 */
 	public void pruefeEingabeUndInit() 
 			throws KeineDateienEnthalten, UngueltigesVerzeichnis{
-		// Verzeichnis gültig ?
+		// Verzeichnis gÃ¼ltig ?
 		if (!this.aktuellesVerzeichnis.isDirectory()) 
 			throw new UngueltigesVerzeichnis(this.aktuellesVerzeichnis);
 		
@@ -65,7 +65,7 @@ public class DateinamenManipulierer implements Runnable {
 	/**
 	 * PRE: pruefeEingabenUndInit() aufgerufen  
 	 * Benennt alle Dateien im Verzeichnis so um,
-	 * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
+	 * dass vor dem IXUS-Dateinamen das Datum der letzten ï¿½nderung steht,
 	 * was im Kamerfall das Aufnahmedatum ist
 	 * 
 	 * @see #pruefeEingabeUndInit()
@@ -114,7 +114,7 @@ public class DateinamenManipulierer implements Runnable {
 				umbenennen(); 
 			} 	catch(UmbenennenFehlgeschlagen uf) {
 					JOptionPane.showMessageDialog(null,
-								"Während der Bearbeitung der Datei\n"+
+								"Wï¿½hrend der Bearbeitung der Datei\n"+
 								uf.getMessage()+" trat ein Fehler beim Umbennen auf.",
 								 "Fehler beim Umbenennen",
 								 JOptionPane.ERROR_MESSAGE);

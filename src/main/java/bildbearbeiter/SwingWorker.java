@@ -25,7 +25,7 @@ public abstract class SwingWorker {
 		private Thread thread = null;
 
 		/**
-		 * startet einen Thread mit übergebenem Thread als Parameter
+		 * startet einen Thread mit Ã¼bergebenem Thread als Parameter
 		 * @param t Thread
 		 */
 		ThreadVar(Thread t) {

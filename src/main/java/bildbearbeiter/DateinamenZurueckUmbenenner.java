@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import bildbearbeiter.ausnahmen.*;
 
 /**
- * Sinn: soll die Dateien wieder zurückumbennen können
+ * Sinn: soll die Dateien wieder zurÃ¼ckumbennen kÃ¶nnen
  * 
  * @author hirsch, 08.12.2003
  * @version 2004-01-08
@@ -32,7 +32,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 	public DateinamenZurueckUmbenenner(String verzeichnis)
 		throws UngueltigesVerzeichnis, KeineDateienEnthalten {
 			this.aktuellesVerzeichnis = new File(verzeichnis);
-			// erst starten, wenn die Eingabeprüfung erfolgreich war
+			// erst starten, wenn die EingabeprÃ¼fung erfolgreich war
 			pruefeEingabeUndInit();
 			new Thread(this).start();
 	} // end of Konstruktor
@@ -40,7 +40,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 	/**
 	 * PRE: pruefeEingabenUndInit() aufgerufen  
 	 * Benennt alle Dateien im Verzeichnis so um,
-	 * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
+	 * dass vor dem IXUS-Dateinamen das Datum der letzten Ã„nderung steht,
 	 * was im Kamerfall das Aufnahmedatum ist
 	 * 
 	 * @see #pruefeEingabeUndInit()
@@ -52,12 +52,12 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
 		for(int i=0;i<this.obergrenze;i++) {
 			name = this.dateiliste[i].getName();
-			// würde alle Vorkommen ersetzen:
+			// wÃ¼rde alle Vorkommen ersetzen:
 			// nameNeu = name.replaceAll("\\d{8}[_]\\d{4}[_]","");
 			// Unter Linux bleibt die DateiInfo erhalten ... aber unter Windows vll. nicht ?!
 			nameNeu = name.replaceFirst("\\d{8}[_]\\d{4}[_]","");
 
-			// umzubenennende Dateien zählen
+			// umzubenennende Dateien zÃ¤hlen
 			if (nameNeu != name) this.umbenannt++;
 
 			// Fortschrittsbalken updaten...
@@ -77,7 +77,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 	} // end of umbenennen
 	
 	/**
-	 * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält, 
+	 * prÃ¼ft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthÃ¤lt,
 	 * sonst Ausnahme<br>
 	 * (intern werden auch Parameter gesetzt)
 	 * 
@@ -85,7 +85,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 	 */
 	public void pruefeEingabeUndInit() 
 			throws KeineDateienEnthalten, UngueltigesVerzeichnis{
-		// Verzeichnis gültig ?
+		// Verzeichnis gÃ¼ltig ?
 		if (!this.aktuellesVerzeichnis.isDirectory()) 
 			throw new UngueltigesVerzeichnis(this.aktuellesVerzeichnis);
 		
@@ -113,7 +113,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 				umbenennen(); 
 			} 	catch(UmbenennenFehlgeschlagen uf) {
 					JOptionPane.showMessageDialog(null,
-								"Während der Bearbeitung der Datei\n"+
+								"Wï¿½hrend der Bearbeitung der Datei\n"+
 								uf.getMessage()+" trat ein Fehler beim Umbennen auf.",
 								 "Fehler beim Umbenennen",
 								 JOptionPane.ERROR_MESSAGE);
