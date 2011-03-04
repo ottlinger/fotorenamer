@@ -24,10 +24,10 @@ public class DateinamenManipulierer implements Runnable {
 	private int obergrenze = 0; 
 
 	/**
-	 * �bernimmt ein Verzeichnis. Dessen Dateien werden in
-	 * ZuletztGe�ndertDatum_ZuletztGe�ndertUhrzeit_Dateiname umbenannt.<br>
+	 * Übernimmt ein Verzeichnis. Dessen Dateien werden in
+	 * ZuletztGeändertDatum_ZuletztGeändertUhrzeit_Dateiname umbenannt.<br>
 	 * Bei den IXUS-Bildern bedeutet das, dass den Dateinamen der Zeitpunkt
-	 * der Bildaufnahme mit hinzugef�gt wird.
+	 * der Bildaufnahme mit hinzugefügt wird.
 	 * <br>
 	 * @param verzeichnis
 	 */
@@ -41,7 +41,7 @@ public class DateinamenManipulierer implements Runnable {
 	} // end of Konstruktor
 
 	/**
-	 * pr�ft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enth�lt, 
+	 * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält,
 	 * sonst Ausnahme<br>
 	 * (intern werden auch Parameter gesetzt)
 	 * 
@@ -65,7 +65,7 @@ public class DateinamenManipulierer implements Runnable {
 	/**
 	 * PRE: pruefeEingabenUndInit() aufgerufen  
 	 * Benennt alle Dateien im Verzeichnis so um,
-	 * dass vor dem IXUS-Dateinamen das Datum der letzten �nderung steht,
+	 * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
 	 * was im Kamerfall das Aufnahmedatum ist
 	 * 
 	 * @see #pruefeEingabeUndInit()

@@ -1,0 +1,96 @@
+frameset{border:none; border-width: 0; border-style: hidden; border-top: none; border-right: none; border-left: none; border-bottom:none;}
+
+p,BODY
+{
+	color:black;
+	background:white;
+	margin-left:4%;
+	margin-right:4%;
+    font-family:Arial,Helvetica,Geneva,Swiss,SunSans-Regular,Serif,Sans-Serif;
+	font-size:12px;
+	line-height:15px;
+    text-align:left;
+	background-image: url(tux_transparent.gif);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-attachment: fixed;
+}
+p.warn
+{
+	color:#e24912;
+	background:white;
+	margin-left:4%;
+	margin-right:4%;
+    font-family:Arial,Helvetica,Geneva,Swiss,SunSans-Regular,Serif,Sans-Serif;
+	font-size:12px;
+	line-height:15px;
+    text-align:center;
+        font-weight:bold;
+}
+
+A:link
+{
+	background:white;
+	color:blue;
+}
+A:visited
+{
+        background:white;
+	color:blue;
+}
+A:active
+{
+        background:white;
+	color:green;
+}
+H1
+{
+	color:black;
+        background:white;
+        font-weight:bold;
+	margin-left:+6%;
+	font-size:18px;
+	line-height:21px;
+	text-align:center;
+}
+
+H1.blau
+{
+	color:#000099;
+        background:white;
+	font-weight:bold;
+	margin-left:+6%;
+	font-size:18px;
+	line-height:21px;
+	text-align:center;
+}
+ADDRESS{
+background:white;color:black;font-style:italic;margin-left:+3%;font-size:14px;line-height:17px;text-align:left;}
+ADDRESS.mittig{
+background:white;color:black;font-style:italic;margin-left:+3%;font-size:14px;line-height:17px;text-align:center;}
+
+HR
+{
+	width:85%;
+	line-height:2px;
+        text-align:center;
+}
+li
+{
+	margin-left:+6%;
+	font-size:13px;
+	line-height:18px;
+        text-align:left;
+}
+UL
+{
+	font-size:12px;
+	line-height:18px;
+	list-style-image:url("li.gif");
+	margin-left:-2%;
+}
+td,tr
+{
+	vertical-align:top;
+    text-align:left;
+}
