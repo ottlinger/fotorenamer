@@ -11,6 +11,7 @@ import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -110,7 +111,7 @@ public class MetaDataExtractor {
      * @throws IOException
      */
     public static String generateCreationDateInCorrectFormat(File image) throws ImageReadException,
-            IOException {
+            IOException, ParseException {
         String formattedDate = "";
         IImageMetadata metadata = Sanselan.getMetadata(image);
 
@@ -119,11 +120,14 @@ public class MetaDataExtractor {
 
             TiffField field = jpegMetadata.findEXIFValue(TiffConstants.EXIF_TAG_CREATE_DATE);
 
-            System.out.println("Vor Umwandlung: " + field);
-
             if (field != null) {
                 System.out.println("Datumswert: " + field.getValueDescription());
-                formattedDate = PHOTO_DATE_FORMAT.format(field.getValueDescription());
+
+                System.out.println("Woo: "+Date.parse(field.getValueDescription()));
+                // schlägt fehl - System.out.println(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
+
+                formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
+
                 System.out.println("Umgewandelt: " + formattedDate);
             }
 
