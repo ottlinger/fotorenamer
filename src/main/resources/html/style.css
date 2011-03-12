@@ -92,5 +92,9 @@ UL
 td,tr
 {
 	vertical-align:top;
-    text-align:left;
+    text-align:center;
+}
+
+img {
+    text-align: center;
 }

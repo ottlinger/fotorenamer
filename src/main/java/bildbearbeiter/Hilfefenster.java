@@ -3,91 +3,83 @@
  */
 package bildbearbeiter;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  * Sinn: Anzeige eines HTML-basierten Hilfefensters
- * 
+ *
  * @author hirsch, 20.10.2003
  * @version 2004-01-08
- * 
  */
 public class Hilfefenster extends JFrame implements ActionListener {
-	private JPanel oben = null; 
-	private JPanel unten = null;
-	private JButton ende = null;
-	private JScrollPane rollpanel = null;
-	private JEditorPane textfeld = null;
+    private JButton ende = null;
 
-	/** erzeugt Hilfefenster und zeigt es aber *nicht* an
-	 *
-	 */
-	public Hilfefenster() {
-		init();
-	} // end of Konstruktor
-	
-	/**
-	 * Initialisierung der grafischen Komponenten und Fensteranzeige
-	 */
-	private void init() {
-		this.setTitle("Programmhilfe");
-		this.setResizable(false);
-		this.oben = new JPanel(new FlowLayout());
-		this.unten = new JPanel(new FlowLayout());
+    /**
+     * erzeugt Hilfefenster und zeigt es aber *nicht* an
+     */
+    public Hilfefenster() {
+        init();
+    } // end of Konstruktor
 
-		// Inhalt des Textfeldes von einer URL laden
-		this.textfeld = new JEditorPane();
-		this.textfeld.setContentType("text/html");
-		this.textfeld.setEditable(false);
-		try {
-			this.textfeld.setPage(Hilfefenster.class.getResource("../html/hilfe.html"));
-			this.oben.add(textfeld);
-		} catch(Exception e) {
-			this.oben.setLayout(new GridLayout(3,1));
-			this.oben.add(new JLabel("Fehler in der Hilfe -"));
-			this.oben.add(new JLabel(""+e.getMessage()));
-			this.oben.add(new JLabel(""+e.getClass()));
-		} // end of catch
+    /**
+     * Initialisierung der grafischen Komponenten und Fensteranzeige
+     */
+    private void init() {
+        JPanel oben = null;
+        JPanel unten = null;
+        JScrollPane rollpanel = null;
+        JEditorPane textfeld = null;
 
-		// Eigenschaften des Scrollpanels anpassen
-		this.rollpanel = new JScrollPane(this.oben);
-		this.rollpanel.setPreferredSize(new Dimension(350, 300));
-		this.rollpanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	
-		// Ende-Knopf	
-		this.ende = new JButton("Schließen");
-		this.ende.addActionListener(this);
-		this.ende.setMnemonic('S');
-		this.unten.add(this.ende);
+        this.setTitle("Programmhilfe");
+        this.setResizable(false);
+        oben = new JPanel(new FlowLayout());
+        unten = new JPanel(new FlowLayout());
 
-		// Zusammenbasteln ...
-		this.getContentPane().setLayout(new BorderLayout());
-		this.getContentPane().add(rollpanel, BorderLayout.NORTH);
-		this.getContentPane().add(unten, BorderLayout.CENTER);
+        // Inhalt des Textfeldes von einer URL laden
+        textfeld = new JEditorPane();
+        textfeld.setContentType("text/html");
+        textfeld.setEditable(false);
+        try {
+            textfeld.setPage(Hilfefenster.class.getResource("../html/hilfe.html"));
+            oben.add(textfeld);
+        } catch (Exception e) {
+            oben.setLayout(new GridLayout(3, 1));
+            oben.add(new JLabel("Fehler in der Hilfe -"));
+            oben.add(new JLabel("" + e.getMessage()));
+            oben.add(new JLabel("" + e.getClass()));
+        } // end of catch
 
-		// Zentrieren und Anzeigen		
-		this.pack();
-		FensterZentrierer.makeCentered(this);
-	} // end of init
-	
-	/**
-	 * auf Ereignisse reagieren
-	 */
-	public void actionPerformed(ActionEvent ereignis) {
-		if( ereignis.getSource() == this.ende) {
-			setVisible(false);
-		}
-	} // end of actionPerformed
+        // Eigenschaften des Scrollpanels anpassen
+        rollpanel = new JScrollPane(oben);
+        rollpanel.setPreferredSize(new Dimension(350, 300));
+        rollpanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // Ende-Knopf
+        this.ende = new JButton("Schließen");
+        this.ende.addActionListener(this);
+        this.ende.setMnemonic('S');
+        unten.add(this.ende);
+
+        // Zusammenbasteln ...
+        this.getContentPane().setLayout(new BorderLayout());
+        this.getContentPane().add(rollpanel, BorderLayout.NORTH);
+        this.getContentPane().add(unten, BorderLayout.CENTER);
+
+        // Zentrieren und Anzeigen
+        this.pack();
+        FensterZentrierer.makeCentered(this);
+    } // end of init
+
+    /**
+     * auf Ereignisse reagieren
+     */
+    public void actionPerformed(ActionEvent ereignis) {
+        if (ereignis.getSource() == this.ende) {
+            setVisible(false);
+        }
+    } // end of actionPerformed
 } // end of class
 

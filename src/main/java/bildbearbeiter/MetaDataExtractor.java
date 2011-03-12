@@ -1,5 +1,6 @@
 package bildbearbeiter;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.sanselan.ImageReadException;
 import org.apache.sanselan.Sanselan;
 import org.apache.sanselan.common.IImageMetadata;
@@ -17,11 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by IntelliJ IDEA.
- * User: hirsch
- * Date: 04.03.11
- * Time: 23:08
- * To change this template use File | Settings | File Templates.
+ * Helper class to extract metadata from given images. This class uses Apache Sanslean classes
+ * to perform the metadata extraction itself.
  */
 public class MetaDataExtractor {
 
@@ -83,11 +81,10 @@ public class MetaDataExtractor {
             }
 
             ArrayList items = jpegMetadata.getItems();
-            for (int i = 0; i < items.size(); i++) {
-                Object item = items.get(i);
+
+            for (Object item : items) {
                 System.out.println("    " + "item: " + item);
             }
-
             System.out.println();
         }
     }
@@ -105,14 +102,13 @@ public class MetaDataExtractor {
     /**
      * Helper to extract the date this image was created to be used during the renaming process.
      *
-     * @param image
+     * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
-     * @throws ImageReadException
-     * @throws IOException
+     * @throws ParseException, ImageReadException, IOException - if an error occurs when accessing the image's metadata.
      */
     public static String generateCreationDateInCorrectFormat(File image) throws ImageReadException,
             IOException, ParseException {
-        String formattedDate = "";
+        Date formattedDate = null;
         IImageMetadata metadata = Sanselan.getMetadata(image);
 
         if (metadata instanceof JpegImageMetadata) {
@@ -122,17 +118,34 @@ public class MetaDataExtractor {
 
             if (field != null) {
                 System.out.println("Datumswert: " + field.getValueDescription());
+                String dateValue = field.getValueDescription();
 
-                System.out.println("Woo: "+Date.parse(field.getValueDescription()));
+
+                //Datumswert: '2011:01:30 13:11:02'
+                if (dateValue != null && dateValue.length() > 10 && dateValue.charAt(5) == ':') {
+                    dateValue = dateValue.substring(1, 5) + "-" + dateValue.substring(6, 8) + "-" + dateValue.substring(9);
+                    System.out.println("After fiddling: " + dateValue);
+
+                }
+
+                // schlägt fehl wegen : im Datum: formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
                 // schlägt fehl - System.out.println(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
 
-                formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
+
+//                String[] parsePatterns = new String[]{"yyyy:MM:dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
+                String[] parsePatterns = new String[]{"yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
+                formattedDate = DateUtils.parseDate(dateValue, parsePatterns);
+
+                //  formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
+                // formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
 
                 System.out.println("Umgewandelt: " + formattedDate);
             }
 
         }
-        return formattedDate;
-
+        if (formattedDate == null) {
+            return null;
+        }
+        return formattedDate.toString();
     }
 }
