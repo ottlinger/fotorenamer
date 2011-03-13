@@ -57,10 +57,7 @@ public class Fortschrittsbalken extends JFrame {
         this.pack();
         FensterZentrierer.makeCentered(this);
 
-        /**
-         * @todo Timer einbauen ?
-         */
-        // menschenlesbarer machen ....
+        // TODO Timer einbauen ?
         try {
             Thread.sleep(100);
         } catch (Exception e) {
