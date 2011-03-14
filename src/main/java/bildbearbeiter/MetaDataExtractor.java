@@ -128,6 +128,21 @@ public class MetaDataExtractor {
 
                 }
 
+// EXIF defines a string for the date itself: http://www.exif.org/samples/canon-ixus.html or http://www.exif.org/specifications.html
+/*
+D. Other Tags
+DateTime
+The date and time of image creation. In this standard it is the date and time the file was changed. The format is
+"YYYY:MM:DD HH:MM:SS" with time shown in 24-hour format, and the date and time separated by one blank
+character [20.H]. When the date and time are unknown, all the character spaces except colons (":") may be filled
+with blank characters, or else the Interoperability field may be filled with blank characters. The character string
+length is 20 bytes including NULL for termination. When the field is left blank, it is treated as unknown.
+Tag = 306 (132.H)
+Type = ASCII
+Count = 20
+Default = none
+from http://www.exif.org/Exif2-2.PDF
+*/
 
                 // TODO: Bug in Canon-exif meta data - date and time have ':' as separator
                 // schlägt fehl wegen : im Datum: formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
