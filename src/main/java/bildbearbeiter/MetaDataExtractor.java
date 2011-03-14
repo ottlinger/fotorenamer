@@ -108,8 +108,8 @@ public class MetaDataExtractor {
      */
     public static String generateCreationDateInCorrectFormat(File image) throws ImageReadException,
             IOException, ParseException {
-        Date formattedDate = null;
         IImageMetadata metadata = Sanselan.getMetadata(image);
+        String resultingDate = null;
 
         if (metadata instanceof JpegImageMetadata) {
             JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
@@ -123,29 +123,26 @@ public class MetaDataExtractor {
 
                 //Datumswert: '2011:01:30 13:11:02'
                 if (dateValue != null && dateValue.length() > 10 && dateValue.charAt(5) == ':') {
-                    dateValue = dateValue.substring(1, 5) + "-" + dateValue.substring(6, 8) + "-" + dateValue.substring(9);
-                    System.out.println("After fiddling: " + dateValue);
+                    resultingDate = dateValue.substring(1, 5) + "-" + dateValue.substring(6, 8) + "-" + dateValue.substring(9);
+                    System.out.println("After fiddling: " + resultingDate);
 
                 }
 
+
+                // TODO: Bug in Canon-exif meta data - date and time have ':' as separator
                 // schlägt fehl wegen : im Datum: formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
                 // schlägt fehl - System.out.println(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
-
-
 //                String[] parsePatterns = new String[]{"yyyy:MM:dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
-                String[] parsePatterns = new String[]{"yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
-                formattedDate = DateUtils.parseDate(dateValue, parsePatterns);
-
+//                String[] parsePatterns = new String[]{"yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
+//                formattedDate = DateUtils.parseDate(dateValue, parsePatterns);
                 //  formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
                 // formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
 
-                System.out.println("Umgewandelt: " + formattedDate);
+                System.out.println("Umgewandelt: " + resultingDate);
             }
 
         }
-        if (formattedDate == null) {
-            return null;
-        }
-        return formattedDate.toString();
+
+        return resultingDate;
     }
 }

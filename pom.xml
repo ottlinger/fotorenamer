@@ -12,6 +12,12 @@
     <name>Aiki IT</name>
     <url>http://www.aiki-it.de</url>
   </organization>
+<licenses>
+  <license>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+  </license>
+</licenses>
   <issueManagement>
     <system>googlecode</system>
     <url>http://code.google.com/p/fotorenamer/issues/list</url>
