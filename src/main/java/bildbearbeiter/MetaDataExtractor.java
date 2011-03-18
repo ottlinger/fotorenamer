@@ -1,6 +1,6 @@
 package bildbearbeiter;
 
-import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Logger;
 import org.apache.sanselan.ImageReadException;
 import org.apache.sanselan.Sanselan;
 import org.apache.sanselan.common.IImageMetadata;
@@ -13,18 +13,14 @@ import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Helper class to extract metadata from given images. This class uses Apache Sanslean classes
  * to perform the metadata extraction itself.
  */
 public class MetaDataExtractor {
-
-    public static SimpleDateFormat PHOTO_DATE_FORMAT =
-            new SimpleDateFormat("yyyyMMdd_HHmm_");
+    final static private Logger LOG = Logger.getLogger(MetaDataExtractor.class);
 
 
     public static void metadataExample(File file) throws ImageReadException,
@@ -32,8 +28,6 @@ public class MetaDataExtractor {
         //        get all metadata stored in EXIF format (ie. from JPEG or TIFF).
         //            org.w3c.dom.Node node = Sanselan.getMetadataObsolete(imageBytes);
         IImageMetadata metadata = Sanselan.getMetadata(file);
-
-        //System.out.println(metadata);
 
         if (metadata instanceof JpegImageMetadata) {
             JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
@@ -45,7 +39,7 @@ public class MetaDataExtractor {
             //
             // see the TiffConstants file for a list of TIFF tags.
 
-            System.out.println("file: " + file.getPath());
+            LOG.info("file: " + file.getPath());
 
             // print out various interesting EXIF tags.
             printTagValue(jpegMetadata, TiffConstants.TIFF_TAG_XRESOLUTION);
@@ -63,8 +57,6 @@ public class MetaDataExtractor {
             printTagValue(jpegMetadata, TiffConstants.GPS_TAG_GPS_LONGITUDE_REF);
             printTagValue(jpegMetadata, TiffConstants.GPS_TAG_GPS_LONGITUDE);
 
-            System.out.println();
-
             // simple interface to GPS data
             TiffImageMetadata exifMetadata = jpegMetadata.getExif();
             if (null != exifMetadata) {
@@ -74,18 +66,17 @@ public class MetaDataExtractor {
                     double longitude = gpsInfo.getLongitudeAsDegreesEast();
                     double latitude = gpsInfo.getLatitudeAsDegreesNorth();
 
-                    System.out.println("    " + "GPS Description: " + gpsDescription);
-                    System.out.println("    " + "GPS Longitude (Degrees East): " + longitude);
-                    System.out.println("    " + "GPS Latitude (Degrees North): " + latitude);
+                    LOG.info("    " + "GPS Description: " + gpsDescription);
+                    LOG.info("    " + "GPS Longitude (Degrees East): " + longitude);
+                    LOG.info("    " + "GPS Latitude (Degrees North): " + latitude);
                 }
             }
 
             ArrayList items = jpegMetadata.getItems();
 
             for (Object item : items) {
-                System.out.println("    " + "item: " + item);
+                LOG.info("    " + "item: " + item);
             }
-            System.out.println();
         }
     }
 
@@ -93,9 +84,9 @@ public class MetaDataExtractor {
                                       TagInfo tagInfo) {
         TiffField field = jpegMetadata.findEXIFValue(tagInfo);
         if (field == null)
-            System.out.println(tagInfo.name + ": " + "Not Found.");
+            LOG.info(tagInfo.name + ": " + "Not Found.");
         else
-            System.out.println(tagInfo.name + ": "
+            LOG.info(tagInfo.name + ": "
                     + field.getValueDescription());
     }
 
@@ -106,10 +97,11 @@ public class MetaDataExtractor {
      * @return the date this image was created if found, format is
      * @throws ParseException, ImageReadException, IOException - if an error occurs when accessing the image's metadata.
      */
+    // TODO 2 methoden machen: 1 generische, die einen Metadatenteil zurückgibt, dann eine Methode, die das Datum richtig formatiert als String zurückgibt und nur ':' und ' ' entfernt
     public static String generateCreationDateInCorrectFormat(File image) throws ImageReadException,
             IOException, ParseException {
         IImageMetadata metadata = Sanselan.getMetadata(image);
-        String resultingDate = null;
+        String dateValue = "";
 
         if (metadata instanceof JpegImageMetadata) {
             JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
@@ -117,16 +109,21 @@ public class MetaDataExtractor {
             TiffField field = jpegMetadata.findEXIFValue(TiffConstants.EXIF_TAG_CREATE_DATE);
 
             if (field != null) {
-                System.out.println("Datumswert: " + field.getValueDescription());
-                String dateValue = field.getValueDescription();
+                LOG.info("Datumswert: " + field.getValueDescription());
+                dateValue = field.getValueDescription();
 
+                if (dateValue != null) {
+                    assert dateValue.length() == 21 : "Invalid lenght of EXIF metadata, not complying to the standard";
 
-                //Datumswert: '2011:01:30 13:11:02'
-                if (dateValue != null && dateValue.length() > 10 && dateValue.charAt(5) == ':') {
-                    resultingDate = dateValue.substring(1, 5) + "-" + dateValue.substring(6, 8) + "-" + dateValue.substring(9);
-                    System.out.println("After fiddling: " + resultingDate);
+                    // TODO check whether this can be done with a DateParser instead - after removing starting/trailing '-character
+                    // replace special characters
+                    dateValue = dateValue.replaceAll("'", "");
+                    dateValue = dateValue.replaceAll(":", "");
+                    dateValue = dateValue.replaceAll(" ", "_");
+                    dateValue += "_";
+                    //Datumswert: '2011:01:30 13:11:02' wird zu SimpleDateFormat("yyyyMMdd_HHmm_");
+                    dateValue += image.getAbsoluteFile().getName();
 
-                }
 
 // EXIF defines a string for the date itself: http://www.exif.org/samples/canon-ixus.html or http://www.exif.org/specifications.html
 /*
@@ -144,20 +141,22 @@ Default = none
 from http://www.exif.org/Exif2-2.PDF
 */
 
-                // TODO: Bug in Canon-exif meta data - date and time have ':' as separator
-                // schlägt fehl wegen : im Datum: formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
-                // schlägt fehl - System.out.println(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
+                    // TODO: Bug in Canon-exif meta data - date and time have ':' as separator
+                    // schlägt fehl wegen : im Datum: formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
+                    // schlägt fehl - System.out.println(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
 //                String[] parsePatterns = new String[]{"yyyy:MM:dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
 //                String[] parsePatterns = new String[]{"yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
 //                formattedDate = DateUtils.parseDate(dateValue, parsePatterns);
-                //  formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
-                // formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
+                    //  formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
+                    // formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
 
-                System.out.println("Umgewandelt: " + resultingDate);
+                    LOG.info("Umgewandelt: " + dateValue);
+
+                }
             }
 
         }
 
-        return resultingDate;
+        return dateValue;
     }
 }

@@ -1,30 +1,27 @@
 package bildbearbeiter.image;
 
-import static org.junit.Assert.*;
-
 import bildbearbeiter.MetaDataExtractor;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- * Read properties from test data files.
+ * Read properties from test images.
+ *
  * @author hirsch
  */
 public class MetaDataExtractorTest {
-        final static private Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
+    final static private Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
+    final static String PATH2TESTIMG = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "data" + File.separator + "IMG_7559_mini.JPG";
 
-        @Test
-        public final void readDirectoryContent() throws Exception {
-//                assertEquals("3771", ""+Integer.valueOf(3771));
-            // assertNull(MetaDataExtractor.generateCreationDateInCorrectFormat(new File("data/IMG_7559_mini.JPG")));
-            LOG.debug("Scheiße, oder ....");
-        LOG.debug(getClass().getClassLoader().getResourceAsStream("/IMG_7559_mini.JPG"));
-            assertNotNull(getClass().getClassLoader().getResourceAsStream("/IMG_7559_mini.JPG"));
-
-        }
-
-
+    @Test
+    public final void readDirectoryContent() throws Exception {
+        File f = new File(PATH2TESTIMG);
+        LOG.debug("Extracting metadata from " + f.getAbsolutePath());
+        assertEquals("20110130_131102_IMG_7559_mini.JPG", MetaDataExtractor.generateCreationDateInCorrectFormat(f));
+    }
 
 }
