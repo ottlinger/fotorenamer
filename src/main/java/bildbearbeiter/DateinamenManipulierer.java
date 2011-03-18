@@ -6,18 +6,20 @@ package bildbearbeiter;
 import bildbearbeiter.ausnahmen.KeineDateienEnthaltenException;
 import bildbearbeiter.ausnahmen.UmbenennenFehlgeschlagenException;
 import bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.io.File;
-import java.text.SimpleDateFormat;
 
 /**
- * Sinn: CanonBilder umbenennen und BildErzeugungsdatum in Namen schreiben
+ * Sinn: CanonBilder rename und BildErzeugungsdatum in Namen schreiben
  *
  * @author hirsch, 12.10.2003
  * @version 2004-01-08
  */
 public class DateinamenManipulierer implements Runnable {
+    final static private Logger LOG = Logger.getLogger(DateinamenManipulierer.class);
+
     private File aktuellesVerzeichnis = null;
     private File[] dateiliste = null;
 
@@ -40,7 +42,7 @@ public class DateinamenManipulierer implements Runnable {
     public DateinamenManipulierer(String verzeichnis)
             throws UngueltigesVerzeichnisException, KeineDateienEnthaltenException {
         this.aktuellesVerzeichnis = new File(verzeichnis);
-        // erst starten, wenn die Eingabepr�fung erfolgreich war
+        // erst starten, wenn die Eingabeprüfung erfolgreich war
         pruefeEingabeUndInit();
 
         new Thread(this).start();
@@ -80,54 +82,45 @@ public class DateinamenManipulierer implements Runnable {
      * @throws Exception if any errors occur.
      * @see #pruefeEingabeUndInit()
      */
-    public void umbenennen() throws UmbenennenFehlgeschlagenException {
-        String name = "";
-        String zusatz = "";
-        SimpleDateFormat sf =
-                new SimpleDateFormat(File.separator + "yyyyMMdd_HHmm_");
-
-        // OLD version: zusatz = sf.format(new Date(this.dateiliste[i].lastModified()));
+    public void rename() throws UmbenennenFehlgeschlagenException {
+        String targetFilename = "";
         for (int i = 0; i < this.obergrenze; i++) {
             // Daten holen
             try {
-                zusatz = MetaDataExtractor.generateCreationDateInCorrectFormat(this.dateiliste[i]);
+                targetFilename = MetaDataExtractor.generateCreationDateInCorrectFormat(this.dateiliste[i]);
             } catch (Exception e) {
                 throw new UmbenennenFehlgeschlagenException(e.getLocalizedMessage());
             }
-
-
             // Fortschrittsbalken updaten...
             this.grafik.setFortschritt(i);
             this.grafik.setText(this.dateiliste[i].getName());
             // Da die Namen verschieden lang sind den Fortschrittsbalken updaten!
+            LOG.info("Renaming "+this.dateiliste[i].getName()+ " to "+targetFilename);
             this.grafik.updateUI();
 
             // rename nur bei Dateien
             if (this.dateiliste[i].isFile()) {
-                if (!this.dateiliste[i].renameTo(
-                        new File(
-                                this.dateiliste[i].getParent() + zusatz +
-                                        this.dateiliste[i].getName())))
+                if (!this.dateiliste[i].renameTo(new File(targetFilename)))
                     throw new UmbenennenFehlgeschlagenException("\tFehler bei Bild"
                             + this.dateiliste[i].getName());
             } // end if - isFile()
         } // end of for
-    } // end of umbenennen
+    } // end of rename
 
     /**
-     * Fortschrittsbalken anzeigen und umbenennen starten
-     * Die Anzeige wird innerhalb von umbenennen erledigt.
+     * Fortschrittsbalken anzeigen und rename starten
+     * Die Anzeige wird innerhalb von rename erledigt.
      * <p/>
      * Fehlerbehandlung des umbennens wird erledigt = Abbruch ;-^
      *
-     * @see #umbenennen()
+     * @see #rename()
      */
     public void run() {
         String meldung = "";
         this.grafik = new Fortschrittsbalken(this.obergrenze);
 
         try {
-            umbenennen();
+            rename();
         } catch (UmbenennenFehlgeschlagenException uf) {
             JOptionPane.showMessageDialog(null,
                     "Während der Bearbeitung der Datei\n" +

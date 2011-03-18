@@ -81,7 +81,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
                             + this.dateiliste[i].getName());
             } // end if - isFile()
         } // end of for
-    } // end of umbenennen
+    } // end of rename
 
     /**
      * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält,
@@ -108,8 +108,8 @@ public class DateinamenZurueckUmbenenner implements Runnable {
     } // end of pruefeEingabe
 
     /**
-     * Fortschrittsbalken anzeigen und umbenennen starten
-     * Die Anzeige wird innerhalb von umbenennen erledigt.
+     * Fortschrittsbalken anzeigen und rename starten
+     * Die Anzeige wird innerhalb von rename erledigt.
      * <p/>
      * Fehlerbehandlung des umbennens wird erledigt = Abbruch ;-^
      *

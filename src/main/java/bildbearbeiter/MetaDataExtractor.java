@@ -21,8 +21,14 @@ import java.util.ArrayList;
  */
 public class MetaDataExtractor {
     final static private Logger LOG = Logger.getLogger(MetaDataExtractor.class);
+    public static final String EMPTY_STRING = "";
+    public static final String SPACE = " ";
+    public static final String UNDERSCORE = "_";
+    public static final String COLON= ":";
+    public static final String APOSTROPHE= "'";
 
 
+    // taken from Sanslean directly
     public static void metadataExample(File file) throws ImageReadException,
             IOException {
         //        get all metadata stored in EXIF format (ie. from JPEG or TIFF).
@@ -91,72 +97,80 @@ public class MetaDataExtractor {
     }
 
     /**
+     * Returns the requested tag as String from the image file.
+     *
+     * @param image Image file to extract Metadata from.
+     * @param tag   Tag to extract from the given file, @see TiffConstants
+     * @return Returns exif tag value, in case of any errors the value is an empty String.
+     * @throws IOException
+     * @throws ImageReadException
+     */
+    public static String getExifMetadata(File image, TagInfo tag) throws IOException, ImageReadException {
+        assert image != null : "Parameter image must not be null";
+        assert tag != null : "Parameter tag must not be null";
+
+        String result = EMPTY_STRING;
+        IImageMetadata metadata = Sanselan.getMetadata(image);
+        if (metadata instanceof JpegImageMetadata) {
+            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
+            TiffField field = jpegMetadata.findEXIFValue(tag);
+            if (field != null) {
+                result = field.getValueDescription();
+                LOG.info("extraction of " + tag.getDescription() + " yields " + result);
+            }
+        }
+        return result == null ? EMPTY_STRING : result;
+    }
+
+    /**
      * Helper to extract the date this image was created to be used during the renaming process.
+     * <p/>
+     * In the EXIF standard itself the following convention for dates as is defined:
+     * <i>
+     * D. Other Tags
+     * DateTime
+     * The date and time of image creation. In this standard it is the date and time the file was changed. The format is
+     * "YYYY:MM:DD HH:MM:SS" with time shown in 24-hour format, and the date and time separated by one blank
+     * character [20.H]. When the date and time are unknown, all the character spaces except colons (":") may be filled
+     * with blank characters, or else the Interoperability field may be filled with blank characters. The character string
+     * length is 20 bytes including NULL for termination. When the field is left blank, it is treated as unknown.
+     * Tag = 306 (132.H)
+     * Type = ASCII
+     * Count = 20
+     * Default = none
+     * </i>
      *
      * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
      * @throws ParseException, ImageReadException, IOException - if an error occurs when accessing the image's metadata.
+     * @see <a href="http://www.exif.org/samples/canon-ixus.html">Canon EXIF example page</a>
+     * @see <a href="http://www.exif.org/specifications.html">EXIF specifications</a>
+     * @see <a href="http://www.exif.org/Exif2-2.PDF">EXIF2-2.pdf specification</a>
      */
-    // TODO 2 methoden machen: 1 generische, die einen Metadatenteil zurückgibt, dann eine Methode, die das Datum richtig formatiert als String zurückgibt und nur ':' und ' ' entfernt
     public static String generateCreationDateInCorrectFormat(File image) throws ImageReadException,
             IOException, ParseException {
-        IImageMetadata metadata = Sanselan.getMetadata(image);
-        String dateValue = "";
+        String dateValue = getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
+        if (dateValue != null) {
+            LOG.info("EXIF date value is: " + dateValue);
 
-        if (metadata instanceof JpegImageMetadata) {
-            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
+            assert dateValue.length() == 21 : "Invalid length of EXIF metadata, not complying to the standard";
 
-            TiffField field = jpegMetadata.findEXIFValue(TiffConstants.EXIF_TAG_CREATE_DATE);
+            // Date parsing with apache.DateUtils or JDK-DateFormats does not work due to '-signs in the date string
+            // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
 
-            if (field != null) {
-                LOG.info("Datumswert: " + field.getValueDescription());
-                dateValue = field.getValueDescription();
+            // replace special characters to extract digits only
+            dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);
+            dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);
+            dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);
+            dateValue += "_";
+            //convert '2011:01:30 13:11:02' to "yyyyMMdd_HHmm_"+fileName
+            dateValue += image.getName();
 
-                if (dateValue != null) {
-                    assert dateValue.length() == 21 : "Invalid lenght of EXIF metadata, not complying to the standard";
-
-                    // TODO check whether this can be done with a DateParser instead - after removing starting/trailing '-character
-                    // replace special characters
-                    dateValue = dateValue.replaceAll("'", "");
-                    dateValue = dateValue.replaceAll(":", "");
-                    dateValue = dateValue.replaceAll(" ", "_");
-                    dateValue += "_";
-                    //Datumswert: '2011:01:30 13:11:02' wird zu SimpleDateFormat("yyyyMMdd_HHmm_");
-                    dateValue += image.getAbsoluteFile().getName();
-
-
-// EXIF defines a string for the date itself: http://www.exif.org/samples/canon-ixus.html or http://www.exif.org/specifications.html
-/*
-D. Other Tags
-DateTime
-The date and time of image creation. In this standard it is the date and time the file was changed. The format is
-"YYYY:MM:DD HH:MM:SS" with time shown in 24-hour format, and the date and time separated by one blank
-character [20.H]. When the date and time are unknown, all the character spaces except colons (":") may be filled
-with blank characters, or else the Interoperability field may be filled with blank characters. The character string
-length is 20 bytes including NULL for termination. When the field is left blank, it is treated as unknown.
-Tag = 306 (132.H)
-Type = ASCII
-Count = 20
-Default = none
-from http://www.exif.org/Exif2-2.PDF
-*/
-
-                    // TODO: Bug in Canon-exif meta data - date and time have ':' as separator
-                    // schlägt fehl wegen : im Datum: formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
-                    // schlägt fehl - System.out.println(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
-//                String[] parsePatterns = new String[]{"yyyy:MM:dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
-//                String[] parsePatterns = new String[]{"yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "dd.MM.yyyy HH:mm"};
-//                formattedDate = DateUtils.parseDate(dateValue, parsePatterns);
-                    //  formattedDate = PHOTO_DATE_FORMAT.format(PHOTO_DATE_FORMAT.parse(field.getValueDescription()));
-                    // formattedDate = PHOTO_DATE_FORMAT.parse(dateValue);
-
-                    LOG.info("Umgewandelt: " + dateValue);
-
-                }
-            }
-
+            LOG.info("Target filename is:" + dateValue);
+            return dateValue;
         }
+        LOG.info("No creation date extracted from file "+ image);
 
-        return dateValue;
+        return EMPTY_STRING;
     }
 }
