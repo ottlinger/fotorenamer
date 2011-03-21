@@ -3,10 +3,10 @@
  */
 package de.aikiit.bildbearbeiter.image;
 
-import de.aikiit.bildbearbeiter.gui.Fortschrittsbalken;
-import de.aikiit.bildbearbeiter.exception.KeineDateienEnthaltenException;
-import de.aikiit.bildbearbeiter.exception.UmbenennenFehlgeschlagenException;
-import de.aikiit.bildbearbeiter.exception.UngueltigesVerzeichnisException;
+import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
+import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
+import de.aikiit.bildbearbeiter.exception.RenamingErrorException;
+import de.aikiit.bildbearbeiter.gui.ProgressBar;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -22,12 +22,11 @@ public class DateinamenManipulierer implements Runnable {
     // REVIEW extract this class into an abstract pictureModifier with 2 subclasses, one method to generate names should be abstract, the current rename should be renamed :-)
     final static private Logger LOG = Logger.getLogger(DateinamenManipulierer.class);
 
-    private File aktuellesVerzeichnis = null;
-    private File[] dateiliste = null;
+    private File currentDirectory = null;
+    private File[] imageList = null;
 
-    private Fortschrittsbalken grafik = null;
-    private int aktAnzahl = 0;
-    private int obergrenze = 0;
+    private ProgressBar progressBar = null;
+    private int amountOfFiles = 0;
 
     /**
      * Übernimmt ein Verzeichnis. Dessen Dateien werden in
@@ -37,42 +36,42 @@ public class DateinamenManipulierer implements Runnable {
      * <br>
      *
      * @param verzeichnis
-     * @throws UngueltigesVerzeichnisException
-     *                                        if there's a problem with the directory selected.
-     * @throws KeineDateienEnthaltenException if the selected directory is empty.
+     * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
+     *          if there's a problem with the directory selected.
+     * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
+     *          if the selected directory is empty.
      */
     public DateinamenManipulierer(String verzeichnis)
-            throws UngueltigesVerzeichnisException, KeineDateienEnthaltenException {
-        this.aktuellesVerzeichnis = new File(verzeichnis);
+            throws InvalidDirectoryException, NoFilesFoundException {
+        this.currentDirectory = new File(verzeichnis);
         // erst starten, wenn die Eingabeprüfung erfolgreich war
-        pruefeEingabeUndInit();
+        validateUserSelectionAndInitInternally();
 
         new Thread(this).start();
     } // end of Konstruktor
 
     /**
-     * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält,
-     * sonst Ausnahme<br>
-     * (intern werden auch Parameter gesetzt)
+     * Checks whether the selected directory contains any relevant files and sets internal state appropriately.
      *
-     * @throws KeineDateienEnthaltenException
-     * @throws UngueltigesVerzeichnisException
-     *
+     * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
+     *          If selected directory contains no files.
+     * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
+     *          If any I/O-error occured when accessing the directory.
      */
-    public void pruefeEingabeUndInit()
-            throws KeineDateienEnthaltenException, UngueltigesVerzeichnisException {
+    public void validateUserSelectionAndInitInternally()
+            throws NoFilesFoundException, InvalidDirectoryException {
         // Verzeichnis gültig ?
-        if (!this.aktuellesVerzeichnis.isDirectory())
-            throw new UngueltigesVerzeichnisException(this.aktuellesVerzeichnis);
+        if (!this.currentDirectory.isDirectory())
+            throw new InvalidDirectoryException(this.currentDirectory);
 
         // Dateien da ?
-        this.dateiliste = this.aktuellesVerzeichnis.listFiles();
-        if (this.dateiliste == null || this.dateiliste.length == 0) {
-            throw new KeineDateienEnthaltenException(this.aktuellesVerzeichnis);
+        this.imageList = this.currentDirectory.listFiles();
+        if (this.imageList == null || this.imageList.length == 0) {
+            throw new NoFilesFoundException(this.currentDirectory);
         }
 
         // internen Zustand setzen
-        this.obergrenze = this.dateiliste.length;
+        this.amountOfFiles = this.imageList.length;
     } // end of pruefeEingabe
 
     /**
@@ -81,37 +80,35 @@ public class DateinamenManipulierer implements Runnable {
      * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
      * was im Kamerafall das Aufnahmedatum ist
      *
-     * @throws Exception if any errors occur.
-     * @see #pruefeEingabeUndInit()
+     * @throws RenamingErrorException if any errors occur.
+     * @see #validateUserSelectionAndInitInternally()
      */
-    public void rename() throws UmbenennenFehlgeschlagenException {
+    public void rename() throws RenamingErrorException {
         String targetFilename = "";
-        for (int i = 0; i < this.obergrenze; i++) {
+        for (int i = 0; i < this.amountOfFiles; i++) {
             // Daten holen
             try {
-                targetFilename = MetaDataExtractor.generateCreationDateInCorrectFormat(this.dateiliste[i]);
+                targetFilename = MetaDataExtractor.generateCreationDateInCorrectFormat(this.imageList[i]);
             } catch (Exception e) {
-                throw new UmbenennenFehlgeschlagenException(e.getLocalizedMessage());
+                throw new RenamingErrorException(e.getLocalizedMessage());
             }
-            // Fortschrittsbalken updaten...
-            this.grafik.setFortschritt(i);
-            this.grafik.setText(this.dateiliste[i].getName());
-            // Da die Namen verschieden lang sind den Fortschrittsbalken updaten!
-            LOG.info("Renaming "+this.dateiliste[i].getName()+ " to "+targetFilename);
-            this.grafik.updateUI();
+            // ProgressBar updaten...
+            this.progressBar.setFortschritt(i);
+            this.progressBar.setText(this.imageList[i].getName());
+            // Da die Namen verschieden lang sind den ProgressBar updaten!
+            LOG.info("Renaming " + this.imageList[i].getName() + " to " + targetFilename);
+            this.progressBar.updateUI();
 
-            // rename nur bei Dateien
-            if (this.dateiliste[i].isFile()) {
-                // TODO BUGFIX: file gets deleted and is not created in the target folder but in current working directory!
-                if (!this.dateiliste[i].renameTo(new File(targetFilename)))
-                    throw new UmbenennenFehlgeschlagenException("\tFehler bei Bild"
-                            + this.dateiliste[i].getName());
+            // only rename files
+            if (this.imageList[i].isFile() && !this.imageList[i].renameTo(new File(this.imageList[i].getParent(), targetFilename))) {
+                throw new RenamingErrorException("\tFehler bei Bild"
+                        + this.imageList[i].getName());
             } // end if - isFile()
         } // end of for
     } // end of rename
 
     /**
-     * Fortschrittsbalken anzeigen und rename starten
+     * ProgressBar anzeigen und rename starten
      * Die Anzeige wird innerhalb von rename erledigt.
      * <p/>
      * Fehlerbehandlung des umbennens wird erledigt = Abbruch ;-^
@@ -120,11 +117,11 @@ public class DateinamenManipulierer implements Runnable {
      */
     public void run() {
         String meldung = "";
-        this.grafik = new Fortschrittsbalken(this.obergrenze);
+        this.progressBar = new ProgressBar(this.amountOfFiles);
 
         try {
             rename();
-        } catch (UmbenennenFehlgeschlagenException uf) {
+        } catch (RenamingErrorException uf) {
             JOptionPane.showMessageDialog(null,
                     "Während der Bearbeitung der Datei\n" +
                             uf.getMessage() + " trat ein Fehler beim Umbennen auf.",
@@ -133,19 +130,19 @@ public class DateinamenManipulierer implements Runnable {
             return;
         } // end of catch uf
 
-        this.grafik.dispose();
+        this.progressBar.dispose();
 
         // Erfolgsmeldung geben
-        if (this.obergrenze == 0) {
-            meldung = "Im Verzeichnis: " + this.aktuellesVerzeichnis.getName() +
+        if (this.amountOfFiles == 0) {
+            meldung = "Im Verzeichnis: " + this.currentDirectory.getName() +
                     "\nwurden keine Dateien\numbenannt.\n\n";
-        } else if (this.obergrenze == 1) {
+        } else if (this.amountOfFiles == 1) {
             meldung = "\nEs wurde eine Datei\n" +
-                    "im Verzeichnis: " + this.aktuellesVerzeichnis.getName() +
+                    "im Verzeichnis: " + this.currentDirectory.getName() +
                     "\nerfolgreich umbenannt.\n\n";
         } else {
-            meldung = "\nEs wurden " + this.obergrenze + " Dateien\n" +
-                    "im Verzeichnis: " + this.aktuellesVerzeichnis.getName() +
+            meldung = "\nEs wurden " + this.amountOfFiles + " Dateien\n" +
+                    "im Verzeichnis: " + this.currentDirectory.getName() +
                     "\nerfolgreich umbenannt.\n\n";
         } // end of else
         JOptionPane.showMessageDialog(null, meldung, "Erfolg",

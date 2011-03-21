@@ -11,67 +11,51 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 /**
- * Sinn: Verzeichnis zur Dateinamenänderung auswählen
+ * This component provides a means to select images that are to be renamed.
  *
  * @author hirsch, 13.10.2003
  * @version 2004-01-08
  */
-public class VerzeichnisWaehler extends JPanel {
+public class ImageDirectorySelector extends JPanel {
     private String selection = null;
     private JTextField textField = null;
     private JButton browseButton = null;
-    private ImageIcon bild = null;
-    private boolean directory = false;
+    private ImageIcon imageIcon = null;
+    private boolean directoryOnly = false;
 
     /**
-     * erzeugt einen neuen Verzeichniswähler, wenn nur Verzeichnisse
-     * auswählbar sein sollen TRUE übergeben
+     * Default constructor provides means to create an imageSelect with a given image icon
+     * that is able to only work on directories.
      *
-     * @param directoryOnly sollen nur Verzeichnisse wählbar sein ?
+     * @param directoryOnly  Sets whether this class should only work on directories.
+     * @param icon This icon is used as a picture in the select button.
      */
-    public VerzeichnisWaehler(boolean directoryOnly) {
+    public ImageDirectorySelector(boolean directoryOnly, ImageIcon icon) {
         super();
-        this.directory = directoryOnly;
+        this.imageIcon = icon;
+        this.directoryOnly = directoryOnly;
         init();
-    } // end of Konstruktor
+    }
 
     /**
-     * erzeugt Verzeichniswähler mit einem ImageIcon als
-     * Bild für den Auswahlknopf
-     *
-     * @param directory
-     * @param icon
+     * @param enable Enable/disable this component.
      */
-    public VerzeichnisWaehler(boolean directory, ImageIcon icon) {
-        super();
-        this.bild = icon;
-        this.directory = directory;
-        init();
-    } // end of Konstruktor1
-
-    /**
-     * schaltet Komponenten ein uns aus
-     *
-     * @param b
-     */
-    public void setEnabled(boolean b) {
-        textField.setEnabled(b);
-        browseButton.setEnabled(b);
+    public void setEnabled(boolean enable) {
+        textField.setEnabled(enable);
+        browseButton.setEnabled(enable);
     } // end of setEnabled
 
     /**
-     * as long as there has not occured any selection
-     * it's usually not of use to go on with the programm
-     *
+     * This method is used as a blocking call until the user selects something in the UI.
      * @return Returns whether anything is selected within the current configuration.
      */
     public boolean isSelected() {
-        return (selection != null && selection != "");
+        return selection != null;
     } // end of isSelected
 
 
     /**
-     * GUI-Init
+     * Initialize internal UI components.
      */
     protected void init() {
         // Set layout.
@@ -98,10 +82,10 @@ public class VerzeichnisWaehler extends JPanel {
         gbc.anchor = GridBagConstraints.EAST;
 
         // mit Button ?
-        if (this.bild == null) {
+        if (this.imageIcon == null) {
             browseButton = new JButton("Verzeichnisauswahl");
         } else {
-            browseButton = new JButton("Verzeichnisauswahl", this.bild);
+            browseButton = new JButton("Verzeichnisauswahl", this.imageIcon);
         }
 
         browseButton.setMnemonic('v');
@@ -129,7 +113,7 @@ public class VerzeichnisWaehler extends JPanel {
             public void actionPerformed(ActionEvent event) {
                 JFileChooser fileDlg = new JFileChooser();
 
-                if (directory) {
+                if (directoryOnly) {
                     fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     fileDlg.setDialogTitle("Bitte Verzeichnis auswählen.");
                 } else {
@@ -138,7 +122,7 @@ public class VerzeichnisWaehler extends JPanel {
                 } // end if
                 fileDlg.setApproveButtonText("Auswählen");
 
-                if (fileDlg.showOpenDialog(VerzeichnisWaehler.this) ==
+                if (fileDlg.showOpenDialog(ImageDirectorySelector.this) ==
                         JFileChooser.APPROVE_OPTION) {
                     textField.setText(fileDlg.getSelectedFile().getAbsolutePath());
                     selection = textField.getText();

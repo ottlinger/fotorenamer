@@ -6,17 +6,15 @@ import org.apache.sanselan.Sanselan;
 import org.apache.sanselan.common.IImageMetadata;
 import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
 import org.apache.sanselan.formats.tiff.TiffField;
-import org.apache.sanselan.formats.tiff.TiffImageMetadata;
 import org.apache.sanselan.formats.tiff.constants.TagInfo;
 import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 /**
- * Helper class to extract metadata from given images. This class uses Apache Sanslean classes
+ * Helper class to extract metadata from given images. This class uses Apache Sanslean
  * to perform the metadata extraction itself.
  */
 public class MetaDataExtractor {
@@ -24,77 +22,8 @@ public class MetaDataExtractor {
     public static final String EMPTY_STRING = "";
     public static final String SPACE = " ";
     public static final String UNDERSCORE = "_";
-    public static final String COLON= ":";
-    public static final String APOSTROPHE= "'";
-
-
-    // taken from Sanslean directly
-    public static void metadataExample(File file) throws ImageReadException,
-            IOException {
-        //        get all metadata stored in EXIF format (ie. from JPEG or TIFF).
-        //            org.w3c.dom.Node node = Sanselan.getMetadataObsolete(imageBytes);
-        IImageMetadata metadata = Sanselan.getMetadata(file);
-
-        if (metadata instanceof JpegImageMetadata) {
-            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
-
-            // Jpeg EXIF metadata is stored in a TIFF-based directory structure
-            // and is identified with TIFF tags.
-            // Here we look for the "x resolution" tag, but
-            // we could just as easily search for any other tag.
-            //
-            // see the TiffConstants file for a list of TIFF tags.
-
-            LOG.info("file: " + file.getPath());
-
-            // print out various interesting EXIF tags.
-            printTagValue(jpegMetadata, TiffConstants.TIFF_TAG_XRESOLUTION);
-            printTagValue(jpegMetadata, TiffConstants.TIFF_TAG_DATE_TIME);
-            printTagValue(jpegMetadata,
-                    TiffConstants.EXIF_TAG_DATE_TIME_ORIGINAL);
-            printTagValue(jpegMetadata, TiffConstants.EXIF_TAG_CREATE_DATE);
-            printTagValue(jpegMetadata, TiffConstants.EXIF_TAG_ISO);
-            printTagValue(jpegMetadata,
-                    TiffConstants.EXIF_TAG_SHUTTER_SPEED_VALUE);
-            printTagValue(jpegMetadata, TiffConstants.EXIF_TAG_APERTURE_VALUE);
-            printTagValue(jpegMetadata, TiffConstants.EXIF_TAG_BRIGHTNESS_VALUE);
-            printTagValue(jpegMetadata, TiffConstants.GPS_TAG_GPS_LATITUDE_REF);
-            printTagValue(jpegMetadata, TiffConstants.GPS_TAG_GPS_LATITUDE);
-            printTagValue(jpegMetadata, TiffConstants.GPS_TAG_GPS_LONGITUDE_REF);
-            printTagValue(jpegMetadata, TiffConstants.GPS_TAG_GPS_LONGITUDE);
-
-            // simple interface to GPS data
-            TiffImageMetadata exifMetadata = jpegMetadata.getExif();
-            if (null != exifMetadata) {
-                TiffImageMetadata.GPSInfo gpsInfo = exifMetadata.getGPS();
-                if (null != gpsInfo) {
-                    String gpsDescription = gpsInfo.toString();
-                    double longitude = gpsInfo.getLongitudeAsDegreesEast();
-                    double latitude = gpsInfo.getLatitudeAsDegreesNorth();
-
-                    LOG.info("    " + "GPS Description: " + gpsDescription);
-                    LOG.info("    " + "GPS Longitude (Degrees East): " + longitude);
-                    LOG.info("    " + "GPS Latitude (Degrees North): " + latitude);
-                }
-            }
-
-            ArrayList items = jpegMetadata.getItems();
-
-            for (Object item : items) {
-                LOG.info("    " + "item: " + item);
-            }
-        }
-    }
-
-    private static void printTagValue(JpegImageMetadata jpegMetadata,
-                                      TagInfo tagInfo) {
-        TiffField field = jpegMetadata.findEXIFValue(tagInfo);
-        if (field == null)
-            LOG.info(tagInfo.name + ": " + "Not Found.");
-        else
-            LOG.info(tagInfo.name + ": "
-                    + field.getValueDescription());
-    }
+    public static final String COLON = ":";
+    public static final String APOSTROPHE = "'";
 
     /**
      * Returns the requested tag as String from the image file.
@@ -162,14 +91,14 @@ public class MetaDataExtractor {
             dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);
             dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);
             dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);
-            dateValue += "_";
+            dateValue += UNDERSCORE;
             //convert '2011:01:30 13:11:02' to "yyyyMMdd_HHmm_"+fileName
             dateValue += image.getName();
 
-            LOG.info("Target filename is:" + dateValue);
+            LOG.info("Target filename is: " + dateValue);
             return dateValue;
         }
-        LOG.info("No creation date extracted from file "+ image);
+        LOG.info("No creation date extracted from file " + image);
 
         return EMPTY_STRING;
     }

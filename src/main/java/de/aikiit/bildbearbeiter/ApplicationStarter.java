@@ -1,6 +1,6 @@
 package de.aikiit.bildbearbeiter;
 
-import de.aikiit.bildbearbeiter.gui.HauptGUI;
+import de.aikiit.bildbearbeiter.gui.MainUIWindow;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -26,6 +26,6 @@ public class ApplicationStarter {
         } catch (Exception e) {
             LOG.error("Error during application startup: " + e);
         } // end of try
-        new HauptGUI();
+        new MainUIWindow();
     } // end of main
 }

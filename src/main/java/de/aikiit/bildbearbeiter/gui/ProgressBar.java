@@ -4,35 +4,38 @@
 package de.aikiit.bildbearbeiter.gui;
 
 /**
- * Sinn: Fortschrittsbalken mit 2 Textzeilen
+ * Sinn: ProgressBar mit 2 Textzeilen
  * @author hirsch, 13.10.2003
  * @version 2004-01-08 
  */
 
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Fortschrittsbalken extends JFrame {
+public class ProgressBar extends JFrame {
+    final static private Logger LOG = Logger.getLogger(ProgressBar.class);
+
     private JLabel info = null;
     private JLabel detailinfo = null;
     private JProgressBar prog = null;
 
     /**
-     * erzeugt einen Fortschrittsbalken mit obergrenze
+     * erzeugt einen ProgressBar mit obergrenze
      * als 100%-Marke
      *
      * @param obergrenze Höchststand
      */
-    public Fortschrittsbalken(int obergrenze) {
+    public ProgressBar(int obergrenze) {
         super("Fortschritt");
         this.prog = new JProgressBar(0, obergrenze);
         init();
     } // end of Konstruktor
 
     /**
-     * grafische Komponenten initialisieren und Fortschrittsbalken
+     * grafische Komponenten initialisieren und ProgressBar
      * sichtbar machen
      */
     private void init() {
@@ -63,7 +66,7 @@ public class Fortschrittsbalken extends JFrame {
         try {
             Thread.sleep(100);
         } catch (Exception e) {
-            System.err.println("Error during repaint of GUI");
+            LOG.error("Error during repaint of ProgressBar");
         }
     } // end of updateUI
 
@@ -84,4 +87,4 @@ public class Fortschrittsbalken extends JFrame {
     public void setText(String inhalt) {
         this.detailinfo.setText(inhalt);
     } // end of setText
-} // end of class Fortschrittsbalken
+} // end of class ProgressBar
