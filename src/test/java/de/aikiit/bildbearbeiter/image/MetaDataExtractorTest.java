@@ -1,6 +1,5 @@
-package bildbearbeiter.image;
+package de.aikiit.bildbearbeiter.image;
 
-import bildbearbeiter.MetaDataExtractor;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -15,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class MetaDataExtractorTest {
     final static private Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
-    final static String PATH2TESTIMG = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "data" + File.separator + "IMG_7559_mini.JPG";
+    public final static String PATH2TESTIMG = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "data" + File.separator + "IMG_7559_mini.JPG";
 
     @Test
     public final void readDirectoryContent() throws Exception {

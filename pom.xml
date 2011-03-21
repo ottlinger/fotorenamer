@@ -190,7 +190,7 @@
                   <goal>java</goal>
                 </goals>
                 <configuration>
-                  <mainClass>bildbearbeiter.HauptGUI</mainClass>
+                  <mainClass>de.aikiit.bildbearbeiter.gui.HauptGUI</mainClass>
                 </configuration>
               </execution>
             </executions>

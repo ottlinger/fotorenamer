@@ -1,11 +1,12 @@
 /*
  * Created on 08.12.2003
  */
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.image;
 
-import bildbearbeiter.ausnahmen.KeineDateienEnthaltenException;
-import bildbearbeiter.ausnahmen.UmbenennenFehlgeschlagenException;
-import bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException;
+import de.aikiit.bildbearbeiter.gui.Fortschrittsbalken;
+import de.aikiit.bildbearbeiter.exception.KeineDateienEnthaltenException;
+import de.aikiit.bildbearbeiter.exception.UmbenennenFehlgeschlagenException;
+import de.aikiit.bildbearbeiter.exception.UngueltigesVerzeichnisException;
 
 import javax.swing.*;
 import java.io.File;
@@ -28,9 +29,9 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
     /**
      * @param verzeichnis
-     * @throws bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException
+     * @throws de.aikiit.bildbearbeiter.exception.UngueltigesVerzeichnisException
      *
-     * @throws bildbearbeiter.ausnahmen.KeineDateienEnthaltenException
+     * @throws de.aikiit.bildbearbeiter.exception.KeineDateienEnthaltenException
      *
      */
     public DateinamenZurueckUmbenenner(String verzeichnis)

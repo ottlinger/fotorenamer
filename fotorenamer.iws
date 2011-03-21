@@ -15,10 +15,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="197e21c8-bdfb-488f-879a-fa3892645d8b" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.ipr" afterPath="$PROJECT_DIR$/fotorenamer.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iws" afterPath="$PROJECT_DIR$/fotorenamer.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java" afterPath="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenZurueckUmbenenner.java" afterPath="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenZurueckUmbenenner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/MetaDataExtractor.java" afterPath="$PROJECT_DIR$/src/main/java/bildbearbeiter/MetaDataExtractor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/test/resources/log4j.properties" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/MetaDataExtractor.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/FensterZentrierer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/bildbearbeiter/image/MetaDataExtractorTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/ausnahmen/KeineDateienEnthaltenException.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/KeineDateienEnthaltenException.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/ausnahmen/UngueltigesVerzeichnisException.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/UngueltigesVerzeichnisException.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/Fortschrittsbalken.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/Fortschrittsbalken.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/ausnahmen/UmbenennenFehlgeschlagenException.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/UmbenennenFehlgeschlagenException.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/HauptGUI.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HauptGUI.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/Hilfefenster.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/Hilfefenster.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenZurueckUmbenenner.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/bildbearbeiter/VerzeichnisWaehler.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/VerzeichnisWaehler.java" />
     </list>
     <ignored path="fotorenamer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -212,28 +227,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DateinamenZurueckUmbenenner.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenZurueckUmbenenner.java">
+      <file leaf-file-name="ComponentGaugeUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="0" selection-start="3808" selection-end="3808" vertical-scroll-proportion="0.0">
+            <state line="30" column="0" selection-start="526" selection-end="809" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FensterZentrierer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/FensterZentrierer.java">
+      <file leaf-file-name="ComponentGaugeUtilTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="26" column="38" selection-start="696" selection-end="696" vertical-scroll-proportion="0.5277778">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Fortschrittsbalken.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/Fortschrittsbalken.java">
+      <file leaf-file-name="ApplicationStarter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="0" selection-start="1532" selection-end="1532" vertical-scroll-proportion="0.0">
+            <state line="11" column="10" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -242,23 +259,41 @@
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="199" column="63" selection-start="6604" selection-end="6604" vertical-scroll-proportion="0.0">
+            <state line="199" column="14" selection-start="6618" selection-end="6618" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="DateinamenManipulierer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="86" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.0">
+            <state line="21" column="174" selection-start="799" selection-end="799" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="VerzeichnisWaehler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/VerzeichnisWaehler.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/VerzeichnisWaehler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="13" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HauptGUI.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HauptGUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="217" column="0" selection-start="8580" selection-end="8580" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MetaDataExtractor.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -266,19 +301,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MetaDataExtractor.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/MetaDataExtractor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.4972273">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MetaDataExtractorTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/bildbearbeiter/image/MetaDataExtractorTest.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="6" selection-start="879" selection-end="879" vertical-scroll-proportion="0.0">
+            <state line="16" column="11" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -300,6 +326,10 @@
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="CHECKOUT_INCLUDE_TAGS" value="false" />
+    <option name="UPDATE_CHANGES_POLICY" value="STASH" />
+  </component>
   <component name="HierarchyBrowserManager">
     <option name="SHOW_PACKAGES" value="false" />
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -308,18 +338,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/MetaDataExtractor.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/html/hilfe.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/html/style.css" />
-        <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenZurueckUmbenenner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/HauptGUI.java" />
         <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/Hilfefenster.java" />
         <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/VerzeichnisWaehler.java" />
         <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/Fortschrittsbalken.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/bildbearbeiter/image/MetaDataExtractorTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java" />
         <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/MetaDataExtractor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/DateinamenManipulierer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/VerzeichnisWaehler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HauptGUI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/FensterZentrierer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" />
+        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" />
       </list>
     </option>
   </component>
@@ -396,6 +430,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Favorites" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -427,12 +464,31 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewSettings">
@@ -444,20 +500,24 @@
     <view id="ClasspathPane" />
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="options.lastSelected" value="fileTemplates" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="project.structure.side.proportion" value="0.0" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
-  <component name="RunManager" selected="Application.HauptGUI">
+  <component name="RunManager" selected="Application.ApplicationStarter">
     <configuration default="false" name="MetaDataExtractorTest" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false">
         <pattern>
@@ -468,8 +528,8 @@
       <module name="fotorenamer" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="bildbearbeiter.image" />
-      <option name="MAIN_CLASS_NAME" value="bildbearbeiter.image.MetaDataExtractorTest" />
+      <option name="PACKAGE_NAME" value="de.aikiit.bildbearbeiter.image" />
+      <option name="MAIN_CLASS_NAME" value="de.aikiit.bildbearbeiter.image.MetaDataExtractorTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -570,19 +630,19 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="false" name="HauptGUI" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false">
+    <configuration default="false" name="ApplicationStarter" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="bildbearbeiter.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="bildbearbeiter.HauptGUI" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="MAIN_CLASS_NAME" value="de.aikiit.bildbearbeiter.ApplicationStarter" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
@@ -593,8 +653,8 @@
       <method />
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.HauptGUI" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.MetaDataExtractorTest" />
+      <item index="0" class="java.lang.String" itemvalue="JUnit.MetaDataExtractorTest" />
+      <item index="1" class="java.lang.String" itemvalue="Application.ApplicationStarter" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -624,6 +684,7 @@
     <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
     <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
     <option name="FORCE_UPDATE" value="false" />
+    <configuration useDefault="true">$USER_HOME$/.subversion_IDEA</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="TaskManager">
@@ -659,31 +720,31 @@
     <editor active="false" />
     <layout>
       <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32990867" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32648402" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3242009" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973261" sideWeight="0.6712329" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2486631" sideWeight="0.6757991" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14331551" sideWeight="0.6712329" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22352941" sideWeight="0.67009133" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Pomodoro" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Aspects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
@@ -779,11 +840,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/html/li.gif">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/html/hilfe.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="0" selection-start="955" selection-end="955" vertical-scroll-proportion="-1.8571428" />
@@ -794,12 +850,7 @@
         <state line="51" column="33" selection-start="2030" selection-end="2030" vertical-scroll-proportion="-2.3546512" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/HauptGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/Hilfefenster.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/Hilfefenster.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
@@ -809,33 +860,56 @@
         <state line="90" column="0" selection-start="5043" selection-end="5043" vertical-scroll-proportion="0.3488372" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenZurueckUmbenenner.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="0" selection-start="3808" selection-end="3808" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="104" column="0" selection-start="3930" selection-end="3930" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/FensterZentrierer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/Fortschrittsbalken.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0" />
+        <state line="61" column="0" selection-start="1606" selection-end="1606" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/Fortschrittsbalken.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="0" selection-start="1532" selection-end="1532" vertical-scroll-proportion="0.0" />
+        <state line="30" column="0" selection-start="526" selection-end="809" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="10" selection-start="243" selection-end="243" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="63" selection-start="6604" selection-end="6604" vertical-scroll-proportion="0.0">
+        <state line="199" column="14" selection-start="6618" selection-end="6618" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="174" selection-start="799" selection-end="799" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/VerzeichnisWaehler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/VerzeichnisWaehler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HauptGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="217" column="0" selection-start="8580" selection-end="8580" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="11" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/html/style.css">
@@ -843,52 +917,21 @@
         <state line="98" column="23" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/bildbearbeiter/image/MetaDataExtractorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="6" selection-start="879" selection-end="879" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/DateinamenManipulierer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="86" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bildbearbeiter/MetaDataExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.4972273">
-          <folding />
+        <state line="26" column="38" selection-start="696" selection-end="696" vertical-scroll-proportion="0.5277778">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
-      <state key="ArtifactsStructureConfigurable.UI">
+      <state key="Copyright.UI">
         <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Android</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
+          <splitter-proportions />
         </settings>
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
@@ -903,40 +946,9 @@
           </splitter-proportions>
         </settings>
       </state>
-      <state key="JdkListConfigurable.UI">
+      <state key="ScopeChooserConfigurable.UI">
         <settings>
-          <last-edited>1.6</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>fotorenamer</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
+          <splitter-proportions />
         </settings>
       </state>
     </states>

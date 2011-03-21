@@ -1,4 +1,4 @@
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.image;
 
 import org.apache.log4j.Logger;
 import org.apache.sanselan.ImageReadException;

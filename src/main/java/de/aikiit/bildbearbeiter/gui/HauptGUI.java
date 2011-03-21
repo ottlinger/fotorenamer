@@ -1,10 +1,13 @@
 /*
  * Created on 13.10.2003
  */
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.gui;
 
-import bildbearbeiter.ausnahmen.KeineDateienEnthaltenException;
-import bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException;
+import de.aikiit.bildbearbeiter.exception.KeineDateienEnthaltenException;
+import de.aikiit.bildbearbeiter.exception.UngueltigesVerzeichnisException;
+import de.aikiit.bildbearbeiter.image.DateinamenManipulierer;
+import de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner;
+import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +56,7 @@ public class HauptGUI extends JFrame implements ActionListener {
         // Dateiauswahl
         this.verzeichnis = new JPanel(new BorderLayout());
         this.verzeichnisauswahl = new VerzeichnisWaehler(true,
-                FensterZentrierer.createImageIcon(IMAGE_LOCATION));
+                ComponentGaugeUtil.createImageIcon(IMAGE_LOCATION));
         this.verzeichnis.add(verzeichnisauswahl);
 
         // Hilfe
@@ -91,7 +94,7 @@ public class HauptGUI extends JFrame implements ActionListener {
         this.getContentPane().add(this.verzeichnis, BorderLayout.NORTH);
         this.getContentPane().add(this.knoepfe, BorderLayout.CENTER);
         this.pack();
-        FensterZentrierer.makeCentered(this);
+        ComponentGaugeUtil.makeCentered(this);
         this.setVisible(true);
     } // end of init
 
@@ -212,21 +215,4 @@ public class HauptGUI extends JFrame implements ActionListener {
     public static void zeigeHilfeAn() {
         hilfefenster.setVisible(true);
     } // end of zeigeHilfeAn
-
-    /**
-     * erzeugt Haupfenster der Anwendung
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        // Look and Feel an Plattform anpassen
-        try {
-            UIManager.setLookAndFeel(
-                    UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (Exception e) {
-            System.out.println("Fehler beim UI-Wechsel: " + e);
-        } // end of try
-        // Hauptfenster starten
-        new HauptGUI();
-    } // end of main
 } // end of class

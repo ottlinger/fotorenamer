@@ -1,11 +1,12 @@
 /*
  * Created on 12.10.2003
  */
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.image;
 
-import bildbearbeiter.ausnahmen.KeineDateienEnthaltenException;
-import bildbearbeiter.ausnahmen.UmbenennenFehlgeschlagenException;
-import bildbearbeiter.ausnahmen.UngueltigesVerzeichnisException;
+import de.aikiit.bildbearbeiter.gui.Fortschrittsbalken;
+import de.aikiit.bildbearbeiter.exception.KeineDateienEnthaltenException;
+import de.aikiit.bildbearbeiter.exception.UmbenennenFehlgeschlagenException;
+import de.aikiit.bildbearbeiter.exception.UngueltigesVerzeichnisException;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ import java.io.File;
  * @version 2004-01-08
  */
 public class DateinamenManipulierer implements Runnable {
+    // REVIEW extract this class into an abstract pictureModifier with 2 subclasses, one method to generate names should be abstract, the current rename should be renamed :-)
     final static private Logger LOG = Logger.getLogger(DateinamenManipulierer.class);
 
     private File aktuellesVerzeichnis = null;
@@ -100,6 +102,7 @@ public class DateinamenManipulierer implements Runnable {
 
             // rename nur bei Dateien
             if (this.dateiliste[i].isFile()) {
+                // TODO BUGFIX: file gets deleted and is not created in the target folder but in current working directory!
                 if (!this.dateiliste[i].renameTo(new File(targetFilename)))
                     throw new UmbenennenFehlgeschlagenException("\tFehler bei Bild"
                             + this.dateiliste[i].getName());

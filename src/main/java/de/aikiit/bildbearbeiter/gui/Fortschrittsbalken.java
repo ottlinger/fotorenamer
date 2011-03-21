@@ -1,13 +1,15 @@
 /*
  * Created on 13.10.2003
  */
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.gui;
 
 /**
  * Sinn: Fortschrittsbalken mit 2 Textzeilen
  * @author hirsch, 13.10.2003
  * @version 2004-01-08 
  */
+
+import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +46,7 @@ public class Fortschrittsbalken extends JFrame {
         this.getContentPane().add(info);
         this.getContentPane().add(detailinfo);
         this.getContentPane().add(prog);
-        FensterZentrierer.makeCentered(this);
+        ComponentGaugeUtil.makeCentered(this);
         this.pack();
         this.setVisible(true);
     } // end of init
@@ -55,7 +57,7 @@ public class Fortschrittsbalken extends JFrame {
      */
     public void updateUI() {
         this.pack();
-        FensterZentrierer.makeCentered(this);
+        ComponentGaugeUtil.makeCentered(this);
 
         // TODO Timer einbauen ?
         try {

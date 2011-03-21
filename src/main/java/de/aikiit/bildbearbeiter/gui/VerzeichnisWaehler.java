@@ -1,7 +1,7 @@
 /*
  * Created on 13.10.2003
  */
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.gui;
 
 import javax.swing.*;
 import java.awt.*;

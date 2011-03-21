@@ -1,7 +1,9 @@
 /*
  * Created on 20.10.2003
  */
-package bildbearbeiter;
+package de.aikiit.bildbearbeiter.gui;
+
+import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +72,7 @@ public class Hilfefenster extends JFrame implements ActionListener {
 
         // Zentrieren und Anzeigen
         this.pack();
-        FensterZentrierer.makeCentered(this);
+        ComponentGaugeUtil.makeCentered(this);
     } // end of init
 
     /**

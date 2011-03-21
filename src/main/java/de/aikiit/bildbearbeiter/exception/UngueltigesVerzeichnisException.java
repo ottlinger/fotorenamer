@@ -1,4 +1,4 @@
-package bildbearbeiter.ausnahmen;
+package de.aikiit.bildbearbeiter.exception;
 
 import java.io.File;
 
