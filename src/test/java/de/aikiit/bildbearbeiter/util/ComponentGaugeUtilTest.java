@@ -1,7 +1,5 @@
 package de.aikiit.bildbearbeiter.util;
 
-import de.aikiit.bildbearbeiter.image.MetaDataExtractorTest;
-import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -12,8 +10,8 @@ import static org.junit.Assert.*;
 /**
  * Tests util methods.
  *
- * @version 2011-03-21, 13:18
  * @author hirsch
+ * @version 2011-03-21, 13:18
  */
 public class ComponentGaugeUtilTest {
     /**
@@ -21,7 +19,8 @@ public class ComponentGaugeUtilTest {
      */
     @Test
     public final void createIconFromStringPath() throws Exception {
-        // TODO bugfix assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.PATH2TESTIMG));
+        // FIXME not really clear why this location (valid with File-separators) cannot be parsed into an URL
+        // assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.PATH2TESTIMG));
         assertNull(ComponentGaugeUtil.createImageIcon("wuumansho"));
     }
 
@@ -41,8 +40,8 @@ public class ComponentGaugeUtilTest {
     public void gaugeSwingComponent() throws Exception {
         JButton button = new JButton("Test");
         Point buttonSize = button.getLocation();
-        assertEquals(new Point(0,0), buttonSize);
+        assertEquals(new Point(0, 0), buttonSize);
         ComponentGaugeUtil.makeCentered(button);
-        assertNotSame(new Point(0,0), button.getLocation());
+        assertNotSame(new Point(0, 0), button.getLocation());
     }
 }
