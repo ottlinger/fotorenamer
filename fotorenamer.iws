@@ -15,12 +15,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="197e21c8-bdfb-488f-879a-fa3892645d8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jnlp/resources/images/logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/filtered/Version.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iws" afterPath="$PROJECT_DIR$/fotorenamer.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
     </list>
     <ignored path="fotorenamer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -214,24 +212,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DateinamenManipulierer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="45" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DateinamenZurueckUmbenenner.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="135" column="59" selection-start="4978" selection-end="4978" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AbstractImageRenamer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -244,7 +224,16 @@
       <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="194" column="133" selection-start="7875" selection-end="7875" vertical-scroll-proportion="0.6944444">
+            <state line="149" column="28" selection-start="5928" selection-end="5928" vertical-scroll-proportion="0.4368932">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainUIWindow.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="0" selection-start="651" selection-end="651" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -253,7 +242,7 @@
       <file leaf-file-name="jnlpTemplate.vm" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="114" selection-end="114" vertical-scroll-proportion="-2.5">
+            <state line="4" column="0" selection-start="114" selection-end="114" vertical-scroll-proportion="-0.625">
               <folding />
             </state>
           </provider>
@@ -329,7 +318,6 @@
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/RenamingErrorException.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/UngueltigesVerzeichnisException.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/InvalidDirectoryException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" />
@@ -338,6 +326,7 @@
         <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
         <option value="$PROJECT_DIR$/src/jnlp/template.vm" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
@@ -416,6 +405,8 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Favorites" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -447,8 +438,22 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -466,7 +471,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bildbearbeiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -496,76 +527,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bildbearbeiter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bildbearbeiter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -578,32 +539,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="image" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jnlp" />
+              <option name="myItemId" value="gui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Favorites" />
     </panes>
   </component>
   <component name="ProjectViewSettings">
@@ -628,9 +569,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Application.ApplicationStarter">
     <configuration default="false" name="MetaDataExtractorTest" type="JUnit" factoryName="JUnit" temporary="true">
@@ -851,7 +792,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18663101" sideWeight="0.67009133" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18609625" sideWeight="0.67009133" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.124429226" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Pomodoro" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Aspects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -955,11 +896,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="58" selection-start="3095" selection-end="3095" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/NoFilesFoundException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="337" selection-end="337" vertical-scroll-proportion="0.0" />
@@ -970,52 +906,19 @@
         <state line="3" column="68" selection-start="117" selection-end="117" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="220" column="36" selection-start="8886" selection-end="8886" vertical-scroll-proportion="2.3333333" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/InvalidDirectoryException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="75" selection-start="701" selection-end="701" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/jdk/src.zip!/java/io/File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="65" selection-start="9880" selection-end="9880" vertical-scroll-proportion="0.7222222">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="20" selection-start="985" selection-end="1007" vertical-scroll-proportion="0.0" />
+        <state line="232" column="65" selection-start="9880" selection-end="9880" vertical-scroll-proportion="0.7222222" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="22" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.8055556">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="45" column="22" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.8055556" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="31" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="86" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" />
+        <state line="29" column="45" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java">
@@ -1023,30 +926,53 @@
         <state line="135" column="59" selection-start="4978" selection-end="4978" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="45" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="63" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="10" column="63" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/InvalidDirectoryException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="159" selection-end="159" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="20" selection-start="985" selection-end="1007" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="86" selection-start="615" selection-end="615" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="75" selection-start="701" selection-end="701" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="31" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="114" selection-end="114" vertical-scroll-proportion="-2.5">
+        <state line="4" column="0" selection-start="114" selection-end="114" vertical-scroll-proportion="-0.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="651" selection-end="651" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="133" selection-start="7875" selection-end="7875" vertical-scroll-proportion="0.6944444">
+        <state line="149" column="28" selection-start="5928" selection-end="5928" vertical-scroll-proportion="0.4368932">
           <folding />
         </state>
       </provider>

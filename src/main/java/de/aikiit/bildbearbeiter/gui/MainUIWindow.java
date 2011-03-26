@@ -16,13 +16,13 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * Sinn: Fenster zur Verzeichnisauswahl bieten
+ * This class holds the main application window and allows to select a directory to perform the image name processing.
  *
  * @author hirsch, 13.10.2003
  * @version 2004-01-08
  */
 public class MainUIWindow extends JFrame implements ActionListener {
-    public static final String VERSION = "2011-03-21-0.1-SNAPSHOT";
+    public static final String VERSION = "2011-03-26 / GC-rev: "+ de.aikiit.bildbearbeiter.util.Version.VERSION;
     // REVIEW externalize into a constants class that is changed during mvn run?!
     private static String IMAGE_LOCATION = ".." + File.separator + ".." + File.separator + ".." + File.separator + ".." + File.separator + "image" + File.separator + "miniCamera.png";
 

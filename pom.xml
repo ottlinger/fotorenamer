@@ -87,9 +87,97 @@
       </repositories>
     -->
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.scm</groupId>
+                <artifactId>maven-scm-provider-hg</artifactId>
+                <!--version>1.4</version-->
+            </extension>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-scm</artifactId>
+                <!--version>1.0-beta-7</version-->
+            </extension>
+        </extensions>
+
+        <!-- class that contains the buildnumber -->
+        <resources>
+            <!-- perform regular filtering without taking care of version stuff -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>filtered/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
         <pluginManagement/>
-        <!-- set compiler level to 1.6 -->
         <plugins>
+            <!-- copy Version.java out of normal resource copying to avoid eclipse errors -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <id>copy-version-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/generated-sources/de/aikiit/bildbearbeiter/util
+                            </outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/resources/filtered</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>Version.java</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- add generated sources as source dir in eclipse itself -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- hudson finds Version.java twice and fails with a duplicate class-error -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}/src/main/java/de/aikiit/bildbearbeiter/util/</directory>
+                            <includes>
+                                <include>Version.java</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <!-- set compiler level to 1.6 -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
@@ -230,6 +318,21 @@
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
+            <!-- 2011-03-26 generates build number for filtering, seems to fail with hg as SCM provider, see http://jira.codehaus.org/browse/MOJO-1436 -->
+            <!--plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration/>
+            </plugin-->
         </plugins>
     </build>
     <!-- Run mvn clean install -Plive-demo for a live demo of this tool -->
