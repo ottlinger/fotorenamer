@@ -15,10 +15,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="197e21c8-bdfb-488f-879a-fa3892645d8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/filtered/Version.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iws" afterPath="$PROJECT_DIR$/fotorenamer.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm" afterPath="$PROJECT_DIR$/src/main/resources/jnlpTemplate.vm" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/jnlp/resources/images/logo.png" afterPath="$PROJECT_DIR$/src/main/resources/image/logo.png" />
     </list>
     <ignored path="fotorenamer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -224,7 +224,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="149" column="28" selection-start="5928" selection-end="5928" vertical-scroll-proportion="0.4368932">
+            <state line="282" column="62" selection-start="11595" selection-end="11595" vertical-scroll-proportion="0.5">
               <folding />
             </state>
           </provider>
@@ -240,9 +240,9 @@
         </entry>
       </file>
       <file leaf-file-name="jnlpTemplate.vm" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/jnlpTemplate.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="114" selection-end="114" vertical-scroll-proportion="-0.625">
+            <state line="18" column="17" selection-start="637" selection-end="637" vertical-scroll-proportion="-11.25">
               <folding />
             </state>
           </provider>
@@ -312,7 +312,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/Fortschrittsbalken.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/NoFilesFoundException.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/RenamingErrorException.java" />
@@ -327,6 +326,7 @@
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
         <option value="$PROJECT_DIR$/src/jnlp/template.vm" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
+        <option value="$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm" />
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
@@ -456,6 +456,36 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="image" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -540,6 +570,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="gui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -773,7 +821,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1032" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32990867" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
@@ -956,13 +1004,6 @@
         <state line="17" column="31" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jnlp/jnlpTemplate.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="114" selection-end="114" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="0" selection-start="651" selection-end="651" vertical-scroll-proportion="0.0">
@@ -970,9 +1011,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/jnlpTemplate.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="17" selection-start="637" selection-end="637" vertical-scroll-proportion="-11.25">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="28" selection-start="5928" selection-end="5928" vertical-scroll-proportion="0.4368932">
+        <state line="282" column="62" selection-start="11595" selection-end="11595" vertical-scroll-proportion="0.5">
           <folding />
         </state>
       </provider>

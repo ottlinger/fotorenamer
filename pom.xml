@@ -280,12 +280,13 @@
                     </dependencies>
 
 
-                    <!-- BUGFIX: normal resources are not copied - move these things appropriately and remove this config element -->
-                    <resourcesDirectory>${project.basedir}/src/jnlp/resources</resourcesDirectory>
+                    <!-- BUGFIX: exclude filtered directory ?! -->
+                    <!-- resourcesDirectory>${project.basedir}/src/jnlp/resources</resourcesDirectory-->
+                    <resourcesDirectory>${project.basedir}/src/main/resources</resourcesDirectory>
 
                     <jnlp>
-                        <inputTemplateResourcePath>${project.basedir}/src/</inputTemplateResourcePath>
-                        <inputTemplate>jnlp/jnlpTemplate.vm</inputTemplate>
+                        <inputTemplateResourcePath>${project.basedir}/src/main/resources</inputTemplateResourcePath>
+                        <inputTemplate>jnlpTemplate.vm</inputTemplate>
                         <outputFile>bildbearbeiter.jnlp</outputFile>
                         <mainClass>de.aikiit.bildbearbeiter.ApplicationStarter</mainClass>
                     </jnlp>
