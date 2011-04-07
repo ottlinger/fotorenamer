@@ -31,8 +31,8 @@ public class MetaDataExtractor {
      * @param image Image file to extract Metadata from.
      * @param tag   Tag to extract from the given file, @see TiffConstants
      * @return Returns exif tag value, in case of any errors the value is an empty String.
-     * @throws IOException
-     * @throws ImageReadException
+     * @throws IOException if file cannot be accessed.
+     * @throws ImageReadException if an error occurred during image processing.
      */
     public static String getExifMetadata(File image, TagInfo tag) throws IOException, ImageReadException {
         assert image != null : "Parameter image must not be null";

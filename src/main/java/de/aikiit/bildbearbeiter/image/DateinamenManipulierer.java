@@ -44,6 +44,7 @@ public class DateinamenManipulierer implements Runnable {
     public DateinamenManipulierer(String verzeichnis)
             throws InvalidDirectoryException, NoFilesFoundException {
         this.currentDirectory = new File(verzeichnis);
+
         // erst starten, wenn die Eingabeprüfung erfolgreich war
         validateUserSelectionAndInitInternally();
 
@@ -65,7 +66,7 @@ public class DateinamenManipulierer implements Runnable {
             throw new InvalidDirectoryException(this.currentDirectory);
 
         // Dateien da ?
-        this.imageList = this.currentDirectory.listFiles();
+        this.imageList = this.currentDirectory.listFiles(new ImageFilenameFilter());
         if (this.imageList == null || this.imageList.length == 0) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
@@ -93,7 +94,7 @@ public class DateinamenManipulierer implements Runnable {
                 throw new RenamingErrorException(e.getLocalizedMessage());
             }
             // ProgressBar updaten...
-            this.progressBar.setFortschritt(i);
+            this.progressBar.setProgress(i);
             this.progressBar.setText(this.imageList[i].getName());
             // Da die Namen verschieden lang sind den ProgressBar updaten!
             LOG.info("Renaming " + this.imageList[i].getName() + " to " + targetFilename);

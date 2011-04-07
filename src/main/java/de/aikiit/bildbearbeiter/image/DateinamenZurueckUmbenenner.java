@@ -70,7 +70,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             }
 
             // ProgressBar updaten...
-            this.grafik.setFortschritt(i);
+            this.grafik.setProgress(i);
             this.grafik.setText(name);
             // Da die Namen verschieden lang sind den ProgressBar updaten!
             this.grafik.updateUI();
@@ -102,7 +102,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             throw new InvalidDirectoryException(this.aktuellesVerzeichnis);
 
         // Dateien da ?
-        this.dateiliste = this.aktuellesVerzeichnis.listFiles();
+        this.dateiliste = this.aktuellesVerzeichnis.listFiles(new ImageFilenameFilter());
         if (this.dateiliste == null || this.dateiliste.length == 0) {
             throw new NoFilesFoundException(this.aktuellesVerzeichnis);
         }

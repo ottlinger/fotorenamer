@@ -23,7 +23,6 @@ import java.io.File;
  */
 public class MainUIWindow extends JFrame implements ActionListener {
     public static final String VERSION = "2011-03-26 / GC-rev: "+ de.aikiit.bildbearbeiter.util.Version.VERSION;
-    // REVIEW externalize into a constants class that is changed during mvn run?!
     private static String IMAGE_LOCATION = ".." + File.separator + ".." + File.separator + ".." + File.separator + ".." + File.separator + "image" + File.separator + "miniCamera.png";
 
     private static HelpWindow helpWindow = new HelpWindow();

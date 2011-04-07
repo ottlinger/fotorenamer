@@ -114,6 +114,21 @@
 
         <pluginManagement/>
         <plugins>
+            <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.7.2</version>
+                <configuration>
+                    <enableAssertions>true</enableAssertions>
+                    <!--systemProperties>
+                        <property>
+                            <name>java.awt.headless</name>
+                            <value>true</value>
+                        </property>
+                    </systemProperties-->
+                </configuration>
+            </plugin>
+
             <!-- copy Version.java out of normal resource copying to avoid eclipse errors -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
