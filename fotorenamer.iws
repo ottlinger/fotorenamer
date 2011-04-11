@@ -15,16 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="197e21c8-bdfb-488f-879a-fa3892645d8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/ImageFilenameFilter.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/ImageFilenameFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iws" afterPath="$PROJECT_DIR$/fotorenamer.iws" />
     </list>
     <ignored path="fotorenamer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -760,7 +751,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="preferences.sourceCode.Imports" />
+    <property name="options.lastSelected" value="preferences.sourceCode.XML" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
