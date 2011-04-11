@@ -78,14 +78,12 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
             // TODO reversing does not work - exception is thrown here and UI is frozen (progress bar)
             // rename nur bei Dateien
-            if (this.dateiliste[i].isFile()) {
-                if (!this.dateiliste[i].renameTo(
-                        new File(this.dateiliste[i].getParent() + File.separatorChar + nameNeu))) {
-                    LOG.error("Problem with file " + this.dateiliste[i].getName());
-                    throw new RenamingErrorException("\nFehler bei Bild "
-                            + this.dateiliste[i].getName());
-                }
-            } // end if - isFile()
+            if (this.dateiliste[i].isFile() && !this.dateiliste[i].renameTo(
+                    new File(this.dateiliste[i].getParent() + File.separatorChar + nameNeu))) {
+                LOG.error("Problem with file " + this.dateiliste[i].getName());
+                throw new RenamingErrorException("\nFehler bei Bild "
+                        + this.dateiliste[i].getName());
+            } // end if
         } // end of for
     } // end of rename
 
