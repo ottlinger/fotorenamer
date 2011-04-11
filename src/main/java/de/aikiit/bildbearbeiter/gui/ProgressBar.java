@@ -63,7 +63,8 @@ public class ProgressBar extends JFrame {
         this.pack();
         ComponentGaugeUtil.makeCentered(this);
 
-        // TODO replace with a Timer - see http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
+        // TODO replace with a Timer - see
+        // http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
         try {
             Thread.sleep(200);
         } catch (Exception e) {

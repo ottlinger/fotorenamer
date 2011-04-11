@@ -39,7 +39,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
      *                                   properly.
      * @throws NoFilesFoundException     If directory is empty.
      */
-    public DateinamenZurueckUmbenenner(String verzeichnis)
+    public DateinamenZurueckUmbenenner(final String verzeichnis)
             throws InvalidDirectoryException, NoFilesFoundException {
         this.aktuellesVerzeichnis = new File(verzeichnis);
         // erst starten, wenn die Eingabeprüfung erfolgreich war
@@ -76,10 +76,10 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             // Da die Namen verschieden lang sind den ProgressBar updaten!
             this.grafik.updateUI();
 
-            // TODO reversing does not work - exception is thrown here and UI is frozen (progress bar)
             // rename nur bei Dateien
             if (this.dateiliste[i].isFile() && !this.dateiliste[i].renameTo(
-                    new File(this.dateiliste[i].getParent() + File.separatorChar + nameNeu))) {
+                    new File(this.dateiliste[i].getParent()
+                            + File.separatorChar + nameNeu))) {
                 LOG.error("Problem with file " + this.dateiliste[i].getName());
                 throw new RenamingErrorException("\nFehler bei Bild "
                         + this.dateiliste[i].getName());
@@ -87,15 +87,6 @@ public class DateinamenZurueckUmbenenner implements Runnable {
         } // end of for
     } // end of rename
 
-    /**
-     * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält, sonst Ausnahme<br> (intern werden auch
-     * Parameter gesetzt)
-     *
-     * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
-     *
-     * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
-     *
-     */
     /**
      * Checks whether current UI-configuration is valid in order to perform the
      * renaming itself.
@@ -112,7 +103,8 @@ public class DateinamenZurueckUmbenenner implements Runnable {
         }
 
         // Dateien da ?
-        this.dateiliste = this.aktuellesVerzeichnis.listFiles(new ImageFilenameFilter());
+        this.dateiliste = this.aktuellesVerzeichnis.listFiles(
+                new ImageFilenameFilter());
         if (this.dateiliste == null || this.dateiliste.length == 0) {
             throw new NoFilesFoundException(this.aktuellesVerzeichnis);
         }
@@ -135,9 +127,9 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             umbenennen();
         } catch (RenamingErrorException uf) {
             JOptionPane.showMessageDialog(null,
-                    "Während der Bearbeitung der Datei\n" +
-                            uf.getMessage() + " trat ein Fehler beim Umbennen auf.",
-                    "Fehler beim Umbenennen",
+                    "Während der Bearbeitung der Datei\n"
+                            + uf.getMessage() + " trat ein Fehler beim "
+                            + "Umbennen auf.", "Fehler beim Umbenennen",
                     JOptionPane.ERROR_MESSAGE);
             return;
         } // end of catch uf
@@ -145,16 +137,18 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
         // Erfolgsmeldung geben
         if (this.umbenannt == 0) {
-            meldung = "Im Verzeichnis: " + this.aktuellesVerzeichnis.getName() +
-                    "\nwurden keine Dateien\numbenannt.\n\n";
+            meldung = "Im Verzeichnis: " + this.aktuellesVerzeichnis.getName()
+                    + "\nwurden keine Dateien\numbenannt.\n\n";
         } else if (this.umbenannt == 1) {
-            meldung = "\nEs wurde eine Datei\n" +
-                    "im Verzeichnis: " + this.aktuellesVerzeichnis.getName() +
-                    "\nerfolgreich umbenannt.\n\n";
+            meldung = "\nEs wurde eine Datei\n"
+                    + "im Verzeichnis: " + this.aktuellesVerzeichnis.getName()
+                    + "\nerfolgreich umbenannt.\n\n";
         } else {
-            meldung = "\nEs wurden " + this.umbenannt + " von " + this.obergrenze
-                    + " Dateien\nim Verzeichnis: " + this.aktuellesVerzeichnis.getName() +
-                    "\nerfolgreich umbenannt.\n\n";
+            meldung = "\nEs wurden " + this.umbenannt + " von "
+                    + this.obergrenze
+                    + " Dateien\nim Verzeichnis: "
+                    + this.aktuellesVerzeichnis.getName()
+                    + "\nerfolgreich umbenannt.\n\n";
         } // end of else
         JOptionPane.showMessageDialog(null, meldung, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);

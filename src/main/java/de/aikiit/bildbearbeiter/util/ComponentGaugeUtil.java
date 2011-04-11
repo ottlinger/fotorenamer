@@ -18,7 +18,11 @@ import java.awt.Toolkit;
  */
 
 public final class ComponentGaugeUtil {
-    private static final Logger LOG = Logger.getLogger(ComponentGaugeUtil.class);
+    /**
+     * Logger for this class.
+     */
+    private static final Logger LOG =
+            Logger.getLogger(ComponentGaugeUtil.class);
 
     /**
      * Private default constructor to prevent instantiation of this class.
@@ -37,7 +41,8 @@ public final class ComponentGaugeUtil {
         Dimension dim = toolkit.getScreenSize();
         int screenWidth = dim.width;
         int screenHeight = dim.height;
-        component.setLocation((screenWidth - component.getSize().width) / 2, (screenHeight - component.getSize().height) / 2);
+        component.setLocation((screenWidth - component.getSize().width) / 2,
+                (screenHeight - component.getSize().height) / 2);
     } // end of makeCentered
 
     /**
@@ -55,7 +60,8 @@ public final class ComponentGaugeUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            LOG.error("Could not generate a valid URL from the given path: " + path);
+            LOG.error("Could not generate a valid URL from the given path: "
+                    + path);
             return null;
         } // end if
     } // end of createImageIcon

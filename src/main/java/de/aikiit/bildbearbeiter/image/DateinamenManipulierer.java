@@ -22,8 +22,11 @@ import java.io.File;
  * @version 2004-01-08
  */
 public class DateinamenManipulierer implements Runnable {
-    // REVIEW extract this class into an abstract pictureModifier with 2 subclasses, one method to generate names should be abstract, the current rename should be renamed :-)
-    private static final Logger LOG = Logger.getLogger(DateinamenManipulierer.class);
+    // REVIEW extract this class into an abstract pictureModifier
+    // with 2 subclasses, one method to generate names should be abstract,
+    // the current rename should be renamed :-)
+    private static final Logger LOG =
+            Logger.getLogger(DateinamenManipulierer.class);
 
     private File currentDirectory = null;
     private File[] imageList = null;
@@ -69,7 +72,8 @@ public class DateinamenManipulierer implements Runnable {
         }
 
         // Dateien da ?
-        this.imageList = this.currentDirectory.listFiles(new ImageFilenameFilter());
+        this.imageList = this.currentDirectory.listFiles(
+                new ImageFilenameFilter());
         if (this.imageList == null || this.imageList.length == 0) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
@@ -79,9 +83,7 @@ public class DateinamenManipulierer implements Runnable {
     } // end of pruefeEingabe
 
     /**
-     * PRE: pruefeEingabenUndInit() aufgerufen Benennt alle Dateien im
-     * Verzeichnis so um, dass vor dem IXUS-Dateinamen das Datum der letzten
-     * Änderung steht, was im Kamerafall das Aufnahmedatum ist
+     * Performs the actual/technical renaming.
      *
      * @throws RenamingErrorException if any errors occur.
      * @see #validateUserSelectionAndInitInternally()
@@ -91,7 +93,8 @@ public class DateinamenManipulierer implements Runnable {
         for (int i = 0; i < this.amountOfFiles; i++) {
             // Daten holen
             try {
-                targetFilename = MetaDataExtractor.generateCreationDateInCorrectFormat(this.imageList[i]);
+                targetFilename = MetaDataExtractor.
+                        generateCreationDateInCorrectFormat(this.imageList[i]);
             } catch (Exception e) {
                 throw new RenamingErrorException(e.getLocalizedMessage());
             }
@@ -99,11 +102,14 @@ public class DateinamenManipulierer implements Runnable {
             this.progressBar.setProgress(i);
             this.progressBar.setText(this.imageList[i].getName());
             // Da die Namen verschieden lang sind den ProgressBar updaten!
-            LOG.info("Renaming " + this.imageList[i].getName() + " to " + targetFilename);
+            LOG.info("Renaming " + this.imageList[i].getName() + " to "
+                    + targetFilename);
             this.progressBar.updateUI();
 
             // only rename files
-            if (this.imageList[i].isFile() && !this.imageList[i].renameTo(new File(this.imageList[i].getParent(), targetFilename))) {
+            if (this.imageList[i].isFile() && !this.imageList[i].renameTo(
+                            new File(this.imageList[i].getParent(),
+                                    targetFilename))) {
                 throw new RenamingErrorException("\tFehler bei Bild"
                         + this.imageList[i].getName());
             } // end if - isFile()
@@ -124,8 +130,9 @@ public class DateinamenManipulierer implements Runnable {
             rename();
         } catch (RenamingErrorException uf) {
             JOptionPane.showMessageDialog(null,
-                    "Während der Bearbeitung der Datei\n" +
-                            uf.getMessage() + " trat ein Fehler beim Umbennen auf.",
+                    "Während der Bearbeitung der Datei\n"
+                            + uf.getMessage() + " trat ein Fehler beim "
+                            + "Umbennen auf.",
                     "Fehler beim Umbenennen",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -135,16 +142,16 @@ public class DateinamenManipulierer implements Runnable {
 
         // Erfolgsmeldung geben
         if (this.amountOfFiles == 0) {
-            meldung = "Im Verzeichnis: " + this.currentDirectory.getName() +
-                    "\nwurden keine Dateien\numbenannt.\n\n";
+            meldung = "Im Verzeichnis: " + this.currentDirectory.getName()
+                    + "\nwurden keine Dateien\numbenannt.\n\n";
         } else if (this.amountOfFiles == 1) {
-            meldung = "\nEs wurde eine Datei\n" +
-                    "im Verzeichnis: " + this.currentDirectory.getName() +
-                    "\nerfolgreich umbenannt.\n\n";
+            meldung = "\nEs wurde eine Datei\n"
+                    + "im Verzeichnis: " + this.currentDirectory.getName()
+                    + "\nerfolgreich umbenannt.\n\n";
         } else {
-            meldung = "\nEs wurden " + this.amountOfFiles + " Dateien\n" +
-                    "im Verzeichnis: " + this.currentDirectory.getName() +
-                    "\nerfolgreich umbenannt.\n\n";
+            meldung = "\nEs wurden " + this.amountOfFiles + " Dateien\n"
+                    + "im Verzeichnis: " + this.currentDirectory.getName()
+                    + "\nerfolgreich umbenannt.\n\n";
         } // end of else
         JOptionPane.showMessageDialog(null, meldung, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);

@@ -12,7 +12,11 @@ import javax.swing.UIManager;
  * @version 2011-03-21, 13:06
  */
 public final class ApplicationStarter {
-    private static final Logger LOG = Logger.getLogger(ApplicationStarter.class);
+    /**
+     * Logger for this class.
+     */
+    private static final Logger LOG =
+            Logger.getLogger(ApplicationStarter.class);
 
     /**
      * Prevent instantiation of this starter class.

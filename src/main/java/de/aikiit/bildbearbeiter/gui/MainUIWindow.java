@@ -32,8 +32,17 @@ public class MainUIWindow extends JFrame implements ActionListener {
      * Provide versioning information in the UI. Values come via
      * maven-filtering.
      */
-    public static final String VERSION = "2011-03-26 / GC-rev: " + de.aikiit.bildbearbeiter.util.Version.VERSION;
-    private static String IMAGE_LOCATION = ".." + File.separator + ".." + File.separator + ".." + File.separator + ".." + File.separator + "image" + File.separator + "miniCamera.png";
+    public static final String VERSION = "2011-03-26 / GC-rev: "
+            + de.aikiit.bildbearbeiter.util.Version.VERSION;
+    /**
+     * Relative location of the UI's image icon.
+     */
+    // REVIEW use spring resource loader instead?
+    private static String IMAGE_LOCATION = ".." + File.separator
+            + ".." + File.separator + ".."
+            + File.separator + ".."
+            + File.separator + "image"
+            + File.separator + "miniCamera.png";
 
     private static HelpWindow helpWindow = new HelpWindow();
     private JButton helpButton = null;
@@ -124,22 +133,25 @@ public class MainUIWindow extends JFrame implements ActionListener {
         } else if (event.getSource() == this.infoButton) {
             // Info
             JOptionPane.showMessageDialog(null,
-                    "\nbildbearbeiter - fotorenamer\n\n" +
-                            "Version: " + VERSION +
-                            "\n\nAutor: P.Ottlinger, \nURL: http://www.aiki-it.de" +
-                            "\n (C) 1996-2011",
+                    "\nbildbearbeiter - fotorenamer\n\n"
+                            + "Version: " + VERSION
+                            + "\n\nAutor: P.Ottlinger, "
+                            + "\nURL: http://www.aiki-it.de"
+                            + "\n (C) 1996-2011",
                     "Versionsinfo",
                     JOptionPane.INFORMATION_MESSAGE);
-        } else if (event.getSource() == this.revertButton || event.getSource() == this.goButton) {
-// Construct a new SwingWorker
-// READ from http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
+        } else if (event.getSource() == this.revertButton || event.getSource()
+                == this.goButton) {
+    // Construct a new SwingWorker read from
+    // http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
                     // Rückgängig oder Starten machen
                     if (!imageDirectorySelector.isSelected()) {
                         JOptionPane.showMessageDialog(null,
-                                "Bitte ein Verzeichnis eingeben und\ndann starten.",
+                                "Bitte ein Verzeichnis eingeben und\n"
+                                        + "dann starten.",
                                 "Ungültiges Verzeichnis angegegen",
                                 JOptionPane.ERROR_MESSAGE);
                         return null;
@@ -150,23 +162,28 @@ public class MainUIWindow extends JFrame implements ActionListener {
                         if (event.getSource() == goButton) {
                             goButton.setEnabled(false);
                             goButton.setText("in progress");
-                            new DateinamenManipulierer(imageDirectorySelector.toString());
+                            new DateinamenManipulierer(
+                                    imageDirectorySelector.toString());
                         } else {
-                            new DateinamenZurueckUmbenenner(imageDirectorySelector.toString());
+                            new DateinamenZurueckUmbenenner(
+                                    imageDirectorySelector.toString());
                             revertButton.setEnabled(false);
                             revertButton.setText("in progress");
 
                         } // end if
                     } catch (InvalidDirectoryException uv) {
                         JOptionPane.showMessageDialog(null,
-                                "Das eingegebene Verzeichnis '" + uv.getMessage() +
-                                        "' ist ungültig - bitte erneut versuchen.",
+                                "Das eingegebene Verzeichnis '"
+                                        + uv.getMessage()
+                                        + "' ist ungültig - bitte erneut "
+                                        + "versuchen.",
                                 "Ungültiges Verzeichnis angegegen",
                                 JOptionPane.ERROR_MESSAGE);
                     } catch (NoFilesFoundException kde) {
                         JOptionPane.showMessageDialog(null,
-                                "Im Verzeichnis '" + kde.getMessage() +
-                                        "' existieren keine umbenennbaren Dateien - bitte erneut versuchen.",
+                                "Im Verzeichnis '" + kde.getMessage()
+                                        + "' existieren keine umbenennbaren "
+                                        + "Dateien - bitte erneut versuchen.",
                                 "Keine Dateien vorhanden",
                                 JOptionPane.ERROR_MESSAGE);
                     } // end of catch kde

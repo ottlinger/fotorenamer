@@ -11,18 +11,18 @@ import java.io.FilenameFilter;
  * @version 2011-04-02, 13:52
  */
 public class ImageFilenameFilter implements FilenameFilter {
-    /*
-    Constant defining JPG files.
-     */
+    // Constant defining JPG files.
     private static final String JPG = ".jpg";
 
     /**
+     * Filter filenames in a directory for images.
+     *
      * @param dir  Directory to filter filenames in.
      * @param name Filename to filter.
      * @return Return <code>true</code> when the given File is a directory and
      *         the file is a JPG-picture.
      */
-    public final boolean accept(File dir, String name) {
+    public final boolean accept(final File dir, final String name) {
         return new File(dir, name).isFile() && name.toLowerCase().endsWith(JPG);
     }
 }

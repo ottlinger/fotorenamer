@@ -38,7 +38,8 @@ public class ImageDirectorySelector extends JPanel {
      * @param icon          This icon is used as a picture in the select
      *                      button.
      */
-    public ImageDirectorySelector(final boolean onlyDirectory, final ImageIcon icon) {
+    public ImageDirectorySelector(final boolean onlyDirectory,
+                                  final ImageIcon icon) {
         super();
         this.imageIcon = icon;
         this.directoryOnly = onlyDirectory;
@@ -106,10 +107,10 @@ public class ImageDirectorySelector extends JPanel {
 
         // Add focus listener.
         textField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent event) {
+            public void focusGained(final FocusEvent event) {
             } // end of focusGained
 
-            public void focusLost(FocusEvent event) {
+            public void focusLost(final FocusEvent event) {
                 if (!event.isTemporary()) {
                     /** i am not really sure what is going on here
                      * but i followed rick's implementation
@@ -121,7 +122,7 @@ public class ImageDirectorySelector extends JPanel {
 
         // Add action listener.
         browseButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
+            public void actionPerformed(final ActionEvent event) {
                 JFileChooser fileDlg = new JFileChooser();
 
                 if (directoryOnly) {
@@ -133,8 +134,10 @@ public class ImageDirectorySelector extends JPanel {
                 } // end if
                 fileDlg.setApproveButtonText("Auswählen");
 
-                if (fileDlg.showOpenDialog(ImageDirectorySelector.this) == JFileChooser.APPROVE_OPTION) {
-                    textField.setText(fileDlg.getSelectedFile().getAbsolutePath());
+                if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
+                        == JFileChooser.APPROVE_OPTION) {
+                    textField.setText(
+                            fileDlg.getSelectedFile().getAbsolutePath());
                     selection = textField.getText();
                 } // end if
             } // end of actionPerformed
@@ -147,7 +150,7 @@ public class ImageDirectorySelector extends JPanel {
      * @return The currently selected directory.
      */
     @Override
-    public String toString() {
+    public final String toString() {
         return this.selection;
     } // end of toString
 } // end of class

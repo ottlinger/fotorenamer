@@ -43,7 +43,9 @@ public final class MetaDataExtractor {
      * @throws IOException        if file cannot be accessed.
      * @throws ImageReadException if an error occurred during image processing.
      */
-    public static String getExifMetadata(final File image, final TagInfo tag) throws IOException, ImageReadException {
+    public static String getExifMetadata(final File image,
+                                         final TagInfo tag)
+            throws IOException, ImageReadException {
         assert image != null : "Parameter image must not be null";
         assert tag != null : "Parameter tag must not be null";
 
@@ -54,7 +56,8 @@ public final class MetaDataExtractor {
             TiffField field = jpegMetadata.findEXIFValue(tag);
             if (field != null) {
                 result = field.getValueDescription();
-                LOG.info("extraction of " + tag.getDescription() + " yields " + result);
+                LOG.info("extraction of " + tag.getDescription()
+                        + " yields " + result);
             }
         }
         return result == null ? EMPTY_STRING : result;
@@ -89,15 +92,19 @@ public final class MetaDataExtractor {
      *      specification</a>
      */
 
-    public static String generateCreationDateInCorrectFormat(final File image) throws ImageReadException,
-            IOException, ParseException {
-        String dateValue = getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
+    public static String generateCreationDateInCorrectFormat(final File image)
+            throws ImageReadException, IOException, ParseException {
+        String dateValue =
+                getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
         if (dateValue != null) {
             LOG.info("EXIF date value is: " + dateValue);
 
-            assert dateValue.length() == VALID_EXIF_DATE_LENGTH : "Invalid length of EXIF metadata, not complying to the standard";
+            assert dateValue.length() == VALID_EXIF_DATE_LENGTH
+                    : "Invalid length of EXIF metadata, "
+                    + "not complying to the standard";
 
-            // Date parsing with apache.DateUtils or JDK-DateFormats does not work due to '-signs in the date string
+            // Date parsing with apache.DateUtils or JDK-DateFormats
+            // does not work due to '-signs in the date string
             // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
 
             // replace special characters to extract digits only

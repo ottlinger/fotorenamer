@@ -32,6 +32,15 @@ public class HelpWindow extends JFrame implements ActionListener {
     private JButton endButton = null;
 
     /**
+     * Relative location of the UI's image icon.
+     */
+    // REVIEW use spring resource loader instead?
+    private static String HTML_HELP_LOCATION = ".." + File.separator
+            + ".." + File.separator
+            + ".." + File.separator + ".." + File.separator
+            + "html" + File.separator + "hilfe.html";
+
+    /**
      * Creates a HelpWindow, initializes its components but does
      * <strong>not</strong> show the window.
      */
@@ -60,7 +69,7 @@ public class HelpWindow extends JFrame implements ActionListener {
         textfeld.setEditable(false);
         try {
             // REVIEW extract this to a constant to make refactorings easier
-            textfeld.setPage(HelpWindow.class.getResource(".." + File.separator + ".." + File.separator + ".." + File.separator + ".." + File.separator + "html" + File.separator + "hilfe.html"));
+            textfeld.setPage(HelpWindow.class.getResource(HTML_HELP_LOCATION));
             oben.add(textfeld);
         } catch (Exception e) {
             oben.setLayout(new GridLayout(3, 1));
@@ -72,7 +81,8 @@ public class HelpWindow extends JFrame implements ActionListener {
         // Eigenschaften des Scrollpanels anpassen
         rollpanel = new JScrollPane(oben);
         rollpanel.setPreferredSize(new Dimension(350, 300));
-        rollpanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        rollpanel.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         // Ende-Knopf
         this.endButton = new JButton("Schließen");
@@ -96,7 +106,7 @@ public class HelpWindow extends JFrame implements ActionListener {
      *
      * @param event Event to react on in this UI-component.
      */
-    public final void actionPerformed(ActionEvent event) {
+    public final void actionPerformed(final ActionEvent event) {
         if (event.getSource() == this.endButton) {
             LOG.debug("Disabling visibility of helpWindow.");
             setVisible(false);
