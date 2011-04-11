@@ -9,18 +9,21 @@ import de.aikiit.bildbearbeiter.exception.RenamingErrorException;
 import de.aikiit.bildbearbeiter.gui.ProgressBar;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.File;
 
 /**
- * Sinn: CanonBilder rename und BildErzeugungsdatum in Namen schreiben
+ * Rename image files based on exif metadata values. During metadata extraction
+ * the date of creation is extracted and used to rename the file.
+ * <p/>
+ * <b>ATTENTION!</b>: You should only work on copies of images with that tool
  *
  * @author hirsch, 12.10.2003
  * @version 2004-01-08
  */
 public class DateinamenManipulierer implements Runnable {
     // REVIEW extract this class into an abstract pictureModifier with 2 subclasses, one method to generate names should be abstract, the current rename should be renamed :-)
-    final static private Logger LOG = Logger.getLogger(DateinamenManipulierer.class);
+    private static final Logger LOG = Logger.getLogger(DateinamenManipulierer.class);
 
     private File currentDirectory = null;
     private File[] imageList = null;
@@ -30,18 +33,16 @@ public class DateinamenManipulierer implements Runnable {
 
     /**
      * Übernimmt ein Verzeichnis. Dessen Dateien werden in
-     * ZuletztGeändertDatum_ZuletztGeändertUhrzeit_Dateiname umbenannt.<br>
-     * Bei den IXUS-Bildern bedeutet das, dass den Dateinamen der Zeitpunkt
-     * der Bildaufnahme mit hinzugefügt wird.
-     * <br>
+     * ZuletztGeändertDatum_ZuletztGeändertUhrzeit_Dateiname umbenannt.<br> Bei
+     * den IXUS-Bildern bedeutet das, dass den Dateinamen der Zeitpunkt der
+     * Bildaufnahme mit hinzugefügt wird. <br>
      *
-     * @param verzeichnis
-     * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
-     *          if there's a problem with the directory selected.
-     * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
-     *          if the selected directory is empty.
+     * @param verzeichnis Directory to work on.
+     * @throws InvalidDirectoryException If there's a problem with the directory
+     *                                   selected.
+     * @throws NoFilesFoundException     if the selected directory is empty.
      */
-    public DateinamenManipulierer(String verzeichnis)
+    public DateinamenManipulierer(final String verzeichnis)
             throws InvalidDirectoryException, NoFilesFoundException {
         this.currentDirectory = new File(verzeichnis);
 
@@ -52,18 +53,20 @@ public class DateinamenManipulierer implements Runnable {
     } // end of Konstruktor
 
     /**
-     * Checks whether the selected directory contains any relevant files and sets internal state appropriately.
+     * Checks whether the selected directory contains any relevant files and
+     * sets internal state appropriately.
      *
      * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
      *          If selected directory contains no files.
      * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
      *          If any I/O-error occured when accessing the directory.
      */
-    public void validateUserSelectionAndInitInternally()
+    protected final void validateUserSelectionAndInitInternally()
             throws NoFilesFoundException, InvalidDirectoryException {
         // Verzeichnis gültig ?
-        if (!this.currentDirectory.isDirectory())
+        if (!this.currentDirectory.isDirectory()) {
             throw new InvalidDirectoryException(this.currentDirectory);
+        }
 
         // Dateien da ?
         this.imageList = this.currentDirectory.listFiles(new ImageFilenameFilter());
@@ -76,15 +79,14 @@ public class DateinamenManipulierer implements Runnable {
     } // end of pruefeEingabe
 
     /**
-     * PRE: pruefeEingabenUndInit() aufgerufen
-     * Benennt alle Dateien im Verzeichnis so um,
-     * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
-     * was im Kamerafall das Aufnahmedatum ist
+     * PRE: pruefeEingabenUndInit() aufgerufen Benennt alle Dateien im
+     * Verzeichnis so um, dass vor dem IXUS-Dateinamen das Datum der letzten
+     * Änderung steht, was im Kamerafall das Aufnahmedatum ist
      *
      * @throws RenamingErrorException if any errors occur.
      * @see #validateUserSelectionAndInitInternally()
      */
-    public void rename() throws RenamingErrorException {
+    public final void rename() throws RenamingErrorException {
         String targetFilename = "";
         for (int i = 0; i < this.amountOfFiles; i++) {
             // Daten holen
@@ -109,14 +111,12 @@ public class DateinamenManipulierer implements Runnable {
     } // end of rename
 
     /**
-     * ProgressBar anzeigen und rename starten
-     * Die Anzeige wird innerhalb von rename erledigt.
-     * <p/>
-     * Fehlerbehandlung des umbennens wird erledigt = Abbruch ;-^
+     * Performs the renaming and updates the UI. All error handling is done in
+     * other methods.
      *
      * @see #rename()
      */
-    public void run() {
+    public final void run() {
         String meldung = "";
         this.progressBar = new ProgressBar(this.amountOfFiles);
 

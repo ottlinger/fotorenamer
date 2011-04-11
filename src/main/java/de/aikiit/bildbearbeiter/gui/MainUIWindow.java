@@ -9,20 +9,30 @@ import de.aikiit.bildbearbeiter.image.DateinamenManipulierer;
 import de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner;
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingWorker;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * This class holds the main application window and allows to select a directory to perform the image name processing.
+ * This class holds the main application window and allows to select a directory
+ * to perform the image name processing.
  *
  * @author hirsch, 13.10.2003
  * @version 2004-01-08
  */
 public class MainUIWindow extends JFrame implements ActionListener {
-    public static final String VERSION = "2011-03-26 / GC-rev: "+ de.aikiit.bildbearbeiter.util.Version.VERSION;
+    /**
+     * Provide versioning information in the UI. Values come via
+     * maven-filtering.
+     */
+    public static final String VERSION = "2011-03-26 / GC-rev: " + de.aikiit.bildbearbeiter.util.Version.VERSION;
     private static String IMAGE_LOCATION = ".." + File.separator + ".." + File.separator + ".." + File.separator + ".." + File.separator + "image" + File.separator + "miniCamera.png";
 
     private static HelpWindow helpWindow = new HelpWindow();
@@ -43,7 +53,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
     /**
      * Helper class to perform the internal initialization of the UI.
      */
-    private void init() {
+    protected final void init() {
         String os = "[" + System.getProperty("os.name");
         os += " " + System.getProperty("os.version");
         os += " " + System.getProperty("os.arch") + "]";
@@ -102,7 +112,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
      *
      * @param event Events that was fired on this component.
      */
-    public void actionPerformed(final ActionEvent event) {
+    public final void actionPerformed(final ActionEvent event) {
         final SwingWorker<Void, Void> worker;
 
         // Ende
@@ -120,8 +130,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             "\n (C) 1996-2011",
                     "Versionsinfo",
                     JOptionPane.INFORMATION_MESSAGE);
-        } else if ((event.getSource() == this.revertButton) ||
-                (event.getSource() == this.goButton)) {
+        } else if (event.getSource() == this.revertButton || event.getSource() == this.goButton) {
 // Construct a new SwingWorker
 // READ from http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
             worker = new SwingWorker<Void, Void>() {

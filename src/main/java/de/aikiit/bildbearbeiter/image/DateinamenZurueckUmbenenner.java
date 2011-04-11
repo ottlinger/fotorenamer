@@ -9,17 +9,19 @@ import de.aikiit.bildbearbeiter.exception.RenamingErrorException;
 import de.aikiit.bildbearbeiter.gui.ProgressBar;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.File;
 
 /**
- * Sinn: soll die Dateien wieder zurückumbennen können
+ * This class rerenames files in order to be able to play them back on a camera
+ * device that is not able to deal with long(er) filenames.
  *
  * @author hirsch, 08.12.2003
  * @version 2004-01-08
  */
 public class DateinamenZurueckUmbenenner implements Runnable {
-    final static private Logger LOG = Logger.getLogger(DateinamenZurueckUmbenenner.class);
+    private static final Logger LOG =
+            Logger.getLogger(DateinamenZurueckUmbenenner.class);
 
     private File aktuellesVerzeichnis = null;
     private File[] dateiliste = null;
@@ -30,11 +32,12 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
 
     /**
-     * @param verzeichnis
-     * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
+     * Main constructor that takes a directory to work on.
      *
-     * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
-     *
+     * @param verzeichnis Directory to perform operation on.
+     * @throws InvalidDirectoryException If directory cannot be accessed
+     *                                   properly.
+     * @throws NoFilesFoundException     If directory is empty.
      */
     public DateinamenZurueckUmbenenner(String verzeichnis)
             throws InvalidDirectoryException, NoFilesFoundException {
@@ -45,15 +48,13 @@ public class DateinamenZurueckUmbenenner implements Runnable {
     } // end of Konstruktor
 
     /**
-     * PRE: pruefeEingabenUndInit() aufgerufen
-     * Benennt alle Dateien im Verzeichnis so um,
-     * dass vor dem IXUS-Dateinamen das Datum der letzten Änderung steht,
-     * was im Kamerfall das Aufnahmedatum ist
-     * @throws de.aikiit.bildbearbeiter.exception.RenamingErrorException
+     * Performs actual renaming/removing of date information from the
+     * filenames.
      *
+     * @throws RenamingErrorException If any error occurs.
      * @see #pruefeEingabeUndInit()
      */
-    public void umbenennen() throws RenamingErrorException {
+    public final void umbenennen() throws RenamingErrorException {
         String name = "";
         String nameNeu = "";
         // String muster = "\\d{8}[_]\\d{4}[_]\\p{ASCII}*";
@@ -79,27 +80,38 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             // rename nur bei Dateien
             if (this.dateiliste[i].isFile()) {
                 if (!this.dateiliste[i].renameTo(
-                        new File(this.dateiliste[i].getParent() + File.separatorChar + nameNeu)))
-                    LOG.error("Problem with file "+this.dateiliste[i].getName());
+                        new File(this.dateiliste[i].getParent() + File.separatorChar + nameNeu))) {
+                    LOG.error("Problem with file " + this.dateiliste[i].getName());
                     throw new RenamingErrorException("\nFehler bei Bild "
                             + this.dateiliste[i].getName());
+                }
             } // end if - isFile()
         } // end of for
     } // end of rename
 
     /**
-     * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält,
-     * sonst Ausnahme<br>
-     * (intern werden auch Parameter gesetzt)
+     * prüft, ob Parameter ein Verzeichnis ist und mehr als 0 Dateien enthält, sonst Ausnahme<br> (intern werden auch
+     * Parameter gesetzt)
      *
      * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
+     *
      * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
+     *
      */
-    public void pruefeEingabeUndInit()
+    /**
+     * Checks whether current UI-configuration is valid in order to perform the
+     * renaming itself.
+     *
+     * @throws NoFilesFoundException     If the directory contains no files.
+     * @throws InvalidDirectoryException If the selected directory is not
+     *                                   accessible.
+     */
+    protected final void pruefeEingabeUndInit()
             throws NoFilesFoundException, InvalidDirectoryException {
         // Verzeichnis gültig ?
-        if (!this.aktuellesVerzeichnis.isDirectory())
+        if (!this.aktuellesVerzeichnis.isDirectory()) {
             throw new InvalidDirectoryException(this.aktuellesVerzeichnis);
+        }
 
         // Dateien da ?
         this.dateiliste = this.aktuellesVerzeichnis.listFiles(new ImageFilenameFilter());
@@ -112,14 +124,12 @@ public class DateinamenZurueckUmbenenner implements Runnable {
     } // end of pruefeEingabe
 
     /**
-     * ProgressBar anzeigen und rename starten
-     * Die Anzeige wird innerhalb von rename erledigt.
-     * <p/>
-     * Fehlerbehandlung des umbennens wird erledigt = Abbruch ;-^
+     * Updates the UI and performs the renaming. All error handling is done in
+     * other methods.
      *
      * @see #umbenennen()
      */
-    public void run() {
+    public final void run() {
         String meldung = "";
         this.grafik = new ProgressBar(this.obergrenze);
 

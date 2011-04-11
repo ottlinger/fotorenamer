@@ -6,31 +6,41 @@ package de.aikiit.bildbearbeiter.gui;
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
- * This class represents a help window component. It loads a HTML-page to show as application help.
+ * This class represents a help window component. It loads a HTML-page to show
+ * as application help.
  *
  * @author hirsch, 20.10.2003
  * @version 2004-01-08
  */
 public class HelpWindow extends JFrame implements ActionListener {
-    final static private Logger LOG = Logger.getLogger(HelpWindow.class);
+    private static final Logger LOG = Logger.getLogger(HelpWindow.class);
     private JButton endButton = null;
 
     /**
-     * Creates a HelpWindow, initializes its components but does <strong>not</strong> show the window.
+     * Creates a HelpWindow, initializes its components but does
+     * <strong>not</strong> show the window.
      */
     public HelpWindow() {
         init();
     } // end of Konstruktor
 
     /**
-     * Initialisierung der grafischen Komponenten und Fensteranzeige
+     * Initialize UI-compontens and make them visible.
      */
     private void init() {
         // REVIEW add i18n
@@ -83,12 +93,13 @@ public class HelpWindow extends JFrame implements ActionListener {
 
     /**
      * Make this component react to close button.
+     *
+     * @param event Event to react on in this UI-component.
      */
-    public void actionPerformed(ActionEvent event) {
+    public final void actionPerformed(ActionEvent event) {
         if (event.getSource() == this.endButton) {
             LOG.debug("Disabling visibility of helpWindow.");
             setVisible(false);
         }
     } // end of actionPerformed
 } // end of class
-

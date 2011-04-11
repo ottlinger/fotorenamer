@@ -3,23 +3,30 @@ package de.aikiit.bildbearbeiter;
 import de.aikiit.bildbearbeiter.gui.MainUIWindow;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
+import javax.swing.UIManager;
 
 /**
  * Main class to start the application in standalone mode.
  *
- * @version 2011-03-21, 13:06
  * @author hirsch
+ * @version 2011-03-21, 13:06
  */
-public class ApplicationStarter {
-    final static private Logger LOG = Logger.getLogger(ApplicationStarter.class);
+public final class ApplicationStarter {
+    private static final Logger LOG = Logger.getLogger(ApplicationStarter.class);
+
+    /**
+     * Prevent instantiation of this starter class.
+     */
+    private ApplicationStarter() {
+        // prevent instantiation
+    }
 
     /**
      * Creates an application window and runs the application.
      *
      * @param args Runtime/CLI arguments.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         try {
             UIManager.setLookAndFeel(
                     UIManager.getCrossPlatformLookAndFeelClassName());

@@ -2,10 +2,12 @@ package de.aikiit.bildbearbeiter.util;
 
 import org.junit.Test;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import java.awt.Point;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
 /**
  * Tests util methods.
@@ -34,7 +36,8 @@ public class ComponentGaugeUtilTest {
 
 
     /**
-     * Checks that a component gets a non-default location after calling util method.
+     * Checks that a component gets a non-default location after calling util
+     * method.
      */
     @Test
     public void gaugeSwingComponent() throws Exception {

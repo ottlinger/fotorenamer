@@ -3,8 +3,14 @@
  */
 package de.aikiit.bildbearbeiter.gui;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -24,32 +30,37 @@ public class ImageDirectorySelector extends JPanel {
     private boolean directoryOnly = false;
 
     /**
-     * Default constructor provides means to create an imageSelect with a given image icon
-     * that is able to only work on directories.
+     * Default constructor provides means to create an imageSelect with a given
+     * image icon that is able to only work on directories.
      *
-     * @param directoryOnly  Sets whether this class should only work on directories.
-     * @param icon This icon is used as a picture in the select button.
+     * @param onlyDirectory Sets whether this class should only work on
+     *                      directories.
+     * @param icon          This icon is used as a picture in the select
+     *                      button.
      */
-    public ImageDirectorySelector(boolean directoryOnly, ImageIcon icon) {
+    public ImageDirectorySelector(final boolean onlyDirectory, final ImageIcon icon) {
         super();
         this.imageIcon = icon;
-        this.directoryOnly = directoryOnly;
+        this.directoryOnly = onlyDirectory;
         init();
     }
 
     /**
      * @param enable Enable/disable this component.
      */
-    public void setEnabled(boolean enable) {
+    public final void setEnabled(final boolean enable) {
         textField.setEnabled(enable);
         browseButton.setEnabled(enable);
     } // end of setEnabled
 
     /**
-     * This method is used as a blocking call until the user selects something in the UI.
-     * @return Returns whether anything is selected within the current configuration.
+     * This method is used as a blocking call until the user selects something
+     * in the UI.
+     *
+     * @return Returns whether anything is selected within the current
+     *         configuration.
      */
-    public boolean isSelected() {
+    public final boolean isSelected() {
         return selection != null;
     } // end of isSelected
 
@@ -57,7 +68,7 @@ public class ImageDirectorySelector extends JPanel {
     /**
      * Initialize internal UI components.
      */
-    protected void init() {
+    protected final void init() {
         // Set layout.
         GridBagLayout grid = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -122,8 +133,7 @@ public class ImageDirectorySelector extends JPanel {
                 } // end if
                 fileDlg.setApproveButtonText("Auswählen");
 
-                if (fileDlg.showOpenDialog(ImageDirectorySelector.this) ==
-                        JFileChooser.APPROVE_OPTION) {
+                if (fileDlg.showOpenDialog(ImageDirectorySelector.this) == JFileChooser.APPROVE_OPTION) {
                     textField.setText(fileDlg.getSelectedFile().getAbsolutePath());
                     selection = textField.getText();
                 } // end if
@@ -132,8 +142,11 @@ public class ImageDirectorySelector extends JPanel {
     } // end of init
 
     /**
-     * ausgewähltes Element ist Repräsentation dieses Verzeichniswählers
+     * Current directory is the representation of this component.
+     *
+     * @return The currently selected directory.
      */
+    @Override
     public String toString() {
         return this.selection;
     } // end of toString
