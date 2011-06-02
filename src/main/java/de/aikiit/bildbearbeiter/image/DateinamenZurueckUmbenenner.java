@@ -61,6 +61,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
 
         for (int i = 0; i < this.obergrenze; i++) {
             name = this.dateiliste[i].getName();
+            // TODO 20110507_180520_IMG_8192small.JPG
             // würde alle Vorkommen ersetzen:
             // nameNeu = name.replaceAll("\\d{8}[_]\\d{4}[_]","");
             nameNeu = name.replaceFirst("\\d{8}[_]\\d{4}[_]", "");
@@ -76,7 +77,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             // Da die Namen verschieden lang sind den ProgressBar updaten!
             this.grafik.updateUI();
 
-            // rename nur bei Dateien
+            // renameFiles nur bei Dateien
             if (this.dateiliste[i].isFile() && !this.dateiliste[i].renameTo(
                     new File(this.dateiliste[i].getParent()
                             + File.separatorChar + nameNeu))) {
@@ -85,7 +86,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
                         + this.dateiliste[i].getName());
             } // end if
         } // end of for
-    } // end of rename
+    } // end of renameFiles
 
     /**
      * Checks whether current UI-configuration is valid in order to perform the

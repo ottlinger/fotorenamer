@@ -28,17 +28,19 @@ import java.io.File;
  * @version 2004-01-08
  */
 public class HelpWindow extends JFrame implements ActionListener {
+    /** Logger for this class. */
     private static final Logger LOG = Logger.getLogger(HelpWindow.class);
+    /**
+    End button needs to be visible inside the class to perform programme
+    exit.
+    */
     private JButton endButton = null;
 
     /**
      * Relative location of the UI's image icon.
      */
-    // REVIEW use spring resource loader instead?
-    private static String HTML_HELP_LOCATION = ".." + File.separator
-            + ".." + File.separator
-            + ".." + File.separator + ".." + File.separator
-            + "html" + File.separator + "hilfe.html";
+    private static String HTML_HELP_LOCATION = File.separator + "html"
+            + File.separator + "hilfe.html";
 
     /**
      * Creates a HelpWindow, initializes its components but does

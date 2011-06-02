@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
+import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -32,24 +33,41 @@ public class MainUIWindow extends JFrame implements ActionListener {
      * Provide versioning information in the UI. Values come via
      * maven-filtering.
      */
-    public static final String VERSION = "2011-03-26 / GC-rev: "
+    public static final String VERSION = "2011-06-01 / GC-rev: "
             + de.aikiit.bildbearbeiter.util.Version.VERSION;
     /**
      * Relative location of the UI's image icon.
      */
-    // REVIEW use spring resource loader instead?
-    private static String IMAGE_LOCATION = ".." + File.separator
-            + ".." + File.separator + ".."
-            + File.separator + ".."
-            + File.separator + "image"
-            + File.separator + "miniCamera.png";
+    private static String IMAGE_LOCATION =
+            File.separator + "image" + File.separator + "miniCamera.png";
 
+    /**
+     * Component containing the help window of this application.
+     */
     private static HelpWindow helpWindow = new HelpWindow();
+    /**
+     * The UI's help button.
+     */
     private JButton helpButton = null;
+    /**
+     * The UI's start button.
+     */
     private JButton goButton = null;
+    /**
+     * The UI's exit button.
+     */
     private JButton endButton = null;
+    /**
+     * The UI's info/versioning button.
+     */
     private JButton infoButton = null;
+    /**
+     * The UI's revert renaming button.
+     */
     private JButton revertButton = null;
+    /**
+     * Component that selects the directory to work on.
+     */
     private ImageDirectorySelector imageDirectorySelector = null;
 
     /**
@@ -69,7 +87,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
 
         this.setTitle("fotorenamer-DateinamenKonverter " + os);
         this.getContentPane().setLayout(new BorderLayout());
-        this.setDefaultCloseOperation(3);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Dateiauswahl
         JPanel verzeichnis = new JPanel(new BorderLayout());
@@ -201,39 +219,6 @@ public class MainUIWindow extends JFrame implements ActionListener {
             // Execute the SwingWorker; the GUI will not freeze
             worker.execute();
 
-
-            /** Rückgängig oder Starten machen
-             if(!imageDirectorySelector.isSelected()) {
-             JOptionPane.showMessageDialog(null,
-             "Bitte ein Verzeichnis eingeben und\ndann starten.",
-             "Ungültiges Verzeichnis angegegen",
-             JOptionPane.ERROR_MESSAGE);
-             return;
-             } // end if
-
-             // Umbenennen ....
-             try {
-             if(event.getSource() == this.starten) {
-             new DateinamenManipulierer(imageDirectorySelector.toString());
-             } else {
-             new DateinamenZurueckUmbenenner(imageDirectorySelector.toString());
-             } // end if
-             } catch(InvalidDirectoryException uv) {
-             JOptionPane.showMessageDialog(null,
-             "Das eingegebene Verzeichnis \t"+uv.getMessage()+
-             " ist ungültig - bitte erneut versuchen.",
-             "Ungültiges Verzeichnis angegegen",
-             JOptionPane.ERROR_MESSAGE);
-             return;
-             } catch(NoFilesFoundException kde) {
-             JOptionPane.showMessageDialog(null,
-             "Im Verzeichnis\t"+kde.getMessage()+
-             "existieren keine umbenennbaren Dateien - bitte erneut versuchen.",
-             "Keine Dateien vorhanden",
-             JOptionPane.ERROR_MESSAGE);
-             return;
-             } // end of catch kde
-             */
         } // end if-getSource
     } // end of actionPerformed
 

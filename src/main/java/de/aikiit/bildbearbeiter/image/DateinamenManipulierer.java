@@ -14,7 +14,7 @@ import java.io.File;
 
 /**
  * Rename image files based on exif metadata values. During metadata extraction
- * the date of creation is extracted and used to rename the file.
+ * the date of creation is extracted and used to renameFiles the file.
  * <p/>
  * <b>ATTENTION!</b>: You should only work on copies of images with that tool
  *
@@ -24,7 +24,7 @@ import java.io.File;
 public class DateinamenManipulierer implements Runnable {
     // REVIEW extract this class into an abstract pictureModifier
     // with 2 subclasses, one method to generate names should be abstract,
-    // the current rename should be renamed :-)
+    // the current renameFiles should be renamed :-)
     private static final Logger LOG =
             Logger.getLogger(DateinamenManipulierer.class);
 
@@ -106,7 +106,7 @@ public class DateinamenManipulierer implements Runnable {
                     + targetFilename);
             this.progressBar.updateUI();
 
-            // only rename files
+            // only renameFiles files
             if (this.imageList[i].isFile() && !this.imageList[i].renameTo(
                             new File(this.imageList[i].getParent(),
                                     targetFilename))) {
@@ -114,7 +114,7 @@ public class DateinamenManipulierer implements Runnable {
                         + this.imageList[i].getName());
             } // end if - isFile()
         } // end of for
-    } // end of rename
+    } // end of renameFiles
 
     /**
      * Performs the renaming and updates the UI. All error handling is done in

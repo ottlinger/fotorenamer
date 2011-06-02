@@ -5,7 +5,7 @@
     <groupId>de.aikiit</groupId>
     <artifactId>fotorenamer</artifactId>
     <packaging>jar</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>FotoRenamer - rename your photos automatically</name>
     <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
     <url>http://code.google.com/p/fotorenamer/</url>
@@ -271,6 +271,11 @@
 
                 This way everything is packaged and bundled:
                 mvn install webstart:jnlp
+
+                BUG/REVIEW: http://code.google.com/p/fotorenamer/issues/detail?id=8
+                Currently too many files are packed inside the
+                zip archive, such as: jnlpTemplate.vm and the
+                filtered-directory with its contents
              -->
             <plugin>
                 <groupId>org.codehaus.mojo.webstart</groupId>
