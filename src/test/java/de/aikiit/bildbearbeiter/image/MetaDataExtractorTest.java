@@ -24,7 +24,7 @@ public class MetaDataExtractorTest {
      */
     @Test
     public final void readDirectoryContent() throws Exception {
-        File f = new File(TestConstants.PATH2TESTIMG);
+        File f = new File(TestConstants.FULLPATH_TEST_IMG);
         LOG.debug("Extracting metadata from " + f.getAbsolutePath());
         assertEquals("20110130_131102_IMG_7559_mini.JPG", MetaDataExtractor.generateCreationDateInCorrectFormat(f));
     }

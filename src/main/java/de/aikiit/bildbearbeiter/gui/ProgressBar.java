@@ -16,10 +16,19 @@ import java.awt.GridLayout;
  * @version 2004-01-08
  */
 public class ProgressBar extends JFrame {
+    /**
+     * Logger for this class.
+     */
     private static final Logger LOG = Logger.getLogger(ProgressBar.class);
+    /**
+     * By default the UI sleeps for 200 ms to be able to read the file names
+     * during operation.
+     */
+    private static final int DEFAULT_UI_DELAY = 200;
 
     private JLabel textInfo = null;
     private JProgressBar progressBar = null;
+    private int delayInUI = -1;
 
     /**
      * Creates a progress bar with the given amount as 100 percent.
@@ -44,6 +53,11 @@ public class ProgressBar extends JFrame {
         this.textInfo = new JLabel();
         this.progressBar.setValue(0);
         this.progressBar.setStringPainted(true);
+        // default value: 200 ms
+        // calculate delay in UI depending on maximum capacity of the bar
+        // itself; the more files the lower the delay
+        this.delayInUI = (maxCapacity < 35) ?
+                DEFAULT_UI_DELAY : (DEFAULT_UI_DELAY/3);
 
         this.getContentPane().setLayout(new GridLayout(3, 1));
         this.getContentPane().add(info);
@@ -66,7 +80,7 @@ public class ProgressBar extends JFrame {
         // TODO replace with a Timer - see
         // http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
         try {
-            Thread.sleep(200);
+            Thread.sleep(this.delayInUI);
         } catch (Exception e) {
             LOG.error("Error during repaint of ProgressBar");
         }

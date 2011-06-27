@@ -22,7 +22,7 @@ public class ComponentGaugeUtilTest {
     @Test
     public final void createIconFromStringPath() throws Exception {
         // FIXME not really clear why this location (valid with File-separators) cannot be parsed into an URL
-        // assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.PATH2TESTIMG));
+        // assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.FULLPATH_TEST_IMG));
         assertNull(ComponentGaugeUtil.createImageIcon("wuumansho"));
     }
 

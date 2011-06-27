@@ -9,7 +9,7 @@
     <copyright>&#169;2011 Aiki IT</copyright>
     <item>
       <title>File: 20,
-             Errors: 42,
+             Errors: 49,
              Warnings: 0,
              Infos: 0
       </title>
@@ -141,20 +141,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.CreatonDateFromExifImageRenamer.java">de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner.java">de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java</a>
                 </td>
                 <td>
@@ -220,7 +206,7 @@
                   0
                 </td>
                 <td>
-                  5
+                  10
                 </td>
               </tr>
                           <tr>
@@ -235,6 +221,20 @@
                 </td>
                 <td>
                   8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.CreationDateFromExifImageRenamer.java">de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
               </tr>
                           <tr>

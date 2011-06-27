@@ -12,6 +12,14 @@ import java.io.File;
  */
 @Ignore("Only constants defined here.")
 public class TestConstants {
-    public final static String PATH2TESTIMG = System.getProperty("user.dir")
+    /**
+     * Constant to describe full qualified path to one test image.
+     */
+    public final static String FULLPATH_TEST_IMG = System.getProperty("user.dir")
             + File.separator + "src" + File.separator + "test" + File.separator + "data" + File.separator + "IMG_7559_mini.JPG";
+    /**
+     * Constant to fully qualified directory with all test images.
+     */
+    public final static String FULLPATH_IMAGES = System.getProperty("user.dir")
+            + File.separator + "src" + File.separator + "test" + File.separator + "data" + File.separator;
 }

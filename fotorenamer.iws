@@ -15,268 +15,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="197e21c8-bdfb-488f-879a-fa3892645d8b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/package-list" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/resources/inherit.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/checkstyle.rss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/images/blank.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/images/downsimple.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/images/upsimple.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/close.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/collapsed.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/expanded.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/external.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/icon_error_sml.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/icon_info_sml.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/icon_success_sml.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/icon_warning_sml.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/logos/build-by-maven-black.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/logos/build-by-maven-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/logos/maven-feather.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/newwindow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/images/rss.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/package-list" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/resources/inherit.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/allclasses-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/allclasses-noframe.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/constant-values.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/ApplicationStarter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/class-use/ApplicationStarter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/InvalidDirectoryException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/NoFilesFoundException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/RenamingErrorException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/class-use/InvalidDirectoryException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/class-use/NoFilesFoundException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/class-use/RenamingErrorException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/exception/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/HelpWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/MainUIWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/ProgressBar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/class-use/HelpWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/class-use/ImageDirectorySelector.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/class-use/MainUIWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/class-use/ProgressBar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/gui/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/ImageFilenameFilter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/MetaDataExtractor.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/AbstractImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/CreatonDateFromExifImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/DateinamenManipulierer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/DateinamenZurueckUmbenenner.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/ImageFilenameFilter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/MetaDataExtractor.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/Version.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/class-use/ComponentGaugeUtil.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/class-use/Version.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/util/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/deprecated-list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/help-doc.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/index-all.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/overview-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/overview-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/overview-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/serialized-form.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/apidocs/stylesheet.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/changelog.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/checkstyle.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/css/help.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/css/main.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/css/sortabletable.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/css/source-viewer.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/css/tooltip.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.ApplicationStarter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.exception.InvalidDirectoryException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.exception.NoFilesFoundException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.exception.RenamingErrorException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.gui.HelpWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.gui.ImageDirectorySelector.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.gui.MainUIWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.gui.ProgressBar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.AbstractImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.CreatonDateFromExifImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.DateinamenManipulierer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.ImageFilenameFilter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.MetaDataExtractor.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.util.ComponentGaugeUtil.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.util.Version.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-packages.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-sourcefiles-de.aikiit.bildbearbeiter.exception.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-sourcefiles-de.aikiit.bildbearbeiter.gui.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-sourcefiles-de.aikiit.bildbearbeiter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-sourcefiles-de.aikiit.bildbearbeiter.image.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-sourcefiles-de.aikiit.bildbearbeiter.util.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-sourcefiles.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-summary-de.aikiit.bildbearbeiter.exception.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-summary-de.aikiit.bildbearbeiter.gui.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-summary-de.aikiit.bildbearbeiter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-summary-de.aikiit.bildbearbeiter.image.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-summary-de.aikiit.bildbearbeiter.util.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/frame-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/help.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/js/customsorttypes.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/js/popup.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/js/sortabletable.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cobertura/js/stringbuilder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cpd.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/cpd.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/css/maven-base.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/css/maven-theme.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/css/print.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/css/site.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/dependencies.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/dev-activity.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/file-activity.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/findbugs.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/integration.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/issue-tracking.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/jdepend-report.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/license.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/mail-lists.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/plugin-management.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/plugins.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/pmd.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/pmd.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/project-info.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/project-reports.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/project-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/source-repository.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/surefire-report.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/taglist.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/team-list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/allclasses-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/allclasses-noframe.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/constant-values.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/TestConstants.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/class-use/TestConstants.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/HelpWindowTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/ImageDirectorySelectorTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/ProgressBarTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/class-use/HelpWindowTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/class-use/ImageDirectorySelectorTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/class-use/ProgressBarTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/gui/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/class-use/CreationDateFromExifImageRenamerTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/class-use/MetaDataExtractorTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/image/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/util/class-use/ComponentGaugeUtilTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/util/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/util/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/util/package-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/de/aikiit/bildbearbeiter/util/package-use.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/deprecated-list.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/help-doc.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/index-all.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/overview-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/overview-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/overview-tree.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/testapidocs/stylesheet.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/allclasses-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/TestConstants.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/gui/HelpWindowTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/gui/ImageDirectorySelectorTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/gui/ProgressBarTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/gui/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/gui/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/image/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/image/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/util/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/de/aikiit/bildbearbeiter/util/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/overview-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/overview-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref-test/stylesheet.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/allclasses-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/ApplicationStarter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/exception/InvalidDirectoryException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/exception/NoFilesFoundException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/exception/RenamingErrorException.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/exception/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/exception/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/gui/HelpWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/gui/MainUIWindow.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/gui/ProgressBar.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/gui/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/gui/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/ImageFilenameFilter.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/MetaDataExtractor.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/image/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/util/Version.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/util/package-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/de/aikiit/bildbearbeiter/util/package-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/overview-frame.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/overview-summary.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webpage/site/xref/stylesheet.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iml" afterPath="$PROJECT_DIR$/fotorenamer.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.ipr" afterPath="$PROJECT_DIR$/fotorenamer.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iws" afterPath="$PROJECT_DIR$/fotorenamer.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/jnlpTemplate.vm" afterPath="$PROJECT_DIR$/src/main/resources/jnlpTemplate.vm" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/test/resources/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.html" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/CreatonDateFromExifImageRenamer.html" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/CreatonDateFromExifImageRenamer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.CreatonDateFromExifImageRenamer.html" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.CreatonDateFromExifImageRenamer.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java" />
     </list>
     <ignored path="fotorenamer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -469,61 +221,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainUIWindow.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="1213" selection-end="1213" vertical-scroll-proportion="-2.52">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="492" column="39" selection-start="20667" selection-end="20667" vertical-scroll-proportion="9.156327">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelpWindow.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="1020" selection-end="1020" vertical-scroll-proportion="-2.7">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractImageRenamer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="4" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreatonDateFromExifImageRenamer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="59" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CreationDateFromExifImageRenamerTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="3" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
+            <state line="21" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MetaDataExtractorTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="44" selection-start="700" selection-end="717" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -532,36 +242,52 @@
       <file leaf-file-name="TestConstants.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="76" selection-start="319" selection-end="349" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MetaDataExtractorTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="40" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0">
+            <state line="20" column="66" selection-start="641" selection-end="641" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DateinamenManipulierer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
+      <file leaf-file-name="CreationDateFromExifImageRenamer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="39" selection-start="1060" selection-end="1060" vertical-scroll-proportion="0.0">
+            <state line="12" column="60" selection-start="346" selection-end="346" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RenamingErrorException.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/RenamingErrorException.java">
+      <file leaf-file-name="AbstractImageRenamer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="1" selection-start="461" selection-end="461" vertical-scroll-proportion="0.0">
+            <state line="56" column="12" selection-start="1947" selection-end="1947" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainUIWindow.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="0" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProgressBar.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="54" selection-start="1954" selection-end="1954" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="428" column="21" selection-start="17958" selection-end="17958" vertical-scroll-proportion="0.018050542">
               <folding />
             </state>
           </provider>
@@ -586,22 +312,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/ApplicationStarter.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/ImageFilenameFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
-        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java" />
+        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
       </list>
     </option>
   </component>
@@ -630,6 +356,7 @@
       <MavenImportingSettings>
         <option name="downloadDocsAutomatically" value="true" />
         <option name="downloadSourcesAutomatically" value="true" />
+        <option name="importAutomatically" value="true" />
         <option name="keepSourceFolders" value="false" />
       </MavenImportingSettings>
     </option>
@@ -708,8 +435,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Favorites" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -720,6 +446,86 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.6 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.6 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rt.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.6 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rt.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; 1.6 &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rt.jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lang" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -821,6 +627,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fotorenamer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filtered" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -972,7 +808,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Favorites" />
     </panes>
   </component>
   <component name="ProjectViewSettings">
@@ -989,7 +826,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="editor.preferences.import" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -1274,33 +1111,33 @@
     <frame x="0" y="24" width="1920" height="1032" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32460135" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32687926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32346243" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3242009" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32346243" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32801822" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2486631" sideWeight="0.67009133" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32459894" sideWeight="0.67539865" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.0" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43607306" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Pomodoro" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990867" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Pomodoro" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Aspects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32687926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32801822" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
@@ -1406,122 +1243,84 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="59" selection-start="1721" selection-end="1721" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/MetaDataExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="19" selection-start="685" selection-end="685" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/RenamingErrorException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="1" selection-start="461" selection-end="461" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/jdk/src.zip!/java/io/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="62" selection-start="6891" selection-end="6946" vertical-scroll-proportion="0.33205375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="4" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/jdk/src.zip!/java/lang/System.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="902" column="23" selection-start="37394" selection-end="37394" vertical-scroll-proportion="12.82967">
-          <folding />
-        </state>
+        <state line="902" column="23" selection-start="37394" selection-end="37394" vertical-scroll-proportion="12.82967" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/jdk/src.zip!/javax/swing/JFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="357" column="70" selection-start="13786" selection-end="13815" vertical-scroll-proportion="0.25091577">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="39" selection-start="1060" selection-end="1060" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="59" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="40" selection-start="700" selection-end="700" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="3" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="76" selection-start="319" selection-end="349" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="357" column="70" selection-start="13786" selection-end="13815" vertical-scroll-proportion="0.25091577" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="0" selection-start="2144" selection-end="2144" vertical-scroll-proportion="-0.016483517">
-          <folding />
-        </state>
+        <state line="63" column="0" selection-start="2144" selection-end="2144" vertical-scroll-proportion="-0.016483517" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="39" selection-start="1060" selection-end="1060" vertical-scroll-proportion="0.01764706" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/exception/RenamingErrorException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="1" selection-start="461" selection-end="461" vertical-scroll-proportion="0.33529413" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/HelpWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="1020" selection-end="1020" vertical-scroll-proportion="-2.7">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="37" column="0" selection-start="1020" selection-end="1020" vertical-scroll-proportion="0.018050542" />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/jdk/src.zip!/java/lang/Runnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="10" selection-start="1535" selection-end="1535" vertical-scroll-proportion="0.45054945" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/filtered/Version.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="7" selection-start="171" selection-end="171" vertical-scroll-proportion="0.22099447" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="44" selection-start="700" selection-end="717" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="66" selection-start="641" selection-end="641" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="60" selection-start="346" selection-end="346" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="12" selection-start="1947" selection-end="1947" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="1213" selection-end="1213" vertical-scroll-proportion="-2.52">
-          <folding />
-        </state>
+        <state line="37" column="0" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="54" selection-start="1954" selection-end="1954" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="492" column="39" selection-start="20667" selection-end="20667" vertical-scroll-proportion="9.156327">
+        <state line="428" column="21" selection-start="17958" selection-end="17958" vertical-scroll-proportion="0.018050542">
           <folding />
         </state>
       </provider>

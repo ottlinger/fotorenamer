@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import java.io.File;
 
 /**
- * Main implementation to renameFiles images taken with digital cameras.
+ * Main implementation to rename images taken with digital cameras.
  * <p/>
  * The onliest abstract method generates a filename from a given file.
  *
@@ -32,7 +32,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      * Empty default constructor to enforce file/directory based usage of
      * subclasses.
      */
-    AbstractImageRenamer() {
+    private AbstractImageRenamer() {
      // empty default constructor
     }
 
