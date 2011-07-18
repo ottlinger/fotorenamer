@@ -56,8 +56,8 @@ public class ProgressBar extends JFrame {
         // default value: 200 ms
         // calculate delay in UI depending on maximum capacity of the bar
         // itself; the more files the lower the delay
-        this.delayInUI = (maxCapacity < 35) ?
-                DEFAULT_UI_DELAY : (DEFAULT_UI_DELAY/3);
+        this.delayInUI = (maxCapacity < 35)
+                ? DEFAULT_UI_DELAY : (DEFAULT_UI_DELAY / 3);
 
         this.getContentPane().setLayout(new GridLayout(3, 1));
         this.getContentPane().add(info);

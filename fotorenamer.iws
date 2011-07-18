@@ -15,20 +15,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="197e21c8-bdfb-488f-879a-fa3892645d8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iml" afterPath="$PROJECT_DIR$/fotorenamer.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.ipr" afterPath="$PROJECT_DIR$/fotorenamer.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fotorenamer.iws" afterPath="$PROJECT_DIR$/fotorenamer.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" afterPath="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/util/ComponentGaugeUtilTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.html" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/CreatonDateFromExifImageRenamer.html" afterPath="$PROJECT_DIR$/webpage/site/apidocs/de/aikiit/bildbearbeiter/image/class-use/CreatonDateFromExifImageRenamer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.CreatonDateFromExifImageRenamer.html" afterPath="$PROJECT_DIR$/webpage/site/cobertura/de.aikiit.bildbearbeiter.image.CreatonDateFromExifImageRenamer.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreatonDateFromExifImageRenamer.java" afterPath="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java" />
     </list>
     <ignored path="fotorenamer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -248,10 +237,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreationDateFromExifImageRenamer.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CreationDateFromExifImageRenamer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="60" selection-start="346" selection-end="346" vertical-scroll-proportion="0.0">
+            <state line="29" column="0" selection-start="1049" selection-end="1049" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
@@ -260,7 +249,7 @@
       <file leaf-file-name="AbstractImageRenamer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="12" selection-start="1947" selection-end="1947" vertical-scroll-proportion="0.0">
+            <state line="169" column="0" selection-start="6285" selection-end="6285" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -269,7 +258,7 @@
       <file leaf-file-name="MainUIWindow.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="0" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0">
+            <state line="40" column="27" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -278,16 +267,7 @@
       <file leaf-file-name="ProgressBar.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="54" selection-start="1954" selection-end="1954" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="428" column="21" selection-start="17958" selection-end="17958" vertical-scroll-proportion="0.018050542">
+            <state line="61" column="56" selection-start="2016" selection-end="2016" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -325,9 +305,9 @@
         <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/TestConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java" />
         <option value="$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java" />
       </list>
     </option>
   </component>
@@ -435,7 +415,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -460,72 +440,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="&lt; 1.6 &gt;" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.6 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rt.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.6 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rt.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fotorenamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.6 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rt.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lang" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -808,8 +722,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Favorites" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewSettings">
@@ -1115,9 +1029,8 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32346243" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3223982" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32346243" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1125,13 +1038,13 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32801822" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2486631" sideWeight="0.67009133" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.0" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32834226" sideWeight="0.6776018" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43607306" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Pomodoro" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915717" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hudson Information" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32346243" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Aspects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -1141,6 +1054,7 @@
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="Hudson Jobs" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1283,11 +1197,6 @@
         <state line="8" column="7" selection-start="171" selection-end="171" vertical-scroll-proportion="0.22099447" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/MetaDataExtractorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="44" selection-start="700" selection-end="717" vertical-scroll-proportion="0.0" />
@@ -1298,29 +1207,42 @@
         <state line="20" column="66" selection-start="641" selection-end="641" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="60" selection-start="346" selection-end="346" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="12" selection-start="1947" selection-end="1947" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/MainUIWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="0" selection-start="1213" selection-end="1213" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="54" selection-start="1954" selection-end="1954" vertical-scroll-proportion="0.0" />
+        <state line="40" column="27" selection-start="1305" selection-end="1305" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="428" column="21" selection-start="17958" selection-end="17958" vertical-scroll-proportion="0.018050542">
+        <state line="428" column="21" selection-start="17958" selection-end="17958" vertical-scroll-proportion="0.027173912">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/gui/ProgressBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="56" selection-start="2016" selection-end="2016" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="169" column="0" selection-start="6285" selection-end="6285" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="1049" selection-end="1049" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
