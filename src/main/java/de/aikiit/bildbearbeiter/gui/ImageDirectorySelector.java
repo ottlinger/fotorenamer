@@ -151,6 +151,7 @@ public class ImageDirectorySelector extends JPanel {
      */
     @Override
     public final String toString() {
+ // FIXME: http://cwe.mitre.org/data/definitions/22.html#Demonstrative%20Examples - use getCanonicalPath() in Java to avoid ..-path manipulations
         return this.selection;
     } // end of toString
 } // end of class
