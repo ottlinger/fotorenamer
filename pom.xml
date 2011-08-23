@@ -5,7 +5,7 @@
     <groupId>de.aikiit</groupId>
     <artifactId>fotorenamer</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.1.3-SNAPSHOT</version>
     <name>FotoRenamer - rename your photos automatically</name>
     <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
     <url>http://code.google.com/p/fotorenamer/</url>
@@ -37,7 +37,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logger.version>1.2.16</logger.version>
-        <junit.version>4.8.2</junit.version>
+        <junit.version>4.8</junit.version>
         <mockito.version>1.8.5</mockito.version>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     </properties>
@@ -97,7 +97,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-scm</artifactId>
-                <!--version>1.0-beta-7</version-->
+                <!--version>1.0</version-->
             </extension>
         </extensions>
 
@@ -118,7 +118,7 @@
             <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.7.2</version>
+                <version>2.9</version>
                 <configuration>
                     <enableAssertions>true</enableAssertions>
                     <!--systemProperties>
@@ -133,7 +133,7 @@
             <!-- copy Version.java out of normal resource copying to avoid eclipse errors -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>2.5</version>
                 <executions>
                     <execution>
                         <id>copy-version-resources</id>
@@ -162,7 +162,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.7</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
@@ -207,7 +207,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.8</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -234,7 +234,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <!-- mvn2: version>2.2</version-->
-                <version>3.0-beta-3</version>
+                <version>3.0</version>
                 <configuration>
                     <outputEncoding>UTF-8</outputEncoding>
                     <inputEncoding>UTF-8</inputEncoding>
@@ -404,7 +404,7 @@
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-checkstyle-plugin</artifactId>
-              <version>2.6</version>
+              <version>2.7</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -414,7 +414,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
                 <configuration>
                     <aggregate>true</aggregate>
                     <linkJavadoc>true</linkJavadoc>
@@ -450,7 +450,7 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-                <version>2.4</version>
+                <version>2.6</version>
             </plugin>
             <!-- jdepend plugin -->
             <plugin>
@@ -463,7 +463,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -493,13 +493,8 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.3.1</version>
-            </plugin>
+                <version>2.3.2</version>
             <!-- generates errors
-                  <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.3.1</version>
                     <configuration>
                       <xmlOutput>true</xmlOutput>
                       <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
@@ -514,13 +509,13 @@
                       <debug>true</debug>
                       <relaxed>true</relaxed>
                     </configuration>
+-->
                   </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <!-- If you are using mvn2 us this version : 2.1.1 -->
-                <version>2.2</version>
+                <version>2.4</version>
             </plugin>
         </plugins>
     </reporting>

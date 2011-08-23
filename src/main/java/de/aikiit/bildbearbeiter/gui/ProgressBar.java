@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.GridLayout;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * This class provides a progressbar with 2 lines. One is the progress bar
