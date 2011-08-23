@@ -18,12 +18,39 @@ import java.text.ParseException;
  * Sanslean to perform the metadata extraction itself.
  */
 public final class MetaDataExtractor {
+    /**
+     * This class' logger.
+     */
     private static final Logger LOG = Logger.getLogger(MetaDataExtractor.class);
+
+    /**
+     * Constant for an empty string.
+     */
     public static final String EMPTY_STRING = "";
+
+    /**
+     * Constant for a blank character.
+     */
     public static final String SPACE = " ";
+
+    /**
+     * Constant for an underscor character.
+     */
     public static final String UNDERSCORE = "_";
+
+    /**
+     * Constant for a colon.
+     */
     public static final String COLON = ":";
+
+    /**
+     * Constant for an apostrophe.
+     */
     public static final String APOSTROPHE = "'";
+
+    /**
+     * Constant to describe a valid length of an EXIF date (currently 21).
+     */
     public static final int VALID_EXIF_DATE_LENGTH = 21;
 
     /**
@@ -78,6 +105,8 @@ public final class MetaDataExtractor {
      * NULL for termination. When the field is left blank, it is treated as
      * unknown. Tag = 306 (132.H) Type = ASCII Count = 20 Default = none </i>
      *
+     * If the extracted date value is empty - no new file name is generated.
+     *
      * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
      * @throws ParseException     If metadata cannot be parsed correctly.
@@ -96,12 +125,13 @@ public final class MetaDataExtractor {
             throws ImageReadException, IOException, ParseException {
         String dateValue =
                 getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
-        if (dateValue != null) {
+
+        if (dateValue != null && dateValue.length() > 0) {
             LOG.info("EXIF date value is: " + dateValue);
 
             assert dateValue.length() == VALID_EXIF_DATE_LENGTH
                     : "Invalid length of EXIF metadata, "
-                    + "not complying to the standard";
+                    + "not complying to the standard.";
 
             // Date parsing with apache.DateUtils or JDK-DateFormats
             // does not work due to '-signs in the date string
