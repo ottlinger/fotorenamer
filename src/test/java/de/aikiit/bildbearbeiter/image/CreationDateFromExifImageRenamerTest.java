@@ -14,6 +14,8 @@ import static junit.framework.Assert.assertTrue;
  * @author hirsch
  * @version 2011-06-02, 13:41
  */
+// TODO On mac the dummy image gets deleted sometimes while the renamed file is existing, maybe due to different
+// maven calls? compile site:site and clean install -Plive-demo (not seen on linux).
 public class CreationDateFromExifImageRenamerTest {
 
     final static private Logger LOG = Logger.
