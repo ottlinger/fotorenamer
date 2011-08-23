@@ -34,6 +34,9 @@ public final class LocalizationHelper {
         FORMAT.setLocale(Locale.GERMAN);
     }
 
+    /**
+     * Empty default constructor to prevent instantiation.
+     */
     private LocalizationHelper() {
         // empty to prevent instantiation
     }
@@ -60,8 +63,8 @@ public final class LocalizationHelper {
      *
      * @see <a href="http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html">I18N-tutorial</a>
      *
-     * @param key Key to retrieve from the bundle, e.g. <i>fotorenamer.foo.parameteredtitle</i>
-     * @param parameters
+     * @param key Key to retrieve from the bundle, e.g. <i>fotorenamer.foo.parameteredtitle</i>.
+     * @param parameters Object array with all parameters.
      * @return Returns the value from the bundle with the given parameters applied.
      */
     public static String getParameterizedBundleString(final String key, final Object[] parameters) {
