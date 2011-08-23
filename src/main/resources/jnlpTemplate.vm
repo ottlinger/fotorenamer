@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp
+    spec="1.0+"
+    codebase="http://www.aiki-it.de/sw/ixus/"
+    href="$outputFile">
+  <information>
+    <title>Bildbearbeiter - FotoRenamer</title>
+    <homepage href="http://www.aiki-it.de"/>
+    <description kind="one-line">FotoRenamer - rename your camera images photographs automatically.</description>
+    <description kind="short">Short Description.
+                   Multi-line.</description>
+    <description kind="tooltip">Tooltip Description</description>
+    <icon
+      width="55"
+      height="36"
+      href="image/logo.png"/>
+    <icon
+      kind="splash"
+      href="image/logo.png"/>
+  </information>
+  <information>
+    <title>Bildbearbeiter - FotoRenamer</title>
+    <vendor>AIKI IT Berlin</vendor>
+    <homepage href="http://www.aiki-it.de/sw/ixus/"/>
+    <description kind="one-line">FotoRenamer - rename your camera images photographs automatically.</description>
+    <description kind="short">Description courte.
+                   Multi-ligne.</description>
+    <description kind="tooltip">Description pour Tooltip</description>
+  </information>
+  <security>
+     <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.4+"
+     initial-heap-size="32m"
+     max-heap-size="128m"
+     />
+     $dependencies
+  </resources>
+  <application-desc main-class="$mainClass">
+  </application-desc>
+</jnlp>

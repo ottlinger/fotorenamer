@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>FotoRenamer - rename your photos automatically - Checkstyle report</title>
+    <link>http://code.google.com/p/fotorenamer/</link>
+    <description>FotoRenamer - rename your photos automatically - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2011 Aiki IT</copyright>
+    <item>
+      <title>File: 20,
+             Errors: 49,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://code.google.com/p/fotorenamer//checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://code.google.com/p/fotorenamer//checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.package-info.java">de/aikiit/bildbearbeiter/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.ImageFilenameFilter.java">de/aikiit/bildbearbeiter/image/ImageFilenameFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.gui.MainUIWindow.java">de/aikiit/bildbearbeiter/gui/MainUIWindow.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.gui.ImageDirectorySelector.java">de/aikiit/bildbearbeiter/gui/ImageDirectorySelector.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.ApplicationStarter.java">de/aikiit/bildbearbeiter/ApplicationStarter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.DateinamenManipulierer.java">de/aikiit/bildbearbeiter/image/DateinamenManipulierer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.AbstractImageRenamer.java">de/aikiit/bildbearbeiter/image/AbstractImageRenamer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.exception.package-info.java">de/aikiit/bildbearbeiter/exception/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner.java">de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.util.package-info.java">de/aikiit/bildbearbeiter/util/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.exception.RenamingErrorException.java">de/aikiit/bildbearbeiter/exception/RenamingErrorException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.package-info.java">de/aikiit/bildbearbeiter/image/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.gui.ProgressBar.java">de/aikiit/bildbearbeiter/gui/ProgressBar.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.MetaDataExtractor.java">de/aikiit/bildbearbeiter/image/MetaDataExtractor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.image.CreationDateFromExifImageRenamer.java">de/aikiit/bildbearbeiter/image/CreationDateFromExifImageRenamer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.gui.package-info.java">de/aikiit/bildbearbeiter/gui/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.gui.HelpWindow.java">de/aikiit/bildbearbeiter/gui/HelpWindow.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.exception.InvalidDirectoryException.java">de/aikiit/bildbearbeiter/exception/InvalidDirectoryException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.util.ComponentGaugeUtil.java">de/aikiit/bildbearbeiter/util/ComponentGaugeUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://code.google.com/p/fotorenamer//checkstyle.html#de.aikiit.bildbearbeiter.exception.NoFilesFoundException.java">de/aikiit/bildbearbeiter/exception/NoFilesFoundException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
