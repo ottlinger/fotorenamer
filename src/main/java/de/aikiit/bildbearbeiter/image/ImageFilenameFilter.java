@@ -11,7 +11,9 @@ import java.io.FilenameFilter;
  * @version 2011-04-02, 13:52
  */
 public class ImageFilenameFilter implements FilenameFilter {
-    // Constant defining JPG files.
+    /**
+     * This constant defines a JPG file extension for filtering.
+     */
     private static final String JPG = ".jpg";
 
     /**

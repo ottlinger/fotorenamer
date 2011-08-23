@@ -10,15 +10,17 @@ import javax.swing.JOptionPane;
 import java.io.File;
 
 /**
- * Main implementation to rename images taken with digital cameras.
- * <p/>
- * The onliest abstract method generates a filename from a given file.
+ * Abstract class that handles image renaming and file handling.
+ * <br/>
+ * The onliest abstract method generates a filename from a given file
+ * and should be used to provide different strategies for image renaming.
  *
  * @author hirsch
  * @version 2011-03-22, 11:43
  */
 public abstract class AbstractImageRenamer implements Runnable {
 
+    /** The logger of this class. **/
     private static final Logger LOG =
             Logger.getLogger(AbstractImageRenamer.class);
 
@@ -82,7 +84,7 @@ public abstract class AbstractImageRenamer implements Runnable {
 
         // internen Zustand setzen
         this.amountOfFiles = this.imageList.length;
-    } // end of pruefeEingabe
+    }
 
     /**
      * Performs the actual/technical renaming.
@@ -114,11 +116,12 @@ public abstract class AbstractImageRenamer implements Runnable {
                         + this.imageList[i].getName());
             } // end if - isFile()
         } // end of for
-    } // end of renameFiles
+    }
 
     /**
-     * This method provides a means to renameFiles files when iterating over a
-     * list of files.
+     * This method provides a strategy to rename image files when
+     * iterating over a list of files.
+     * It is called during image processing.
      *
      * @param imageFile Filename to renameFiles according to the subclass
      * implementation.
@@ -133,7 +136,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      * @see #renameFiles()
      */
     public final void run() {
-        String meldung = "";
+        String notification = "";
         this.progressBar = new ProgressBar(this.amountOfFiles);
 
         try {
@@ -152,18 +155,18 @@ public abstract class AbstractImageRenamer implements Runnable {
 
         // Erfolgsmeldung geben
         if (this.amountOfFiles == 0) {
-            meldung = "Im Verzeichnis: " + this.currentDirectory.getName()
+            notification = "Im Verzeichnis: " + this.currentDirectory.getName()
                     + "\nwurden keine Dateien\numbenannt.\n\n";
         } else if (this.amountOfFiles == 1) {
-            meldung = "\nEs wurde eine Datei\n"
+            notification = "\nEs wurde eine Datei\n"
                     + "im Verzeichnis: " + this.currentDirectory.getName()
                     + "\nerfolgreich umbenannt.\n\n";
         } else {
-            meldung = "\nEs wurden " + this.amountOfFiles + " Dateien\n"
+            notification = "\nEs wurden " + this.amountOfFiles + " Dateien\n"
                     + "im Verzeichnis: " + this.currentDirectory.getName()
-                    + "\nerfolgreich umbenannt.\n\n";
+                    + "\nbehandelt.\n\n";
         } // end of else
-        JOptionPane.showMessageDialog(null, meldung, "Erfolg",
+        JOptionPane.showMessageDialog(null, notification, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);
     } // end of run
 }

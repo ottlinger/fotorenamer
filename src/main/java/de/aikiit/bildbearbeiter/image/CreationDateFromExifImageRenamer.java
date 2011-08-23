@@ -7,6 +7,16 @@ import org.apache.log4j.Logger;
 import java.io.File;
 
 /**
+ * This class transforms picture file names. All relevant files
+ * in the target directory get a new file name - if correct
+ * metadata can be extracted from the files' EXIF file headers.
+ * <br />
+ * A picture <code>foo.jpg</code> is renamed to
+ * <code>201108111100_foo.jpg</code>  if the picture's creation date
+ * was 2011-08-11 11:00.
+ * <br />
+ * Files with no exif metadata are not changed at all.
+ *
  * @author hirsch
  * @version 2011-06-02, 13:22
  */
@@ -17,18 +27,17 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
             Logger.getLogger(CreationDateFromExifImageRenamer.class);
 
     /**
-     * Übernimmt ein Verzeichnis. Dessen Dateien werden in
-     * ZuletztGeändertDatum_ZuletztGeändertUhrzeit_Dateiname umbenannt.<br> Bei den
-     * IXUS-Bildern bedeutet das, dass den Dateinamen der Zeitpunkt der
-     * Bildaufnahme mit hinzugefügt wird. <br>
+     * The given directory is scanned for image files that
+     * are processed.
      *
-     * @param verzeichnis Directory to work on.
+     * @param targetDirectory Name of the directory to work on.
      * @throws InvalidDirectoryException If there's a problem with the directory
      *                                   selected.
      * @throws NoFilesFoundException     if the selected directory is empty.
      */
-    public CreationDateFromExifImageRenamer(final String verzeichnis) throws InvalidDirectoryException, NoFilesFoundException {
-        super(verzeichnis);
+    public CreationDateFromExifImageRenamer(final String targetDirectory) throws
+            InvalidDirectoryException, NoFilesFoundException {
+        super(targetDirectory);
     }
 
     /**
