@@ -87,7 +87,7 @@ public final class MetaDataExtractor {
                         + " yields " + result);
             }
         }
-        return result == null ? EMPTY_STRING : result;
+        return (result == null ? EMPTY_STRING : result);
     }
 
     /**
@@ -126,8 +126,8 @@ public final class MetaDataExtractor {
         String dateValue =
                 getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
 
+        LOG.info("EXIF date value is: " + dateValue);
         if (dateValue != null && dateValue.length() > 0) {
-            LOG.info("EXIF date value is: " + dateValue);
 
             assert dateValue.length() == VALID_EXIF_DATE_LENGTH
                     : "Invalid length of EXIF metadata, "

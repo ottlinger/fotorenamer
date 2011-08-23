@@ -3,6 +3,9 @@
  */
 package de.aikiit.bildbearbeiter.gui;
 
+import de.aikiit.bildbearbeiter.util.LocalizationHelper;
+import org.apache.log4j.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -13,8 +16,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.io.IOException;
 
 /**
  * This component provides a means to select images that are to be renamed.
@@ -23,10 +25,17 @@ import java.awt.event.FocusListener;
  * @version 2004-01-08
  */
 public class ImageDirectorySelector extends JPanel {
-    private String selection = null;
+    /** The logger of this class. **/
+    private static final Logger LOG =
+            Logger.getLogger(ImageDirectorySelector.class);
+
+    /** Contains the selected directory as a text field or any user input. */
     private JTextField textField = null;
+    /** The UI's button to start directory selection. */
     private JButton browseButton = null;
+    /** An image icon that is displayed as part of the button. */
     private ImageIcon imageIcon = null;
+    /** Should this component be used to select directories only, default value is <code>false</code>. **/
     private boolean directoryOnly = false;
 
     /**
@@ -47,6 +56,9 @@ public class ImageDirectorySelector extends JPanel {
     }
 
     /**
+     * Provides a means to disable this component
+     * (e.g. during run of file renaming).
+     *
      * @param enable Enable/disable this component.
      */
     public final void setEnabled(final boolean enable) {
@@ -62,7 +74,7 @@ public class ImageDirectorySelector extends JPanel {
      *         configuration.
      */
     public final boolean isSelected() {
-        return selection != null;
+        return (this.textField.getText() != null);
     } // end of isSelected
 
 
@@ -93,52 +105,41 @@ public class ImageDirectorySelector extends JPanel {
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.EAST;
 
-        // mit Button ?
-        if (this.imageIcon == null) {
-            browseButton = new JButton("Verzeichnisauswahl");
-        } else {
-            browseButton = new JButton("Verzeichnisauswahl", this.imageIcon);
-        }
-
+        // show button
+        browseButton = (this.imageIcon == null
+                ? new JButton(LocalizationHelper.getBundleString("fotorenamer.ui.selector.title"))
+                : new JButton(LocalizationHelper.getBundleString("fotorenamer.ui.selector.title"), this.imageIcon));
         browseButton.setMnemonic('v');
         browseButton.setMargin(new Insets(1, 1, 1, 1));
         grid.setConstraints(browseButton, gbc);
         add(browseButton);
 
-        // Add focus listener.
-        textField.addFocusListener(new FocusListener() {
-            public void focusGained(final FocusEvent event) {
-            } // end of focusGained
-
-            public void focusLost(final FocusEvent event) {
-                if (!event.isTemporary()) {
-                    /** i am not really sure what is going on here
-                     * but i followed rick's implementation
-                     */
-                    selection = textField.getText();
-                } // end if
-            } // end of focusLost
-        });
-
+        // TODO add method to read contents that a user typed in
         // Add action listener.
         browseButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent event) {
+                textField.setText("");
                 JFileChooser fileDlg = new JFileChooser();
 
                 if (directoryOnly) {
                     fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                    fileDlg.setDialogTitle("Bitte Verzeichnis auswählen.");
+                    fileDlg.setDialogTitle(LocalizationHelper.getBundleString("fotorenamer.ui.selector.directory"));
                 } else {
                     fileDlg.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    fileDlg.setDialogTitle("Bitte eine Datei auswählen");
+                    fileDlg.setDialogTitle(LocalizationHelper.getBundleString("fotorenamer.ui.selector.file"));
                 } // end if
-                fileDlg.setApproveButtonText("Auswählen");
+                fileDlg.setApproveButtonText(LocalizationHelper.getBundleString("fotorenamer.ui.selector.select"));
 
                 if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
                         == JFileChooser.APPROVE_OPTION) {
-                    textField.setText(
-                            fileDlg.getSelectedFile().getAbsolutePath());
-                    selection = textField.getText();
+                    // use getCanonicalPath() to avoid ..-path manipulations and
+                    // try to set the selected file in the GUI
+                    try {
+                        textField.setText(fileDlg.getSelectedFile().getCanonicalPath());
+                    } catch (IOException ioe) {
+                        LOG.error("Error while selecting directory, extracted text is: " + textField.getText());
+                        LOG.error(ioe.getMessage());
+                    }
                 } // end if
             } // end of actionPerformed
         });
@@ -151,7 +152,6 @@ public class ImageDirectorySelector extends JPanel {
      */
     @Override
     public final String toString() {
- // FIXME: http://cwe.mitre.org/data/definitions/22.html#Demonstrative%20Examples - use getCanonicalPath() in Java to avoid ..-path manipulations
-        return this.selection;
+        return this.textField.getText();
     } // end of toString
 } // end of class

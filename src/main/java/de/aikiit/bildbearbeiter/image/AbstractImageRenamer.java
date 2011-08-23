@@ -24,10 +24,14 @@ public abstract class AbstractImageRenamer implements Runnable {
     private static final Logger LOG =
             Logger.getLogger(AbstractImageRenamer.class);
 
+    /** The currently selected directory to work on. */
     private File currentDirectory = null;
+    /** The list of all relevant files in the current directory. */
     private File[] imageList = null;
 
+    /** Progress bar for visual feedback of what's going on. */
     private ProgressBar progressBar = null;
+    /** Number of files that need processing. */
     private int amountOfFiles = 0;
 
     /**
