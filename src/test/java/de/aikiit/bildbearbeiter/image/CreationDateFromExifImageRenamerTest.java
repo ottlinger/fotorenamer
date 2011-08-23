@@ -4,8 +4,12 @@ import de.aikiit.bildbearbeiter.TestConstants;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.io.File;
+
+import static junit.framework.Assert.assertTrue;
+
 /**
- * Test exif renaming class.
+ * Test image renaming.
  *
  * @author hirsch
  * @version 2011-06-02, 13:41
@@ -16,9 +20,20 @@ public class CreationDateFromExifImageRenamerTest {
             getLogger(CreationDateFromExifImageRenamerTest.class);
 
     @Test
-    public void renameTestImage() throws Exception {
+    public void renameTestImageAndDeleteFileAfterwards() throws Exception {
+
+        assertTrue("Test image has to exist", new File(TestConstants.FULLPATH_TEST_IMG).exists());
+
+        // rename
         CreationDateFromExifImageRenamer creationDateFromExifImageRenamer =
                 new CreationDateFromExifImageRenamer(TestConstants.FULLPATH_IMAGES);
+
+        // FIXME assertTrue("Test image (renamed) has to exist afterwards", new File(TestConstants.FULLPATH_TEST_IMG_RENAMED).exists());
+
+        // restore for next test
+        File f = new File(TestConstants.FULLPATH_TEST_IMG_RENAMED);
+        f.renameTo(new File(TestConstants.FULLPATH_TEST_IMG));
+        // FIXME assertTrue("Test image has to exist afterwards", new File(TestConstants.FULLPATH_TEST_IMG).exists());
 
     }
 

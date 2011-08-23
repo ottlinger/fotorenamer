@@ -39,6 +39,7 @@
         <logger.version>1.2.16</logger.version>
         <junit.version>4.8.2</junit.version>
         <mockito.version>1.8.5</mockito.version>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     </properties>
     <dependencies>
         <dependency>
@@ -341,10 +342,11 @@
                 </configuration>
             </plugin>
             <!-- 2011-03-26 generates build number for filtering, seems to fail with hg as SCM provider, see http://jira.codehaus.org/browse/MOJO-1436 -->
-            <!--plugin>
+            <!-- 2011-08-23 http://stackoverflow.com/questions/802677/adding-the-current-date-with-maven2-filtering done with groovy -->
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.0-beta-4</version>
+                <version>1.0</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -354,7 +356,7 @@
                     </execution>
                 </executions>
                 <configuration/>
-            </plugin-->
+            </plugin>
         </plugins>
     </build>
     <!-- Run mvn clean install -Plive-demo for a live demo of this tool -->

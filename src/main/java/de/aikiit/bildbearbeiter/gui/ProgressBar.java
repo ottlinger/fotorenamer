@@ -1,12 +1,15 @@
 package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
+import de.aikiit.bildbearbeiter.util.LocalizationHelper;
 import org.apache.log4j.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import java.awt.GridLayout;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * This class provides a progressbar with 2 lines. One is the progress bar
@@ -26,8 +29,14 @@ public class ProgressBar extends JFrame {
      */
     private static final int DEFAULT_UI_DELAY = 200;
 
+    /** Text field to show current file or other information during run. */
     private JLabel textInfo = null;
+    /** The visual progress bar. */
     private JProgressBar progressBar = null;
+    /**
+     * Amount of seconds the UI sleeps in order to give a user a chance to read the screen,
+     * this value is calculated dynamically depending on the amount of pictures to be processed.
+     */
     private int delayInUI = -1;
 
     /**
@@ -36,7 +45,7 @@ public class ProgressBar extends JFrame {
      * @param maxCapacity Defines the 100%-scale for this progress bar.
      */
     public ProgressBar(final int maxCapacity) {
-        super("Fortschritt");
+        super();
         init(maxCapacity);
     }
 
@@ -47,9 +56,13 @@ public class ProgressBar extends JFrame {
      *                    value.
      */
     protected final void init(final int maxCapacity) {
+        // set window title
+        this.setTitle(LocalizationHelper.getBundleString("fotorenamer.ui.progress"));
+
         this.setResizable(false);
         this.progressBar = new JProgressBar(0, maxCapacity);
-        JLabel info = new JLabel("Dateien werden umbenannt..");
+
+        JLabel info = new JLabel(LocalizationHelper.getBundleString("fotorenamer.ui.progress.title"));
         this.textInfo = new JLabel();
         this.progressBar.setValue(0);
         this.progressBar.setStringPainted(true);
@@ -82,7 +95,7 @@ public class ProgressBar extends JFrame {
         try {
             Thread.sleep(this.delayInUI);
         } catch (Exception e) {
-            LOG.error("Error during repaint of ProgressBar");
+            LOG.error("Error during repaint of ProgressBar, " + e.getMessage());
         }
     } // end of updateUI
 

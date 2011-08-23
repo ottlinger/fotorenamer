@@ -30,11 +30,13 @@ import java.io.File;
  */
 public class MainUIWindow extends JFrame implements ActionListener {
     /**
-     * Provide versioning information in the UI. Values come via
-     * maven-filtering.
+     * Provide versioning information in the UI (transfered from maven).
      */
-    public static final String VERSION = "2011-06-01 / GC-rev: "
-            + de.aikiit.bildbearbeiter.util.Version.VERSION;
+    public static final String VERSION =
+            new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                    format(new java.util.Date(Long.parseLong(de.aikiit.bildbearbeiter.util.Version.TIMESTAMP)))
+                    + " / GC-rev: "
+                    + de.aikiit.bildbearbeiter.util.Version.VERSION;
     /**
      * Relative location of the UI's image icon.
      */
@@ -155,7 +157,9 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             + "Version: " + VERSION
                             + "\n\nAutor: P.Ottlinger, "
                             + "\nURL: http://www.aiki-it.de"
-                            + "\n (C) 1996-2011",
+                            + "\n (C) 1996-"
+                            + new java.text.SimpleDateFormat("yyyy").
+                    format(new java.util.Date(Long.parseLong(de.aikiit.bildbearbeiter.util.Version.TIMESTAMP))),
                     "Versionsinfo",
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
