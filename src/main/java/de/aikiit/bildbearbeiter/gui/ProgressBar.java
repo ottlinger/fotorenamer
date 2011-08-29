@@ -32,8 +32,10 @@ public class ProgressBar extends JFrame {
     /** The visual progress bar. */
     private JProgressBar progressBar = null;
     /**
-     * Amount of seconds the UI sleeps in order to give a user a chance to read the screen,
-     * this value is calculated dynamically depending on the amount of pictures to be processed.
+     * Amount of seconds the UI sleeps in order to give a
+     * user a chance to read the screen,
+     * this value is calculated dynamically
+     * depending on the amount of pictures to be processed.
      */
     private int delayInUI = -1;
 
@@ -55,20 +57,23 @@ public class ProgressBar extends JFrame {
      */
     protected final void init(final int maxCapacity) {
         // set window title
-        this.setTitle(LocalizationHelper.getBundleString("fotorenamer.ui.progress"));
+        this.setTitle(
+                LocalizationHelper.getBundleString("fotorenamer.ui.progress"));
 
         this.setResizable(false);
         this.progressBar = new JProgressBar(0, maxCapacity);
 
-        JLabel info = new JLabel(LocalizationHelper.getBundleString("fotorenamer.ui.progress.title"));
+        JLabel info = new JLabel(
+                LocalizationHelper.getBundleString(
+                        "fotorenamer.ui.progress.title"));
         this.textInfo = new JLabel();
         this.progressBar.setValue(0);
         this.progressBar.setStringPainted(true);
         // default value: 200 ms
         // calculate delay in UI depending on maximum capacity of the bar
         // itself; the more files the lower the delay
-        this.delayInUI = (maxCapacity < 35)
-                ? DEFAULT_UI_DELAY : (DEFAULT_UI_DELAY / 3);
+        this.delayInUI = ((maxCapacity < 35)
+                ? DEFAULT_UI_DELAY : (DEFAULT_UI_DELAY / 3));
 
         this.getContentPane().setLayout(new GridLayout(3, 1));
         this.getContentPane().add(info);
