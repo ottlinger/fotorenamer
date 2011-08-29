@@ -169,82 +169,85 @@
 <a class="jxr_linenumber" name="159" href="#159">159</a>                             + <span class="jxr_string">"\nURL: http://www.aiki-it.de"</span>
 <a class="jxr_linenumber" name="160" href="#160">160</a>                             + <span class="jxr_string">"\n (C) 1996-"</span>
 <a class="jxr_linenumber" name="161" href="#161">161</a>                             + <strong class="jxr_keyword">new</strong> java.text.SimpleDateFormat(<span class="jxr_string">"yyyy"</span>).
-<a class="jxr_linenumber" name="162" href="#162">162</a>                     format(<strong class="jxr_keyword">new</strong> java.util.Date(Long.parseLong(de.aikiit.bildbearbeiter.util.Version.TIMESTAMP))),
-<a class="jxr_linenumber" name="163" href="#163">163</a>                     <span class="jxr_string">"Versionsinfo"</span>,
-<a class="jxr_linenumber" name="164" href="#164">164</a>                     JOptionPane.INFORMATION_MESSAGE);
-<a class="jxr_linenumber" name="165" href="#165">165</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (event.getSource() == <strong class="jxr_keyword">this</strong>.revertButton || event.getSource()
-<a class="jxr_linenumber" name="166" href="#166">166</a>                 == <strong class="jxr_keyword">this</strong>.goButton) {
-<a class="jxr_linenumber" name="167" href="#167">167</a>     <em class="jxr_comment">// Construct a new SwingWorker read from</em>
-<a class="jxr_linenumber" name="168" href="#168">168</a>     <em class="jxr_comment">// http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html</em>
-<a class="jxr_linenumber" name="169" href="#169">169</a>             worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;Void, Void&gt;() {
-<a class="jxr_linenumber" name="170" href="#170">170</a>                 @Override
-<a class="jxr_linenumber" name="171" href="#171">171</a>                 <strong class="jxr_keyword">protected</strong> Void doInBackground() {
-<a class="jxr_linenumber" name="172" href="#172">172</a>                     <em class="jxr_comment">// Rückgängig oder Starten machen</em>
-<a class="jxr_linenumber" name="173" href="#173">173</a>                     <strong class="jxr_keyword">if</strong> (!imageDirectorySelector.isSelected()) {
-<a class="jxr_linenumber" name="174" href="#174">174</a>                         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="175" href="#175">175</a>                                 <span class="jxr_string">"Bitte ein Verzeichnis eingeben und\n"</span>
-<a class="jxr_linenumber" name="176" href="#176">176</a>                                         + <span class="jxr_string">"dann starten."</span>,
-<a class="jxr_linenumber" name="177" href="#177">177</a>                                 <span class="jxr_string">"Ungültiges Verzeichnis angegegen"</span>,
-<a class="jxr_linenumber" name="178" href="#178">178</a>                                 JOptionPane.ERROR_MESSAGE);
-<a class="jxr_linenumber" name="179" href="#179">179</a>                         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="180" href="#180">180</a>                     } <em class="jxr_comment">// end if</em>
-<a class="jxr_linenumber" name="181" href="#181">181</a> 
-<a class="jxr_linenumber" name="182" href="#182">182</a>                     <em class="jxr_comment">// Umbenennen ....</em>
-<a class="jxr_linenumber" name="183" href="#183">183</a>                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="184" href="#184">184</a>                         <strong class="jxr_keyword">if</strong> (event.getSource() == goButton) {
-<a class="jxr_linenumber" name="185" href="#185">185</a>                             goButton.setEnabled(false);
-<a class="jxr_linenumber" name="186" href="#186">186</a>                             goButton.setText(<span class="jxr_string">"in progress"</span>);
-<a class="jxr_linenumber" name="187" href="#187">187</a>                             <strong class="jxr_keyword">new</strong> <a href="../../../../de/aikiit/bildbearbeiter/image/DateinamenManipulierer.html">DateinamenManipulierer</a>(
-<a class="jxr_linenumber" name="188" href="#188">188</a>                                     imageDirectorySelector.toString());
-<a class="jxr_linenumber" name="189" href="#189">189</a>                         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="190" href="#190">190</a>                             <strong class="jxr_keyword">new</strong> <a href="../../../../de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.html">DateinamenZurueckUmbenenner</a>(
+<a class="jxr_linenumber" name="162" href="#162">162</a>                     format(<strong class="jxr_keyword">new</strong> java.util.Date(
+<a class="jxr_linenumber" name="163" href="#163">163</a>                             Long.parseLong(
+<a class="jxr_linenumber" name="164" href="#164">164</a>                                     de.aikiit.bildbearbeiter.util.
+<a class="jxr_linenumber" name="165" href="#165">165</a>                                             Version.TIMESTAMP))),
+<a class="jxr_linenumber" name="166" href="#166">166</a>                     <span class="jxr_string">"Versionsinfo"</span>,
+<a class="jxr_linenumber" name="167" href="#167">167</a>                     JOptionPane.INFORMATION_MESSAGE);
+<a class="jxr_linenumber" name="168" href="#168">168</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (event.getSource() == <strong class="jxr_keyword">this</strong>.revertButton || event.getSource()
+<a class="jxr_linenumber" name="169" href="#169">169</a>                 == <strong class="jxr_keyword">this</strong>.goButton) {
+<a class="jxr_linenumber" name="170" href="#170">170</a>     <em class="jxr_comment">// Construct a new SwingWorker read from</em>
+<a class="jxr_linenumber" name="171" href="#171">171</a>     <em class="jxr_comment">// http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html</em>
+<a class="jxr_linenumber" name="172" href="#172">172</a>             worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;Void, Void&gt;() {
+<a class="jxr_linenumber" name="173" href="#173">173</a>                 @Override
+<a class="jxr_linenumber" name="174" href="#174">174</a>                 <strong class="jxr_keyword">protected</strong> Void doInBackground() {
+<a class="jxr_linenumber" name="175" href="#175">175</a>                     <em class="jxr_comment">// Rückgängig oder Starten machen</em>
+<a class="jxr_linenumber" name="176" href="#176">176</a>                     <strong class="jxr_keyword">if</strong> (!imageDirectorySelector.isSelected()) {
+<a class="jxr_linenumber" name="177" href="#177">177</a>                         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="178" href="#178">178</a>                                 <span class="jxr_string">"Bitte ein Verzeichnis eingeben und\n"</span>
+<a class="jxr_linenumber" name="179" href="#179">179</a>                                         + <span class="jxr_string">"dann starten."</span>,
+<a class="jxr_linenumber" name="180" href="#180">180</a>                                 <span class="jxr_string">"Ungültiges Verzeichnis angegegen"</span>,
+<a class="jxr_linenumber" name="181" href="#181">181</a>                                 JOptionPane.ERROR_MESSAGE);
+<a class="jxr_linenumber" name="182" href="#182">182</a>                         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="183" href="#183">183</a>                     } <em class="jxr_comment">// end if</em>
+<a class="jxr_linenumber" name="184" href="#184">184</a> 
+<a class="jxr_linenumber" name="185" href="#185">185</a>                     <em class="jxr_comment">// Umbenennen ....</em>
+<a class="jxr_linenumber" name="186" href="#186">186</a>                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="187" href="#187">187</a>                         <strong class="jxr_keyword">if</strong> (event.getSource() == goButton) {
+<a class="jxr_linenumber" name="188" href="#188">188</a>                             goButton.setEnabled(false);
+<a class="jxr_linenumber" name="189" href="#189">189</a>                             goButton.setText(<span class="jxr_string">"in progress"</span>);
+<a class="jxr_linenumber" name="190" href="#190">190</a>                             <strong class="jxr_keyword">new</strong> <a href="../../../../de/aikiit/bildbearbeiter/image/DateinamenManipulierer.html">DateinamenManipulierer</a>(
 <a class="jxr_linenumber" name="191" href="#191">191</a>                                     imageDirectorySelector.toString());
-<a class="jxr_linenumber" name="192" href="#192">192</a>                             revertButton.setEnabled(false);
-<a class="jxr_linenumber" name="193" href="#193">193</a>                             revertButton.setText(<span class="jxr_string">"in progress"</span>);
-<a class="jxr_linenumber" name="194" href="#194">194</a> 
-<a class="jxr_linenumber" name="195" href="#195">195</a>                         } <em class="jxr_comment">// end if</em>
-<a class="jxr_linenumber" name="196" href="#196">196</a>                     } <strong class="jxr_keyword">catch</strong> (InvalidDirectoryException uv) {
-<a class="jxr_linenumber" name="197" href="#197">197</a>                         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="198" href="#198">198</a>                                 <span class="jxr_string">"Das eingegebene Verzeichnis '"</span>
-<a class="jxr_linenumber" name="199" href="#199">199</a>                                         + uv.getMessage()
-<a class="jxr_linenumber" name="200" href="#200">200</a>                                         + <span class="jxr_string">"' ist ungültig - bitte erneut "</span>
-<a class="jxr_linenumber" name="201" href="#201">201</a>                                         + <span class="jxr_string">"versuchen."</span>,
-<a class="jxr_linenumber" name="202" href="#202">202</a>                                 <span class="jxr_string">"Ungültiges Verzeichnis angegegen"</span>,
-<a class="jxr_linenumber" name="203" href="#203">203</a>                                 JOptionPane.ERROR_MESSAGE);
-<a class="jxr_linenumber" name="204" href="#204">204</a>                     } <strong class="jxr_keyword">catch</strong> (NoFilesFoundException kde) {
-<a class="jxr_linenumber" name="205" href="#205">205</a>                         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="206" href="#206">206</a>                                 <span class="jxr_string">"Im Verzeichnis '"</span> + kde.getMessage()
-<a class="jxr_linenumber" name="207" href="#207">207</a>                                         + <span class="jxr_string">"' existieren keine umbenennbaren "</span>
-<a class="jxr_linenumber" name="208" href="#208">208</a>                                         + <span class="jxr_string">"Dateien - bitte erneut versuchen."</span>,
-<a class="jxr_linenumber" name="209" href="#209">209</a>                                 <span class="jxr_string">"Keine Dateien vorhanden"</span>,
-<a class="jxr_linenumber" name="210" href="#210">210</a>                                 JOptionPane.ERROR_MESSAGE);
-<a class="jxr_linenumber" name="211" href="#211">211</a>                     } <em class="jxr_comment">// end of catch kde</em>
-<a class="jxr_linenumber" name="212" href="#212">212</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="213" href="#213">213</a>                 }
-<a class="jxr_linenumber" name="214" href="#214">214</a> 
-<a class="jxr_linenumber" name="215" href="#215">215</a>                 @Override
-<a class="jxr_linenumber" name="216" href="#216">216</a>                 <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> done() {
-<a class="jxr_linenumber" name="217" href="#217">217</a>                     goButton.setEnabled(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="218" href="#218">218</a>                     goButton.setText(<span class="jxr_string">"Starten"</span>);
-<a class="jxr_linenumber" name="219" href="#219">219</a>                     revertButton.setEnabled(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="220" href="#220">220</a>                     revertButton.setText(<span class="jxr_string">"Rückgängig machen"</span>);
-<a class="jxr_linenumber" name="221" href="#221">221</a>                 }
-<a class="jxr_linenumber" name="222" href="#222">222</a>             };
-<a class="jxr_linenumber" name="223" href="#223">223</a>             <em class="jxr_comment">// Execute the SwingWorker; the GUI will not freeze</em>
-<a class="jxr_linenumber" name="224" href="#224">224</a>             worker.execute();
-<a class="jxr_linenumber" name="225" href="#225">225</a> 
-<a class="jxr_linenumber" name="226" href="#226">226</a>         } <em class="jxr_comment">// end if-getSource</em>
-<a class="jxr_linenumber" name="227" href="#227">227</a>     } <em class="jxr_comment">// end of actionPerformed</em>
+<a class="jxr_linenumber" name="192" href="#192">192</a>                         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="193" href="#193">193</a>                             <strong class="jxr_keyword">new</strong> <a href="../../../../de/aikiit/bildbearbeiter/image/DateinamenZurueckUmbenenner.html">DateinamenZurueckUmbenenner</a>(
+<a class="jxr_linenumber" name="194" href="#194">194</a>                                     imageDirectorySelector.toString());
+<a class="jxr_linenumber" name="195" href="#195">195</a>                             revertButton.setEnabled(false);
+<a class="jxr_linenumber" name="196" href="#196">196</a>                             revertButton.setText(<span class="jxr_string">"in progress"</span>);
+<a class="jxr_linenumber" name="197" href="#197">197</a> 
+<a class="jxr_linenumber" name="198" href="#198">198</a>                         } <em class="jxr_comment">// end if</em>
+<a class="jxr_linenumber" name="199" href="#199">199</a>                     } <strong class="jxr_keyword">catch</strong> (InvalidDirectoryException uv) {
+<a class="jxr_linenumber" name="200" href="#200">200</a>                         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="201" href="#201">201</a>                                 <span class="jxr_string">"Das eingegebene Verzeichnis '"</span>
+<a class="jxr_linenumber" name="202" href="#202">202</a>                                         + uv.getMessage()
+<a class="jxr_linenumber" name="203" href="#203">203</a>                                         + <span class="jxr_string">"' ist ungültig - bitte erneut "</span>
+<a class="jxr_linenumber" name="204" href="#204">204</a>                                         + <span class="jxr_string">"versuchen."</span>,
+<a class="jxr_linenumber" name="205" href="#205">205</a>                                 <span class="jxr_string">"Ungültiges Verzeichnis angegegen"</span>,
+<a class="jxr_linenumber" name="206" href="#206">206</a>                                 JOptionPane.ERROR_MESSAGE);
+<a class="jxr_linenumber" name="207" href="#207">207</a>                     } <strong class="jxr_keyword">catch</strong> (NoFilesFoundException kde) {
+<a class="jxr_linenumber" name="208" href="#208">208</a>                         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="209" href="#209">209</a>                                 <span class="jxr_string">"Im Verzeichnis '"</span> + kde.getMessage()
+<a class="jxr_linenumber" name="210" href="#210">210</a>                                         + <span class="jxr_string">"' existieren keine umbenennbaren "</span>
+<a class="jxr_linenumber" name="211" href="#211">211</a>                                         + <span class="jxr_string">"Dateien - bitte erneut versuchen."</span>,
+<a class="jxr_linenumber" name="212" href="#212">212</a>                                 <span class="jxr_string">"Keine Dateien vorhanden"</span>,
+<a class="jxr_linenumber" name="213" href="#213">213</a>                                 JOptionPane.ERROR_MESSAGE);
+<a class="jxr_linenumber" name="214" href="#214">214</a>                     } <em class="jxr_comment">// end of catch kde</em>
+<a class="jxr_linenumber" name="215" href="#215">215</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="216" href="#216">216</a>                 }
+<a class="jxr_linenumber" name="217" href="#217">217</a> 
+<a class="jxr_linenumber" name="218" href="#218">218</a>                 @Override
+<a class="jxr_linenumber" name="219" href="#219">219</a>                 <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> done() {
+<a class="jxr_linenumber" name="220" href="#220">220</a>                     goButton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="221" href="#221">221</a>                     goButton.setText(<span class="jxr_string">"Starten"</span>);
+<a class="jxr_linenumber" name="222" href="#222">222</a>                     revertButton.setEnabled(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="223" href="#223">223</a>                     revertButton.setText(<span class="jxr_string">"Rückgängig machen"</span>);
+<a class="jxr_linenumber" name="224" href="#224">224</a>                 }
+<a class="jxr_linenumber" name="225" href="#225">225</a>             };
+<a class="jxr_linenumber" name="226" href="#226">226</a>             <em class="jxr_comment">// Execute the SwingWorker; the GUI will not freeze</em>
+<a class="jxr_linenumber" name="227" href="#227">227</a>             worker.execute();
 <a class="jxr_linenumber" name="228" href="#228">228</a> 
-<a class="jxr_linenumber" name="229" href="#229">229</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="230" href="#230">230</a> <em class="jxr_javadoccomment">     * Helper to enable visibility of help window.</em>
-<a class="jxr_linenumber" name="231" href="#231">231</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="232" href="#232">232</a> <em class="jxr_javadoccomment">     * @see HelpWindow</em>
-<a class="jxr_linenumber" name="233" href="#233">233</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="234" href="#234">234</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> showHelpWindow() {
-<a class="jxr_linenumber" name="235" href="#235">235</a>         helpWindow.setVisible(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="236" href="#236">236</a>     } <em class="jxr_comment">// end of showHelpWindow</em>
-<a class="jxr_linenumber" name="237" href="#237">237</a> } <em class="jxr_comment">// end of class</em>
+<a class="jxr_linenumber" name="229" href="#229">229</a>         } <em class="jxr_comment">// end if-getSource</em>
+<a class="jxr_linenumber" name="230" href="#230">230</a>     } <em class="jxr_comment">// end of actionPerformed</em>
+<a class="jxr_linenumber" name="231" href="#231">231</a> 
+<a class="jxr_linenumber" name="232" href="#232">232</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="233" href="#233">233</a> <em class="jxr_javadoccomment">     * Helper to enable visibility of help window.</em>
+<a class="jxr_linenumber" name="234" href="#234">234</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="235" href="#235">235</a> <em class="jxr_javadoccomment">     * @see HelpWindow</em>
+<a class="jxr_linenumber" name="236" href="#236">236</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="237" href="#237">237</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> showHelpWindow() {
+<a class="jxr_linenumber" name="238" href="#238">238</a>         helpWindow.setVisible(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="239" href="#239">239</a>     } <em class="jxr_comment">// end of showHelpWindow</em>
+<a class="jxr_linenumber" name="240" href="#240">240</a> } <em class="jxr_comment">// end of class</em>
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

@@ -30,8 +30,8 @@
         </site>
     </distributionManagement>
     <scm>
-        <connection>scm:hg:http://fotorenamer.googlecode.com/hg/</connection>
-        <developerConnection>scm:hg:https://fotorenamer.googlecode.com/hg/</developerConnection>
+        <connection>scm:hg:http://fotorenamer.googlecode.com/hg/trunk/</connection>
+        <developerConnection>scm:hg:https://fotorenamer.googlecode.com/hg/trunk/</developerConnection>
         <url>http://code.google.com/p/fotorenamer/source/browse/</url>
     </scm>
     <properties>
@@ -314,7 +314,7 @@
 
                     <!-- SIGNING -->
                     <!-- defining this will automatically sign the jar and its dependencies -->
-		    <!-- FIXME: http://cwe.mitre.org/data/definitions/798.html#Demonstrative%20Examples - this is fake data in here, change for yourself -->
+                    <!-- FIXME: http://cwe.mitre.org/data/definitions/798.html#Demonstrative%20Examples - this is fake data in here, change for yourself -->
                     <sign>
                         <keystore>${project.build.directory}/keystore</keystore>
                         <keypass>m2m2m2</keypass>
@@ -402,9 +402,9 @@
     <reporting>
         <plugins>
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-checkstyle-plugin</artifactId>
-              <version>2.7</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.7</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -469,6 +469,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changelog-plugin</artifactId>
                 <version>2.2</version>
+                <configuration>
+                    <dateFormat>EEE MMM dd HH:mm:ss yyyy Z</dateFormat>
+                    <outputEncoding>UTF-8</outputEncoding>
+                </configuration>
             </plugin>
             <!-- catch code tags -->
             <plugin>
@@ -494,23 +498,23 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>2.3.2</version>
-            <!-- generates errors
-                    <configuration>
-                      <xmlOutput>true</xmlOutput>
-                      <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
-                      <outputDirectory>target/site/findbugs</outputDirectory>
-                      <threshold>Low</threshold>
-                      <effort>Default</effort>
-                                      <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-                                      <includeFilterFile>findbugs-include.xml</includeFilterFile>
-                      <visitors>FindDeadLocalStores,UnreadFields</visitors>
-                      <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-                      <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
-                      <debug>true</debug>
-                      <relaxed>true</relaxed>
-                    </configuration>
--->
-                  </plugin>
+                <!-- generates errors
+                                    <configuration>
+                                      <xmlOutput>true</xmlOutput>
+                                      <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
+                                      <outputDirectory>target/site/findbugs</outputDirectory>
+                                      <threshold>Low</threshold>
+                                      <effort>Default</effort>
+                                                      <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                                                      <includeFilterFile>findbugs-include.xml</includeFilterFile>
+                                      <visitors>FindDeadLocalStores,UnreadFields</visitors>
+                                      <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+                                      <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
+                                      <debug>true</debug>
+                                      <relaxed>true</relaxed>
+                                    </configuration>
+                -->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>

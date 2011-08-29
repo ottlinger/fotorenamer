@@ -35,7 +35,8 @@ public class ImageDirectorySelector extends JPanel {
     private JButton browseButton = null;
     /** An image icon that is displayed as part of the button. */
     private ImageIcon imageIcon = null;
-    /** Should this component be used to select directories only, default value is <code>false</code>. **/
+    /** Should this component be used to select directories only,
+     * default value is <code>false</code>. **/
     private boolean directoryOnly = false;
 
     /**
@@ -107,8 +108,12 @@ public class ImageDirectorySelector extends JPanel {
 
         // show button
         browseButton = (this.imageIcon == null
-                ? new JButton(LocalizationHelper.getBundleString("fotorenamer.ui.selector.title"))
-                : new JButton(LocalizationHelper.getBundleString("fotorenamer.ui.selector.title"), this.imageIcon));
+                ? new JButton(
+                LocalizationHelper.getBundleString(
+                        "fotorenamer.ui.selector.title"))
+                : new JButton(
+                LocalizationHelper.getBundleString(
+                        "fotorenamer.ui.selector.title"), this.imageIcon));
         browseButton.setMnemonic('v');
         browseButton.setMargin(new Insets(1, 1, 1, 1));
         grid.setConstraints(browseButton, gbc);
@@ -123,21 +128,28 @@ public class ImageDirectorySelector extends JPanel {
 
                 if (directoryOnly) {
                     fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                    fileDlg.setDialogTitle(LocalizationHelper.getBundleString("fotorenamer.ui.selector.directory"));
+                    fileDlg.setDialogTitle(
+                            LocalizationHelper.getBundleString(
+                                    "fotorenamer.ui.selector.directory"));
                 } else {
                     fileDlg.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    fileDlg.setDialogTitle(LocalizationHelper.getBundleString("fotorenamer.ui.selector.file"));
+                    fileDlg.setDialogTitle(LocalizationHelper.getBundleString(
+                            "fotorenamer.ui.selector.file"));
                 } // end if
-                fileDlg.setApproveButtonText(LocalizationHelper.getBundleString("fotorenamer.ui.selector.select"));
+                fileDlg.setApproveButtonText(LocalizationHelper.getBundleString(
+                        "fotorenamer.ui.selector.select"));
 
                 if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
                         == JFileChooser.APPROVE_OPTION) {
                     // use getCanonicalPath() to avoid ..-path manipulations and
                     // try to set the selected file in the GUI
                     try {
-                        textField.setText(fileDlg.getSelectedFile().getCanonicalPath());
+                        textField.setText(
+                                fileDlg.getSelectedFile().getCanonicalPath());
                     } catch (IOException ioe) {
-                        LOG.error("Error while selecting directory, extracted text is: " + textField.getText());
+                        LOG.error("Error while selecting directory, "
+                                + "extracted text is: "
+                                + textField.getText());
                         LOG.error(ioe.getMessage());
                     }
                 } // end if

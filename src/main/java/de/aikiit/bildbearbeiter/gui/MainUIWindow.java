@@ -159,7 +159,10 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             + "\nURL: http://www.aiki-it.de"
                             + "\n (C) 1996-"
                             + new java.text.SimpleDateFormat("yyyy").
-                    format(new java.util.Date(Long.parseLong(de.aikiit.bildbearbeiter.util.Version.TIMESTAMP))),
+                    format(new java.util.Date(
+                            Long.parseLong(
+                                    de.aikiit.bildbearbeiter.util.
+                                            Version.TIMESTAMP))),
                     "Versionsinfo",
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
