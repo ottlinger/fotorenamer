@@ -75,30 +75,32 @@
 <a class="jxr_linenumber" name="65" href="#65">65</a>          <em class="jxr_comment">// http://www.java2s.com/Code/Java/I18N/ResourceBundlewithparameterposition.htm</em>
 <a class="jxr_linenumber" name="66" href="#66">66</a>          <em class="jxr_comment">// parameters are a but uneasier than with grails -</em>
 <a class="jxr_linenumber" name="67" href="#67">67</a>          <em class="jxr_comment">// http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html</em>
-<a class="jxr_linenumber" name="68" href="#68">68</a>      }
-<a class="jxr_linenumber" name="69" href="#69">69</a>  
-<a class="jxr_linenumber" name="70" href="#70">70</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="71" href="#71">71</a>  <em class="jxr_javadoccomment">     * Helper function to retrieve a given key</em>
-<a class="jxr_linenumber" name="72" href="#72">72</a>  <em class="jxr_javadoccomment">     * from the underlying resource bundle while</em>
-<a class="jxr_linenumber" name="73" href="#73">73</a>  <em class="jxr_javadoccomment">     * applying localization parameters.</em>
-<a class="jxr_linenumber" name="74" href="#74">74</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="75" href="#75">75</a>  <em class="jxr_javadoccomment">     * @see</em>
-<a class="jxr_linenumber" name="76" href="#76">76</a>  <em class="jxr_javadoccomment">     * &lt;a href="<a href="http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html" target="alexandria_uri">http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html</a>"&gt;</em>
-<a class="jxr_linenumber" name="77" href="#77">77</a>  <em class="jxr_javadoccomment">     *     I18N-tutorial&lt;/a&gt;</em>
-<a class="jxr_linenumber" name="78" href="#78">78</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="79" href="#79">79</a>  <em class="jxr_javadoccomment">     * @param key Key to retrieve from the bundle,</em>
-<a class="jxr_linenumber" name="80" href="#80">80</a>  <em class="jxr_javadoccomment">     * e.g. &lt;i&gt;fotorenamer.foo.parameteredtitle&lt;/i&gt;.</em>
-<a class="jxr_linenumber" name="81" href="#81">81</a>  <em class="jxr_javadoccomment">     * @param parameters Object array with all parameters.</em>
-<a class="jxr_linenumber" name="82" href="#82">82</a>  <em class="jxr_javadoccomment">     * @return Returns the value from the bundle</em>
-<a class="jxr_linenumber" name="83" href="#83">83</a>  <em class="jxr_javadoccomment">     * with the given parameters applied.</em>
-<a class="jxr_linenumber" name="84" href="#84">84</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="85" href="#85">85</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getParameterizedBundleString(<strong class="jxr_keyword">final</strong> String key, <strong class="jxr_keyword">final</strong> Object[] parameters) {
-<a class="jxr_linenumber" name="86" href="#86">86</a>          LOG.info(<span class="jxr_string">"Applying "</span> + ((parameters == <strong class="jxr_keyword">null</strong>) ? parameters : parameters.length) + <span class="jxr_string">" parameters to "</span> + key);
-<a class="jxr_linenumber" name="87" href="#87">87</a>          FORMAT.applyPattern(getBundleString(key));
-<a class="jxr_linenumber" name="88" href="#88">88</a>          <strong class="jxr_keyword">return</strong> FORMAT.format(parameters);
-<a class="jxr_linenumber" name="89" href="#89">89</a>      }
-<a class="jxr_linenumber" name="90" href="#90">90</a>  
-<a class="jxr_linenumber" name="91" href="#91">91</a>  }
+<a class="jxr_linenumber" name="68" href="#68">68</a>          <em class="jxr_comment">// encoding issues / eclipse plugin:</em>
+<a class="jxr_linenumber" name="69" href="#69">69</a>          <em class="jxr_comment">// http://stackoverflow.com/questions/863838/problem-with-java-properties-utf8-encoding-in-eclipse</em>
+<a class="jxr_linenumber" name="70" href="#70">70</a>      }
+<a class="jxr_linenumber" name="71" href="#71">71</a>  
+<a class="jxr_linenumber" name="72" href="#72">72</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="73" href="#73">73</a>  <em class="jxr_javadoccomment">     * Helper function to retrieve a given key</em>
+<a class="jxr_linenumber" name="74" href="#74">74</a>  <em class="jxr_javadoccomment">     * from the underlying resource bundle while</em>
+<a class="jxr_linenumber" name="75" href="#75">75</a>  <em class="jxr_javadoccomment">     * applying localization parameters.</em>
+<a class="jxr_linenumber" name="76" href="#76">76</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="77" href="#77">77</a>  <em class="jxr_javadoccomment">     * @see</em>
+<a class="jxr_linenumber" name="78" href="#78">78</a>  <em class="jxr_javadoccomment">     * &lt;a href="<a href="http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html" target="alexandria_uri">http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html</a>"&gt;</em>
+<a class="jxr_linenumber" name="79" href="#79">79</a>  <em class="jxr_javadoccomment">     *     I18N-tutorial&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="80" href="#80">80</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="81" href="#81">81</a>  <em class="jxr_javadoccomment">     * @param key Key to retrieve from the bundle,</em>
+<a class="jxr_linenumber" name="82" href="#82">82</a>  <em class="jxr_javadoccomment">     * e.g. &lt;i&gt;fotorenamer.foo.parameteredtitle&lt;/i&gt;.</em>
+<a class="jxr_linenumber" name="83" href="#83">83</a>  <em class="jxr_javadoccomment">     * @param parameters Object array with all parameters.</em>
+<a class="jxr_linenumber" name="84" href="#84">84</a>  <em class="jxr_javadoccomment">     * @return Returns the value from the bundle</em>
+<a class="jxr_linenumber" name="85" href="#85">85</a>  <em class="jxr_javadoccomment">     * with the given parameters applied.</em>
+<a class="jxr_linenumber" name="86" href="#86">86</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="87" href="#87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getParameterizedBundleString(<strong class="jxr_keyword">final</strong> String key, <strong class="jxr_keyword">final</strong> Object[] parameters) {
+<a class="jxr_linenumber" name="88" href="#88">88</a>          LOG.info(<span class="jxr_string">"Applying "</span> + ((parameters == <strong class="jxr_keyword">null</strong>) ? parameters : parameters.length) + <span class="jxr_string">" parameters to "</span> + key);
+<a class="jxr_linenumber" name="89" href="#89">89</a>          FORMAT.applyPattern(getBundleString(key));
+<a class="jxr_linenumber" name="90" href="#90">90</a>          <strong class="jxr_keyword">return</strong> FORMAT.format(parameters);
+<a class="jxr_linenumber" name="91" href="#91">91</a>      }
+<a class="jxr_linenumber" name="92" href="#92">92</a>  
+<a class="jxr_linenumber" name="93" href="#93">93</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

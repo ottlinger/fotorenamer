@@ -65,6 +65,8 @@ public final class LocalizationHelper {
         // http://www.java2s.com/Code/Java/I18N/ResourceBundlewithparameterposition.htm
         // parameters are a but uneasier than with grails -
         // http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html
+        // encoding issues / eclipse plugin:
+        // http://stackoverflow.com/questions/863838/problem-with-java-properties-utf8-encoding-in-eclipse
     }
 
     /**
