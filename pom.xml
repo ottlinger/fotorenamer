@@ -30,8 +30,8 @@
         </site>
     </distributionManagement>
     <scm>
-        <connection>scm:hg:http://fotorenamer.googlecode.com/hg/trunk/</connection>
-        <developerConnection>scm:hg:https://fotorenamer.googlecode.com/hg/trunk/</developerConnection>
+        <connection>scm:hg:http://fotorenamer.googlecode.com/hg/</connection>
+        <developerConnection>scm:hg:https://fotorenamer.googlecode.com/hg/</developerConnection>
         <url>http://code.google.com/p/fotorenamer/source/browse/</url>
     </scm>
     <properties>
@@ -42,6 +42,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     </properties>
     <dependencies>
+        <!-- test dependencies -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
@@ -59,6 +60,7 @@
             <artifactId>log4j</artifactId>
             <version>${logger.version}</version>
         </dependency>
+        <!-- normal dependencies -->
         <!-- library for EXIF metadata extraction -->
         <dependency>
             <groupId>org.apache.sanselan</groupId>
@@ -101,9 +103,9 @@
             </extension>
         </extensions>
 
-        <!-- class that contains the buildnumber -->
+        <!-- filtering -->
+        <!-- perform regular filtering without taking care of version stuff -->
         <resources>
-            <!-- perform regular filtering without taking care of version stuff -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
@@ -112,6 +114,22 @@
                 </excludes>
             </resource>
         </resources>
+        <!-- perform regular filtering without taking care dummy images -->
+        <testResources>
+            <testResource>
+                <!-- this omits dummy images -->
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.JPG</exclude>
+                </excludes>
+            </testResource>
+            <!-- greps dummy images and performs no filtering -->
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+            </testResource>
+        </testResources>
 
         <pluginManagement/>
         <plugins>
@@ -121,7 +139,7 @@
                 <version>2.9</version>
                 <configuration>
                     <enableAssertions>true</enableAssertions>
-                    <!--systemProperties>
+                    <!-- systemProperties>
                         <property>
                             <name>java.awt.headless</name>
                             <value>true</value>
@@ -130,13 +148,13 @@
                 </configuration>
             </plugin>
 
-            <!-- copy Version.java out of normal resource copying to avoid eclipse errors -->
+            <!-- copy Version.java independent of normal resource copying to avoid eclipse errors -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.5</version>
                 <executions>
                     <execution>
-                        <id>copy-version-resources</id>
+                        <id>copy-version-information-resources</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -300,7 +318,6 @@
                         </includes>
                     </dependencies>
 
-
                     <!-- BUGFIX: exclude filtered directory ?! -->
                     <!-- resourcesDirectory>${project.basedir}/src/jnlp/resources</resourcesDirectory-->
                     <resourcesDirectory>${project.basedir}/src/main/resources</resourcesDirectory>
@@ -399,6 +416,7 @@
             </build>
         </profile>
     </profiles>
+    <!-- project reports -->
     <reporting>
         <plugins>
             <plugin>
@@ -429,7 +447,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <linkXref>true</linkXref>
+                    <linkXRef>true</linkXRef>
                     <sourceEncoding>UTF-8</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
                     <targetJdk>1.6</targetJdk>

@@ -43,50 +43,30 @@ public abstract class AbstractImageRenamer implements Runnable {
     }
 
     /**
-     * Übernimmt ein Verzeichnis. Dessen Dateien werden in
-     * ZuletztGeändertDatum_ZuletztGeändertUhrzeit_Dateiname umbenannt.<br> Bei
-     * den IXUS-Bildern bedeutet das, dass den Dateinamen der Zeitpunkt der
-     * Bildaufnahme mit hinzugefügt wird. <br>
+     * Starts image processing on the given directory if it contains
+     * relevant images. The strategy of renaming is defined by
+     * subclasses implementation of @see #renameImage(File).
      *
-     * @param verzeichnis Directory to work on.
-     * @throws InvalidDirectoryException If there's a problem with the directory
-     *                                   selected.
-     * @throws NoFilesFoundException     if the selected directory is empty.
+     * @param directory Name of directory to work on.
+     * @throws InvalidDirectoryException
+     * If there's a problem with
+     * the selected directory.
+     * @throws NoFilesFoundException
+     * If the selected directory is empty.
      */
-    public AbstractImageRenamer(final String verzeichnis)
+    public AbstractImageRenamer(final String directory)
             throws InvalidDirectoryException, NoFilesFoundException {
-        this.currentDirectory = new File(verzeichnis);
-
-        // erst starten, wenn die Eingabeprüfung erfolgreich war
-        validateUserSelectionAndInitInternally();
-
-        new Thread(this).start();
-    } // end of Konstruktor
-
-    /**
-     * Checks whether the selected directory contains any relevant files and
-     * sets internal state appropriately.
-     *
-     * @throws de.aikiit.bildbearbeiter.exception.NoFilesFoundException
-     *          If selected directory contains no files.
-     * @throws de.aikiit.bildbearbeiter.exception.InvalidDirectoryException
-     *          If any I/O-error occured when accessing the directory.
-     */
-    protected final void validateUserSelectionAndInitInternally()
-            throws NoFilesFoundException, InvalidDirectoryException {
-        // Verzeichnis gültig ?
+        this.currentDirectory = new File(directory);
         if (!this.currentDirectory.isDirectory()) {
             throw new InvalidDirectoryException(this.currentDirectory);
         }
 
-        // Dateien da ?
+        // retrieve relevant images in directory
         this.imageList = this.currentDirectory.listFiles(
                 new ImageFilenameFilter());
         if (this.imageList == null || this.imageList.length == 0) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
-
-        // internen Zustand setzen
         this.amountOfFiles = this.imageList.length;
     }
 
@@ -94,31 +74,43 @@ public abstract class AbstractImageRenamer implements Runnable {
      * Performs the actual/technical renaming.
      *
      * @throws RenamingErrorException if any errors occur.
-     * @see #validateUserSelectionAndInitInternally()
      */
     public final void renameFiles() throws RenamingErrorException {
         String targetFilename = "";
+        Boolean renamingResult;
+        LOG.info("Starting to rename " + this.amountOfFiles + " files.");
         for (int i = 0; i < this.amountOfFiles; i++) {
 
-            // Daten holen und umbenenen
-            targetFilename = renameImage(this.imageList[i]);
+            // only rename regular files
+            if (this.imageList[i].isFile()) {
 
-            // ProgressBar updaten...
-            this.progressBar.setProgress(i);
-            this.progressBar.setText(this.imageList[i].getName());
+                // extract EXIF data and fetch target filename
+                targetFilename = renameImage(this.imageList[i]);
 
-            // Da die Namen verschieden lang sind den ProgressBar updaten!
-            LOG.info("Renaming " + this.imageList[i].getName() + " to "
-                    + targetFilename);
-            this.progressBar.updateUI();
+                // update progress bar (names have a different length)
+                this.progressBar.setProgress(i);
+                this.progressBar.setText(this.imageList[i].getName());
+                this.progressBar.updateUI();
 
-            // only renameFiles files
-            if (this.imageList[i].isFile() && !this.imageList[i].renameTo(
-                            new File(this.imageList[i].getParent(),
-                                    targetFilename))) {
-                throw new RenamingErrorException("\tFehler bei Bild"
-                        + this.imageList[i].getName());
-            } // end if - isFile()
+                // perform file renaming
+                renamingResult = this.imageList[i].renameTo(
+                        new File(this.imageList[i].getParent(),
+                                targetFilename));
+                if (renamingResult) {
+                    LOG.info("Renaming " + this.imageList[i].getName()
+                            + " to " + targetFilename);
+                    LOG.info("Renamed file exists? "
+                            + new File(this.imageList[i].getParent(),
+                                    targetFilename).exists());
+                }  else {
+                    throw new RenamingErrorException("Could not rename"
+                            + this.imageList[i].getName() + " to "
+                            + targetFilename);
+                }
+            } else {
+                LOG.info("Skipping " + this.imageList[i].getName()
+                        + " - not a file.");
+            }
         } // end of for
     }
 
@@ -140,7 +132,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      * @see #renameFiles()
      */
     public final void run() {
-        String notification = "";
+        String notification;
         this.progressBar = new ProgressBar(this.amountOfFiles);
 
         try {
@@ -152,24 +144,31 @@ public abstract class AbstractImageRenamer implements Runnable {
                             + "Umbennen auf.",
                     "Fehler beim Umbenennen",
                     JOptionPane.ERROR_MESSAGE);
-            return;
-        } // end of catch uf
 
-        this.progressBar.dispose();
+            this.amountOfFiles = 0;
+        } finally {
+            this.progressBar.dispose();
+        }
 
-        // Erfolgsmeldung geben
-        if (this.amountOfFiles == 0) {
-            notification = "Im Verzeichnis: " + this.currentDirectory.getName()
-                    + "\nwurden keine Dateien\numbenannt.\n\n";
-        } else if (this.amountOfFiles == 1) {
-            notification = "\nEs wurde eine Datei\n"
-                    + "im Verzeichnis: " + this.currentDirectory.getName()
-                    + "\nerfolgreich umbenannt.\n\n";
-        } else {
-            notification = "\nEs wurden " + this.amountOfFiles + " Dateien\n"
-                    + "im Verzeichnis: " + this.currentDirectory.getName()
-                    + "\nbehandelt.\n\n";
-        } // end of else
+        // show UI-notification
+        switch(this.amountOfFiles) {
+            case 0:
+                notification = "Im Verzeichnis: "
+                        + this.currentDirectory.getName()
+                        + "\nwurden keine Dateien\numbenannt.\n\n";
+                break;
+
+            case 1:
+                notification = "\nEs wurde eine Datei\n"
+                        + "im Verzeichnis: " + this.currentDirectory.getName()
+                        + "\nerfolgreich umbenannt.\n\n";
+                break;
+            default:
+                notification = "\nEs wurden "
+                        + this.amountOfFiles + " Dateien\n"
+                        + "im Verzeichnis: " + this.currentDirectory.getName()
+                        + "\numbenannt.\n\n";
+        }
         JOptionPane.showMessageDialog(null, notification, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);
     } // end of run

@@ -5,7 +5,7 @@ package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
 import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
-import de.aikiit.bildbearbeiter.image.DateinamenManipulierer;
+import de.aikiit.bildbearbeiter.image.CreationDateFromExifImageRenamer;
 import de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner;
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 
@@ -30,11 +30,12 @@ import java.io.File;
  */
 public class MainUIWindow extends JFrame implements ActionListener {
     /**
-     * Provide versioning information in the UI (transfered from maven).
+     * Provide version information in the UI (transferred from maven).
      */
     public static final String VERSION =
             new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-                    format(new java.util.Date(Long.parseLong(de.aikiit.bildbearbeiter.util.Version.TIMESTAMP)))
+                    format(new java.util.Date(Long.parseLong(
+                            de.aikiit.bildbearbeiter.util.Version.TIMESTAMP)))
                     + " / GC-rev: "
                     + de.aikiit.bildbearbeiter.util.Version.VERSION;
     /**
@@ -167,7 +168,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
                 == this.goButton) {
-    // Construct a new SwingWorker read from
+    // Construct a new SwingWorker,  read from
     // http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
             worker = new SwingWorker<Void, Void>() {
                 @Override
@@ -182,18 +183,21 @@ public class MainUIWindow extends JFrame implements ActionListener {
                         return null;
                     } // end if
 
-                    // Umbenennen ....
+                    // perform renaming
                     try {
                         if (event.getSource() == goButton) {
                             goButton.setEnabled(false);
                             goButton.setText("in progress");
-                            new DateinamenManipulierer(
-                                    imageDirectorySelector.toString());
+                            CreationDateFromExifImageRenamer renamer =
+                                    new CreationDateFromExifImageRenamer(
+                                            imageDirectorySelector.toString()
+                                    );
+                            new Thread(renamer).start();
                         } else {
-                            new DateinamenZurueckUmbenenner(
-                                    imageDirectorySelector.toString());
                             revertButton.setEnabled(false);
                             revertButton.setText("in progress");
+                            new DateinamenZurueckUmbenenner(
+                                    imageDirectorySelector.toString());
 
                         } // end if
                     } catch (InvalidDirectoryException uv) {
@@ -217,6 +221,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
 
                 @Override
                 protected void done() {
+                    // reset gui if all workers terminated
                     goButton.setEnabled(true);
                     goButton.setText("Starten");
                     revertButton.setEnabled(true);
