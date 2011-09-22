@@ -85,7 +85,8 @@ public final class LocalizationHelper {
      * with the given parameters applied.
      */
     public static String getParameterizedBundleString(final String key, final Object[] parameters) {
-        LOG.info("Applying " + ((parameters == null) ? parameters : parameters.length) + " parameters to " + key);
+        LOG.info("Applying " + ((parameters == null) ? null : parameters
+                .length) + " parameters to " + key);
         FORMAT.applyPattern(getBundleString(key));
         return FORMAT.format(parameters);
     }
