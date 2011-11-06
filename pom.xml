@@ -36,9 +36,10 @@
     </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
         <logger.version>1.2.16</logger.version>
-        <junit.version>4.8</junit.version>
-        <mockito.version>1.8.5</mockito.version>
+        <junit.version>4.10</junit.version>
+        <mockito.version>1.9.0-rc1</mockito.version>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     </properties>
     <dependencies>
@@ -99,7 +100,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-scm</artifactId>
-                <!--version>1.0</version-->
+                <!--version>2.0</version-->
             </extension>
         </extensions>
 
@@ -136,7 +137,7 @@
             <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.9</version>
+                <version>2.10</version>
                 <configuration>
                     <enableAssertions>true</enableAssertions>
                     <!-- systemProperties>
@@ -252,7 +253,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <!-- mvn2: version>2.2</version-->
-                <version>3.0</version>
+                <version>3.0-beta-3</version>
                 <configuration>
                     <outputEncoding>UTF-8</outputEncoding>
                     <inputEncoding>UTF-8</inputEncoding>
@@ -439,7 +440,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.9</version>
+                <version>2.10</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
