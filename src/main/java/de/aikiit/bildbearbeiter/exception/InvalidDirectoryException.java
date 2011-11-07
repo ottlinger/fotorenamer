@@ -18,6 +18,11 @@ public class InvalidDirectoryException extends Exception {
     private static final Logger LOG =
             Logger.getLogger(InvalidDirectoryException.class);
 
+    public InvalidDirectoryException(String message) {
+        super(message);
+        LOG.error("invalid directory: " + message);
+    }
+
     /**
      * Provide error messages for one directory.
      *
