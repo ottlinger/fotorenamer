@@ -1,5 +1,7 @@
 package de.aikiit.bildbearbeiter.exception;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 
 /**
@@ -11,13 +13,19 @@ import java.io.File;
  */
 public class InvalidDirectoryException extends Exception {
     /**
+     * Logger.
+     */
+    private static final Logger LOG =
+            Logger.getLogger(InvalidDirectoryException.class);
+
+    /**
      * Provide error messages for one directory.
      *
      * @param directory Current directory.
      */
     public InvalidDirectoryException(final File directory) {
-        super();
-        System.err.println(directory);
+        super(directory.toString());
+        LOG.error("invalid directory: " + directory);
     }
 
 }
