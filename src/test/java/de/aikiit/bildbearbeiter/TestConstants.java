@@ -29,4 +29,10 @@ public class TestConstants {
      */
     public final static String FULLPATH_TEST_IMG_RENAMED = FULLPATH_IMAGES + "20110130_131102_IMG_7559_mini.JPG";
 
+    /**
+     * Name of the test image after renaming.
+     */
+    public final static String IMAGE_NAME_RENAMED =
+            "20110130_131102_IMG_7559_mini.JPG";
+
 }

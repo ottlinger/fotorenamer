@@ -56,6 +56,11 @@ public abstract class AbstractImageRenamer implements Runnable {
      */
     public AbstractImageRenamer(final String directory)
             throws InvalidDirectoryException, NoFilesFoundException {
+
+        if (directory == null) {
+            throw new InvalidDirectoryException("null is not a directory");
+        }
+
         this.currentDirectory = new File(directory);
         if (!this.currentDirectory.isDirectory()) {
             throw new InvalidDirectoryException(this.currentDirectory);

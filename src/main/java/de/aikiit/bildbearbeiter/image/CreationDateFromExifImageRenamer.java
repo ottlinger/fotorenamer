@@ -53,6 +53,7 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
     @Override
     final String renameImage(final File imageFile) {
         String newImageName = imageFile.getName();
+        LOG.info("Start renaming in CreationDateFromExifImageRenamer");
 
         try {
             newImageName =
