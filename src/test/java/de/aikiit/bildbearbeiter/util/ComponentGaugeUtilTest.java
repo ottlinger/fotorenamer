@@ -5,6 +5,7 @@ import org.junit.Test;
 import javax.swing.JButton;
 import java.awt.Point;
 
+import static de.aikiit.bildbearbeiter.util.ComponentGaugeUtil.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -23,7 +24,7 @@ public class ComponentGaugeUtilTest {
     public final void createIconFromStringPath() throws Exception {
         // FIXME not really clear why this location (valid with File-separators) cannot be parsed into an URL
         // assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.FULLPATH_TEST_IMG));
-        assertNull(ComponentGaugeUtil.createImageIcon("wuumansho"));
+        assertNull(createImageIcon("wuumansho"));
     }
 
     /**
@@ -31,7 +32,7 @@ public class ComponentGaugeUtilTest {
      */
     @Test(expected = AssertionError.class)
     public void createIconFromStringPathWithAssertionFailure() {
-        assertNull(ComponentGaugeUtil.createImageIcon(null));
+        assertNull(createImageIcon(null));
     }
 
 
@@ -44,7 +45,7 @@ public class ComponentGaugeUtilTest {
         JButton button = new JButton("Test");
         Point buttonSize = button.getLocation();
         assertEquals(new Point(0, 0), buttonSize);
-        ComponentGaugeUtil.makeCentered(button);
+        makeCentered(button);
         assertNotSame(new Point(0, 0), button.getLocation());
     }
 }

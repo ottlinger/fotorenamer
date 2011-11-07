@@ -1,5 +1,7 @@
 package de.aikiit.bildbearbeiter.exception;
 
+import org.apache.log4j.Logger;
+
 /**
  * Exception that indicates that an error occurred during processing.
  *
@@ -8,6 +10,12 @@ package de.aikiit.bildbearbeiter.exception;
  */
 public class RenamingErrorException extends Exception {
     /**
+     * Logger.
+     */
+    private static final Logger LOG =
+            Logger.getLogger(RenamingErrorException.class);
+
+    /**
      * Provide error messages for one directory.
      *
      * @param message Current directory.
@@ -15,6 +23,6 @@ public class RenamingErrorException extends Exception {
 
     public RenamingErrorException(final String message) {
         super(message);
-        System.err.println(message);
+        LOG.error("Error during renaming - " + message);
     }
 }

@@ -1,5 +1,7 @@
 package de.aikiit.bildbearbeiter.exception;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 
 /**
@@ -10,6 +12,11 @@ import java.io.File;
  * @version 04.03.11
  */
 public class NoFilesFoundException extends Exception {
+    /**
+     * Logger.
+     */
+    private static final Logger LOG =
+            Logger.getLogger(NoFilesFoundException.class);
 
     /**
      * Provide error messages for one directory.
@@ -18,7 +25,7 @@ public class NoFilesFoundException extends Exception {
      */
     public NoFilesFoundException(final File directory) {
         super();
-        System.err.println(directory);
+        LOG.error("no files found in " + directory);
     }
 
 }
