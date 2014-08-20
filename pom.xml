@@ -4,7 +4,7 @@
   <groupId>de.aikiit</groupId>
   <artifactId>fotorenamer</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.3-SNAPSHOT</version>
+  <version>0.1.4-SNAPSHOT</version>
   <name>FotoRenamer - rename your photos automatically</name>
   <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
   <url>http://code.google.com/p/fotorenamer/</url>
@@ -36,9 +36,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <logger.version>1.2.17</logger.version>
-    <junit.version>4.10</junit.version>
-    <mockito.version>1.9.0-rc1</mockito.version>
+    <logger.version>2.0.1</logger.version>
+    <junit.version>4.12-beta-1</junit.version>
+    <mockito.version>1.9.5</mockito.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
   </properties>
   <dependencies>
@@ -55,18 +55,35 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>${logger.version}</version>
-    </dependency>
-    <!-- normal dependencies -->
+      <!-- http://logging.apache.org/log4j/2.x/manual/api.html -->
+      <dependency>
+      	<groupId>org.apache.logging.log4j</groupId>
+      	<artifactId>log4j-core</artifactId>
+      	<version>${logger.version}</version>
+      </dependency>
+      <dependency>
+      	<groupId>org.apache.logging.log4j</groupId>
+      	<artifactId>log4j-1.2-api</artifactId>
+         <version>${logger.version}</version>
+      </dependency>
+      <dependency>
+      	<groupId>org.apache.logging.log4j</groupId>
+      	<artifactId>log4j-api</artifactId>
+         <version>${logger.version}</version>
+      </dependency>
+
+      <!-- normal dependencies -->
     <!-- library for EXIF metadata extraction -->
     <dependency>
       <groupId>org.apache.sanselan</groupId>
       <artifactId>sanselan</artifactId>
       <version>0.97-incubator</version>
     </dependency>
+      <!-- TODO
+      Migrate to new sanselean:
+      https://commons.apache.org/proper/commons-imaging/
+      20140820
+      -->
   </dependencies>
   <!--
       <repositories>
@@ -90,11 +107,12 @@
       </repositories>
     -->
   <build>
+    <defaultGoal>clean install webstart:jnlp</defaultGoal>
     <extensions>
       <extension>
         <groupId>org.apache.maven.scm</groupId>
         <artifactId>maven-scm-provider-hg</artifactId>
-        <!--version>1.5</version-->
+        <!--version>1.9.1</version-->
       </extension>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -134,8 +152,10 @@
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.10</version>
+        <version>2.17</version>
         <configuration>
+            <forkCount>3</forkCount>
+            <reuseForks>true</reuseForks>
           <enableAssertions>true</enableAssertions>
           <!-- systemProperties>
                         <property>
@@ -148,7 +168,7 @@
       <!-- copy Version.java independent of normal resource copying to avoid eclipse errors -->
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>2.5</version>
+        <version>2.6</version>
         <executions>
           <execution>
             <id>copy-version-information-resources</id>
@@ -195,7 +215,7 @@
       <!-- hudson finds Version.java twice and fails with a duplicate class-error -->
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version>
+        <version>2.5</version>
         <configuration>
           <filesets>
             <fileset>
@@ -207,21 +227,21 @@
           </filesets>
         </configuration>
       </plugin>
-      <!-- set compiler level to 1.6 -->
+      <!-- set compiler level to 1.8 -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>2.5</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <!--  generate source and javadoc.jar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.8</version>
+        <version>2.9.1</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -247,8 +267,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <!-- mvn2: version>2.2</version-->
-        <version>3.0</version>
+        <version>3.4</version>
         <configuration>
           <outputEncoding>UTF-8</outputEncoding>
           <inputEncoding>UTF-8</inputEncoding>
@@ -265,7 +284,7 @@
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-javadoc-plugin</artifactId>
-              <version>2.8</version>
+              <version>2.9.1</version>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -440,7 +459,9 @@
                     this does not work with mvn3 if sources are generated: http://jira.codehaus.org/browse/MNG-4672 -->
           <dependencies>
             <includes>
-              <include>log4j:log4j</include>
+                <include>org.apache.logging.log4j:log4j-1.2-api</include>
+                <include>org.apache.logging.log4j:log4j-api</include>
+                <include>org.apache.logging.log4j:log4j-core</include>
               <include>org.apache.sanselan:sanselan</include>
             </includes>
           </dependencies>

@@ -7,7 +7,8 @@ import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
 import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
 import de.aikiit.bildbearbeiter.exception.RenamingErrorException;
 import de.aikiit.bildbearbeiter.gui.ProgressBar;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.JOptionPane;
 import java.io.File;
@@ -21,7 +22,7 @@ import java.io.File;
  */
 public class DateinamenZurueckUmbenenner implements Runnable {
     private static final Logger LOG =
-            Logger.getLogger(DateinamenZurueckUmbenenner.class);
+            LogManager.getLogger(DateinamenZurueckUmbenenner.class);
 
     private File aktuellesVerzeichnis = null;
     private File[] dateiliste = null;

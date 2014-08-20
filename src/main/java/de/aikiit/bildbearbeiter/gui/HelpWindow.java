@@ -4,7 +4,8 @@
 package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -29,7 +30,7 @@ import java.io.File;
  */
 public class HelpWindow extends JFrame implements ActionListener {
     /** Logger for this class. */
-    private static final Logger LOG = Logger.getLogger(HelpWindow.class);
+    private static final Logger LOG = LogManager.getLogger(HelpWindow.class);
     /**
     End button needs to be visible inside the class to perform programme
     exit.

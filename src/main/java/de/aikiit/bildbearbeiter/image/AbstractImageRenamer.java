@@ -4,14 +4,15 @@ import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
 import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
 import de.aikiit.bildbearbeiter.exception.RenamingErrorException;
 import de.aikiit.bildbearbeiter.gui.ProgressBar;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.swing.JOptionPane;
 import java.io.File;
 
 /**
  * Abstract class that handles image renaming and file handling.
- * <br/>
+ * <br>
  * The onliest abstract method generates a filename from a given file
  * and should be used to provide different strategies for image renaming.
  *
@@ -22,7 +23,7 @@ public abstract class AbstractImageRenamer implements Runnable {
 
     /** The logger of this class. **/
     private static final Logger LOG =
-            Logger.getLogger(AbstractImageRenamer.class);
+            LogManager.getLogger(AbstractImageRenamer.class);
 
     /** The currently selected directory to work on. */
     private File currentDirectory = null;

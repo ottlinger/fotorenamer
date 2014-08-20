@@ -3,7 +3,8 @@
  */
 package de.aikiit.bildbearbeiter.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.swing.ImageIcon;
 import java.awt.Component;
@@ -22,7 +23,7 @@ public final class ComponentGaugeUtil {
      * Logger for this class.
      */
     private static final Logger LOG =
-            Logger.getLogger(ComponentGaugeUtil.class);
+            LogManager.getLogger(ComponentGaugeUtil.class);
 
     /**
      * Private default constructor to prevent instantiation of this class.

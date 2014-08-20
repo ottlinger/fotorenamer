@@ -2,7 +2,8 @@ package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 import de.aikiit.bildbearbeiter.util.LocalizationHelper;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +21,7 @@ public class ProgressBar extends JFrame {
     /**
      * Logger for this class.
      */
-    private static final Logger LOG = Logger.getLogger(ProgressBar.class);
+    private static final Logger LOG = LogManager.getLogger(ProgressBar.class);
     /**
      * By default the UI sleeps for 200 ms to be able to read the file names
      * during operation.

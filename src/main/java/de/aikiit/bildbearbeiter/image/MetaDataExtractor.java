@@ -93,7 +93,7 @@ public final class MetaDataExtractor {
     /**
      * Helper to extract the date this image was created to be used during the
      * renaming process.
-     * <p/>
+     * <br>
      * In the EXIF standard itself the following convention for dates as is
      * defined: <i> D. Other Tags DateTime The date and time of image creation.
      * In this standard it is the date and time the file was changed. The format
