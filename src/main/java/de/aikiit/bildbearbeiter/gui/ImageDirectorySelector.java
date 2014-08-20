@@ -4,7 +4,8 @@
 package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.LocalizationHelper;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,7 +28,7 @@ import java.io.IOException;
 public class ImageDirectorySelector extends JPanel {
     /** The logger of this class. **/
     private static final Logger LOG =
-            Logger.getLogger(ImageDirectorySelector.class);
+            LogManager.getLogger(ImageDirectorySelector.class);
 
     /** Contains the selected directory as a text field or any user input. */
     private JTextField textField = null;

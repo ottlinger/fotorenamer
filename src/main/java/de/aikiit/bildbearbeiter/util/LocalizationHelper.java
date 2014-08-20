@@ -1,6 +1,7 @@
 package de.aikiit.bildbearbeiter.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -19,7 +20,7 @@ public final class LocalizationHelper {
      * Logger.
      */
     private static final Logger LOG =
-            Logger.getLogger(LocalizationHelper.class);
+            LogManager.getLogger(LocalizationHelper.class);
     /**
      * ResourceBundle used for fotorenamer.
      * Currently it's static and German only.

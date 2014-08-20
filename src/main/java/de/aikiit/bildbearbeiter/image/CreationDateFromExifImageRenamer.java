@@ -2,7 +2,8 @@ package de.aikiit.bildbearbeiter.image;
 
 import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
 import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 
@@ -10,11 +11,11 @@ import java.io.File;
  * This class transforms picture file names. All relevant files
  * in the target directory get a new file name - if correct
  * metadata can be extracted from the files' EXIF file headers.
- * <br />
+ * <br>
  * A picture <code>foo.jpg</code> is renamed to
  * <code>201108111100_foo.jpg</code>  if the picture's creation date
  * was 2011-08-11 11:00.
- * <br />
+ * <br>
  * Files with no exif metadata are not changed at all.
  *
  * @author hirsch
@@ -24,7 +25,7 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
 
     /** Logger for this class. */
     private static final Logger LOG =
-            Logger.getLogger(CreationDateFromExifImageRenamer.class);
+            LogManager.getLogger(CreationDateFromExifImageRenamer.class);
 
     /**
      * The given directory is scanned for image files that
