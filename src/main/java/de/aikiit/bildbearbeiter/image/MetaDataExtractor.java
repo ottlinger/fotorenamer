@@ -1,5 +1,6 @@
 package de.aikiit.bildbearbeiter.image;
 
+import com.google.common.base.Strings;
 import org.apache.log4j.Logger;
 import org.apache.sanselan.ImageReadException;
 import org.apache.sanselan.Sanselan;
@@ -34,7 +35,7 @@ public final class MetaDataExtractor {
     public static final String SPACE = " ";
 
     /**
-     * Constant for an underscor character.
+     * Constant for an underscore character.
      */
     public static final String UNDERSCORE = "_";
 
@@ -66,7 +67,7 @@ public final class MetaDataExtractor {
      * @param image Image file to extract Metadata from.
      * @param tag   Tag to extract from the given file, @see TiffConstants
      * @return Returns exif tag value, in case of any errors the value is an
-     *         empty String.
+     * empty String.
      * @throws IOException        if file cannot be accessed.
      * @throws ImageReadException if an error occurred during image processing.
      */
@@ -104,7 +105,7 @@ public final class MetaDataExtractor {
      * with blank characters. The character string length is 20 bytes including
      * NULL for termination. When the field is left blank, it is treated as
      * unknown. Tag = 306 (132.H) Type = ASCII Count = 20 Default = none </i>
-     *
+     * <p>
      * If the extracted date value is empty - no new file name is generated.
      *
      * @param image Image to extract metadata from.
@@ -114,42 +115,37 @@ public final class MetaDataExtractor {
      * @throws IOException        If an error occurs when accessing the image's
      *                            metadata.
      * @see <a href="http://www.exif.org/samples/canon-ixus.html">Canon EXIF
-     *      example page</a>
+     * example page</a>
      * @see <a href="http://www.exif.org/specifications.html">EXIF
-     *      specifications</a>
+     * specifications</a>
      * @see <a href="http://www.exif.org/Exif2-2.PDF">EXIF2-2.pdf
-     *      specification</a>
+     * specification</a>
      */
-
     public static String generateCreationDateInCorrectFormat(final File image)
             throws ImageReadException, IOException, ParseException {
         String dateValue =
                 getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
 
         LOG.info("EXIF date value is: " + dateValue);
-        if (dateValue != null && dateValue.length() > 0) {
-
-            assert dateValue.length() == VALID_EXIF_DATE_LENGTH
-                    : "Invalid length of EXIF metadata, "
-                    + "not complying to the standard.";
-
-            // Date parsing with apache.DateUtils or JDK-DateFormats
-            // does not work due to '-signs in the date string
-            // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
-
-            // replace special characters to extract digits only
-            dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);
-            dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);
-            dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);
-            dateValue += UNDERSCORE;
-            //convert '2011:01:30 13:11:02' to "yyyyMMdd_HHmm_"+fileName
-            dateValue += image.getName();
-
-            LOG.info("Target filename is: " + dateValue);
-            return dateValue;
+        // Invalid length of EXIF metadata, not complying to the standard.
+        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {
+            LOG.info("No valid creation date extracted from file " + image);
+            return EMPTY_STRING;
         }
-        LOG.info("No creation date extracted from file " + image);
 
-        return EMPTY_STRING;
+        // Date parsing with apache.DateUtils or JDK-DateFormats
+        // does not work due to '-signs in the date string
+        // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
+
+        // replace special characters to extract digits only
+        dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);
+        dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);
+        dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);
+        dateValue += UNDERSCORE;
+        //convert '2011:01:30 13:11:02' to "yyyyMMdd_HHmm_"+fileName
+        dateValue += image.getName();
+
+        LOG.info("Target filename is: " + dateValue);
+        return dateValue;
     }
 }

@@ -4,11 +4,15 @@ import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
 import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
 import de.aikiit.bildbearbeiter.exception.RenamingErrorException;
 import de.aikiit.bildbearbeiter.gui.ProgressBar;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Abstract class that handles image renaming and file handling.
@@ -21,18 +25,28 @@ import java.io.File;
  */
 public abstract class AbstractImageRenamer implements Runnable {
 
-    /** The logger of this class. **/
+    /**
+     * The logger of this class. *
+     */
     private static final Logger LOG =
             LogManager.getLogger(AbstractImageRenamer.class);
 
-    /** The currently selected directory to work on. */
+    /**
+     * The currently selected directory to work on.
+     */
     private File currentDirectory = null;
-    /** The list of all relevant files in the current directory. */
-    private File[] imageList = null;
+    /**
+     * The list of all relevant files in the current directory.
+     */
+    private List<File> imageList = null;
 
-    /** Progress bar for visual feedback of what's going on. */
+    /**
+     * Progress bar for visual feedback of what's going on.
+     */
     private ProgressBar progressBar = null;
-    /** Number of files that need processing. */
+    /**
+     * Number of files that need processing.
+     */
     private int amountOfFiles = 0;
 
     /**
@@ -40,7 +54,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      * subclasses.
      */
     private AbstractImageRenamer() {
-     // empty default constructor
+        // empty default constructor
     }
 
     /**
@@ -49,11 +63,9 @@ public abstract class AbstractImageRenamer implements Runnable {
      * subclasses implementation of @see #renameImage(File).
      *
      * @param directory Name of directory to work on.
-     * @throws InvalidDirectoryException
-     * If there's a problem with
-     * the selected directory.
-     * @throws NoFilesFoundException
-     * If the selected directory is empty.
+     * @throws InvalidDirectoryException If there's a problem with
+     *                                   the selected directory.
+     * @throws NoFilesFoundException     If the selected directory is empty.
      */
     public AbstractImageRenamer(final String directory)
             throws InvalidDirectoryException, NoFilesFoundException {
@@ -68,12 +80,12 @@ public abstract class AbstractImageRenamer implements Runnable {
         }
 
         // retrieve relevant images in directory
-        this.imageList = this.currentDirectory.listFiles(
-                new ImageFilenameFilter());
-        if (this.imageList == null || this.imageList.length == 0) {
+        this.imageList = Arrays.asList(this.currentDirectory.listFiles(
+                new ImageFilenameFilter()));
+        if (this.imageList.isEmpty()) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
-        this.amountOfFiles = this.imageList.length;
+        this.amountOfFiles = this.imageList.size();
     }
 
     /**
@@ -82,42 +94,48 @@ public abstract class AbstractImageRenamer implements Runnable {
      * @throws RenamingErrorException if any errors occur.
      */
     public final void renameFiles() throws RenamingErrorException {
-        String targetFilename = "";
-        Boolean renamingResult;
         LOG.info("Starting to rename " + this.amountOfFiles + " files.");
-        for (int i = 0; i < this.amountOfFiles; i++) {
 
-            // only rename regular files
-            if (this.imageList[i].isFile()) {
 
+        Consumer<File> consumer = new Consumer<File>() {
+            @Override
+            public void accept(File file) {
+                Boolean renamingResult;
                 // extract EXIF data and fetch target filename
-                targetFilename = renameImage(this.imageList[i]);
+                String targetFilename = renameImage(file);
 
                 // update progress bar (names have a different length)
-                this.progressBar.setProgress(i);
-                this.progressBar.setText(this.imageList[i].getName());
-                this.progressBar.updateUI();
-
+                progressBar.setProgress();
+                progressBar.setText(file.getName());
+                progressBar.updateUI();
                 // perform file renaming
-                renamingResult = this.imageList[i].renameTo(
-                        new File(this.imageList[i].getParent(),
+                renamingResult = file.renameTo(
+                        new File(file.getParent(),
                                 targetFilename));
                 if (renamingResult) {
-                    LOG.info("Renaming " + this.imageList[i].getName()
+                    LOG.info("Renaming " + file.getName()
                             + " to " + targetFilename);
                     LOG.info("Renamed file exists? "
-                            + new File(this.imageList[i].getParent(),
-                                    targetFilename).exists());
-                }  else {
-                    throw new RenamingErrorException("Could not rename"
-                            + this.imageList[i].getName() + " to "
+                            + new File(file.getParent(),
+                            targetFilename).exists());
+                }
+                // TODO add second progressbar or counter for errors
+                else {
+                    LOG.error("Unable to rename"
+                            + file.getName() + " to "
                             + targetFilename);
                 }
-            } else {
-                LOG.info("Skipping " + this.imageList[i].getName()
-                        + " - not a file.");
             }
-        } // end of for
+        };
+        Predicate<File> fileOnly = new Predicate<File>() {
+            @Override
+            public boolean test(File file) {
+                return file != null && file.isFile();
+            }
+        };
+
+        this.imageList.parallelStream().filter(fileOnly).forEach(consumer);
+
     }
 
     /**
@@ -126,7 +144,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      * It is called during image processing.
      *
      * @param imageFile Filename to renameFiles according to the subclass
-     * implementation.
+     *                  implementation.
      * @return New filename for the given file.
      */
     abstract String renameImage(File imageFile);
@@ -157,7 +175,7 @@ public abstract class AbstractImageRenamer implements Runnable {
         }
 
         // show UI-notification
-        switch(this.amountOfFiles) {
+        switch (this.amountOfFiles) {
             case 0:
                 notification = "Im Verzeichnis: "
                         + this.currentDirectory.getName()

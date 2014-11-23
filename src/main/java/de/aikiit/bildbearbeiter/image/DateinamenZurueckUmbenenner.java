@@ -73,7 +73,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
             }
 
             // ProgressBar updaten...
-            this.grafik.setProgress(i);
+            this.grafik.setProgress();
             this.grafik.setText(name);
             // Da die Namen verschieden lang sind den ProgressBar updaten!
             this.grafik.updateUI();
