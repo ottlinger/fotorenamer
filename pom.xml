@@ -36,9 +36,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <logger.version>2.0.1</logger.version>
-    <junit.version>4.12-beta-1</junit.version>
-    <mockito.version>1.9.5</mockito.version>
+    <logger.version>2.1</logger.version>
+    <junit.version>4.12-beta-3</junit.version>
+    <mockito.version>1.10.8</mockito.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
   </properties>
   <dependencies>
@@ -454,6 +454,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
+        <!-- since webstart-plugin beta7 is not available - fixes https://jira.codehaus.org/browse/MWEBSTART-269 -->
         <version>1.0-beta-6</version>
         <executions>
           <execution>
@@ -471,6 +472,7 @@
               <include>org.apache.logging.log4j:log4j-api</include>
               <include>org.apache.logging.log4j:log4j-core</include>
               <include>org.apache.sanselan:sanselan</include>
+              <include>com.google.guava:guava</include>
             </includes>
           </dependencies>
           <!-- add pictures for webstart here -->
