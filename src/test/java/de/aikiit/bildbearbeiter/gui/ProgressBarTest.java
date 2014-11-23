@@ -30,8 +30,12 @@ public class ProgressBarTest {
     public void checkSetterGetter() {
         ProgressBar bar = new ProgressBar(10);
         assertNotNull(bar);
-        bar.setProgress(5);
-        assertEquals(5, bar.getProgress());
+        bar.setProgress();
+        bar.setProgress();
+        bar.setProgress();
+        bar.setProgress();
+        bar.setProgress();
+        assertEquals(4, bar.getProgress());
         bar.setText(TEXT);
         assertEquals(TEXT, bar.getText());
         // verify that no exception is thrown here

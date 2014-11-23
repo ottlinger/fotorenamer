@@ -1,8 +1,8 @@
 package de.aikiit.bildbearbeiter;
 
 import de.aikiit.bildbearbeiter.gui.MainUIWindow;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 

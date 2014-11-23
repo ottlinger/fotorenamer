@@ -2,13 +2,12 @@ package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 import de.aikiit.bildbearbeiter.util.LocalizationHelper;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class provides a progressbar with 2 lines. One is the progress bar
@@ -28,9 +27,13 @@ public class ProgressBar extends JFrame {
      */
     private static final int DEFAULT_UI_DELAY = 200;
 
-    /** Text field to show current file or other information during run. */
+    /**
+     * Text field to show current file or other information during run.
+     */
     private JLabel textInfo = null;
-    /** The visual progress bar. */
+    /**
+     * The visual progress bar.
+     */
     private JProgressBar progressBar = null;
     /**
      * Amount of seconds the UI sleeps in order to give a
@@ -40,13 +43,15 @@ public class ProgressBar extends JFrame {
      */
     private int delayInUI = -1;
 
+    private AtomicInteger currentState;
+
     /**
      * Creates a progress bar with the given amount as 100 percent.
      *
      * @param maxCapacity Defines the 100%-scale for this progress bar.
      */
     public ProgressBar(final int maxCapacity) {
-        super();
+        currentState = new AtomicInteger(0);
         init(maxCapacity);
     }
 
@@ -106,12 +111,9 @@ public class ProgressBar extends JFrame {
     /**
      * Set progress by setting the amount of items that are processed
      * successfully.
-     *
-     * @param step Current step's number. Should be smaller than maximal
-     *             capacity of this progress bar.
      */
-    public final void setProgress(final int step) {
-        this.progressBar.setValue(step);
+    public final void setProgress() {
+        this.progressBar.setValue(currentState.getAndIncrement());
     } // end of setProgress
 
     /**
