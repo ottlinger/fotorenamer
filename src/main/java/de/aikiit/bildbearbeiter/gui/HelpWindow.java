@@ -4,19 +4,11 @@
 package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,12 +21,14 @@ import java.io.File;
  * @version 2004-01-08
  */
 public class HelpWindow extends JFrame implements ActionListener {
-    /** Logger for this class. */
+    /**
+     * Logger for this class.
+     */
     private static final Logger LOG = LogManager.getLogger(HelpWindow.class);
     /**
-    End button needs to be visible inside the class to perform programme
-    exit.
-    */
+     * End button needs to be visible inside the class to perform programme
+     * exit.
+     */
     private JButton endButton = null;
 
     /**
@@ -48,7 +42,12 @@ public class HelpWindow extends JFrame implements ActionListener {
      * <strong>not</strong> show the window.
      */
     public HelpWindow() {
-        init();
+        SwingUtilities.invokeLater(
+                () -> {
+                    init();
+                }
+        );
+
     } // end of Konstruktor
 
     /**

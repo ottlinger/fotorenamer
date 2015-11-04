@@ -9,14 +9,8 @@ import de.aikiit.bildbearbeiter.image.CreationDateFromExifImageRenamer;
 import de.aikiit.bildbearbeiter.image.DateinamenZurueckUmbenenner;
 import de.aikiit.bildbearbeiter.util.ComponentGaugeUtil;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingWorker;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -36,7 +30,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
             new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                     format(new java.util.Date(Long.parseLong(
                             de.aikiit.bildbearbeiter.util.Version.TIMESTAMP)))
-                    + " / GC-rev: "
+                    + " / SCM-rev: "
                     + de.aikiit.bildbearbeiter.util.Version.VERSION;
     /**
      * Relative location of the UI's image icon.
@@ -77,7 +71,9 @@ public class MainUIWindow extends JFrame implements ActionListener {
      * Creates the main UI window and initializes all internal UI-components.
      */
     public MainUIWindow() {
-        init();
+        SwingUtilities.invokeLater(() -> {
+            init();
+        });
     }
 
     /**
@@ -160,16 +156,16 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             + "\nURL: http://www.aiki-it.de"
                             + "\n (C) 1996-"
                             + new java.text.SimpleDateFormat("yyyy").
-                    format(new java.util.Date(
-                            Long.parseLong(
-                                    de.aikiit.bildbearbeiter.util.
-                                            Version.TIMESTAMP))),
+                            format(new java.util.Date(
+                                    Long.parseLong(
+                                            de.aikiit.bildbearbeiter.util.
+                                                    Version.TIMESTAMP))),
                     "Versionsinfo",
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
                 == this.goButton) {
-    // Construct a new SwingWorker,  read from
-    // http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
+            // Construct a new SwingWorker,  read from
+            // http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {

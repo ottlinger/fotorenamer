@@ -304,7 +304,7 @@
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>emma-maven-plugin</artifactId>
-              <version>1.0-alpha-3</version>
+              <version>1.2</version>
             </plugin>
             <!-- check if this is necessary since reports are generated twice, once empty -->
             <plugin>

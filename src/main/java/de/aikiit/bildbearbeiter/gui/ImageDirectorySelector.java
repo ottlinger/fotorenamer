@@ -4,17 +4,11 @@
 package de.aikiit.bildbearbeiter.gui;
 
 import de.aikiit.bildbearbeiter.util.LocalizationHelper;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -26,18 +20,28 @@ import java.io.IOException;
  * @version 2004-01-08
  */
 public class ImageDirectorySelector extends JPanel {
-    /** The logger of this class. **/
+    /**
+     * The logger of this class.
+     **/
     private static final Logger LOG =
             LogManager.getLogger(ImageDirectorySelector.class);
 
-    /** Contains the selected directory as a text field or any user input. */
+    /**
+     * Contains the selected directory as a text field or any user input.
+     */
     private JTextField textField = null;
-    /** The UI's button to start directory selection. */
+    /**
+     * The UI's button to start directory selection.
+     */
     private JButton browseButton = null;
-    /** An image icon that is displayed as part of the button. */
+    /**
+     * An image icon that is displayed as part of the button.
+     */
     private ImageIcon imageIcon = null;
-    /** Should this component be used to select directories only,
-     * default value is <code>false</code>. **/
+    /**
+     * Should this component be used to select directories only,
+     * default value is <code>false</code>.
+     **/
     private boolean directoryOnly = false;
 
     /**
@@ -73,7 +77,7 @@ public class ImageDirectorySelector extends JPanel {
      * in the UI.
      *
      * @return Returns whether anything is selected within the current
-     *         configuration.
+     * configuration.
      */
     public final boolean isSelected() {
         return (this.textField.getText() != null);
