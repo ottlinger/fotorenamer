@@ -279,7 +279,7 @@
       </plugin>
       <!-- hg has a different date format than the standard, you need to set the date format here in order to generate reports -->
       <!-- followed after problems reported at http://stackoverflow.com/questions/2738572/maven-changelog-plugin-with-mercurial-problem -->
-      <plugin>
+      <!--      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changelog-plugin</artifactId>
         <version>2.3</version>
@@ -288,6 +288,7 @@
           <outputEncoding>UTF-8</outputEncoding>
         </configuration>
       </plugin>
+-->
       <!-- project reports are configured within the site plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -320,11 +321,13 @@
                 <linkJavadoc>true</linkJavadoc>
               </configuration>
             </plugin>
+            <!--
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>emma-maven-plugin</artifactId>
               <version>1.2</version>
             </plugin>
+-->
             <!-- check if this is necessary since reports are generated twice, once empty -->
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -335,6 +338,7 @@
                 <showSuccess>true</showSuccess>
               </configuration>
             </plugin>
+            <!--
             <plugin>
               <artifactId>maven-pmd-plugin</artifactId>
               <version>2.5</version>
@@ -348,6 +352,7 @@
                 </excludes>
               </configuration>
             </plugin>
+-->
             <!-- read changes.xml -->
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -368,21 +373,13 @@
               <version>2.0</version>
             </plugin>
             <!-- 20090805  disabled due to a bug in Cobertura leading to CI error mails, http://jira.codehaus.org/browse/MCOBERTURA-73 -->
-            <!-- cobertura plugin -->
+            <!-- cobertura plugin 
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>cobertura-maven-plugin</artifactId>
               <version>2.5.1</version>
             </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-changelog-plugin</artifactId>
-              <version>2.3</version>
-              <configuration>
-                <dateFormat>EEE MMM dd HH:mm:ss yyyy Z</dateFormat>
-                <outputEncoding>UTF-8</outputEncoding>
-              </configuration>
-            </plugin>
+-->
             <!-- catch code tags -->
             <plugin>
               <groupId>org.codehaus.mojo</groupId>

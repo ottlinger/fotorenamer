@@ -2,6 +2,13 @@
 
 [![Build Status](https://travis-ci.org/ottlinger/fotorenamer.svg?branch=master)](https://travis-ci.org/ottlinger/fotorenamer)
 
+[![codecov.io](http://codecov.io/github/ottlinger/fotorenamer/coverage.svg?bran
+ch=master)](http://codecov.io/github/ottlinger/fotorenamer?branch=master)
+
+[![Stories in 
+Ready](https://badge.waffle.io/ottlinger/fotorenamer.svg?label=ready&title=Read
+y)](http://waffle.io/ottlinger/fotorenamer)
+
 # ABSTRACT #
 Helper to change image filenames from **IMG\_number** to **YYYYMMDD\_IMG\_number** in order to allow an easier photo sorting. YYYMMDD itself is extracted from the photograph's EXIF metadata.
 
