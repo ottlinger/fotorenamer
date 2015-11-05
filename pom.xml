@@ -28,11 +28,11 @@
       <url>scp://localhost/www/docs/project/fotorenamer</url>
     </site>
   </distributionManagement>
-<scm>
-  <connection>scm:git:git://github.com/ottlinger/fotorenamer.git</connection>
-  <developerConnection>scm:git:giti@github.com:ottlinger/fotorenamer.git</developerConnection>
-  <url>https://github.com/ottlinger/fotorenamer</url>
-</scm>
+  <scm>
+    <connection>scm:git:git://github.com/ottlinger/fotorenamer.git</connection>
+    <developerConnection>scm:git:giti@github.com:ottlinger/fotorenamer.git</developerConnection>
+    <url>https://github.com/ottlinger/fotorenamer</url>
+  </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -169,6 +169,25 @@
                         </property>
                     </systemProperties-->
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.5.201505241946</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <!-- copy Version.java independent of normal resource copying to avoid eclipse errors -->
       <plugin>
