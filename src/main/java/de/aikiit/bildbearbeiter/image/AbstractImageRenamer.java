@@ -192,6 +192,7 @@ public abstract class AbstractImageRenamer implements Runnable {
                         + this.amountOfFiles + " Dateien\n"
                         + "im Verzeichnis: " + this.currentDirectory.getName()
                         + "\numbenannt.\n\n";
+                break;
         }
         JOptionPane.showMessageDialog(null, notification, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);
