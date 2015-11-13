@@ -24,7 +24,7 @@ After several operating system upgrades this behaviour changed and I needed to f
 During my parental leave in 2011 I decided to use this dirty little hack to evaluate the usage of google code as a project tool and to get used to my IntelliJ :-)
 ## 2015 ##
 
-The project moved over to GitHub :happy:
+The project moved over to GitHub :smile:
 
 # USAGE #
 ## Building ##
