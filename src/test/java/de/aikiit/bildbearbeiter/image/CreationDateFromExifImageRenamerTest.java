@@ -11,6 +11,7 @@ import static de.aikiit.bildbearbeiter.TestConstants.FULLPATH_IMAGES;
 import static de.aikiit.bildbearbeiter.TestConstants.FULLPATH_TEST_IMG;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertNotNull;
 
 /**
  * Test image renaming.
@@ -30,6 +31,8 @@ public class CreationDateFromExifImageRenamerTest {
     public final void checkNPECorrectnessInConstructor() throws Exception {
         CreationDateFromExifImageRenamer imageRenamer = new
                 CreationDateFromExifImageRenamer(null);
+        // just to avoid compiler warnings, code will not be reached
+        assertNotNull(imageRenamer);
     }
 
     public final void checkNPECorrectnessWhenRenaming() throws NoFilesFoundException, InvalidDirectoryException {
