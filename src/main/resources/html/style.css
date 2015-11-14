@@ -15,7 +15,7 @@ p,BODY
 	background-position: right bottom;
 	background-attachment: fixed;
 }
-p.warn
+.warn
 {
 	color:#e24912;
 	background:white;
@@ -54,7 +54,7 @@ H1
 	text-align:center;
 }
 
-H1.blau
+.blau
 {
 	color:#000099;
         background:white;
@@ -66,7 +66,7 @@ H1.blau
 }
 ADDRESS{
 background:white;color:black;font-style:italic;margin-left:+3%;font-size:14px;line-height:17px;text-align:left;}
-ADDRESS.mittig{
+.mittig{
 background:white;color:black;font-style:italic;margin-left:+3%;font-size:14px;line-height:17px;text-align:center;}
 
 HR

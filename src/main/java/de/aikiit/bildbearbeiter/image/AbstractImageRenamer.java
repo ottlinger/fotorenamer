@@ -96,7 +96,6 @@ public abstract class AbstractImageRenamer implements Runnable {
     public final void renameFiles() throws RenamingErrorException {
         LOG.info("Starting to rename " + this.amountOfFiles + " files.");
 
-
         Consumer<File> consumer = new Consumer<File>() {
             @Override
             public void accept(File file) {
@@ -147,7 +146,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      *                  implementation.
      * @return New filename for the given file.
      */
-    abstract String renameImage(File imageFile);
+    public abstract String renameImage(File imageFile);
 
     /**
      * Performs the renaming and updates the UI. All error handling is done in

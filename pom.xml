@@ -4,7 +4,7 @@
   <groupId>de.aikiit</groupId>
   <artifactId>fotorenamer</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>FotoRenamer - rename your photos automatically</name>
   <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
   <url>http://code.google.com/p/fotorenamer/</url>

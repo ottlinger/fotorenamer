@@ -52,7 +52,7 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
      * @see MetaDataExtractor for more information about the file format.
      */
     @Override
-    final String renameImage(final File imageFile) {
+    public final String renameImage(final File imageFile) {
         String newImageName = imageFile.getName();
         LOG.info("Start renaming in CreationDateFromExifImageRenamer");
 
