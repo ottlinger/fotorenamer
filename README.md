@@ -35,7 +35,7 @@ This tool can be used with [Maven3](http://maven.apache.org/download.html) in tw
 
 ## Developer Documentation ##
 
-The project is maintained/built with maven - you can have a look at the current [site reports](https://github.com/ottlinger/fotorenamer/blob/master/webpage/site/index.html).
+The project is maintained/built with maven - you can have a look at the current [site reports](https://ottlinger.github.io/fotorenamer/).
 
 ## Running ##
   1. Create a backup of your images.
