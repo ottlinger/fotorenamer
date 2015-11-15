@@ -7,7 +7,7 @@
   <version>1.0.1-SNAPSHOT</version>
   <name>FotoRenamer - rename your photos automatically</name>
   <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
-  <url>http://code.google.com/p/fotorenamer/</url>
+  <url>https://github.com/ottlinger/fotorenamer/</url>
   <organization>
     <name>Aiki IT</name>
     <url>http://www.aiki-it.de</url>
