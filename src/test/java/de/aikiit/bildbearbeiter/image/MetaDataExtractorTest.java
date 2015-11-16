@@ -19,8 +19,7 @@ public class MetaDataExtractorTest {
 
     /**
      * Test metadata extraction from above example image.
-     *
-     * @throws Exception
+     * @throws Exception in case of errors.
      */
     @Test
     public final void readDirectoryContent() throws Exception {
@@ -32,10 +31,13 @@ public class MetaDataExtractorTest {
 
     /**
      * Checks assertion failure with null parameter.
+     * @throws Exception in case of errors.
      */
     @Test(expected = AssertionError.class)
     public void checkAssertionErrors() throws Exception {
         assertNull(MetaDataExtractor.getExifMetadata(null, null));
     }
+
+
 
 }

@@ -26,6 +26,7 @@ public class CreationDateFromExifImageRenamerTest {
 
     /**
      * Ensure that no NullPointerException is thrown with null arguments.
+     * @throws Exception in case of errors.
      */
     @Test(expected = InvalidDirectoryException.class)
     public final void checkNPECorrectnessInConstructor() throws Exception {
@@ -44,6 +45,7 @@ public class CreationDateFromExifImageRenamerTest {
 
     /**
      * Perform file renaming (while waiting for Thread to finish).
+     * @throws Exception in case of errors.
      */
     // TODO redesign application - component mingles function and GUI and is
     // not clearly testable
