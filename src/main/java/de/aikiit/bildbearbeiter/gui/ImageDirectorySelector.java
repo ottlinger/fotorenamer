@@ -80,7 +80,7 @@ public class ImageDirectorySelector extends JPanel {
      * configuration.
      */
     public final boolean isSelected() {
-        return (this.textField.getText() != null);
+        return this.textField.getText() != null;
     } // end of isSelected
 
 
