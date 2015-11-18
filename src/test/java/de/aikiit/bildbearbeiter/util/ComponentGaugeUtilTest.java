@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNull;
 public class ComponentGaugeUtilTest {
     /**
      * Checks image creation with a valid and an invalid path.
+     * @throws Exception in case of errors.
      */
     @Test
     public final void createIconFromStringPath() throws Exception {
@@ -40,6 +41,7 @@ public class ComponentGaugeUtilTest {
     /**
      * Checks that a component gets a non-default location after calling util
      * method.
+     * @throws Exception in case of errors.
      */
     @Test
     public void gaugeSwingComponent() throws Exception {
