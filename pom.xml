@@ -277,9 +277,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- hg has a different date format than the standard, you need to set the date format here in order to generate reports -->
-      <!-- followed after problems reported at http://stackoverflow.com/questions/2738572/maven-changelog-plugin-with-mercurial-problem -->
-      <!--      <plugin>
+     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changelog-plugin</artifactId>
         <version>2.3</version>
@@ -288,7 +286,6 @@
           <outputEncoding>UTF-8</outputEncoding>
         </configuration>
       </plugin>
--->
       <!-- project reports are configured within the site plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

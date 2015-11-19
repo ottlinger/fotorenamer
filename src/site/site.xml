@@ -41,4 +41,15 @@ under the License.
         <menu name="Reports" ref="reports">
         </menu>
     </body>
+  <custom>
+    <fluidoSkin>
+      <topBarEnabled>true</topBarEnabled>
+      <topBarIcon>
+        <name>Project documentationn</name>
+        <alt>Fotorenamer logo</alt>
+        <src>/images/topbar-logo.png</src>
+        <href>/index.html</href>
+      </topBarIcon>
+    </fluidoSkin>
+  </custom>
 </project>
