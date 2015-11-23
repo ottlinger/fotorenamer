@@ -4,7 +4,7 @@
   <groupId>de.aikiit</groupId>
   <artifactId>fotorenamer</artifactId>
   <packaging>jar</packaging>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.1-SNAPSHOT</version>
   <name>FotoRenamer - rename your photos automatically</name>
   <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
   <url>https://github.com/ottlinger/fotorenamer/</url>
@@ -40,6 +40,7 @@
     <junit.version>4.12</junit.version>
     <mockito.version>1.10.19</mockito.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+    <rat.version>0.11</rat.version>
   </properties>
   <dependencies>
     <!-- test dependencies -->
@@ -152,8 +153,54 @@
         <filtering>false</filtering>
       </testResource>
     </testResources>
-    <pluginManagement/>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>${rat.version}</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <useDefaultExcludes>true</useDefaultExcludes>
+          <useEclipseDefaultExcludes>true</useEclipseDefaultExcludes>
+          <useMavenDefaultExcludes>true</useMavenDefaultExcludes>
+          <useIdeaDefaultExcludes>true</useIdeaDefaultExcludes>
+          <addDefaultLicenseMatchers>true</addDefaultLicenseMatchers>
+          <excludes>
+            <exclude>.travis.yml</exclude>
+            <exclude>LICENSE.txt</exclude>
+            <exclude>*.md</exclude>
+            <exclude>src/main/resources/**/*</exclude>
+            <exclude>src/test/resources/**/*</exclude>
+            <exclude>**/webpage/**/*</exclude>
+            <exclude>**/webpage/**</exclude>
+            <exclude>**/webpage/*</exclude>
+            <exclude>webpage/**</exclude>
+            <exclude>webpage/**/*</exclude>
+            <exclude>webpage/*</exclude>
+            <exclude>**/out*/**</exclude>
+            <exclude>**/site*/**</exclude>
+            <exclude>**/*.log</exclude>
+            <exclude>**/.checkstyle/**/*</exclude>
+            <exclude>**/.gitignore</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+    </pluginManagement>
     <plugins>
+      <!-- Licence compliance for GPL, configuration is performed in reporting section  -->
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+      </plugin>
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -296,6 +343,10 @@
           <inputEncoding>UTF-8</inputEncoding>
           <reportPlugins>
             <plugin>
+              <groupId>org.apache.rat</groupId>
+              <artifactId>apache-rat-plugin</artifactId>
+            </plugin>
+            <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-checkstyle-plugin</artifactId>
               <version>2.17</version>
@@ -373,7 +424,7 @@
               <version>2.0</version>
             </plugin>
             <!-- 20090805  disabled due to a bug in Cobertura leading to CI error mails, http://jira.codehaus.org/browse/MCOBERTURA-73 -->
-            <!-- cobertura plugin 
+            <!-- cobertura plugin
             <plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>cobertura-maven-plugin</artifactId>
