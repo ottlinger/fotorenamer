@@ -4,7 +4,7 @@
   <groupId>de.aikiit</groupId>
   <artifactId>fotorenamer</artifactId>
   <packaging>jar</packaging>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>FotoRenamer - rename your photos automatically</name>
   <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
   <url>https://github.com/ottlinger/fotorenamer/</url>
@@ -177,6 +177,7 @@
             <exclude>.travis.yml</exclude>
             <exclude>LICENSE.txt</exclude>
             <exclude>*.md</exclude>
+            <exclude>**/*.vm</exclude>
             <exclude>src/main/resources/**/*</exclude>
             <exclude>src/test/resources/**/*</exclude>
             <exclude>**/webpage/**/*</exclude>
