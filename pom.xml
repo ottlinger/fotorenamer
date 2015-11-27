@@ -177,6 +177,7 @@
             <exclude>.travis.yml</exclude>
             <exclude>LICENSE.txt</exclude>
             <exclude>*.md</exclude>
+            <exclude>**/*.vm</exclude>
             <exclude>src/main/resources/**/*</exclude>
             <exclude>src/test/resources/**/*</exclude>
             <exclude>**/webpage/**/*</exclude>
