@@ -34,7 +34,7 @@ public class HelpWindow extends JFrame implements ActionListener {
     /**
      * Relative location of the UI's image icon.
      */
-    private static String HTML_HELP_LOCATION = File.separator + "html"
+    private static final String HTML_HELP_LOCATION = File.separator + "html"
             + File.separator + "hilfe.html";
 
     /**
@@ -42,12 +42,7 @@ public class HelpWindow extends JFrame implements ActionListener {
      * <strong>not</strong> show the window.
      */
     public HelpWindow() {
-        SwingUtilities.invokeLater(
-                () -> {
-                    init();
-                }
-        );
-
+        SwingUtilities.invokeLater(this::init);
     } // end of Konstruktor
 
     /**
@@ -55,18 +50,13 @@ public class HelpWindow extends JFrame implements ActionListener {
      */
     private void init() {
         // REVIEW add i18n
-        JPanel oben = null;
-        JPanel unten = null;
-        JScrollPane rollpanel = null;
-        JEditorPane textfeld = null;
-
         this.setTitle("Programmhilfe");
         this.setResizable(false);
-        oben = new JPanel(new FlowLayout());
-        unten = new JPanel(new FlowLayout());
+        JPanel oben = new JPanel(new FlowLayout());
+        JPanel unten = new JPanel(new FlowLayout());
 
         // Inhalt des Textfeldes von einer URL laden
-        textfeld = new JEditorPane();
+        JEditorPane textfeld = new JEditorPane();
         textfeld.setContentType("text/html");
         textfeld.setEditable(false);
         try {
@@ -81,7 +71,7 @@ public class HelpWindow extends JFrame implements ActionListener {
         } // end of catch
 
         // Eigenschaften des Scrollpanels anpassen
-        rollpanel = new JScrollPane(oben);
+        JScrollPane rollpanel = new JScrollPane(oben);
         rollpanel.setPreferredSize(new Dimension(350, 300));
         rollpanel.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

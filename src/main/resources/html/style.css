@@ -1,19 +1,17 @@
-frameset{border:none; border-width: 0; border-style: hidden; border-top: none; border-right: none; border-left: none; border-bottom:none;}
+frameset{
+	border: 0 none;
+}
 
 p,BODY
 {
 	color:black;
-	background:white;
 	margin-left:4%;
 	margin-right:4%;
     font-family:Arial,Helvetica,Geneva,Swiss,SunSans-Regular,Serif,Sans-Serif;
 	font-size:12px;
 	line-height:15px;
     text-align:left;
-	background-image: url(tux_transparent.gif);
-	background-repeat: no-repeat;
-	background-position: right bottom;
-	background-attachment: fixed;
+	background: white url(tux_transparent.gif) no-repeat fixed right bottom;
 }
 .warn
 {

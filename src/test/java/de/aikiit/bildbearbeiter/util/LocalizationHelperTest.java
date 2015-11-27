@@ -26,7 +26,7 @@ public class LocalizationHelperTest {
     @Test
     public final void checkParametrizedValueExtraction() {
         assertEquals("Erfolg und dann folgt noch die 7", LocalizationHelper.getParameterizedBundleString("fotorenamer.test.param",
-                new Object[] {"Erfolg", Integer.valueOf(7)}));
+                new Object[] {"Erfolg", 7}));
         assertEquals("{0} und dann folgt noch die {1}", LocalizationHelper.getParameterizedBundleString("fotorenamer.test.param",
                 new Object[] {}));
 

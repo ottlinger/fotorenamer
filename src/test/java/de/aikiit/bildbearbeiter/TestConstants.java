@@ -15,19 +15,19 @@ public class TestConstants {
     /**
      * Constant to fully qualified directory with all test images.
      */
-    public final static String FULLPATH_IMAGES =  System.getProperty("user.dir")
+    public static final String FULLPATH_IMAGES =  System.getProperty("user.dir")
             + File.separator + "target" + File.separator + "test-classes"
             + File.separator + "data" + File.separator;
 
     /**
      * Constant to describe full qualified path to one test image.
      */
-    public final static String FULLPATH_TEST_IMG = FULLPATH_IMAGES + "IMG_7559_mini.JPG";
+    public static final String FULLPATH_TEST_IMG = FULLPATH_IMAGES + "IMG_7559_mini.JPG";
 
     /**
      * Constant to full qualified picture url after processing.
      */
-    public final static String FULLPATH_TEST_IMG_RENAMED = FULLPATH_IMAGES + "20110130_131102_IMG_7559_mini.JPG";
+    public static final String FULLPATH_TEST_IMG_RENAMED = FULLPATH_IMAGES + "20110130_131102_IMG_7559_mini.JPG";
 
     /**
      * Name of the test image after renaming.

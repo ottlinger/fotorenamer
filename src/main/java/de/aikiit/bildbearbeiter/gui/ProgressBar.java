@@ -43,7 +43,7 @@ public class ProgressBar extends JFrame {
      */
     private int delayInUI = -1;
 
-    private AtomicInteger currentState;
+    private final AtomicInteger currentState;
 
     /**
      * Creates a progress bar with the given amount as 100 percent.

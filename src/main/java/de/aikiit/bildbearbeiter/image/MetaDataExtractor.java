@@ -12,7 +12,6 @@ import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 
 /**
  * Helper class to extract metadata from given images. This class uses Apache
@@ -110,7 +109,6 @@ public final class MetaDataExtractor {
      *
      * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
-     * @throws ParseException     If metadata cannot be parsed correctly.
      * @throws ImageReadException If image cannot be read.
      * @throws IOException        If an error occurs when accessing the image's
      *                            metadata.
@@ -122,7 +120,7 @@ public final class MetaDataExtractor {
      * specification</a>
      */
     public static String generateCreationDateInCorrectFormat(final File image)
-            throws ImageReadException, IOException, ParseException {
+            throws ImageReadException, IOException {
         String dateValue =
                 getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
 

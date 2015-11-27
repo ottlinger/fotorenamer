@@ -1,7 +1,6 @@
 package de.aikiit.bildbearbeiter.image;
 
 import de.aikiit.bildbearbeiter.exception.InvalidDirectoryException;
-import de.aikiit.bildbearbeiter.exception.NoFilesFoundException;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -10,8 +9,8 @@ import java.io.File;
 import static de.aikiit.bildbearbeiter.TestConstants.FULLPATH_IMAGES;
 import static de.aikiit.bildbearbeiter.TestConstants.FULLPATH_TEST_IMG;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Test image renaming.
@@ -35,13 +34,6 @@ public class CreationDateFromExifImageRenamerTest {
         // just to avoid compiler warnings, code will not be reached
         assertNotNull(imageRenamer);
     }
-
-    public final void checkNPECorrectnessWhenRenaming() throws NoFilesFoundException, InvalidDirectoryException {
-        CreationDateFromExifImageRenamer imageRenamer = new
-                CreationDateFromExifImageRenamer("tmp");
-        imageRenamer.renameImage(null);
-    }
-
 
     /**
      * Perform file renaming (while waiting for Thread to finish).

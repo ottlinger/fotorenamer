@@ -35,13 +35,13 @@ public class MainUIWindow extends JFrame implements ActionListener {
     /**
      * Relative location of the UI's image icon.
      */
-    private static String IMAGE_LOCATION =
+    private static final String IMAGE_LOCATION =
             File.separator + "image" + File.separator + "miniCamera.png";
 
     /**
      * Component containing the help window of this application.
      */
-    private static HelpWindow helpWindow = new HelpWindow();
+    private static final HelpWindow helpWindow = new HelpWindow();
     /**
      * The UI's help button.
      */
@@ -71,9 +71,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
      * Creates the main UI window and initializes all internal UI-components.
      */
     public MainUIWindow() {
-        SwingUtilities.invokeLater(() -> {
-            init();
-        });
+        SwingUtilities.invokeLater(this::init);
     }
 
     /**

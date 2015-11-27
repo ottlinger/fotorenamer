@@ -6,11 +6,10 @@ package de.aikiit.bildbearbeiter.gui;
 import de.aikiit.bildbearbeiter.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -80,8 +79,8 @@ public class ImageDirectorySelector extends JPanel {
      * configuration.
      */
     public final boolean isSelected() {
-        return this.textField.getText() != null;
-    } // end of isSelected
+        return Strings.isNotBlank(this.textField.getText());
+    }
 
 
     /**
@@ -126,39 +125,37 @@ public class ImageDirectorySelector extends JPanel {
 
         // TODO add method to read contents that a user typed in
         // Add action listener.
-        browseButton.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent event) {
-                textField.setText("");
-                JFileChooser fileDlg = new JFileChooser();
+        browseButton.addActionListener(event -> {
+            textField.setText("");
+            JFileChooser fileDlg = new JFileChooser();
 
-                if (directoryOnly) {
-                    fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                    fileDlg.setDialogTitle(
-                            LocalizationHelper.getBundleString(
-                                    "fotorenamer.ui.selector.directory"));
-                } else {
-                    fileDlg.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    fileDlg.setDialogTitle(LocalizationHelper.getBundleString(
-                            "fotorenamer.ui.selector.file"));
-                } // end if
-                fileDlg.setApproveButtonText(LocalizationHelper.getBundleString(
-                        "fotorenamer.ui.selector.select"));
+            if (directoryOnly) {
+                fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                fileDlg.setDialogTitle(
+                        LocalizationHelper.getBundleString(
+                                "fotorenamer.ui.selector.directory"));
+            } else {
+                fileDlg.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                fileDlg.setDialogTitle(LocalizationHelper.getBundleString(
+                        "fotorenamer.ui.selector.file"));
+            } // end if
+            fileDlg.setApproveButtonText(LocalizationHelper.getBundleString(
+                    "fotorenamer.ui.selector.select"));
 
-                if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
-                        == JFileChooser.APPROVE_OPTION) {
-                    // use getCanonicalPath() to avoid ..-path manipulations and
-                    // try to set the selected file in the GUI
-                    try {
-                        textField.setText(
-                                fileDlg.getSelectedFile().getCanonicalPath());
-                    } catch (IOException ioe) {
-                        LOG.error("Error while selecting directory, "
-                                + "extracted text is: "
-                                + textField.getText());
-                        LOG.error(ioe.getMessage());
-                    }
-                } // end if
-            } // end of actionPerformed
+            if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
+                    == JFileChooser.APPROVE_OPTION) {
+                // use getCanonicalPath() to avoid ..-path manipulations and
+                // try to set the selected file in the GUI
+                try {
+                    textField.setText(
+                            fileDlg.getSelectedFile().getCanonicalPath());
+                } catch (IOException ioe) {
+                    LOG.error("Error while selecting directory, "
+                            + "extracted text is: "
+                            + textField.getText());
+                    LOG.error(ioe.getMessage());
+                }
+            } // end if
         });
     } // end of init
 

@@ -56,16 +56,14 @@ public class DateinamenZurueckUmbenenner implements Runnable {
      * @see #pruefeEingabeUndInit()
      */
     public final void umbenennen() throws RenamingErrorException {
-        String name = "";
-        String nameNeu = "";
         // String muster = "\\d{8}[_]\\d{4}[_]\\p{ASCII}*";
 
         for (int i = 0; i < this.obergrenze; i++) {
-            name = this.dateiliste[i].getName();
+            String name = this.dateiliste[i].getName();
             // TODO 20110507_180520_IMG_8192small.JPG
             // würde alle Vorkommen ersetzen:
             // nameNeu = name.replaceAll("\\d{8}[_]\\d{4}[_]","");
-            nameNeu = name.replaceFirst("\\d{8}[_]\\d{4}[_]", "");
+            String nameNeu = name.replaceFirst("\\d{8}[_]\\d{4}[_]", "");
 
             // umzubenennende Dateien zählen
             if (!nameNeu.equalsIgnoreCase(name)) {
@@ -122,7 +120,6 @@ public class DateinamenZurueckUmbenenner implements Runnable {
      * @see #umbenennen()
      */
     public final void run() {
-        String meldung = "";
         this.grafik = new ProgressBar(this.obergrenze);
 
         try {
@@ -138,6 +135,7 @@ public class DateinamenZurueckUmbenenner implements Runnable {
         this.grafik.dispose();
 
         // Erfolgsmeldung geben
+        String meldung = "";
         if (this.umbenannt == 0) {
             meldung = "Im Verzeichnis: " + this.aktuellesVerzeichnis.getName()
                     + "\nwurden keine Dateien\numbenannt.\n\n";
