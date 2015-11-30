@@ -13,17 +13,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package de.aikiit.fotorenamer.util;
+package de.aikiit.fotorenamer.gui;
+
+import de.aikiit.fotorenamer.gui.ImageDirectorySelector;
 
 /**
- * Contents of that file is generated during the build.
+ * Test directory selector.
+ *
+ * @author hirsch
+ * @version 2011-04-08, 00:22
  */
-public class Version {
+public class ImageDirectorySelectorTest {
+    @org.junit.Test
+    public void performInit() {
+        new ImageDirectorySelector(true, null);
+    }
 
-    public static final String VERSION = "${project.version}";
-    public static final String TIMESTAMP = "${timestamp}";
-    public static final String BUILD_NUMBER = "${buildNumber}";
-    public static final String PROJECT_ARTIFACT_ID = "${project.artifactId}";
-    public static final String PROJECT_VERSION = "${project.version}";
-
-} 
+}

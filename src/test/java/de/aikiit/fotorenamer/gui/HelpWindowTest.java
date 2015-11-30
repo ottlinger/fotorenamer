@@ -13,17 +13,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package de.aikiit.fotorenamer.util;
+package de.aikiit.fotorenamer.gui;
+
+import de.aikiit.fotorenamer.gui.HelpWindow;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
- * Contents of that file is generated during the build.
+ * Call help window.
+ *
+ * @author hirsch
+ * @version 2011-04-08, 00:24
  */
-public class Version {
-
-    public static final String VERSION = "${project.version}";
-    public static final String TIMESTAMP = "${timestamp}";
-    public static final String BUILD_NUMBER = "${buildNumber}";
-    public static final String PROJECT_ARTIFACT_ID = "${project.artifactId}";
-    public static final String PROJECT_VERSION = "${project.version}";
-
-} 
+@org.junit.Ignore("Not working in travis.")
+public class HelpWindowTest {
+    @org.junit.Test
+    public void initWindow() {
+        assertNotNull(new HelpWindow());
+    }
+}

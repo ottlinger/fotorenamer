@@ -13,17 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-package de.aikiit.fotorenamer.util;
-
-/**
- * Contents of that file is generated during the build.
- */
-public class Version {
-
-    public static final String VERSION = "${project.version}";
-    public static final String TIMESTAMP = "${timestamp}";
-    public static final String BUILD_NUMBER = "${buildNumber}";
-    public static final String PROJECT_ARTIFACT_ID = "${project.artifactId}";
-    public static final String PROJECT_VERSION = "${project.version}";
-
-} 
+/** Contains all image related classes of
+ * that tool (EXIF-extraction, file renaming). */
+package de.aikiit.fotorenamer.image;
