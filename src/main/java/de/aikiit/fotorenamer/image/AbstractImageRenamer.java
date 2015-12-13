@@ -146,7 +146,7 @@ abstract class AbstractImageRenamer implements Runnable {
      *                  implementation.
      * @return New filename for the given file.
      */
-    public abstract String renameImage(File imageFile);
+    protected abstract String renameImage(File imageFile);
 
     /**
      * Performs the renaming and updates the UI. All error handling is done in
