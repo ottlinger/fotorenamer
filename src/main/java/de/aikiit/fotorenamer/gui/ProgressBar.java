@@ -1,18 +1,18 @@
 /**
-Copyright 2011, Aiki IT, FotoRenamer
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -76,7 +77,7 @@ public class ProgressBar extends JFrame {
      * @param maxCapacity Sets the 100% value of this component to this absolute
      *                    value.
      */
-    protected final void init(final int maxCapacity) {
+    private final void init(final int maxCapacity) {
         // set window title
         this.setTitle(
                 LocalizationHelper.getBundleString("fotorenamer.ui.progress"));
@@ -117,11 +118,11 @@ public class ProgressBar extends JFrame {
         // TODO replace with a Timer - see
         // http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
         try {
-            Thread.sleep(this.delayInUI);
+            TimeUnit.MILLISECONDS.sleep(this.delayInUI);
         } catch (Exception e) {
             LOG.error("Error during repaint of ProgressBar, " + e.getMessage());
         }
-    } // end of updateUI
+    }
 
     /**
      * Set progress by setting the amount of items that are processed
@@ -129,7 +130,7 @@ public class ProgressBar extends JFrame {
      */
     public final void setProgress() {
         this.progressBar.setValue(currentState.getAndIncrement());
-    } // end of setProgress
+    }
 
     /**
      * Sets the part of this component that shows above the graphical bar.
@@ -138,7 +139,7 @@ public class ProgressBar extends JFrame {
      */
     public final void setText(final String textContent) {
         this.textInfo.setText(textContent);
-    } // end of setText
+    }
 
     /**
      * Getter for text value.
@@ -157,4 +158,4 @@ public class ProgressBar extends JFrame {
     public final int getProgress() {
         return progressBar.getValue();
     }
-} // end of class ProgressBar
+}

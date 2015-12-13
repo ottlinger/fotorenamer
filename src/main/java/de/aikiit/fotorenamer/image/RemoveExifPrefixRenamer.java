@@ -27,8 +27,8 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * This class rerenames files in order to be able to play them back on a camera
- * device that is not able to deal with long(er) filenames.
+ * This class rerenames files in order to be able to play them back onto a camera
+ * device that is not able to deal with long filenames.
  *
  * @author hirsch, 08.12.2003
  * @version 2004-01-08
@@ -36,68 +36,64 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RemoveExifPrefixRenamer implements Runnable {
     private static final Logger LOG =
             LogManager.getLogger(RemoveExifPrefixRenamer.class);
+    /**
+     * Pattern applied to find already renamed image files.
+     * Should match: 20110507_180520_IMG_8192small.JPG
+     */
+    public static final String REPLACE_PATTERN = "\\d{8}[_]\\d{4}[_]";
 
-    private File aktuellesVerzeichnis = null;
-    private File[] dateiliste = null;
-
-    private ProgressBar grafik = null;
-    private int obergrenze = 0;
-    private AtomicInteger umbenannt = new AtomicInteger(0);
+    private File currentDirectory = null;
+    private File[] listOfFiles = null;
+    private ProgressBar progressBar = null;
+    private final AtomicInteger done = new AtomicInteger(0);
 
     /**
      * Main constructor that takes a directory to work on.
      *
-     * @param verzeichnis Directory to perform operation on.
+     * @param directory Directory to perform operation on.
      * @throws InvalidDirectoryException If directory cannot be accessed
      *                                   properly.
      * @throws NoFilesFoundException     If directory is empty.
      */
-    public RemoveExifPrefixRenamer(final String verzeichnis)
+    public RemoveExifPrefixRenamer(final String directory)
             throws InvalidDirectoryException, NoFilesFoundException {
-        this.aktuellesVerzeichnis = new File(verzeichnis);
-        // erst starten, wenn die Eingabeprüfung erfolgreich war
-        pruefeEingabeUndInit();
+        this.currentDirectory = new File(directory);
+        checkInputAndInitialize();
         new Thread(this).start();
-    } // end of Konstruktor
+    }
 
     /**
      * Performs actual renaming/removing of date information from the
      * filenames.
      *
      * @throws RenamingErrorException If any error occurs.
-     * @see #pruefeEingabeUndInit()
+     * @see #checkInputAndInitialize()
      */
-    public final void umbenennen() throws RenamingErrorException {
-        // String muster = "\\d{8}[_]\\d{4}[_]\\p{ASCII}*";
+    public final void rename() throws RenamingErrorException {
+        for (final File listOfFile : this.listOfFiles) {
+            String name = listOfFile.getName();
+            String nameNeu = name.replaceFirst(REPLACE_PATTERN, "");
 
-        for (int i = 0; i < this.obergrenze; i++) {
-            String name = this.dateiliste[i].getName();
-            // TODO 20110507_180520_IMG_8192small.JPG
-            // würde alle Vorkommen ersetzen:
-            // nameNeu = name.replaceAll("\\d{8}[_]\\d{4}[_]","");
-            String nameNeu = name.replaceFirst("\\d{8}[_]\\d{4}[_]", "");
-
-            // umzubenennende Dateien zählen
+            // count files to be done
             if (!nameNeu.equalsIgnoreCase(name)) {
-                umbenannt.incrementAndGet();
+                done.incrementAndGet();
             }
 
-            // ProgressBar updaten...
-            this.grafik.setProgress();
-            this.grafik.setText(name);
-            // Da die Namen verschieden lang sind den ProgressBar updaten!
-            this.grafik.updateUI();
+            // update UI
+            this.progressBar.setProgress();
+            this.progressBar.setText(name);
+            this.progressBar.updateUI();
 
-            // renameFiles nur bei Dateien
-            if (this.dateiliste[i].isFile() && !this.dateiliste[i].renameTo(
-                    new File(this.dateiliste[i].getParent()
+            // rename files only
+            if (listOfFile.isFile() && !listOfFile.renameTo(
+                    new File(listOfFile.getParent()
                             + File.separatorChar + nameNeu))) {
-                LOG.error("Problem with file " + this.dateiliste[i].getName());
+                LOG.error("Problem with file " + listOfFile.getName());
                 throw new RenamingErrorException("\nFehler bei Bild "
-                        + this.dateiliste[i].getName());
-            } // end if
-        } // end of for
-    } // end of renameFiles
+                        + listOfFile.getName());
+            }
+        }
+    }
 
     /**
      * Checks whether current UI-configuration is valid in order to perform the
@@ -107,35 +103,33 @@ public class RemoveExifPrefixRenamer implements Runnable {
      * @throws InvalidDirectoryException If the selected directory is not
      *                                   accessible.
      */
-    protected final void pruefeEingabeUndInit()
+    protected final void checkInputAndInitialize()
             throws NoFilesFoundException, InvalidDirectoryException {
-        // Verzeichnis gültig ?
-        if (!this.aktuellesVerzeichnis.isDirectory()) {
-            throw new InvalidDirectoryException(this.aktuellesVerzeichnis);
+        // valid directory
+        if (!this.currentDirectory.isDirectory()) {
+            throw new InvalidDirectoryException(this.currentDirectory);
         }
 
-        // Dateien da ?
-        this.dateiliste = this.aktuellesVerzeichnis.listFiles(
+        // files available
+        this.listOfFiles = this.currentDirectory.listFiles(
                 new ImageFilenameFilter());
-        if (this.dateiliste == null || this.dateiliste.length == 0) {
-            throw new NoFilesFoundException(this.aktuellesVerzeichnis);
+        if (this.listOfFiles == null || this.listOfFiles.length == 0) {
+            throw new NoFilesFoundException(this.currentDirectory);
         }
 
-        // internen Zustand setzen
-        this.obergrenze = this.dateiliste.length;
-    } // end of pruefeEingabe
+    }
 
     /**
      * Updates the UI and performs the renaming. All error handling is done in
      * other methods.
      *
-     * @see #umbenennen()
+     * @see #rename()
      */
     public final void run() {
-        this.grafik = new ProgressBar(this.obergrenze);
+        this.progressBar = new ProgressBar(this.listOfFiles.length);
 
         try {
-            umbenennen();
+            rename();
         } catch (RenamingErrorException uf) {
             JOptionPane.showMessageDialog(null,
                     "Während der Bearbeitung der Datei\n"
@@ -143,26 +137,25 @@ public class RemoveExifPrefixRenamer implements Runnable {
                             + "Umbennen auf.", "Fehler beim Umbenennen",
                     JOptionPane.ERROR_MESSAGE);
             return;
-        } // end of catch uf
-        this.grafik.dispose();
+        }
+        this.progressBar.dispose();
 
-        // Erfolgsmeldung geben
-        String meldung = "";
-        if (this.umbenannt.get() == 0) {
-            meldung = "Im Verzeichnis: " + this.aktuellesVerzeichnis.getName()
+        String statusMessage;
+        if (this.done.get() == 0) {
+            statusMessage = "Im Verzeichnis: " + this.currentDirectory.getName()
                     + "\nwurden keine Dateien\numbenannt.\n\n";
-        } else if (this.umbenannt.get() == 1) {
-            meldung = "\nEs wurde eine Datei\n"
-                    + "im Verzeichnis: " + this.aktuellesVerzeichnis.getName()
+        } else if (this.done.get() == 1) {
+            statusMessage = "\nEs wurde eine Datei\n"
+                    + "im Verzeichnis: " + this.currentDirectory.getName()
                     + "\nerfolgreich umbenannt.\n\n";
         } else {
-            meldung = "\nEs wurden " + this.umbenannt + " von "
-                    + this.obergrenze
+            statusMessage = "\nEs wurden " + this.done + " von "
+                    + this.listOfFiles.length
                     + " Dateien\nim Verzeichnis: "
-                    + this.aktuellesVerzeichnis.getName()
+                    + this.currentDirectory.getName()
                     + "\nerfolgreich umbenannt.\n\n";
-        } // end of else
-        JOptionPane.showMessageDialog(null, meldung, "Erfolg",
+        }
+        JOptionPane.showMessageDialog(null, statusMessage, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);
-    } // end of run
-} // end of class
+    }
+}

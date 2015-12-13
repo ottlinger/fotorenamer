@@ -47,7 +47,7 @@ public final class ApplicationStarter {
                     UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
             LOG.error("Error during application startup: " + e);
-        } // end of try
+        }
         new MainUIWindow();
-    } // end of main
+    }
 }

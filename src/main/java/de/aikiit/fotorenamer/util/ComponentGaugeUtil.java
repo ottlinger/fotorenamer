@@ -51,7 +51,7 @@ public final class ComponentGaugeUtil {
         int screenHeight = dim.height;
         component.setLocation((screenWidth - component.getSize().width) / 2,
                 (screenHeight - component.getSize().height) / 2);
-    } // end of makeCentered
+    }
 
     /**
      * Helper that transforms a given path into an ImageIcon. In case of errors
@@ -72,6 +72,6 @@ public final class ComponentGaugeUtil {
             LOG.error("Could not generate a valid URL from the given path: "
                     + path);
             return null;
-        } // end if
-    } // end of createImageIcon
-} // end of class
+        }
+    }
+}

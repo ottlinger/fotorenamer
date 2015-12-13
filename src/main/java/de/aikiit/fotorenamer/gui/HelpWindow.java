@@ -38,7 +38,7 @@ public class HelpWindow extends JFrame implements ActionListener {
      */
     private static final Logger LOG = LogManager.getLogger(HelpWindow.class);
     /**
-     * End button needs to be visible inside the class to perform programme
+     * End button needs to be visible inside the class to perform application
      * exit.
      */
     private JButton endButton = null;
@@ -55,24 +55,22 @@ public class HelpWindow extends JFrame implements ActionListener {
      */
     public HelpWindow() {
         SwingUtilities.invokeLater(this::init);
-    } // end of Konstruktor
+    }
 
     /**
      * Initialize UI-compontens and make them visible.
      */
     private void init() {
-        // REVIEW add i18n
         this.setTitle("Programmhilfe");
         this.setResizable(false);
         JPanel oben = new JPanel(new FlowLayout());
         JPanel unten = new JPanel(new FlowLayout());
 
-        // Inhalt des Textfeldes von einer URL laden
+        // TODO read contents from URL?
         JEditorPane textfeld = new JEditorPane();
         textfeld.setContentType("text/html");
         textfeld.setEditable(false);
         try {
-            // REVIEW extract this to a constant to make refactorings easier
             textfeld.setPage(HelpWindow.class.getResource(HTML_HELP_LOCATION));
             oben.add(textfeld);
         } catch (Exception e) {
@@ -80,30 +78,26 @@ public class HelpWindow extends JFrame implements ActionListener {
             oben.add(new JLabel("Fehler in der Hilfe -"));
             oben.add(new JLabel("" + e.getMessage()));
             oben.add(new JLabel("" + e.getClass()));
-        } // end of catch
+        }
 
-        // Eigenschaften des Scrollpanels anpassen
         JScrollPane rollpanel = new JScrollPane(oben);
         rollpanel.setPreferredSize(new Dimension(350, 300));
         rollpanel.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // Ende-Knopf
         this.endButton = new JButton("Schließen");
         this.endButton.addActionListener(this);
         this.endButton.setMnemonic('S');
         unten.add(this.endButton);
 
-        // Zusammenbasteln ...
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(rollpanel, BorderLayout.NORTH);
         this.getContentPane().add(unten, BorderLayout.CENTER);
 
-        // Zentrieren und Anzeigen
         this.pack();
         ComponentGaugeUtil.makeCentered(this);
         LOG.debug("HelpWindow init done.");
-    } // end of init
+    }
 
     /**
      * Make this component react to close button.
@@ -115,5 +109,5 @@ public class HelpWindow extends JFrame implements ActionListener {
             LOG.debug("Disabling visibility of helpWindow.");
             setVisible(false);
         }
-    } // end of actionPerformed
-} // end of class
+    }
+}

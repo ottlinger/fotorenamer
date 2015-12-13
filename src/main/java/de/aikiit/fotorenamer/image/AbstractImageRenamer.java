@@ -27,7 +27,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -45,7 +44,7 @@ import java.util.function.Predicate;
 public abstract class AbstractImageRenamer implements Runnable {
 
     /**
-     * The logger of this class. *
+     * The logger of this class.
      */
     private static final Logger LOG =
             LogManager.getLogger(AbstractImageRenamer.class);
@@ -102,10 +101,8 @@ public abstract class AbstractImageRenamer implements Runnable {
 
     /**
      * Performs the actual/technical renaming.
-     *
-     * @throws IOException in case of I/O errors.
      */
-    private void renameFiles() throws IOException {
+    private void renameFiles() {
         LOG.info("Starting to rename " + this.amountOfFiles + " files.");
 
         Consumer<File> consumer = file -> {
@@ -138,7 +135,6 @@ public abstract class AbstractImageRenamer implements Runnable {
         Predicate<File> fileOnly = file -> file != null && file.isFile();
 
         this.imageList.parallelStream().filter(fileOnly).forEach(consumer);
-
     }
 
     /**
@@ -164,7 +160,7 @@ public abstract class AbstractImageRenamer implements Runnable {
 
         try {
             renameFiles();
-        } catch (IOException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
                     "Während der Bearbeitung der Datei\n "
                             + MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName()) + " trat ein Fehler beim "
@@ -199,5 +195,5 @@ public abstract class AbstractImageRenamer implements Runnable {
         }
         JOptionPane.showMessageDialog(null, notification, "Erfolg",
                 JOptionPane.INFORMATION_MESSAGE);
-    } // end of run
+    }
 }

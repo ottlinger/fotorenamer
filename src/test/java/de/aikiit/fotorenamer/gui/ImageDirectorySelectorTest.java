@@ -15,7 +15,7 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
-import de.aikiit.fotorenamer.gui.ImageDirectorySelector;
+import org.junit.Test;
 
 /**
  * Test directory selector.
@@ -24,9 +24,9 @@ import de.aikiit.fotorenamer.gui.ImageDirectorySelector;
  * @version 2011-04-08, 00:22
  */
 public class ImageDirectorySelectorTest {
-    @org.junit.Test
+    @Test
     public void performInit() {
-        new ImageDirectorySelector(true, null);
+        new ImageDirectorySelector(null);
     }
 
 }

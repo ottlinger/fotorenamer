@@ -1,18 +1,18 @@
 /**
-Copyright 2011, Aiki IT, FotoRenamer
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.util.LocalizationHelper;
@@ -49,26 +49,17 @@ public class ImageDirectorySelector extends JPanel {
      * An image icon that is displayed as part of the button.
      */
     private ImageIcon imageIcon = null;
-    /**
-     * Should this component be used to select directories only,
-     * default value is <code>false</code>.
-     **/
-    private boolean directoryOnly = false;
 
     /**
      * Default constructor provides means to create an imageSelect with a given
      * image icon that is able to only work on directories.
      *
-     * @param onlyDirectory Sets whether this class should only work on
-     *                      directories.
-     * @param icon          This icon is used as a picture in the select
-     *                      button.
+     * @param icon This icon is used as a picture in the select
+     *             button.
      */
-    public ImageDirectorySelector(final boolean onlyDirectory,
-                                  final ImageIcon icon) {
+    public ImageDirectorySelector(final ImageIcon icon) {
         super();
         this.imageIcon = icon;
-        this.directoryOnly = onlyDirectory;
         init();
     }
 
@@ -98,7 +89,7 @@ public class ImageDirectorySelector extends JPanel {
     /**
      * Initialize internal UI components.
      */
-    protected final void init() {
+    private final void init() {
         // Set layout.
         GridBagLayout grid = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -141,16 +132,10 @@ public class ImageDirectorySelector extends JPanel {
             textField.setText("");
             JFileChooser fileDlg = new JFileChooser();
 
-            if (directoryOnly) {
-                fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                fileDlg.setDialogTitle(
-                        LocalizationHelper.getBundleString(
-                                "fotorenamer.ui.selector.directory"));
-            } else {
-                fileDlg.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                fileDlg.setDialogTitle(LocalizationHelper.getBundleString(
-                        "fotorenamer.ui.selector.file"));
-            } // end if
+            fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileDlg.setDialogTitle(
+                    LocalizationHelper.getBundleString(
+                            "fotorenamer.ui.selector.directory"));
             fileDlg.setApproveButtonText(LocalizationHelper.getBundleString(
                     "fotorenamer.ui.selector.select"));
 
@@ -167,9 +152,9 @@ public class ImageDirectorySelector extends JPanel {
                             + textField.getText());
                     LOG.error(ioe.getMessage());
                 }
-            } // end if
+            }
         });
-    } // end of init
+    }
 
     /**
      * Current directory is the representation of this component.
@@ -179,5 +164,5 @@ public class ImageDirectorySelector extends JPanel {
     @Override
     public final String toString() {
         return this.textField.getText();
-    } // end of toString
-} // end of class
+    }
+}

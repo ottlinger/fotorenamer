@@ -1,18 +1,18 @@
 /**
-Copyright 2011, Aiki IT, FotoRenamer
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
@@ -38,14 +38,14 @@ public class MainUIWindow extends JFrame implements ActionListener {
     /**
      * Provide version information in the UI (transferred from maven).
      */
-    public static final String VERSION =
+    private static final String VERSION =
             new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
                     format(new java.util.Date(Long.parseLong(
                             de.aikiit.fotorenamer.util.Version.TIMESTAMP)))
                     + " / SCM-rev: "
                     + de.aikiit.fotorenamer.util.Version.VERSION
-    + " / Build-Timestamp: "
-    + de.aikiit.fotorenamer.util.Version.TIMESTAMP;
+                    + " / Build-Timestamp: "
+                    + de.aikiit.fotorenamer.util.Version.TIMESTAMP;
     /**
      * Relative location of the UI's image icon.
      */
@@ -91,7 +91,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
     /**
      * Helper class to perform the internal initialization of the UI.
      */
-    protected final void init() {
+    private final void init() {
         String os = "[" + System.getProperty("os.name");
         os += " " + System.getProperty("os.version");
         os += " " + System.getProperty("os.arch") + "]";
@@ -100,50 +100,49 @@ public class MainUIWindow extends JFrame implements ActionListener {
         this.getContentPane().setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        // Dateiauswahl
+        // select directory
         JPanel verzeichnis = new JPanel(new BorderLayout());
-        this.imageDirectorySelector = new ImageDirectorySelector(true,
+        this.imageDirectorySelector = new ImageDirectorySelector(
                 ComponentGaugeUtil.createImageIcon(IMAGE_LOCATION));
         verzeichnis.add(imageDirectorySelector);
 
-        // Hilfe
+        // help
         JPanel knoepfe = new JPanel(new FlowLayout());
         this.helpButton = new JButton("Hilfe");
         this.helpButton.addActionListener(this);
         this.helpButton.setMnemonic('H');
         knoepfe.add(this.helpButton);
 
-        // Info
+        // info
         this.infoButton = new JButton("Info");
         this.infoButton.addActionListener(this);
         this.infoButton.setMnemonic('I');
         knoepfe.add(this.infoButton);
 
-        // Programmende
+        // exit
         this.endButton = new JButton("Ende");
         this.endButton.addActionListener(this);
         this.endButton.setMnemonic('e');
         knoepfe.add(this.endButton);
 
-        // Los geht's...
+        // start
         this.goButton = new JButton("Starten");
         this.goButton.addActionListener(this);
         this.goButton.setMnemonic('s');
         knoepfe.add(this.goButton);
 
-        // Rückgängig machen
+        // revert
         this.revertButton = new JButton("Rückgängig machen");
         this.revertButton.addActionListener(this);
         this.revertButton.setMnemonic('r');
         knoepfe.add(this.revertButton);
 
-        // Zusammenbasteln
         this.getContentPane().add(verzeichnis, BorderLayout.NORTH);
         this.getContentPane().add(knoepfe, BorderLayout.CENTER);
         this.pack();
         ComponentGaugeUtil.makeCentered(this);
         this.setVisible(true);
-    } // end of init
+    }
 
     /**
      * Action listener method to react on events.
@@ -153,14 +152,14 @@ public class MainUIWindow extends JFrame implements ActionListener {
     public final void actionPerformed(final ActionEvent event) {
         final SwingWorker<Void, Void> worker;
 
-        // Ende
+        // end
         if (event.getSource() == this.endButton) {
             System.exit(0);
         } else if (event.getSource() == this.helpButton) {
-            // Hilfe
+            // help
             showHelpWindow();
         } else if (event.getSource() == this.infoButton) {
-            // Info
+            // info
             JOptionPane.showMessageDialog(null,
                     "\nbildbearbeiter - fotorenamer\n\n"
                             + "Version: " + VERSION
@@ -176,12 +175,9 @@ public class MainUIWindow extends JFrame implements ActionListener {
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
                 == this.goButton) {
-            // Construct a new SwingWorker,  read from
-            // http://www.0x13.de/index.php/code-snippets/51-swingworker-tutorial.html
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
-                    // Rückgängig oder Starten machen
                     if (!imageDirectorySelector.isSelected()) {
                         JOptionPane.showMessageDialog(null,
                                 "Bitte ein Verzeichnis eingeben und\n"
@@ -189,7 +185,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                                 "Ungültiges Verzeichnis angegegen",
                                 JOptionPane.ERROR_MESSAGE);
                         return null;
-                    } // end if
+                    }
 
                     // perform renaming
                     try {
@@ -207,7 +203,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             new RemoveExifPrefixRenamer(
                                     imageDirectorySelector.toString());
 
-                        } // end if
+                        }
                     } catch (InvalidDirectoryException uv) {
                         JOptionPane.showMessageDialog(null,
                                 "Das eingegebene Verzeichnis '"
@@ -223,7 +219,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                                         + "Dateien - bitte erneut versuchen.",
                                 "Keine Dateien vorhanden",
                                 JOptionPane.ERROR_MESSAGE);
-                    } // end of catch kde
+                    }
                     return null;
                 }
 
@@ -236,18 +232,18 @@ public class MainUIWindow extends JFrame implements ActionListener {
                     revertButton.setText("Rückgängig machen");
                 }
             };
-            // Execute the SwingWorker; the GUI will not freeze
+            // Execute the SwingWorker; GUI will not freeze
             worker.execute();
 
-        } // end if-getSource
-    } // end of actionPerformed
+        }
+    }
 
     /**
      * Helper to enable visibility of help window.
      *
      * @see HelpWindow
      */
-    public static void showHelpWindow() {
+    private static void showHelpWindow() {
         helpWindow.setVisible(true);
-    } // end of showHelpWindow
-} // end of class
+    }
+}
