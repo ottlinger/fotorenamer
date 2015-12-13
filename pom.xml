@@ -88,9 +88,9 @@
       20140820
       -->
     <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -143,51 +143,68 @@
     <pluginManagement>
       <plugins>
         <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <version>${rat.version}</version>
-        <executions>
-          <execution>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <useDefaultExcludes>true</useDefaultExcludes>
-          <useEclipseDefaultExcludes>true</useEclipseDefaultExcludes>
-          <useMavenDefaultExcludes>true</useMavenDefaultExcludes>
-          <useIdeaDefaultExcludes>true</useIdeaDefaultExcludes>
-          <addDefaultLicenseMatchers>true</addDefaultLicenseMatchers>
-          <excludes>
-            <exclude>.travis.yml</exclude>
-            <exclude>LICENSE.txt</exclude>
-            <exclude>*.md</exclude>
-            <exclude>**/*.vm</exclude>
-            <exclude>src/main/resources/**/*</exclude>
-            <exclude>src/test/resources/**/*</exclude>
-            <exclude>**/webpage/**/*</exclude>
-            <exclude>**/webpage/**</exclude>
-            <exclude>**/webpage/*</exclude>
-            <exclude>webpage/**</exclude>
-            <exclude>webpage/**/*</exclude>
-            <exclude>webpage/*</exclude>
-            <exclude>**/out*/**</exclude>
-            <exclude>**/site*/**</exclude>
-            <exclude>**/*.log</exclude>
-            <exclude>**/.checkstyle/**/*</exclude>
-            <exclude>**/.gitignore</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-    </plugins>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>${rat.version}</version>
+          <executions>
+            <execution>
+              <phase>verify</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <useEclipseDefaultExcludes>true</useEclipseDefaultExcludes>
+            <useMavenDefaultExcludes>true</useMavenDefaultExcludes>
+            <useIdeaDefaultExcludes>true</useIdeaDefaultExcludes>
+            <addDefaultLicenseMatchers>true</addDefaultLicenseMatchers>
+            <excludes>
+              <exclude>.travis.yml</exclude>
+              <exclude>LICENSE.txt</exclude>
+              <exclude>*.md</exclude>
+              <exclude>**/*.vm</exclude>
+              <exclude>src/main/resources/**/*</exclude>
+              <exclude>src/test/resources/**/*</exclude>
+              <exclude>**/webpage/**/*</exclude>
+              <exclude>**/webpage/**</exclude>
+              <exclude>**/webpage/*</exclude>
+              <exclude>webpage/**</exclude>
+              <exclude>webpage/**/*</exclude>
+              <exclude>webpage/*</exclude>
+              <exclude>**/out*/**</exclude>
+              <exclude>**/site*/**</exclude>
+              <exclude>**/*.log</exclude>
+              <exclude>**/.checkstyle/**/*</exclude>
+              <exclude>**/.gitignore</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
     </pluginManagement>
     <plugins>
       <!-- Licence compliance for GPL, configuration is performed in reporting section  -->
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
       </plugin>
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
@@ -312,7 +329,7 @@
           </execution>
         </executions>
       </plugin>
-     <plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changelog-plugin</artifactId>
         <version>2.3</version>
@@ -362,7 +379,7 @@
                 <linkJavadoc>true</linkJavadoc>
               </configuration>
             </plugin>
-<!-- Generates null error
+            <!-- Generates null error
             <plugin>
               <groupId>org.sonatype.maven.plugin</groupId>
               <artifactId>emma-maven-plugin</artifactId>
@@ -606,7 +623,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.3</version>
+            <version>2.4</version>
             <executions>
               <execution>
                 <phase>package</phase>
