@@ -77,7 +77,7 @@ public class ProgressBar extends JFrame {
      * @param maxCapacity Sets the 100% value of this component to this absolute
      *                    value.
      */
-    private final void init(final int maxCapacity) {
+    private void init(final int maxCapacity) {
         // set window title
         this.setTitle(
                 LocalizationHelper.getBundleString("fotorenamer.ui.progress"));

@@ -41,7 +41,7 @@ import java.util.function.Predicate;
  * @version 2011-03-22, 11:43
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public abstract class AbstractImageRenamer implements Runnable {
+abstract class AbstractImageRenamer implements Runnable {
 
     /**
      * The logger of this class.
@@ -77,7 +77,7 @@ public abstract class AbstractImageRenamer implements Runnable {
      *                                   the selected directory.
      * @throws NoFilesFoundException     If the selected directory is empty.
      */
-    public AbstractImageRenamer(final String directory)
+    AbstractImageRenamer(final String directory)
             throws InvalidDirectoryException, NoFilesFoundException {
 
         if (directory == null) {

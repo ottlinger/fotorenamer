@@ -40,7 +40,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
      * Pattern applied to find already renamed image files.
      * Should match: 20110507_180520_IMG_8192small.JPG
      */
-    public static final String REPLACE_PATTERN = "\\d{8}[_]\\d{4}[_]";
+    private static final String REPLACE_PATTERN = "\\d{8}[_]\\d{4}[_]";
 
     private File currentDirectory = null;
     private File[] listOfFiles = null;
@@ -69,7 +69,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
      * @throws RenamingErrorException If any error occurs.
      * @see #checkInputAndInitialize()
      */
-    public final void rename() throws RenamingErrorException {
+    private void rename() throws RenamingErrorException {
         for (final File listOfFile : this.listOfFiles) {
             String name = listOfFile.getName();
             String nameNeu = name.replaceFirst(REPLACE_PATTERN, "");
@@ -103,7 +103,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
      * @throws InvalidDirectoryException If the selected directory is not
      *                                   accessible.
      */
-    protected final void checkInputAndInitialize()
+    private void checkInputAndInitialize()
             throws NoFilesFoundException, InvalidDirectoryException {
         // valid directory
         if (!this.currentDirectory.isDirectory()) {

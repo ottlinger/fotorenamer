@@ -30,7 +30,7 @@ import javax.swing.*;
  * @version 2011-03-21, 13:06
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ApplicationStarter {
+final class ApplicationStarter {
     /**
      * Logger for this class.
      */

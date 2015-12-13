@@ -91,7 +91,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
     /**
      * Helper class to perform the internal initialization of the UI.
      */
-    private final void init() {
+    private void init() {
         String os = "[" + System.getProperty("os.name");
         os += " " + System.getProperty("os.version");
         os += " " + System.getProperty("os.arch") + "]";
@@ -178,7 +178,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
-                    if (!imageDirectorySelector.isSelected()) {
+                    if (imageDirectorySelector.isWaiting()) {
                         JOptionPane.showMessageDialog(null,
                                 "Bitte ein Verzeichnis eingeben und\n"
                                         + "dann starten.",

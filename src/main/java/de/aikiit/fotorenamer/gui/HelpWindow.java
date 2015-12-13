@@ -32,7 +32,7 @@ import java.io.File;
  * @author hirsch, 20.10.2003
  * @version 2004-01-08
  */
-public class HelpWindow extends JFrame implements ActionListener {
+class HelpWindow extends JFrame implements ActionListener {
     /**
      * Logger for this class.
      */

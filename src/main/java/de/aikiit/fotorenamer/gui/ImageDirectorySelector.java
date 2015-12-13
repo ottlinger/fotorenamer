@@ -30,7 +30,7 @@ import java.io.IOException;
  * @author hirsch, 13.10.2003
  * @version 2004-01-08
  */
-public class ImageDirectorySelector extends JPanel {
+class ImageDirectorySelector extends JPanel {
     /**
      * The logger of this class.
      **/
@@ -81,15 +81,15 @@ public class ImageDirectorySelector extends JPanel {
      * @return Returns whether anything is selected within the current
      * configuration.
      */
-    public final boolean isSelected() {
-        return Strings.isNotBlank(this.textField.getText());
+    public final boolean isWaiting() {
+        return Strings.isEmpty(this.textField.getText());
     }
 
 
     /**
      * Initialize internal UI components.
      */
-    private final void init() {
+    private void init() {
         // Set layout.
         GridBagLayout grid = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();

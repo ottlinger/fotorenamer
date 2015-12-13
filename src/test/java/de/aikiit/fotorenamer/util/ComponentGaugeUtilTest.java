@@ -35,10 +35,9 @@ import static org.junit.Assert.assertNull;
 public class ComponentGaugeUtilTest {
     /**
      * Checks image creation with a valid and an invalid path.
-     * @throws Exception in case of errors.
      */
     @Test
-    public final void createIconFromStringPath() throws Exception {
+    public final void createIconFromStringPath() {
         // FIXME not really clear why this location (valid with File-separators) cannot be parsed into an URL
         // assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.FULLPATH_TEST_IMG));
         assertNull(createImageIcon("wuumansho"));
@@ -56,10 +55,9 @@ public class ComponentGaugeUtilTest {
     /**
      * Checks that a component gets a non-default location after calling util
      * method.
-     * @throws Exception in case of errors.
      */
     @Test
-    public void gaugeSwingComponent() throws Exception {
+    public void gaugeSwingComponent() {
         JButton button = new JButton("Test");
         Point buttonSize = button.getLocation();
         assertEquals(new Point(0, 0), buttonSize);

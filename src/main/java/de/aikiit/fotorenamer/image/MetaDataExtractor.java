@@ -32,7 +32,7 @@ import java.io.IOException;
  * Helper class to extract metadata from given images. This class uses Apache
  * Sanslean to perform the metadata extraction itself.
  */
-public final class MetaDataExtractor {
+final class MetaDataExtractor {
     /**
      * This class' logger.
      */
