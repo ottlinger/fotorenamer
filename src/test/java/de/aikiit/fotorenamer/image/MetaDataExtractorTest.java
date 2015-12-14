@@ -16,6 +16,7 @@ limitations under the License.
 package de.aikiit.fotorenamer.image;
 
 import de.aikiit.fotorenamer.TestConstants;
+import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -50,9 +51,16 @@ public class MetaDataExtractorTest {
      */
     @Test(expected = AssertionError.class)
     public void checkAssertionErrors() throws Exception {
-        assertNull(MetaDataExtractor.getExifMetadata(null, null));
+        assertNull(MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
     }
 
-
+    /**
+     * Checks assertion failure with null parameter.
+     * @throws Exception in case of errors.
+     */
+    @Test(expected = AssertionError.class)
+    public void checkAssertionErrorTag() throws Exception {
+        assertNull(MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
+    }
 
 }

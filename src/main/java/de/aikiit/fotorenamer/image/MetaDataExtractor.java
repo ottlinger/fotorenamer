@@ -1,29 +1,29 @@
 /**
-Copyright 2011, Aiki IT, FotoRenamer
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.aikiit.fotorenamer.image;
 
 import com.google.common.base.Strings;
+import org.apache.commons.imaging.ImageReadException;
+import org.apache.commons.imaging.Imaging;
+import org.apache.commons.imaging.common.ImageMetadata;
+import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
+import org.apache.commons.imaging.formats.tiff.TiffField;
+import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
+import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;
 import org.apache.log4j.Logger;
-import org.apache.sanselan.ImageReadException;
-import org.apache.sanselan.Sanselan;
-import org.apache.sanselan.common.IImageMetadata;
-import org.apache.sanselan.formats.jpeg.JpegImageMetadata;
-import org.apache.sanselan.formats.tiff.TiffField;
-import org.apache.sanselan.formats.tiff.constants.TagInfo;
-import org.apache.sanselan.formats.tiff.constants.TiffConstants;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,10 +92,16 @@ final class MetaDataExtractor {
         assert tag != null : "Parameter tag must not be null";
 
         String result = EMPTY_STRING;
-        IImageMetadata metadata = Sanselan.getMetadata(image);
+        ImageMetadata metadata = Imaging.getMetadata(image);
+
+/*
+        for(ImageMetadata.ImageMetadataItem item:metadata.getItems()) {
+            System.out.println("WWW: " + item.toString());
+        }
+  */
         if (metadata instanceof JpegImageMetadata) {
             JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
-            TiffField field = jpegMetadata.findEXIFValue(tag);
+            TiffField field = jpegMetadata.findEXIFValueWithExactMatch(tag);
             if (field != null) {
                 result = field.getValueDescription();
                 LOG.info("extraction of " + tag.getDescription()
@@ -136,10 +142,12 @@ final class MetaDataExtractor {
      */
     public static String generateCreationDateInCorrectFormat(final File image)
             throws ImageReadException, IOException {
+
         String dateValue =
-                getExifMetadata(image, TiffConstants.EXIF_TAG_CREATE_DATE);
+                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);
 
         LOG.info("EXIF date value is: " + dateValue);
+
         // Invalid length of EXIF metadata, not complying to the standard.
         if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {
             LOG.info("No valid creation date extracted from file " + image);
@@ -149,7 +157,6 @@ final class MetaDataExtractor {
         // Date parsing with apache.DateUtils or JDK-DateFormats
         // does not work due to '-signs in the date string
         // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
-
         // replace special characters to extract digits only
         dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);
         dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);
