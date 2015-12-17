@@ -2,12 +2,9 @@
 
 [![Build Status](https://travis-ci.org/ottlinger/fotorenamer.svg?branch=master)](https://travis-ci.org/ottlinger/fotorenamer)
 
-[![codecov.io](http://codecov.io/github/ottlinger/fotorenamer/coverage.svg?bran
-ch=master)](http://codecov.io/github/ottlinger/fotorenamer?branch=master)
+[![codecov.io](http://codecov.io/github/ottlinger/fotorenamer/coverage.svg?branch=master)](http://codecov.io/github/ottlinger/fotorenamer?branch=master)
 
-[![Stories in 
-Ready](https://badge.waffle.io/ottlinger/fotorenamer.svg?label=ready&title=Read
-y)](http://waffle.io/ottlinger/fotorenamer)
+[![Stories in Ready](https://badge.waffle.io/ottlinger/fotorenamer.svg?label=ready&title=Ready)](http://waffle.io/ottlinger/fotorenamer)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/1069017d3898425095363374b2519b03)](https://www.codacy.com/app/github_25/fotorenamer)
 
