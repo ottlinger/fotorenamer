@@ -76,10 +76,8 @@ class HelpWindow extends JFrame implements ActionListener {
             textfeld.setPage(HelpWindow.class.getResource(HTML_HELP_LOCATION));
             oben.add(textfeld);
         } catch (Exception e) {
-            oben.setLayout(new GridLayout(3, 1));
-            oben.add(new JLabel("Fehler in der Hilfe -"));
-            oben.add(new JLabel("" + e.getMessage()));
-            oben.add(new JLabel("" + e.getClass()));
+            oben.setLayout(new GridLayout(1, 1));
+            oben.add(new JLabel(String.format(LocalizationHelper.getBundleString("fotorenamer.ui.help.error"), e.getMessage(), e.getClass().getSimpleName())));
         }
 
         JScrollPane rollpanel = new JScrollPane(oben);

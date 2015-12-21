@@ -20,6 +20,7 @@ import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
 import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
+import de.aikiit.fotorenamer.util.LocalizationHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -171,7 +172,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                                     Long.parseLong(
                                             de.aikiit.fotorenamer.util.
                                                     Version.TIMESTAMP))),
-                    "Versionsinfo",
+                    LocalizationHelper.getBundleString("fotorenamer.ui.main.version.title"),
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
                 == this.goButton) {
@@ -234,7 +235,6 @@ public class MainUIWindow extends JFrame implements ActionListener {
             };
             // Execute the SwingWorker; GUI will not freeze
             worker.execute();
-
         }
     }
 
