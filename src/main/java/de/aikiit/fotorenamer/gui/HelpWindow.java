@@ -16,6 +16,7 @@ limitations under the License.
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
+import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -61,7 +62,8 @@ class HelpWindow extends JFrame implements ActionListener {
      * Initialize UI-compontens and make them visible.
      */
     private void init() {
-        this.setTitle("Programmhilfe");
+        this.setTitle(LocalizationHelper.getBundleString(
+                        "fotorenamer.ui.help.title"));
         this.setResizable(false);
         JPanel oben = new JPanel(new FlowLayout());
         JPanel unten = new JPanel(new FlowLayout());
@@ -85,9 +87,10 @@ class HelpWindow extends JFrame implements ActionListener {
         rollpanel.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        this.endButton = new JButton("Schließen");
+        this.endButton = new JButton(LocalizationHelper.getBundleString(
+                                "fotorenamer.ui.help.close"));
         this.endButton.addActionListener(this);
-        this.endButton.setMnemonic('S');
+        this.endButton.setMnemonic(LocalizationHelper.getBundleString("fotorenamer.ui.help.close.mnemonic").charAt(0));
         unten.add(this.endButton);
 
         this.getContentPane().setLayout(new BorderLayout());

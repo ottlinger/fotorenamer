@@ -44,7 +44,7 @@ public final class LocalizationHelper {
      * Currently it's static and German only.
      */
     private static final ResourceBundle BUNDLE =
-            ResourceBundle.getBundle("fotorenamer", Locale.GERMAN);
+            ResourceBundle.getBundle("fotorenamer", Locale.GERMANY);
 
     /**
      * Use a German message format as well
@@ -54,7 +54,7 @@ public final class LocalizationHelper {
 
     static {
         FORMAT = new MessageFormat("");
-        FORMAT.setLocale(Locale.GERMAN);
+        FORMAT.setLocale(Locale.GERMANY);
     }
 
     /**
