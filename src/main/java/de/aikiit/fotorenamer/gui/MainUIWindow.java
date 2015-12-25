@@ -82,11 +82,15 @@ public class MainUIWindow extends JFrame implements ActionListener {
      */
     private ImageDirectorySelector imageDirectorySelector = null;
 
+    private MainUIWindow() {
+        SwingUtilities.invokeLater(this::init);
+    }
+
     /**
      * Creates the main UI window and initializes all internal UI-components.
      */
-    public MainUIWindow() {
-        SwingUtilities.invokeLater(this::init);
+    public static void build() {
+        new MainUIWindow();
     }
 
     /**

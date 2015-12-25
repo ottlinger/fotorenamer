@@ -48,6 +48,6 @@ final class ApplicationStarter {
         } catch (Exception e) {
             LOG.error("Error during application startup: " + e);
         }
-        new MainUIWindow();
+        MainUIWindow.build();
     }
 }

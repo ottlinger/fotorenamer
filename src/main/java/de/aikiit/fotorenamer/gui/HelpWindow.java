@@ -48,7 +48,7 @@ class HelpWindow extends JFrame implements ActionListener {
      * Relative location of the UI's image icon.
      */
     private static final String HTML_HELP_LOCATION = File.separator + "html"
-            + File.separator + "hilfe.html";
+            + File.separator + "help.html";
 
     /**
      * Creates a HelpWindow, initializes its components but does
@@ -77,7 +77,7 @@ class HelpWindow extends JFrame implements ActionListener {
             oben.add(textfeld);
         } catch (Exception e) {
             oben.setLayout(new GridLayout(1, 1));
-            oben.add(new JLabel(String.format(LocalizationHelper.getBundleString("fotorenamer.ui.help.error"), e.getMessage(), e.getClass().getSimpleName())));
+            oben.add(new JLabel(LocalizationHelper.getParameterizedBundleString("fotorenamer.ui.help.error", e.getMessage(), e.getClass().getSimpleName())));
         }
 
         JScrollPane rollpanel = new JScrollPane(oben);

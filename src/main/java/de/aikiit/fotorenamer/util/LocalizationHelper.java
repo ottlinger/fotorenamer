@@ -40,33 +40,46 @@ public final class LocalizationHelper {
     private static final Logger LOG =
             LogManager.getLogger(LocalizationHelper.class);
     /**
-     * ResourceBundle used for fotorenamer.
-     * Currently it's static and German only.
+     * ResourceBundle used for this application.
      */
-    private static final ResourceBundle BUNDLE =
-            ResourceBundle.getBundle("fotorenamer", Locale.GERMANY);
+    private static final String BASE_NAME = "fotorenamer";
+    private static final ResourceBundle BUNDLE;
+    private static Locale LOCALE;
 
-    /**
-     * Use a German message format as well
-     * to process parameters to property messages.
-     */
     private static final MessageFormat FORMAT;
 
     static {
+        determineLocale();
+
+        BUNDLE = ResourceBundle.getBundle(BASE_NAME, LOCALE);
         FORMAT = new MessageFormat("");
-        FORMAT.setLocale(Locale.GERMANY);
+        FORMAT.setLocale(LOCALE);
     }
+
+    /**
+     * Set locale depending on system properties, in case of errors fallback is Locale.GERMANY.
+     */
+    private static void determineLocale() {
+        try {
+            LOCALE = new Locale(System.getProperty("user.language"), System.getProperty("user.country"));
+            LOG.info("Setting locale to " + LOCALE);
+        } catch (NullPointerException e) {
+            LOCALE = Locale.GERMANY;
+            LOG.info("Falling back to locale " + LOCALE);
+        }
+    }
+
 
     /**
      * Helper function to retrieve a given key
      * from the underlying resource bundle.
      *
      * @param key Key to retrieve from the bundle,
-     * e.g. <i>fotorenamer.foo.title</i>
+     *            e.g. <i>fotorenamer.foo.title</i>
      * @return Returns the value from the bundle.
      */
     public static String getBundleString(final String key) {
-        LOG.info("Retrieving key " + key);
+        LOG.debug("Retrieving key " + key);
         return BUNDLE.getString(key);
         // l18n basics:
         // http://www.kodejava.org/examples/220.html
@@ -85,18 +98,16 @@ public final class LocalizationHelper {
      * from the underlying resource bundle while
      * applying localization parameters.
      *
-     * @see
-     * <a href="http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html">
-     *     I18N-tutorial</a>
-     *
-     * @param key Key to retrieve from the bundle,
-     * e.g. <i>fotorenamer.foo.parameteredtitle</i>.
+     * @param key        Key to retrieve from the bundle,
+     *                   e.g. <i>fotorenamer.foo.parameteredtitle</i>.
      * @param parameters Object array with all parameters.
      * @return Returns the value from the bundle
      * with the given parameters applied.
+     * @see <a href="http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html">
+     * I18N-tutorial</a>
      */
-    public static String getParameterizedBundleString(final String key, final Object[] parameters) {
-        LOG.info("Applying " + ((parameters == null) ? null : parameters
+    public static String getParameterizedBundleString(final String key, final Object... parameters) {
+        LOG.debug("Applying " + ((parameters == null) ? null : parameters
                 .length) + " parameters to " + key);
         FORMAT.applyPattern(getBundleString(key));
         return FORMAT.format(parameters);
