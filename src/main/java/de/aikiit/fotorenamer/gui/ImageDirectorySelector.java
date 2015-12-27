@@ -142,7 +142,7 @@ class ImageDirectorySelector extends JPanel {
             if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
                     == JFileChooser.APPROVE_OPTION) {
                 // use getCanonicalPath() to avoid ..-path manipulations and
-                // try to set the selected file in the GUI
+                // try to set the selected file in the UI
                 try {
                     textField.setText(
                             fileDlg.getSelectedFile().getCanonicalPath());
