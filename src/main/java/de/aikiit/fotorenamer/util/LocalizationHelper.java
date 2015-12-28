@@ -15,7 +15,6 @@
  */
 package de.aikiit.fotorenamer.util;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -59,8 +58,7 @@ public final class LocalizationHelper {
     /**
      * Set locale depending on system properties, in case of errors fallback is Locale.GERMANY.
      */
-    @VisibleForTesting
-    static void setLocale() {
+    public static void setLocale() {
         String userLanguage = System.getProperty("user.language");
         String userCountry = System.getProperty("user.country");
 
