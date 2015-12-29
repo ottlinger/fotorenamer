@@ -28,6 +28,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+
 /**
  * This class holds the main application window and allows to select a directory
  * to perform the image name processing.
@@ -101,7 +103,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
         os += " " + System.getProperty("os.version");
         os += " " + System.getProperty("os.arch") + "]";
 
-        this.setTitle("fotorenamer-DateinamenKonverter " + os);
+        this.setTitle(getParameterizedBundleString("fotorenamer.ui.main.title", os));
         this.getContentPane().setLayout(new BorderLayout());
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

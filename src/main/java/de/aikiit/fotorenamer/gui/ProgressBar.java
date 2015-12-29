@@ -16,7 +16,6 @@
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
-import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +23,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 
 /**
  * This class provides a progressbar with 2 lines. One is the progress bar
@@ -80,13 +81,13 @@ public class ProgressBar extends JFrame {
     private void init(final int maxCapacity) {
         // set window title
         this.setTitle(
-                LocalizationHelper.getBundleString("fotorenamer.ui.progress"));
+                getBundleString("fotorenamer.ui.progress"));
 
         this.setResizable(false);
         this.progressBar = new JProgressBar(0, maxCapacity);
 
         JLabel info = new JLabel(
-                LocalizationHelper.getBundleString(
+                getBundleString(
                         "fotorenamer.ui.progress.title"));
         this.textInfo = new JLabel();
         this.progressBar.setValue(0);

@@ -15,7 +15,6 @@
  */
 package de.aikiit.fotorenamer.gui;
 
-import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
@@ -23,6 +22,8 @@ import org.apache.logging.log4j.util.Strings;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 
 /**
  * This component provides a means to select images that are to be renamed.
@@ -116,10 +117,10 @@ class ImageDirectorySelector extends JPanel {
         // show button
         browseButton = (this.imageIcon == null
                 ? new JButton(
-                LocalizationHelper.getBundleString(
+                getBundleString(
                         "fotorenamer.ui.selector.title"))
                 : new JButton(
-                LocalizationHelper.getBundleString(
+                getBundleString(
                         "fotorenamer.ui.selector.title"), this.imageIcon));
         browseButton.setMnemonic('v');
         browseButton.setMargin(new Insets(1, 1, 1, 1));
@@ -134,9 +135,9 @@ class ImageDirectorySelector extends JPanel {
 
             fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fileDlg.setDialogTitle(
-                    LocalizationHelper.getBundleString(
+                    getBundleString(
                             "fotorenamer.ui.selector.directory"));
-            fileDlg.setApproveButtonText(LocalizationHelper.getBundleString(
+            fileDlg.setApproveButtonText(getBundleString(
                     "fotorenamer.ui.selector.select"));
 
             if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
