@@ -1,18 +1,18 @@
 /**
-Copyright 2011, Aiki IT, FotoRenamer
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.aikiit.fotorenamer.image;
 
 import com.google.common.base.MoreObjects;
@@ -30,6 +30,9 @@ import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /**
  * Abstract class that handles image renaming and file handling.
@@ -162,10 +165,8 @@ abstract class AbstractImageRenamer implements Runnable {
             renameFiles();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    "Während der Bearbeitung der Datei\n "
-                            + MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName()) + " trat ein Fehler beim "
-                            + "Umbennen auf.",
-                    "Fehler beim Umbenennen",
+                    getParameterizedBundleString("fotorenamer.ui.rename.error", MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())),
+                    getBundleString("fotorenamer.ui.rename.error.title"),
                     JOptionPane.ERROR_MESSAGE);
 
             this.amountOfFiles = 0;
@@ -176,24 +177,18 @@ abstract class AbstractImageRenamer implements Runnable {
         // show UI-notification
         switch (this.amountOfFiles) {
             case 0:
-                notification = "Im Verzeichnis: "
-                        + this.currentDirectory.getName()
-                        + "\nwurden keine Dateien\numbenannt.\n\n";
+                notification = getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName());
                 break;
-
             case 1:
-                notification = "\nEs wurde eine Datei\n"
-                        + "im Verzeichnis: " + this.currentDirectory.getName()
-                        + "\nerfolgreich umbenannt.\n\n";
+                notification = getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName());
                 break;
             default:
-                notification = "\nEs wurden "
-                        + this.amountOfFiles + " Dateien\n"
-                        + "im Verzeichnis: " + this.currentDirectory.getName()
-                        + "\numbenannt.\n\n";
+                notification = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.amountOfFiles, this.currentDirectory.getName());
                 break;
         }
-        JOptionPane.showMessageDialog(null, notification, "Erfolg",
+
+        notification += "\n\n";
+        JOptionPane.showMessageDialog(null, notification, getBundleString("fotorenamer.ui.rename.success.title"),
                 JOptionPane.INFORMATION_MESSAGE);
     }
 }

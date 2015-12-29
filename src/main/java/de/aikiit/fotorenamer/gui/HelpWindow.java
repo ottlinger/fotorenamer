@@ -16,7 +16,6 @@
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
-import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,6 +24,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getLanguage;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /**
  * This class represents a help window component. It loads a HTML-page to show
@@ -62,7 +65,7 @@ class HelpWindow extends JFrame implements ActionListener {
      * Initialize UI-compontens and make them visible.
      */
     private void init() {
-        this.setTitle(LocalizationHelper.getBundleString(
+        this.setTitle(getBundleString(
                 "fotorenamer.ui.help.title"));
         this.setResizable(false);
         JPanel top = new JPanel(new FlowLayout());
@@ -78,10 +81,10 @@ class HelpWindow extends JFrame implements ActionListener {
         rollpanel.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        this.endButton = new JButton(LocalizationHelper.getBundleString(
+        this.endButton = new JButton(getBundleString(
                 "fotorenamer.ui.help.close"));
         this.endButton.addActionListener(this);
-        this.endButton.setMnemonic(LocalizationHelper.getBundleString("fotorenamer.ui.help.close.mnemonic").charAt(0));
+        this.endButton.setMnemonic(getBundleString("fotorenamer.ui.help.close.mnemonic").charAt(0));
         bottom.add(this.endButton);
 
         this.getContentPane().setLayout(new BorderLayout());
@@ -96,14 +99,14 @@ class HelpWindow extends JFrame implements ActionListener {
     /**
      * Load page contents depending on available languages (fallback is English).
      *
-     * @param base base panel.
+     * @param base      base panel.
      * @param textfield where to put the contents to.
      */
     private void loadHelpContents(final JPanel base, final JEditorPane textfield) {
         try {
             String helpPageLocation = HTML_HELP_LOCATION;
 
-            if(LocalizationHelper.getLanguage().startsWith("de")) {
+            if (getLanguage().startsWith("de")) {
                 helpPageLocation += "hilfe.html";
             } else {
                 helpPageLocation += "help.html";
@@ -113,7 +116,7 @@ class HelpWindow extends JFrame implements ActionListener {
             base.add(textfield);
         } catch (Exception e) {
             base.setLayout(new GridLayout(1, 1));
-            base.add(new JLabel(LocalizationHelper.getParameterizedBundleString("fotorenamer.ui.help.error", e.getMessage(), e.getClass().getSimpleName())));
+            base.add(new JLabel(getParameterizedBundleString("fotorenamer.ui.help.error", e.getMessage(), e.getClass().getSimpleName())));
         }
     }
 
