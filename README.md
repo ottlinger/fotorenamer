@@ -46,6 +46,7 @@ javaws bildbearbeiter.jnlp
 
 ### Localization ###
 
+Relates to issue [#10](/issues/10)
 Relates to issue #10.
 
   As of now the application can be localized (at the moment only German and English is supported). Use the following parameters to explicitly set language and country or trust your system defaults:
