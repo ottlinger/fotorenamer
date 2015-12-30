@@ -122,7 +122,7 @@ class ImageDirectorySelector extends JPanel {
                 : new JButton(
                 getBundleString(
                         "fotorenamer.ui.selector.title"), this.imageIcon));
-        browseButton.setMnemonic('v');
+        browseButton.setMnemonic(getBundleString("fotorenamer.ui.selector.title.mnemonic").charAt(0));
         browseButton.setMargin(new Insets(1, 1, 1, 1));
         grid.setConstraints(browseButton, gbc);
         add(browseButton);
