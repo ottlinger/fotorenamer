@@ -24,7 +24,14 @@ under the License.
 
     <!-- Position of publishing date and version information -->
     <publishDate position="bottom" format="yyyy-MM-dd"/>
+
+    <!-- https://maven.apache.org/plugins/maven-site-plugin/examples/sitedescriptor.html -->
     <version position="bottom"/>
+
+    <poweredBy>
+       <logo name="Maven" href="http://maven.apache.org/"
+             img="http://maven.apache.org/images/logos/maven-feather.png"/>
+     </poweredBy>
 
     <!-- https://maven.apache.org/doxia/doxia-sitetools/doxia-decoration-model/decoration.html -->
     <skin>
