@@ -171,16 +171,10 @@ public class MainUIWindow extends JFrame implements ActionListener {
         } else if (event.getSource() == this.infoButton) {
             // info
             JOptionPane.showMessageDialog(null,
-                    "\nbildbearbeiter - fotorenamer\n\n"
-                            + "Version: " + VERSION
-                            + "\n\nAutor: P.Ottlinger, "
-                            + "\nURL: http://www.aiki-it.de"
-                            + "\n (C) 1996-"
-                            + new java.text.SimpleDateFormat("yyyy").
-                            format(new java.util.Date(
+                    getParameterizedBundleString("fotorenamer.ui.about", VERSION, new SimpleDateFormat("yyyy").
+                            format(new Date(
                                     Long.parseLong(
-                                            de.aikiit.fotorenamer.util.
-                                                    Version.TIMESTAMP))),
+                                            Version.TIMESTAMP)))),
                     LocalizationHelper.getBundleString("fotorenamer.ui.main.version.title"),
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
@@ -190,9 +184,8 @@ public class MainUIWindow extends JFrame implements ActionListener {
                 protected Void doInBackground() {
                     if (imageDirectorySelector.isWaiting()) {
                         JOptionPane.showMessageDialog(null,
-                                "Bitte ein Verzeichnis eingeben und\n"
-                                        + "dann starten.",
-                                "Ungültiges Verzeichnis angegegen",
+                                getBundleString("fotorenamer.ui.error.nodirectory"),
+                                getBundleString("fotorenamer.ui.error.nodirectory.title"),
                                 JOptionPane.ERROR_MESSAGE);
                         return null;
                     }
@@ -201,7 +194,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                     try {
                         if (event.getSource() == goButton) {
                             goButton.setEnabled(false);
-                            goButton.setText("in progress");
+                            goButton.setText(getBundleString("fotorenamer.ui.main.progress"));
                             CreationDateFromExifImageRenamer renamer =
                                     new CreationDateFromExifImageRenamer(
                                             imageDirectorySelector.toString()
@@ -209,25 +202,19 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             new Thread(renamer).start();
                         } else {
                             revertButton.setEnabled(false);
-                            revertButton.setText("in progress");
+                            revertButton.setText(getBundleString("fotorenamer.ui.main.progress"));
                             new RemoveExifPrefixRenamer(
                                     imageDirectorySelector.toString());
-
                         }
                     } catch (InvalidDirectoryException uv) {
                         JOptionPane.showMessageDialog(null,
-                                "Das eingegebene Verzeichnis '"
-                                        + uv.getMessage()
-                                        + "' ist ungültig - bitte erneut "
-                                        + "versuchen.",
-                                "Ungültiges Verzeichnis angegegen",
+                                getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
+                                getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
                                 JOptionPane.ERROR_MESSAGE);
                     } catch (NoFilesFoundException kde) {
                         JOptionPane.showMessageDialog(null,
-                                "Im Verzeichnis '" + kde.getMessage()
-                                        + "' existieren keine umbenennbaren "
-                                        + "Dateien - bitte erneut versuchen.",
-                                "Keine Dateien vorhanden",
+                                getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()),
+                                getBundleString("fotorenamer.ui.error.nofiles.title"),
                                 JOptionPane.ERROR_MESSAGE);
                     }
                     return null;
@@ -237,9 +224,9 @@ public class MainUIWindow extends JFrame implements ActionListener {
                 protected void done() {
                     // reset gui if all workers terminated
                     goButton.setEnabled(true);
-                    goButton.setText("Starten");
+                    goButton.setText(getBundleString("fotorenamer.ui.main.menu.start"));
                     revertButton.setEnabled(true);
-                    revertButton.setText("Rückgängig machen");
+                    revertButton.setText(getBundleString("fotorenamer.ui.main.menu.revert"));
                 }
             };
             // Execute the SwingWorker; GUI will not freeze
