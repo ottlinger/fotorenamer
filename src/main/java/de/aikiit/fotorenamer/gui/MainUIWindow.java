@@ -22,6 +22,8 @@ import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
 import de.aikiit.fotorenamer.util.LocalizationHelper;
 import de.aikiit.fotorenamer.util.Version;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +44,12 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBund
  * @version 2004-01-08
  */
 public class MainUIWindow extends JFrame implements ActionListener {
+    /**
+     * The logger of this class.
+     **/
+    private static final Logger LOG =
+            LogManager.getLogger(MainUIWindow.class);
+
     /**
      * Provide version information in the UI (taken from maven).
      */
@@ -164,9 +172,10 @@ public class MainUIWindow extends JFrame implements ActionListener {
 
         // end
         if (event.getSource() == this.endButton) {
+            LOG.info("Bye Bye :-)");
             System.exit(0);
         } else if (event.getSource() == this.helpButton) {
-            // help
+            LOG.info("Displaying help window.");
             showHelpWindow();
         } else if (event.getSource() == this.infoButton) {
             // info
@@ -207,11 +216,13 @@ public class MainUIWindow extends JFrame implements ActionListener {
                                     imageDirectorySelector.toString());
                         }
                     } catch (InvalidDirectoryException uv) {
+                        LOG.info("Invalid directory selected: " + uv.getMessage());
                         JOptionPane.showMessageDialog(null,
                                 getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
                                 getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
-                                JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.ERROR_MESSAGE);
                     } catch (NoFilesFoundException kde) {
+                        LOG.info("No files found in " + kde.getMessage());
                         JOptionPane.showMessageDialog(null,
                                 getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()),
                                 getBundleString("fotorenamer.ui.error.nofiles.title"),
@@ -222,6 +233,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
 
                 @Override
                 protected void done() {
+                    LOG.debug("Finished working, will reset UI.");
                     // reset gui if all workers terminated
                     goButton.setEnabled(true);
                     goButton.setText(getBundleString("fotorenamer.ui.main.menu.start"));
