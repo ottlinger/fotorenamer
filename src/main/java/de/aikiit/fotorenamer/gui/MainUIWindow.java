@@ -21,13 +21,17 @@ import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
 import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
 import de.aikiit.fotorenamer.util.LocalizationHelper;
+import de.aikiit.fotorenamer.util.Version;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /**
@@ -39,16 +43,15 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBund
  */
 public class MainUIWindow extends JFrame implements ActionListener {
     /**
-     * Provide version information in the UI (transferred from maven).
+     * Provide version information in the UI (taken from maven).
      */
-    private static final String VERSION =
-            new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
-                    format(new java.util.Date(Long.parseLong(
-                            de.aikiit.fotorenamer.util.Version.TIMESTAMP)))
-                    + " / SCM-rev: "
-                    + de.aikiit.fotorenamer.util.Version.VERSION
-                    + " / Build-Timestamp: "
-                    + de.aikiit.fotorenamer.util.Version.TIMESTAMP;
+    private static final String VERSION = getParameterizedBundleString("fotorenamer.ui.main.version", //
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+                    format(new Date(Long.parseLong(
+                            Version.TIMESTAMP))), //
+            Version.VERSION, //
+            Version.TIMESTAMP
+    );
     /**
      * Relative location of the UI's image icon.
      */
@@ -115,33 +118,33 @@ public class MainUIWindow extends JFrame implements ActionListener {
 
         // help
         JPanel knoepfe = new JPanel(new FlowLayout());
-        this.helpButton = new JButton("Hilfe");
+        this.helpButton = new JButton(getBundleString("fotorenamer.ui.main.menu.help"));
         this.helpButton.addActionListener(this);
-        this.helpButton.setMnemonic('H');
+        this.helpButton.setMnemonic(getBundleString("fotorenamer.ui.main.menu.help.mnemonic").charAt(0));
         knoepfe.add(this.helpButton);
 
         // info
-        this.infoButton = new JButton("Info");
+        this.infoButton = new JButton(getBundleString("fotorenamer.ui.main.menu.info"));
         this.infoButton.addActionListener(this);
-        this.infoButton.setMnemonic('I');
+        this.infoButton.setMnemonic(getBundleString("fotorenamer.ui.main.menu.info.mnemonic").charAt(0));
         knoepfe.add(this.infoButton);
 
         // exit
-        this.endButton = new JButton("Ende");
+        this.endButton = new JButton(getBundleString("fotorenamer.ui.main.menu.end"));
         this.endButton.addActionListener(this);
-        this.endButton.setMnemonic('e');
+        this.endButton.setMnemonic(getBundleString("fotorenamer.ui.main.menu.end.mnemonic").charAt(0));
         knoepfe.add(this.endButton);
 
         // start
-        this.goButton = new JButton("Starten");
+        this.goButton = new JButton(getBundleString("fotorenamer.ui.main.menu.start"));
         this.goButton.addActionListener(this);
-        this.goButton.setMnemonic('s');
+        this.goButton.setMnemonic(getBundleString("fotorenamer.ui.main.menu.start.mnemonic").charAt(0));
         knoepfe.add(this.goButton);
 
         // revert
-        this.revertButton = new JButton("Rückgängig machen");
+        this.revertButton = new JButton(getBundleString("fotorenamer.ui.main.menu.revert"));
         this.revertButton.addActionListener(this);
-        this.revertButton.setMnemonic('r');
+        this.revertButton.setMnemonic(getBundleString("fotorenamer.ui.main.menu.revert.mnemonic").charAt(0));
         knoepfe.add(this.revertButton);
 
         this.getContentPane().add(verzeichnis, BorderLayout.NORTH);
