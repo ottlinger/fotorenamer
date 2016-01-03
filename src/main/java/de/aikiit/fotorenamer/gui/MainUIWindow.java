@@ -20,7 +20,6 @@ import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
 import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
-import de.aikiit.fotorenamer.util.LocalizationHelper;
 import de.aikiit.fotorenamer.util.Version;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -184,7 +183,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             format(new Date(
                                     Long.parseLong(
                                             Version.TIMESTAMP)))),
-                    LocalizationHelper.getBundleString("fotorenamer.ui.main.version.title"),
+                    getBundleString("fotorenamer.ui.main.version.title"),
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (event.getSource() == this.revertButton || event.getSource()
                 == this.goButton) {
@@ -220,7 +219,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null,
                                 getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
                                 getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
-                                        JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.ERROR_MESSAGE);
                     } catch (NoFilesFoundException kde) {
                         LOG.info("No files found in " + kde.getMessage());
                         JOptionPane.showMessageDialog(null,
