@@ -73,4 +73,9 @@ public class LocalizationHelperTest {
         assertEquals(Locale.CANADA_FRENCH, getLocale());
         assertEquals(french, getLanguage());
     }
+
+    @Test
+    public final void umlautEncodingWorksCorrectly() {
+        assertEquals("ßäü", getBundleString("fotorenamer.test.umlauts"));
+    }
 }
