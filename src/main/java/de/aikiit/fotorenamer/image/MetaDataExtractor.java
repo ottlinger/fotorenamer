@@ -96,7 +96,7 @@ final class MetaDataExtractor {
 
 /*
         for(ImageMetadata.ImageMetadataItem item:metadata.getItems()) {
-            System.out.println("WWW: " + item.toString());
+            System.out.println("WWW: " + item.getSelectedDirectory());
         }
   */
         if (metadata instanceof JpegImageMetadata) {

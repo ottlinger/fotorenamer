@@ -15,15 +15,21 @@
  */
 package de.aikiit.fotorenamer.gui;
 
+import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
+import de.aikiit.fotorenamer.exception.NoFilesFoundException;
+import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /**
  * This component provides a means to select images that are to be renamed.
@@ -127,7 +133,7 @@ class ImageDirectorySelector extends JPanel {
         grid.setConstraints(browseButton, gbc);
         add(browseButton);
 
-        // TODO add method to read contents that a user typed in
+        // TODO add method to read contents that a user typed in as base directory for file selector
         // Add action listener.
         browseButton.addActionListener(event -> {
             textField.setText("");
@@ -155,6 +161,58 @@ class ImageDirectorySelector extends JPanel {
                 }
             }
         });
+
+
+        // make textfield react on Enter/copied over from MainUIWindow
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                        @Override
+                        protected Void doInBackground() {
+                            if (isWaiting()) {
+                                JOptionPane.showMessageDialog(null,
+                                        getBundleString("fotorenamer.ui.error.nodirectory"),
+                                        getBundleString("fotorenamer.ui.error.nodirectory.title"),
+                                        JOptionPane.ERROR_MESSAGE);
+                                return null;
+                            }
+
+                            // perform renaming
+                            try {
+                                CreationDateFromExifImageRenamer renamer =
+                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());
+                                new Thread(renamer).start();
+                            } catch (InvalidDirectoryException uv) {
+                                LOG.info("Invalid directory selected: " + uv.getMessage());
+                                JOptionPane.showMessageDialog(null,
+                                        getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
+                                        getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
+                                        JOptionPane.ERROR_MESSAGE);
+                            } catch (NoFilesFoundException kde) {
+                                LOG.info("No files found in " + kde.getMessage());
+                                JOptionPane.showMessageDialog(null,
+                                        getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()),
+                                        getBundleString("fotorenamer.ui.error.nofiles.title"),
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                            return null;
+                        }
+
+                        @Override
+                        protected void done() {
+                            // TODO how can I communicate with the surrounding UI to block the user from pressing the buttons
+                            LOG.debug("Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.");
+                        }
+                    };
+                    // Execute the SwingWorker; GUI will not freeze
+                    worker.execute();
+                }
+            }
+
+        });
     }
 
     /**
@@ -162,8 +220,7 @@ class ImageDirectorySelector extends JPanel {
      *
      * @return The currently selected directory.
      */
-    @Override
-    public final String toString() {
+    public final String getSelectedDirectory() {
         return this.textField.getText();
     }
 }

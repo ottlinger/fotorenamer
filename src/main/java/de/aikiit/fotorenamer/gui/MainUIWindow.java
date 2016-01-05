@@ -205,14 +205,14 @@ public class MainUIWindow extends JFrame implements ActionListener {
                             goButton.setText(getBundleString("fotorenamer.ui.main.progress"));
                             CreationDateFromExifImageRenamer renamer =
                                     new CreationDateFromExifImageRenamer(
-                                            imageDirectorySelector.toString()
+                                            imageDirectorySelector.getSelectedDirectory()
                                     );
                             new Thread(renamer).start();
                         } else {
                             revertButton.setEnabled(false);
                             revertButton.setText(getBundleString("fotorenamer.ui.main.progress"));
                             new RemoveExifPrefixRenamer(
-                                    imageDirectorySelector.toString());
+                                    imageDirectorySelector.getSelectedDirectory());
                         }
                     } catch (InvalidDirectoryException uv) {
                         LOG.info("Invalid directory selected: " + uv.getMessage());
