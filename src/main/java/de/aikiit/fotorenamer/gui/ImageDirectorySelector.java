@@ -24,8 +24,13 @@ import org.apache.logging.log4j.util.Strings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
@@ -162,6 +167,34 @@ class ImageDirectorySelector extends JPanel {
                 }
             }
         });
+
+        // make textfield drag'n'dropable
+        textField.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt
+                            .getTransferable().getTransferData(
+                                    DataFlavor.javaFileListFlavor);
+
+                    if (droppedFiles != null && !droppedFiles.isEmpty()) {
+                        for (File droppedFile : droppedFiles) {
+                            if (droppedFile.isDirectory()) {
+                                final String path = droppedFile.getAbsolutePath();
+                                LOG.info("Drag'n'drop done for file: " + path + " with " + droppedFiles.size() + " element(s) received");
+                                textField.setText(path);
+                                break;
+                            }
+                        }
+                    }
+
+
+                } catch (Exception ex) {
+                    LOG.info("Drag'd'drop did not work due to " + ex);
+                }
+            }
+        });
+
 
         // make textfield react on Enter/copied over from MainUIWindow
         textField.addKeyListener(new KeyAdapter() {
