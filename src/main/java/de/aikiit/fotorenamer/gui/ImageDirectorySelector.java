@@ -88,6 +88,7 @@ class ImageDirectorySelector extends JPanel {
      * @return Returns whether anything is selected within the current
      * configuration.
      */
+    // TODO improve design, let class emit an event in case a directory was selected
     public final boolean isWaiting() {
         return Strings.isEmpty(this.textField.getText());
     }
@@ -133,11 +134,11 @@ class ImageDirectorySelector extends JPanel {
         grid.setConstraints(browseButton, gbc);
         add(browseButton);
 
-        // TODO add method to read contents that a user typed in as base directory for file selector
-        // Add action listener.
+        // Add action listener and take current contents of textfield as start directory
         browseButton.addActionListener(event -> {
-            textField.setText("");
-            JFileChooser fileDlg = new JFileChooser();
+
+            String currentPath = textField.getText();
+            JFileChooser fileDlg = new JFileChooser(com.google.common.base.Strings.isNullOrEmpty(currentPath) ? null : currentPath);
 
             fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fileDlg.setDialogTitle(
@@ -161,7 +162,6 @@ class ImageDirectorySelector extends JPanel {
                 }
             }
         });
-
 
         // make textfield react on Enter/copied over from MainUIWindow
         textField.addKeyListener(new KeyAdapter() {
