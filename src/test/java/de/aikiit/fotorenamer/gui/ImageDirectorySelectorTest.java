@@ -15,6 +15,7 @@
  */
 package de.aikiit.fotorenamer.gui;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -25,6 +26,7 @@ import static org.junit.Assert.assertNotNull;
  * @author hirsch
  * @version 2011-04-08, 00:22
  */
+@Ignore("Not working on travis since no X11 present")
 public class ImageDirectorySelectorTest {
     @Test
     public void performInit() {
