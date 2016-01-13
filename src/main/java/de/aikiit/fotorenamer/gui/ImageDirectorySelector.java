@@ -84,7 +84,7 @@ class ImageDirectorySelector extends JPanel {
     public final void setEnabled(final boolean enable) {
         textField.setEnabled(enable);
         browseButton.setEnabled(enable);
-    } // end of setEnabled
+    }
 
     /**
      * This method is used as a blocking call until the user selects something
@@ -95,9 +95,8 @@ class ImageDirectorySelector extends JPanel {
      */
     // TODO improve design, let class emit an event in case a directory was selected
     public final boolean isWaiting() {
-        return Strings.isEmpty(this.textField.getText());
+        return Strings.isEmpty(getSelectedDirectory());
     }
-
 
     /**
      * Initialize internal UI components.
@@ -142,7 +141,7 @@ class ImageDirectorySelector extends JPanel {
         // Add action listener and take current contents of textfield as start directory
         browseButton.addActionListener(event -> {
 
-            String currentPath = textField.getText();
+            String currentPath = getSelectedDirectory();
             JFileChooser fileDlg = new JFileChooser(com.google.common.base.Strings.isNullOrEmpty(currentPath) ? null : currentPath);
 
             fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -254,6 +253,11 @@ class ImageDirectorySelector extends JPanel {
      * @return The currently selected directory.
      */
     public final String getSelectedDirectory() {
-        return this.textField.getText();
+        String currentSelection = this.textField.getText();
+        if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
+            currentSelection = currentSelection.replaceAll("~", System.getProperty("user.home"));
+            LOG.debug("User input transformed into " + currentSelection);
+        }
+        return currentSelection;
     }
 }
