@@ -22,9 +22,12 @@ import de.aikiit.fotorenamer.gui.ProgressBar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /**
  * This class rerenames files in order to be able to play them back onto a camera
@@ -142,8 +145,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
 
         String statusMessage;
         if (this.done.get() == 0) {
-            statusMessage = "Im Verzeichnis: " + this.currentDirectory.getName()
-                    + "\nwurden keine Dateien\numbenannt.\n\n";
+            statusMessage = getParameterizedBundleString("fotorenamer.ui.rerename.success.none", this.currentDirectory.getName());
         } else if (this.done.get() == 1) {
             statusMessage = "\nEs wurde eine Datei\n"
                     + "im Verzeichnis: " + this.currentDirectory.getName()
@@ -155,7 +157,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
                     + this.currentDirectory.getName()
                     + "\nerfolgreich umbenannt.\n\n";
         }
-        JOptionPane.showMessageDialog(null, statusMessage, "Erfolg",
+        JOptionPane.showMessageDialog(null, statusMessage, getBundleString("fotorenamer.ui.rerename.success.title"),
                 JOptionPane.INFORMATION_MESSAGE);
     }
 }
