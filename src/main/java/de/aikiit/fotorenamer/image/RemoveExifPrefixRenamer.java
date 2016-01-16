@@ -134,10 +134,8 @@ public class RemoveExifPrefixRenamer implements Runnable {
         try {
             rename();
         } catch (RenamingErrorException uf) {
-            JOptionPane.showMessageDialog(null,
-                    "Während der Bearbeitung der Datei\n"
-                            + uf.getMessage() + " trat ein Fehler beim "
-                            + "Umbennen auf.", "Fehler beim Umbenennen",
+            JOptionPane.showMessageDialog(null, getParameterizedBundleString("fotorenamer.ui.rename.error", uf.getMessage()),
+                    getBundleString("fotorenamer.ui.rerename.error.title"),
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -145,17 +143,11 @@ public class RemoveExifPrefixRenamer implements Runnable {
 
         String statusMessage;
         if (this.done.get() == 0) {
-            statusMessage = getParameterizedBundleString("fotorenamer.ui.rerename.success.none", this.currentDirectory.getName());
+            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName());
         } else if (this.done.get() == 1) {
-            statusMessage = "\nEs wurde eine Datei\n"
-                    + "im Verzeichnis: " + this.currentDirectory.getName()
-                    + "\nerfolgreich umbenannt.\n\n";
+            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName());
         } else {
-            statusMessage = "\nEs wurden " + this.done + " von "
-                    + this.listOfFiles.length
-                    + " Dateien\nim Verzeichnis: "
-                    + this.currentDirectory.getName()
-                    + "\nerfolgreich umbenannt.\n\n";
+            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.done, this.listOfFiles.length, this.currentDirectory.getName());
         }
         JOptionPane.showMessageDialog(null, statusMessage, getBundleString("fotorenamer.ui.rerename.success.title"),
                 JOptionPane.INFORMATION_MESSAGE);
