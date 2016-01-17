@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+
 /**
  * Exception class to indicate that a selected directory contains no relevant
  * files to be renamed.
@@ -39,7 +41,7 @@ public class NoFilesFoundException extends Exception {
      * @param directory Current directory.
      */
     public NoFilesFoundException(final File directory) {
-        super(directory == null ? "none" : directory.getAbsolutePath());
+        super(directory == null ? getBundleString("fotorenamer.error.noselection") : directory.getAbsolutePath());
         LOG.error("no files found in " + directory);
     }
 

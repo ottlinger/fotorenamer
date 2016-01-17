@@ -124,7 +124,7 @@ abstract class AbstractImageRenamer implements Runnable {
             if (renamingResult) {
                 LOG.info("Renaming " + file.getName()
                         + " to " + targetFilename);
-                LOG.info("Renamed file exists? "
+                LOG.info("Does renamed file exist? "
                         + new File(file.getParent(),
                         targetFilename).exists());
             }

@@ -120,8 +120,8 @@ public class ProgressBar extends JFrame {
         // http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
         try {
             TimeUnit.MILLISECONDS.sleep(this.delayInUI);
-        } catch (Exception e) {
-            LOG.error("Error during repaint of ProgressBar, " + e.getMessage());
+        } catch (InterruptedException e) {
+            LOG.error("Thread sleep error during repaint of ProgressBar, " + e.getMessage());
         }
     }
 

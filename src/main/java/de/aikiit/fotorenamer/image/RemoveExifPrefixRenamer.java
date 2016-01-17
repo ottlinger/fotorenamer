@@ -15,6 +15,7 @@
  */
 package de.aikiit.fotorenamer.image;
 
+import com.google.common.collect.Lists;
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.exception.RenamingErrorException;
@@ -24,6 +25,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
@@ -46,7 +49,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
     private static final String REPLACE_PATTERN = "\\d{8}[_]\\d{4}[_]";
 
     private File currentDirectory = null;
-    private File[] listOfFiles = null;
+    private List<File> listOfFiles = Lists.newArrayList();
     private ProgressBar progressBar = null;
     private final AtomicInteger done = new AtomicInteger(0);
 
@@ -114,9 +117,9 @@ public class RemoveExifPrefixRenamer implements Runnable {
         }
 
         // files available
-        this.listOfFiles = this.currentDirectory.listFiles(
-                new ImageFilenameFilter());
-        if (this.listOfFiles == null || this.listOfFiles.length == 0) {
+        this.listOfFiles = Arrays.asList(this.currentDirectory.listFiles(
+                new ImageFilenameFilter()));
+        if (this.listOfFiles.isEmpty()) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
 
@@ -129,7 +132,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
      * @see #rename()
      */
     public final void run() {
-        this.progressBar = new ProgressBar(this.listOfFiles.length);
+        this.progressBar = new ProgressBar(this.listOfFiles.size());
 
         try {
             rename();
@@ -147,7 +150,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
         } else if (this.done.get() == 1) {
             statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName());
         } else {
-            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.done, this.listOfFiles.length, this.currentDirectory.getName());
+            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.done, this.listOfFiles.size(), this.currentDirectory.getName());
         }
         JOptionPane.showMessageDialog(null, statusMessage, getBundleString("fotorenamer.ui.rerename.success.title"),
                 JOptionPane.INFORMATION_MESSAGE);

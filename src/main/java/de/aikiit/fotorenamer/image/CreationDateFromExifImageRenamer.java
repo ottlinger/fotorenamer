@@ -1,26 +1,28 @@
 /**
-Copyright 2011, Aiki IT, FotoRenamer
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.aikiit.fotorenamer.image;
 
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.imaging.ImageReadException;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * This class transforms picture file names. All relevant files
@@ -31,7 +33,7 @@ import java.io.File;
  * <code>201108111100_foo.jpg</code>  if the picture's creation date
  * was 2011-08-11 11:00.
  * <br>
- * Files with no exif metadata are not changed at all.
+ * Files without EXIF metadata are not touched at all.
  *
  * @author hirsch
  * @version 2011-06-02, 13:22
@@ -72,10 +74,8 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
         LOG.info("Start renaming in CreationDateFromExifImageRenamer");
 
         try {
-            newImageName =
-                    MetaDataExtractor.
-                            generateCreationDateInCorrectFormat(imageFile);
-        } catch (Exception e) {
+            newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
+        } catch (ImageReadException | IOException e) {
             LOG.error("Error during exif date extraction: ", e);
             return newImageName;
         }

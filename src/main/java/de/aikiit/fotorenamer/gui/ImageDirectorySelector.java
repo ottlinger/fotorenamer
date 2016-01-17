@@ -159,8 +159,7 @@ class ImageDirectorySelector extends JPanel {
                     textField.setText(
                             fileDlg.getSelectedFile().getCanonicalPath());
                 } catch (IOException ioe) {
-                    LOG.error("Error while selecting directory, "
-                            + "extracted text is: "
+                    LOG.error("Error while selecting directory, extracted text is: "
                             + textField.getText());
                     LOG.error(ioe.getMessage());
                 }
@@ -187,13 +186,11 @@ class ImageDirectorySelector extends JPanel {
                         }
                     }
 
-
                 } catch (Exception ex) {
                     LOG.info("Drag'd'drop did not work due to " + ex);
                 }
             }
         });
-
 
         // make textfield react on Enter/copied over from MainUIWindow
         textField.addKeyListener(new KeyAdapter() {

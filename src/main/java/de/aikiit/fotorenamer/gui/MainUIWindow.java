@@ -53,7 +53,7 @@ public class MainUIWindow extends JFrame implements ActionListener {
      * Provide version information in the UI (taken from maven).
      */
     private static final String VERSION = getParameterizedBundleString("fotorenamer.ui.main.version", //
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").
+            new SimpleDateFormat(getBundleString("fotorenamer.datepattern")).
                     format(new Date(Long.parseLong(
                             Version.TIMESTAMP))), //
             Version.VERSION, //
