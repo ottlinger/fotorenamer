@@ -78,4 +78,10 @@ public class LocalizationHelperTest {
     public final void umlautEncodingWorksCorrectly() {
         assertEquals("ßäü", getBundleString("fotorenamer.test.umlauts"));
     }
+
+    @Test
+    public final void unknownKey() {
+        String unknown = "abcde.unknown";
+        assertEquals(unknown, getBundleString(unknown));
+    }
 }

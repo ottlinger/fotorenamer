@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
@@ -105,7 +106,12 @@ public final class LocalizationHelper {
      */
     public static String getBundleString(final String key) {
         LOG.debug("Retrieving key " + key);
-        return BUNDLE.getString(key);
+        try {
+            return BUNDLE.getString(key);
+        } catch (MissingResourceException mre) {
+            LOG.error("Retrieving unknown key " + key + ". Please fix your property files.");
+            return key;
+        }
         // l18n basics:
         // http://www.kodejava.org/examples/220.html
         // l18n buttons:
