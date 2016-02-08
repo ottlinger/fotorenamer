@@ -28,8 +28,13 @@ The project moved over to GitHub :smile:
 This tool can be used with [Maven3](http://maven.apache.org/download.html) in two ways:
   * run as a standalone application
 ```
-  mvn clean install -Plive-demo
+   $ mvn clean install -Plive-demo
 ```  
+  * run the executable jar
+  ```
+   $ mvn clean install
+   $ java -jar target/fotorenamer-1.1.3-executable.jar
+  ```  
   * via Java Webstart (only older JDKs supported)
 ```
 mvn install webstart:jnlp
