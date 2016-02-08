@@ -28,7 +28,12 @@ The project moved over to GitHub :smile:
 This tool can be used with [Maven3](http://maven.apache.org/download.html) in two ways:
   * run as a standalone application
 ```
-  mvn clean install -Plive-demo
+$ mvn clean install -Plive-demo
+```  
+  * run the executable jar
+```
+$ mvn clean install
+$ java -jar target/fotorenamer-1.1.3-executable.jar
 ```  
   * via Java Webstart (only older JDKs supported)
 ```
@@ -49,9 +54,9 @@ javaws bildbearbeiter.jnlp
 Relates to [issue #10](../../issues/10)
 
   As of now the application can be localized (at the moment only German and English is supported). Use the following parameters to explicitly set language and country or trust your system defaults:
-  ```
-  mvn -Plive-demo -Duser.language=en -Duser.country=US
-  ```
+```
+mvn -Plive-demo -Duser.language=en -Duser.country=US
+```
 
 ## Developer Documentation ##
 
