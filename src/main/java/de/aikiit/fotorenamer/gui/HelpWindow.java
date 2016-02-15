@@ -93,6 +93,13 @@ class HelpWindow extends JFrame implements ActionListener {
 
         this.pack();
         ComponentGaugeUtil.makeCentered(this);
+
+        // let button get the focus, needs to be run in the and and async
+        SwingUtilities.invokeLater(() -> {
+            getRootPane().setDefaultButton(endButton);
+            endButton.requestFocusInWindow();
+        });
+
         LOG.debug("HelpWindow init done.");
     }
 
