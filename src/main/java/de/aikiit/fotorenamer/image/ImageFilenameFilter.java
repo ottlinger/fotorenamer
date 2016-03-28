@@ -16,32 +16,45 @@
 package de.aikiit.fotorenamer.image;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.List;
 
 /**
  * Filter to prevent wrong files from being manipulated by this tool. Currently
- * only files with the JPG-extension are considered.
+ * only files with the extensions {@link #EXTENSIONS}.
  *
  * @author hirsch
  * @version 2011-04-02, 13:52
  */
 class ImageFilenameFilter implements FilenameFilter {
-    /**
-     * This constant defines a JPG file extension for filtering.
-     */
-    private static final String JPG = ".jpg";
+
+    private static List<String> EXTENSIONS = Lists.newArrayList("jpg", "png");
 
     /**
      * Filter filenames in a directory for images.
      *
      * @param dir  Directory to filter filenames in.
      * @param name Filename to filter.
-     * @return Return <code>true</code> when the given File is a directory and
-     *         the file is a JPG-picture.
+     * @return Return <code>true</code> if the given File is a directory and
+     * the file's prefix is part of {@link #EXTENSIONS}.
      */
     public final boolean accept(final File dir, final String name) {
-        return !(Strings.isNullOrEmpty(name) || dir == null) && new File(dir, name).isFile() && name.toLowerCase().endsWith(JPG);
+        return !(Strings.isNullOrEmpty(name) || dir == null) && new File(dir, name).isFile() && isSuffixExifExtractable(name);
+    }
+
+    private static boolean isSuffixExifExtractable(final String name) {
+        if (!Strings.isNullOrEmpty(name)) {
+            String file = name.trim().toLowerCase();
+            for (String suffix : EXTENSIONS) {
+                if (file.endsWith("." + suffix)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 }
