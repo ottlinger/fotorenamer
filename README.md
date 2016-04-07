@@ -35,11 +35,6 @@ $ mvn clean install -Plive-demo
 $ mvn clean install
 $ java -jar target/fotorenamer-1.1.3-executable.jar
 ```  
-  * via Java Webstart (only older JDKs supported)
-```
-mvn install webstart:jnlp
-javaws bildbearbeiter.jnlp
-```
   * start a deprecated stable version [(0.1.3-SNAPSHOT)](http://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via Webstart
 
 ## Running ##
