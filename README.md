@@ -55,4 +55,4 @@ mvn -Plive-demo -Duser.language=en -Duser.country=US
 
 ## Developer Documentation ##
 
-The project is maintained/built with maven - you can have a look at the current [site reports](https://ottlinger.github.io/fotorenamer/).
+The project is built with maven - you can have a look at the current [site reports](https://ottlinger.github.io/fotorenamer/).
