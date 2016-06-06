@@ -113,7 +113,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
             throws NoFilesFoundException, InvalidDirectoryException {
         // valid directory
         if (this.currentDirectory == null || !this.currentDirectory.isDirectory()) {
-            throw new InvalidDirectoryException(this.currentDirectory);
+            throw new InvalidDirectoryException("" + this.currentDirectory);
         }
 
         final File[] files = this.currentDirectory.listFiles(
