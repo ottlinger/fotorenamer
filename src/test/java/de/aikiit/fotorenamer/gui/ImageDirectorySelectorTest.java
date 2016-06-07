@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNotNull;
 @Ignore("Not working on travis since no X11 present")
 public class ImageDirectorySelectorTest {
     @Test
-    public void performInit() {
+    public final void performInit() {
         assertNotNull(new ImageDirectorySelector(null));
     }
 

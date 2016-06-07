@@ -26,7 +26,7 @@ import static org.junit.Assert.assertFalse;
 public class ImageFilenameFilterTest {
 
     @Test
-    public void nullArgumentsAreSafe() {
+    public final void nullArgumentsAreSafe() {
         assertFalse(new ImageFilenameFilter().accept(null, null));
         assertFalse(new ImageFilenameFilter().accept(null, "anyMatch"));
     }

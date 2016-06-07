@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNull;
  * @author hirsch
  */
 public class MetaDataExtractorTest {
-    final static private Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
+    static final private Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
 
     /**
      * Test metadata extraction from above example image.
@@ -50,7 +50,7 @@ public class MetaDataExtractorTest {
      * @throws Exception in case of errors.
      */
     @Test(expected = AssertionError.class)
-    public void checkAssertionErrors() throws Exception {
+    public final void checkAssertionErrors() throws Exception {
         assertNull(MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
     }
 
@@ -59,7 +59,7 @@ public class MetaDataExtractorTest {
      * @throws Exception in case of errors.
      */
     @Test(expected = AssertionError.class)
-    public void checkAssertionErrorTag() throws Exception {
+    public final void checkAssertionErrorTag() throws Exception {
         assertNull(MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
     }
 

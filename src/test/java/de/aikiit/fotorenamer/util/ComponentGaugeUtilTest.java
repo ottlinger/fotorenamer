@@ -47,7 +47,7 @@ public class ComponentGaugeUtilTest {
      * Checks assertion failure with null parameter.
      */
     @Test(expected = AssertionError.class)
-    public void createIconFromStringPathWithAssertionFailure() {
+    public final void createIconFromStringPathWithAssertionFailure() {
         assertNull(createImageIcon(null));
     }
 
@@ -57,7 +57,7 @@ public class ComponentGaugeUtilTest {
      * method.
      */
     @Test
-    public void gaugeSwingComponent() {
+    public final void gaugeSwingComponent() {
         JButton button = new JButton("Test");
         Point buttonSize = button.getLocation();
         assertEquals(new Point(0, 0), buttonSize);

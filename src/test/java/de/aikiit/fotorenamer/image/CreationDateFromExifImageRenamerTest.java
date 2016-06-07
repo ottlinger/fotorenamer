@@ -35,7 +35,7 @@ import static junit.framework.Assert.assertTrue;
  */
 public class CreationDateFromExifImageRenamerTest {
 
-    final static private Logger LOG = Logger.
+    static final private Logger LOG = Logger.
             getLogger(CreationDateFromExifImageRenamerTest.class);
 
     /**
