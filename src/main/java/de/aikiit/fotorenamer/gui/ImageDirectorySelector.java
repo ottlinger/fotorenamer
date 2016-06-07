@@ -69,7 +69,7 @@ class ImageDirectorySelector extends JPanel {
      * @param icon This icon is used as a picture in the select
      *             button.
      */
-    public ImageDirectorySelector(final ImageIcon icon) {
+    ImageDirectorySelector(final ImageIcon icon) {
         super();
         this.imageIcon = icon;
         init();

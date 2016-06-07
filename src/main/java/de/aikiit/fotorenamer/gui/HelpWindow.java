@@ -57,7 +57,7 @@ class HelpWindow extends JFrame implements ActionListener {
      * Creates a HelpWindow, initializes its components but does
      * <strong>not</strong> show the window.
      */
-    public HelpWindow() {
+    HelpWindow() {
         SwingUtilities.invokeLater(this::init);
     }
 

@@ -42,7 +42,7 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBund
  * @author hirsch, 13.10.2003
  * @version 2004-01-08
  */
-public class MainUIWindow extends JFrame implements ActionListener {
+public final class MainUIWindow extends JFrame implements ActionListener {
     /**
      * The logger of this class.
      **/
