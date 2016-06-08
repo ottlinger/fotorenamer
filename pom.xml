@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-<!--
+  <!--
 Copyright 2011-2016, Aiki IT, FotoRenamer
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,7 +59,7 @@ limitations under the License.
     <shade.version>2.4.3</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-    <rat.version>0.11</rat.version>
+    <rat.version>0.12</rat.version>
   </properties>
   <dependencies>
     <!-- test dependencies -->
@@ -215,17 +215,17 @@ limitations under the License.
               <goals>
                 <goal>shade</goal>
               </goals>
-                <configuration>
-                  <shadedArtifactAttached>true</shadedArtifactAttached>
-                  <shadedClassifierName>executable</shadedClassifierName>
+              <configuration>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <shadedClassifierName>executable</shadedClassifierName>
                 <transformers>
                   <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                      <manifestEntries>
-                        <Main-Class>de.aikiit.fotorenamer.ApplicationStarter</Main-Class>
-                        <Build-Number>${project.version}</Build-Number>
-                          <Codebase>*</Codebase>
-                          <Permissions>sandbox</Permissions>
-                      </manifestEntries>
+                    <manifestEntries>
+                      <Main-Class>de.aikiit.fotorenamer.ApplicationStarter</Main-Class>
+                      <Build-Number>${project.version}</Build-Number>
+                      <Codebase>*</Codebase>
+                      <Permissions>sandbox</Permissions>
+                    </manifestEntries>
                   </transformer>
                 </transformers>
               </configuration>
@@ -699,4 +699,10 @@ limitations under the License.
       </snapshots>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>staged-releases</id>
+      <url>https://repository.apache.org/content/repositories/orgapachecreadur-1004/</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
