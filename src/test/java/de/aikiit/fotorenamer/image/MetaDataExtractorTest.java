@@ -40,6 +40,12 @@ public class MetaDataExtractorTest {
     @Test
     public final void readDirectoryContent() throws Exception {
         File f = new File(TestConstants.FULLPATH_TEST_IMG);
+
+        if(!f.exists()) {
+            LOG.debug("Switching to renamed file, since another test may have touched it before.");
+            f = new File(TestConstants.FULLPATH_TEST_IMG_RENAMED);
+        }
+
         LOG.debug("Extracting metadata from " + f.getAbsolutePath());
         assertEquals(TestConstants.IMAGE_NAME_RENAMED, MetaDataExtractor
                 .generateCreationDateInCorrectFormat(f));
