@@ -18,19 +18,11 @@ package de.aikiit.fotorenamer.image;
 import de.aikiit.fotorenamer.TestConstants;
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Optional;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -48,18 +40,16 @@ public class MetaDataExtractorTest {
         assertTrue(matcher.find());
     }
 
-    /**
-     * Test metadata extraction from above example image.
-     *
-     * @throws Exception in case of errors.
-     */
     @Test
-    public final void ensureFileIsRenamed() throws Exception {
+    public final void ensureGivenExampleFileIsRenamed() throws Exception {
         File f = new File(TestConstants.FULLPATH_TEST_IMG);
+
+        int minLength = TestConstants.PLAIN_FILE_NAME.length();
 
         if (!f.exists()) {
             LOG.debug("Switching to renamed file, since another test may have touched it before.");
             f = new File(TestConstants.FULLPATH_TEST_IMG_RENAMED);
+            minLength = f.getName().length();
         }
 
         LOG.debug("Extracting metadata from " + f.getAbsolutePath());
@@ -68,6 +58,7 @@ public class MetaDataExtractorTest {
                 MetaDataExtractor
                         .generateCreationDateInCorrectFormat(f);
         assertTrue(renamedFile.endsWith(TestConstants.PLAIN_FILE_NAME));
+        assertTrue("Expecting at least " + minLength + " chars, got " + renamedFile, renamedFile.length() >= minLength);
     }
 
     /**

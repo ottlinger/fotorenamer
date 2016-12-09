@@ -171,17 +171,20 @@ class ImageDirectorySelector extends JPanel {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt
+                    Object transferData = evt
                             .getTransferable().getTransferData(
                                     DataFlavor.javaFileListFlavor);
 
-                    if (droppedFiles != null && !droppedFiles.isEmpty()) {
-                        for (File droppedFile : droppedFiles) {
-                            if (droppedFile.isDirectory()) {
-                                final String path = droppedFile.getAbsolutePath();
-                                LOG.info("Drag'n'drop done for file: " + path + " with " + droppedFiles.size() + " element(s) received");
-                                textField.setText(path);
-                                break;
+                    if (transferData != null && transferData instanceof java.util.List) {
+                        java.util.List<File> droppedFiles = (java.util.List<File>) transferData;
+                        if (!droppedFiles.isEmpty()) {
+                            for (File droppedFile : droppedFiles) {
+                                if (droppedFile.isDirectory()) {
+                                    final String path = droppedFile.getAbsolutePath();
+                                    LOG.info("Drag'n'drop done for file: " + path + " with " + droppedFiles.size() + " element(s) received");
+                                    textField.setText(path);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -249,7 +252,7 @@ class ImageDirectorySelector extends JPanel {
      *
      * @return The currently selected directory.
      */
-    public final String getSelectedDirectory() {
+    final String getSelectedDirectory() {
         String currentSelection = this.textField.getText();
         if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
             currentSelection = currentSelection.replaceAll("~", System.getProperty("user.home"));
