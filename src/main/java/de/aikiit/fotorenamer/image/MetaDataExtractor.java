@@ -41,32 +41,32 @@ final class MetaDataExtractor {
     /**
      * Constant for an empty string.
      */
-    public static final String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
 
     /**
      * Constant for a blank character.
      */
-    public static final String SPACE = " ";
+    private static final String SPACE = " ";
 
     /**
      * Constant for an underscore character.
      */
-    public static final String UNDERSCORE = "_";
+    private static final String UNDERSCORE = "_";
 
     /**
      * Constant for a colon.
      */
-    public static final String COLON = ":";
+    private static final String COLON = ":";
 
     /**
      * Constant for an apostrophe.
      */
-    public static final String APOSTROPHE = "'";
+    private static final String APOSTROPHE = "'";
 
     /**
      * Constant to describe a valid length of an EXIF date (currently 21).
      */
-    public static final int VALID_EXIF_DATE_LENGTH = 21;
+    private static final int VALID_EXIF_DATE_LENGTH = 21;
 
     /**
      * Constructor is not visible to avoid instantiation.
@@ -85,7 +85,7 @@ final class MetaDataExtractor {
      * @throws IOException        if file cannot be accessed.
      * @throws ImageReadException if an error occurred during image processing.
      */
-    public static String getExifMetadata(final File image,
+    static String getExifMetadata(final File image,
                                          final TagInfo tag)
             throws IOException, ImageReadException {
         assert image != null : "Parameter image must not be null";
@@ -94,11 +94,6 @@ final class MetaDataExtractor {
         String result = EMPTY_STRING;
         ImageMetadata metadata = Imaging.getMetadata(image);
 
-/*
-        for(ImageMetadata.ImageMetadataItem item:metadata.getItems()) {
-            System.out.println("WWW: " + item.getSelectedDirectory());
-        }
-  */
         if (metadata instanceof JpegImageMetadata) {
             JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
             TiffField field = jpegMetadata.findEXIFValueWithExactMatch(tag);

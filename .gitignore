@@ -1,10 +1,10 @@
 target
-fotorenamer.log
+**/*.log
 bild.zip
 *.iml
 *.ipr
 *.iws
-20110130_131102_IMG_7559_mini.JPG
+**20110130_131102_IMG_7559_mini.JPG
 .idea
 .settings
 .classpath

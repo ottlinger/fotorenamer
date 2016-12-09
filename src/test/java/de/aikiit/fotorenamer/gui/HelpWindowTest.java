@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
 @org.junit.Ignore("Not working in travis.")
 public class HelpWindowTest {
     @org.junit.Test
-    public void initWindow() {
+    public final void initWindow() {
         assertNotNull(new HelpWindow());
     }
 }

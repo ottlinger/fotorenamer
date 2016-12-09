@@ -33,7 +33,7 @@ public class ProgressBarTest {
      * Check progress bar initialization and value setting.
      */
     @Test
-    public void checkInitAndDefaults() {
+    public final void checkInitAndDefaults() {
         ProgressBar bar = new ProgressBar(0);
         assertNotNull(bar);
         assertEquals("", bar.getText());
@@ -44,7 +44,7 @@ public class ProgressBarTest {
      * Manually set values and retrieve these values.
      */
     @Test
-    public void checkSetterGetter() {
+    public final void checkSetterGetter() {
         ProgressBar bar = new ProgressBar(10);
         assertNotNull(bar);
         bar.setProgress();

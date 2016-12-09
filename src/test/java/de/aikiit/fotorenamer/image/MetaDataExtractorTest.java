@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  * @author hirsch
  */
 public class MetaDataExtractorTest {
-    static final private Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
+    private static final Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
 
     @Test
     public void makeSurePatternMatchesMultipleRenamedFiles() {

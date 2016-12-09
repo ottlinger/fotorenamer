@@ -32,7 +32,7 @@ public class TestConstants {
     /**
      * This is the base name of the image.
      */
-    public final static String PLAIN_FILE_NAME = "IMG_7559_mini.JPG";
+    public static final String PLAIN_FILE_NAME = "IMG_7559_mini.JPG";
 
     /**
      * Constant to fully qualified directory with all test images.
@@ -52,11 +52,7 @@ public class TestConstants {
     public static final String FULLPATH_TEST_IMG_RENAMED = FULLPATH_IMAGES + "20110130_131102_" + PLAIN_FILE_NAME;
 
     /**
-     * Name of the test image after renaming.
+     * Pattern to match given test image as suffix.
      */
-    public final static String IMAGE_NAME_RENAMED =
-            "20110130_131102_" + PLAIN_FILE_NAME;
-
-    public final static Pattern IS_TEST_FILE = Pattern.compile(".*(" + PLAIN_FILE_NAME + ").*", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
-
+    public static final Pattern IS_TEST_FILE = Pattern.compile(".*(" + PLAIN_FILE_NAME + ").*", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 }

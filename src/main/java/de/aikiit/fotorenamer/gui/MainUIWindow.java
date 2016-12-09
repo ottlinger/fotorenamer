@@ -166,7 +166,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
      *
      * @param event Events that was fired on this component.
      */
-    public final void actionPerformed(final ActionEvent event) {
+    public void actionPerformed(final ActionEvent event) {
         final SwingWorker<Void, Void> worker;
 
         // end
