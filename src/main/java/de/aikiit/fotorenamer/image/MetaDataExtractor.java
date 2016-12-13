@@ -85,7 +85,7 @@ final class MetaDataExtractor {
      * @throws IOException        if file cannot be accessed.
      * @throws ImageReadException if an error occurred during image processing.
      */
-    static String getExifMetadata(final File image,
+    public static String getExifMetadata(final File image,
                                          final TagInfo tag)
             throws IOException, ImageReadException {
         assert image != null : "Parameter image must not be null";
