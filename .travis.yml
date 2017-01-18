@@ -6,7 +6,6 @@ addons:
     packages:
     - xvfb
     - vnc-java
-    - vnc-server
     - x11vnc
     - tightvncserver
 env:
