@@ -703,6 +703,7 @@ limitations under the License.
     <pluginRepository>
       <id>staged-releases</id>
       <url>https://repository.apache.org/content/repositories/orgapachecreadur-1004/</url>
-    </pluginRepository-->
+    </pluginRepository>
   </pluginRepositories>
+  -->
 </project>
