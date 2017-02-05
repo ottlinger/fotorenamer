@@ -15,3 +15,7 @@ before_script:
 
 after_success:
   - codecov
+
+addons:
+  srcclr: true
+
