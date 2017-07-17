@@ -55,7 +55,7 @@ limitations under the License.
     <guava.version>22.0</guava.version>
     <logger.version>2.8.2</logger.version>
     <junit.version>4.12</junit.version>
-    <mockito.version>2.6.3</mockito.version>
+    <mockito.version>2.8.47</mockito.version>
     <shade.version>2.4.3</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -96,7 +96,7 @@ limitations under the License.
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-imaging</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0-R1534292</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -252,7 +252,7 @@ limitations under the License.
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.19.1</version>
+        <version>2.20</version>
         <configuration>
           <forkCount>1</forkCount>
           <reuseForks>true</reuseForks>
