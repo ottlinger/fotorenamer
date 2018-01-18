@@ -51,7 +51,7 @@ limitations under the License.
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <lombok.version>1.16.18</lombok.version>
+    <lombok.version>1.16.20</lombok.version>
     <guava.version>23.0-android</guava.version>
     <logger.version>2.9.1</logger.version>
     <junit.version>4.12</junit.version>
