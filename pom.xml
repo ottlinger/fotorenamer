@@ -650,6 +650,7 @@ limitations under the License.
     <profile>
       <id>live-demo</id>
       <build>
+	<defaultGoal>install</defaultGoal>
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
