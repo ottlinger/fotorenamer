@@ -52,7 +52,7 @@ limitations under the License.
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <lombok.version>1.16.20</lombok.version>
-    <guava.version>23.6-jre</guava.version>
+    <guava.version>24.0-jre</guava.version>
     <logger.version>2.9.1</logger.version>
     <junit.version>4.12</junit.version>
     <mockito.version>2.13.0</mockito.version>
