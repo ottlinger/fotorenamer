@@ -45,7 +45,7 @@ limitations under the License.
   </distributionManagement>
   <scm>
     <connection>scm:git:git://github.com/ottlinger/fotorenamer.git</connection>
-    <developerConnection>scm:git:giti@github.com:ottlinger/fotorenamer.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:ottlinger/fotorenamer.git</developerConnection>
     <url>https://github.com/ottlinger/fotorenamer</url>
   </scm>
   <properties>
