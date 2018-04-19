@@ -35,7 +35,7 @@ $ mvn clean install -Plive-demo
   * run the executable jar
 ```
 $ mvn clean install
-$ java -jar target/fotorenamer-1.1.3-executable.jar
+$ java -jar target/fotorenamer-2.0.0-executable.jar
 ```  
   * start a deprecated stable version [(0.1.3-SNAPSHOT)](http://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via Webstart
 
