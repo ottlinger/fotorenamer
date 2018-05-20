@@ -256,7 +256,7 @@ limitations under the License.
   </reporting>
   <build>
     <!-- not working with JDK8 locally: defaultGoal>clean install webstart:jnlp</defaultGoal-->
-    <defaultGoal>clean install</defaultGoal>
+    <defaultGoal>clean versions:display-dependency-updates enforcer:display-info install</defaultGoal>
     <extensions>
       <extension>
         <groupId>org.apache.maven.scm</groupId>
