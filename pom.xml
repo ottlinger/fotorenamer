@@ -299,6 +299,26 @@ limitations under the License.
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.0.0-M2</version>
+          <executions>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireMavenVersion>
+                    <version>3.5</version>
+                  </requireMavenVersion>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
           <version>${rat.version}</version>
@@ -380,6 +400,10 @@ limitations under the License.
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
       <!-- Build an executable JAR -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -498,7 +522,7 @@ limitations under the License.
           <source>1.8</source>
           <target>1.8</target>
           <fork>true</fork>
-	  <compilerVersion>1.8</compilerVersion>
+          <compilerVersion>1.8</compilerVersion>
         </configuration>
       </plugin>
       <!--  generate source and javadoc.jar -->
@@ -630,7 +654,7 @@ limitations under the License.
     <profile>
       <id>live-demo</id>
       <build>
-	<defaultGoal>clean install</defaultGoal>
+        <defaultGoal>clean install</defaultGoal>
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
