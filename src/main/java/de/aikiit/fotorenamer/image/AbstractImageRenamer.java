@@ -130,9 +130,9 @@ abstract class AbstractImageRenamer implements Runnable {
             }
             // TODO add second progressbar or counter for errors
             else {
-                LOG.error("Unable to rename"
-                        + file.getName() + " to "
-                        + targetFilename);
+                LOG.error("Unable to rename '"
+                        + file.getName() + "' to '"
+                        + targetFilename + "'");
             }
         };
         Predicate<File> fileOnly = file -> file != null && file.isFile();
