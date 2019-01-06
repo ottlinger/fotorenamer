@@ -175,7 +175,7 @@ class ImageDirectorySelector extends JPanel {
                             .getTransferable().getTransferData(
                                     DataFlavor.javaFileListFlavor);
 
-                    if (transferData != null && transferData instanceof java.util.List) {
+                    if (transferData instanceof java.util.List) {
                         java.util.List<File> droppedFiles = (java.util.List<File>) transferData;
                         if (!droppedFiles.isEmpty()) {
                             for (File droppedFile : droppedFiles) {
