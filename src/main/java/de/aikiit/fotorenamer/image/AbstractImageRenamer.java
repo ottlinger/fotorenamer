@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2011, Aiki IT, FotoRenamer
  * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,8 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -117,19 +119,12 @@ abstract class AbstractImageRenamer implements Runnable {
             progressBar.setProgress();
             progressBar.setText(file.getName());
             progressBar.updateUI();
-            // perform file renaming
-            renamingResult = file.renameTo(
-                    new File(file.getParent(),
-                            targetFilename));
-            if (renamingResult) {
-                LOG.info("Renaming " + file.getName()
-                        + " to " + targetFilename);
-                LOG.info("Does renamed file exist? "
-                        + new File(file.getParent(),
-                        targetFilename).exists());
-            }
+
             // TODO add second progressbar or counter for errors
-            else {
+            try {
+                Files.move(file.toPath(), new File(file.getParent(),
+                        targetFilename).toPath());
+            } catch (IOException e) {
                 LOG.error("Unable to rename '"
                         + file.getName() + "' to '"
                         + targetFilename + "'");
