@@ -256,6 +256,7 @@ class ImageDirectorySelector extends JPanel {
         String currentSelection = this.textField.getText();
         if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
             currentSelection = currentSelection.replaceAll("~", System.getProperty("user.home"));
+            currentSelection = currentSelection.trim();
             LOG.debug("User input transformed into " + currentSelection);
         }
         return currentSelection;
