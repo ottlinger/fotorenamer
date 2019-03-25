@@ -151,7 +151,7 @@ limitations under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.5</version>
+        <version>3.0.0</version>
         <configuration>
           <aggregate>true</aggregate>
           <linkJavadoc>true</linkJavadoc>
