@@ -60,7 +60,7 @@ limitations under the License.
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.13</rat.version>
-    <javadoc-plugin.version>3.0.1</javadoc-plugin.version>
+    <javadoc-plugin.version>3.1.0</javadoc-plugin.version>
   </properties>
   <dependencies>
     <!-- test dependencies -->
