@@ -359,7 +359,6 @@ limitations under the License.
               <exclude>**/site*/**</exclude>
               <exclude>**/*.log</exclude>
               <exclude>**/.checkstyle/**/*</exclude>
-              <exclude>spotbugs_ignore.xml.xml</exclude>
               <exclude>**/.gitignore</exclude>
             </excludes>
           </configuration>
