@@ -227,26 +227,9 @@ limitations under the License.
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.5</version>
-        <!-- generates errors
-                            <configuration>
-                              <xmlOutput>true</xmlOutput>
-                              <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
-                              <outputDirectory>target/site/findbugs</outputDirectory>
-                              <threshold>Low</threshold>
-                              <effort>Default</effort>
-                                              <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-                                              <includeFilterFile>findbugs-include.xml</includeFilterFile>
-                              <visitors>FindDeadLocalStores,UnreadFields</visitors>
-                              <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-                              <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
-                              <debug>true</debug>
-                              <relaxed>true</relaxed>
-                            </configuration>
-        -->
-      </plugin>
+  <groupId>com.github.spotbugs</groupId>
+  <artifactId>spotbugs-maven-plugin</artifactId>
+</plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -298,6 +281,19 @@ limitations under the License.
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>3.1.11</version>
+          <dependencies>
+            <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+            <dependency>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs</artifactId>
+              <version>4.0.0-beta1</version>
+            </dependency>
+          </dependencies>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
