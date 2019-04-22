@@ -4,7 +4,7 @@
 
 [![codecov.io](http://codecov.io/github/ottlinger/fotorenamer/coverage.svg?branch=master)](http://codecov.io/github/ottlinger/fotorenamer?branch=master)
 
-[![Stories in Ready](https://badge.waffle.io/ottlinger/fotorenamer.svg?label=ready&title=Ready)](http://waffle.io/ottlinger/fotorenamer)
+https://github.com/users/ottlinger/projects/4
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/1069017d3898425095363374b2519b03)](https://www.codacy.com/app/github_25/fotorenamer)
 
