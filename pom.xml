@@ -431,7 +431,7 @@ limitations under the License.
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.1</version>
+        <version>2.22.2</version>
         <configuration>
           <forkCount>1</forkCount>
           <reuseForks>true</reuseForks>
