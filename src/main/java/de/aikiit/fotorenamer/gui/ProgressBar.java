@@ -121,6 +121,7 @@ public class ProgressBar extends JFrame {
         try {
             TimeUnit.MILLISECONDS.sleep(this.delayInUI);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             LOG.error("Thread sleep error during repaint of ProgressBar, " + e.getMessage());
         }
     }
