@@ -4,7 +4,7 @@
 
 [![codecov.io](http://codecov.io/github/ottlinger/fotorenamer/coverage.svg?branch=master)](http://codecov.io/github/ottlinger/fotorenamer?branch=master)
 
-[![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/ottlinger/fotorenamer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ottlinger/fotorenamer/context:java)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/ottlinger/fotorenamer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ottlinger/fotorenamer/alerts/)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/1069017d3898425095363374b2519b03)](https://www.codacy.com/app/github_25/fotorenamer)
 
