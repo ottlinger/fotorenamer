@@ -25,13 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Test all exception classes.
- *
- * @author hirsch
- * @version 2011-11-07, 22:29
- */
-@org.junit.Ignore("Not working on travis.")
+//@org.junit.Ignore("Not working on travis.")
 public class FotorenamerExceptionTest {
     @Test
     public final void planConstructors() {
@@ -52,7 +46,6 @@ public class FotorenamerExceptionTest {
         e1 = new InvalidDirectoryException("woo");
         assertNotNull(e1);
         assertEquals("woo", e1.getMessage());
-
     }
 
 }
