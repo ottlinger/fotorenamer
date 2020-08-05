@@ -14,18 +14,12 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.exception;
 
-import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
-import de.aikiit.fotorenamer.exception.NoFilesFoundException;
-import de.aikiit.fotorenamer.exception.RenamingErrorException;
 import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-//@org.junit.Ignore("Not working on travis.")
 public class FotorenamerExceptionTest {
     @Test
     public final void planConstructors() {
