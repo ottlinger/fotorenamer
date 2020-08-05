@@ -151,7 +151,7 @@ class ImageDirectorySelector extends JPanel {
             fileDlg.setApproveButtonText(getBundleString(
                     "fotorenamer.ui.selector.select"));
 
-            if (fileDlg.showOpenDialog(ImageDirectorySelector.this)
+            if (fileDlg.showOpenDialog(this)
                     == JFileChooser.APPROVE_OPTION) {
                 // use getCanonicalPath() to avoid ..-path manipulations and
                 // try to set the selected file in the UI
