@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HelpWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.gui</a> &gt; <span class="el_source">HelpWindow.java</span></div><h1>HelpWindow.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * &lt;p/&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p/&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p/&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.gui;
+
+import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getLanguage;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+
+/**
+ * This class represents a help window component. It loads a HTML-page to show
+ * as application help.
+ *
+ * @author hirsch, 20.10.2003
+ * @version 2004-01-08
+ */
+class HelpWindow extends JFrame implements ActionListener {
+    /**
+     * Logger for this class.
+     */
+<span class="nc" id="L43">    private static final Logger LOG = LogManager.getLogger(HelpWindow.class);</span>
+    /**
+     * End button needs to be visible inside the class to perform application
+     * exit.
+     */
+<span class="nc" id="L48">    private JButton endButton = null;</span>
+
+    /**
+     * Relative location of the UI's help page.
+     */
+<span class="nc" id="L53">    private static final String HTML_HELP_LOCATION = File.separator + &quot;html&quot;</span>
+            + File.separator;
+
+    /**
+     * Creates a HelpWindow, initializes its components but does
+     * &lt;strong&gt;not&lt;/strong&gt; show the window.
+     */
+<span class="nc" id="L60">    HelpWindow() {</span>
+<span class="nc" id="L61">        SwingUtilities.invokeLater(this::init);</span>
+<span class="nc" id="L62">    }</span>
+
+    /**
+     * Initialize UI-compontens and make them visible.
+     */
+    private void init() {
+<span class="nc" id="L68">        this.setTitle(getBundleString(</span>
+                &quot;fotorenamer.ui.help.title&quot;));
+<span class="nc" id="L70">        this.setResizable(false);</span>
+<span class="nc" id="L71">        JPanel top = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L72">        JPanel bottom = new JPanel(new FlowLayout());</span>
+
+<span class="nc" id="L74">        JEditorPane textfield = new JEditorPane();</span>
+<span class="nc" id="L75">        textfield.setContentType(&quot;text/html&quot;);</span>
+<span class="nc" id="L76">        textfield.setEditable(false);</span>
+<span class="nc" id="L77">        loadHelpContents(top, textfield);</span>
+
+<span class="nc" id="L79">        JScrollPane rollpanel = new JScrollPane(top);</span>
+<span class="nc" id="L80">        rollpanel.setPreferredSize(new Dimension(350, 300));</span>
+<span class="nc" id="L81">        rollpanel.setVerticalScrollBarPolicy(</span>
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+<span class="nc" id="L84">        this.endButton = new JButton(getBundleString(</span>
+                &quot;fotorenamer.ui.help.close&quot;));
+<span class="nc" id="L86">        this.endButton.addActionListener(this);</span>
+<span class="nc" id="L87">        this.endButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.help.close.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L88">        bottom.add(this.endButton);</span>
+
+<span class="nc" id="L90">        this.getContentPane().setLayout(new BorderLayout());</span>
+<span class="nc" id="L91">        this.getContentPane().add(rollpanel, BorderLayout.NORTH);</span>
+<span class="nc" id="L92">        this.getContentPane().add(bottom, BorderLayout.CENTER);</span>
+
+<span class="nc" id="L94">        this.pack();</span>
+<span class="nc" id="L95">        ComponentGaugeUtil.makeCentered(this);</span>
+
+        // let button get the focus, needs to be run in the and and async
+<span class="nc" id="L98">        SwingUtilities.invokeLater(() -&gt; {</span>
+<span class="nc" id="L99">            getRootPane().setDefaultButton(endButton);</span>
+<span class="nc" id="L100">            endButton.requestFocusInWindow();</span>
+<span class="nc" id="L101">        });</span>
+
+<span class="nc" id="L103">        LOG.debug(&quot;HelpWindow init done.&quot;);</span>
+<span class="nc" id="L104">    }</span>
+
+    /**
+     * Load page contents depending on available languages (fallback is English).
+     *
+     * @param base      base panel.
+     * @param textfield where to put the contents to.
+     */
+    private void loadHelpContents(final JPanel base, final JEditorPane textfield) {
+        try {
+<span class="nc" id="L114">            String helpPageLocation = HTML_HELP_LOCATION;</span>
+
+<span class="nc bnc" id="L116" title="All 2 branches missed.">            if (getLanguage().startsWith(&quot;de&quot;)) {</span>
+<span class="nc" id="L117">                helpPageLocation += &quot;hilfe.html&quot;;</span>
+            } else {
+<span class="nc" id="L119">                helpPageLocation += &quot;help.html&quot;;</span>
+            }
+
+<span class="nc" id="L122">            textfield.setPage(HelpWindow.class.getResource(helpPageLocation));</span>
+<span class="nc" id="L123">            base.add(textfield);</span>
+<span class="nc" id="L124">        } catch (Exception e) {</span>
+<span class="nc" id="L125">            base.setLayout(new GridLayout(1, 1));</span>
+<span class="nc" id="L126">            base.add(new JLabel(getParameterizedBundleString(&quot;fotorenamer.ui.help.error&quot;, e.getMessage(), e.getClass().getSimpleName())));</span>
+<span class="nc" id="L127">        }</span>
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Make this component react to close button.
+     *
+     * @param event Event to react on in this UI-component.
+     */
+    public final void actionPerformed(final ActionEvent event) {
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (event.getSource() == this.endButton) {</span>
+<span class="nc" id="L137">            LOG.debug(&quot;Disabling visibility of helpWindow.&quot;);</span>
+<span class="nc" id="L138">            setVisible(false);</span>
+        }
+<span class="nc" id="L140">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

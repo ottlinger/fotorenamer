@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageDirectorySelector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.gui</a> &gt; <span class="el_source">ImageDirectorySelector.java</span></div><h1>ImageDirectorySelector.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * &lt;p/&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p/&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p/&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.gui;
+
+import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
+import de.aikiit.fotorenamer.exception.NoFilesFoundException;
+import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+
+/**
+ * This component provides a means to select images that are to be renamed.
+ *
+ * @author hirsch, 13.10.2003
+ * @version 2004-01-08
+ */
+class ImageDirectorySelector extends JPanel {
+    /**
+     * The logger of this class.
+     **/
+<span class="nc" id="L49">    private static final Logger LOG =</span>
+<span class="nc" id="L50">            LogManager.getLogger(ImageDirectorySelector.class);</span>
+
+    /**
+     * Contains the selected directory as a text field or any user input.
+     */
+<span class="nc" id="L55">    private JTextField textField = null;</span>
+    /**
+     * The UI's button to start directory selection.
+     */
+<span class="nc" id="L59">    private JButton browseButton = null;</span>
+    /**
+     * An image icon that is displayed as part of the button.
+     */
+<span class="nc" id="L63">    private ImageIcon imageIcon = null;</span>
+
+    /**
+     * Default constructor provides means to create an imageSelect with a given
+     * image icon that is able to only work on directories.
+     *
+     * @param icon This icon is used as a picture in the select
+     *             button.
+     */
+    ImageDirectorySelector(final ImageIcon icon) {
+<span class="nc" id="L73">        super();</span>
+<span class="nc" id="L74">        this.imageIcon = icon;</span>
+<span class="nc" id="L75">        init();</span>
+<span class="nc" id="L76">    }</span>
+
+    /**
+     * Provides a means to disable this component
+     * (e.g. during run of file renaming).
+     *
+     * @param enable Enable/disable this component.
+     */
+    public final void setEnabled(final boolean enable) {
+<span class="nc" id="L85">        textField.setEnabled(enable);</span>
+<span class="nc" id="L86">        browseButton.setEnabled(enable);</span>
+<span class="nc" id="L87">    }</span>
+
+    /**
+     * This method is used as a blocking call until the user selects something
+     * in the UI.
+     *
+     * @return Returns whether anything is selected within the current
+     * configuration.
+     */
+    // TODO improve design, let class emit an event in case a directory was selected
+    public final boolean isWaiting() {
+<span class="nc" id="L98">        return Strings.isEmpty(getSelectedDirectory());</span>
+    }
+
+    /**
+     * Initialize internal UI components.
+     */
+    private void init() {
+        // Set layout.
+<span class="nc" id="L106">        GridBagLayout grid = new GridBagLayout();</span>
+<span class="nc" id="L107">        GridBagConstraints gbc = new GridBagConstraints();</span>
+<span class="nc" id="L108">        gbc.insets = new Insets(0, 2, 0, 2);</span>
+<span class="nc" id="L109">        setLayout(grid);</span>
+
+        // Add field.
+<span class="nc" id="L112">        gbc.gridx = 0;</span>
+<span class="nc" id="L113">        gbc.gridy = 0;</span>
+<span class="nc" id="L114">        gbc.gridheight = 1;</span>
+<span class="nc" id="L115">        gbc.gridwidth = 2;</span>
+<span class="nc" id="L116">        gbc.anchor = GridBagConstraints.WEST;</span>
+<span class="nc" id="L117">        textField = new JTextField(60);</span>
+<span class="nc" id="L118">        grid.setConstraints(textField, gbc);</span>
+<span class="nc" id="L119">        add(textField);</span>
+
+        // Add button.
+<span class="nc" id="L122">        gbc.gridx = 2;</span>
+<span class="nc" id="L123">        gbc.gridy = 0;</span>
+<span class="nc" id="L124">        gbc.gridheight = 1;</span>
+<span class="nc" id="L125">        gbc.gridwidth = 1;</span>
+<span class="nc" id="L126">        gbc.anchor = GridBagConstraints.EAST;</span>
+
+        // show button
+<span class="nc bnc" id="L129" title="All 2 branches missed.">        browseButton = this.imageIcon == null</span>
+<span class="nc" id="L130">                ? new JButton(</span>
+<span class="nc" id="L131">                getBundleString(</span>
+                        &quot;fotorenamer.ui.selector.title&quot;))
+<span class="nc" id="L133">                : new JButton(</span>
+<span class="nc" id="L134">                getBundleString(</span>
+                        &quot;fotorenamer.ui.selector.title&quot;), this.imageIcon);
+<span class="nc" id="L136">        browseButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.selector.title.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L137">        browseButton.setMargin(new Insets(1, 1, 1, 1));</span>
+<span class="nc" id="L138">        grid.setConstraints(browseButton, gbc);</span>
+<span class="nc" id="L139">        add(browseButton);</span>
+
+        // Add action listener and take current contents of textfield as start directory
+<span class="nc" id="L142">        browseButton.addActionListener(event -&gt; {</span>
+
+<span class="nc" id="L144">            String currentPath = getSelectedDirectory();</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">            JFileChooser fileDlg = new JFileChooser(com.google.common.base.Strings.isNullOrEmpty(currentPath) ? null : currentPath);</span>
+
+<span class="nc" id="L147">            fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);</span>
+<span class="nc" id="L148">            fileDlg.setDialogTitle(</span>
+<span class="nc" id="L149">                    getBundleString(</span>
+                            &quot;fotorenamer.ui.selector.directory&quot;));
+<span class="nc" id="L151">            fileDlg.setApproveButtonText(getBundleString(</span>
+                    &quot;fotorenamer.ui.selector.select&quot;));
+
+<span class="nc bnc" id="L154" title="All 2 branches missed.">            if (fileDlg.showOpenDialog(this)</span>
+                    == JFileChooser.APPROVE_OPTION) {
+                // use getCanonicalPath() to avoid ..-path manipulations and
+                // try to set the selected file in the UI
+                try {
+<span class="nc" id="L159">                    textField.setText(</span>
+<span class="nc" id="L160">                            fileDlg.getSelectedFile().getCanonicalPath());</span>
+<span class="nc" id="L161">                } catch (IOException ioe) {</span>
+<span class="nc" id="L162">                    LOG.error(&quot;Error while selecting directory, extracted text is: &quot;</span>
+<span class="nc" id="L163">                            + textField.getText());</span>
+<span class="nc" id="L164">                    LOG.error(ioe.getMessage());</span>
+<span class="nc" id="L165">                }</span>
+            }
+<span class="nc" id="L167">        });</span>
+
+        // make textfield drag'n'dropable
+<span class="nc" id="L170">        textField.setDropTarget(new DropTarget() {</span>
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+<span class="nc" id="L173">                    evt.acceptDrop(DnDConstants.ACTION_COPY);</span>
+<span class="nc" id="L174">                    Object transferData = evt</span>
+<span class="nc" id="L175">                            .getTransferable().getTransferData(</span>
+                                    DataFlavor.javaFileListFlavor);
+
+<span class="nc bnc" id="L178" title="All 2 branches missed.">                    if (transferData instanceof java.util.List) {</span>
+<span class="nc" id="L179">                        java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">                        if (!droppedFiles.isEmpty()) {</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">                            for (File droppedFile : droppedFiles) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">                                if (droppedFile.isDirectory()) {</span>
+<span class="nc" id="L183">                                    final String path = droppedFile.getAbsolutePath();</span>
+<span class="nc" id="L184">                                    LOG.info(&quot;Drag'n'drop done for file: &quot; + path + &quot; with &quot; + droppedFiles.size() + &quot; element(s) received&quot;);</span>
+<span class="nc" id="L185">                                    textField.setText(path);</span>
+<span class="nc" id="L186">                                    break;</span>
+                                }
+<span class="nc" id="L188">                            }</span>
+                        }
+                    }
+
+<span class="nc" id="L192">                } catch (Exception ex) {</span>
+<span class="nc" id="L193">                    LOG.info(&quot;Drag'd'drop did not work due to &quot; + ex);</span>
+<span class="nc" id="L194">                }</span>
+<span class="nc" id="L195">            }</span>
+        });
+
+        // make textfield react on Enter/copied over from MainUIWindow
+<span class="nc" id="L199">        textField.addKeyListener(new KeyAdapter() {</span>
+            @Override
+            public void keyPressed(final KeyEvent e) {
+<span class="nc bnc" id="L202" title="All 2 branches missed.">                if (e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
+
+<span class="nc" id="L204">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;Void, Void&gt;() {</span>
+                        @Override
+                        protected Void doInBackground() {
+<span class="nc bnc" id="L207" title="All 2 branches missed.">                            if (isWaiting()) {</span>
+<span class="nc" id="L208">                                showErrorPopup(getBundleString(&quot;fotorenamer.ui.error.nodirectory&quot;), getBundleString(&quot;fotorenamer.ui.error.nodirectory.title&quot;));</span>
+<span class="nc" id="L209">                                return null;</span>
+                            }
+
+                            // perform renaming
+                            try {
+<span class="nc" id="L214">                                CreationDateFromExifImageRenamer renamer =</span>
+<span class="nc" id="L215">                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());</span>
+<span class="nc" id="L216">                                new Thread(renamer).start();</span>
+<span class="nc" id="L217">                            } catch (InvalidDirectoryException uv) {</span>
+<span class="nc" id="L218">                                LOG.info(&quot;Invalid directory selected: &quot; + uv.getMessage());</span>
+<span class="nc" id="L219">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()), getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;));</span>
+<span class="nc" id="L220">                            } catch (NoFilesFoundException kde) {</span>
+<span class="nc" id="L221">                                LOG.info(&quot;No files found in &quot; + kde.getMessage());</span>
+<span class="nc" id="L222">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()), getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;));</span>
+<span class="nc" id="L223">                            }</span>
+<span class="nc" id="L224">                            return null;</span>
+                        }
+
+                        @Override
+                        protected void done() {
+                            // TODO how can I communicate with the surrounding UI to block the user from pressing the buttons
+<span class="nc" id="L230">                            LOG.debug(&quot;Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.&quot;);</span>
+<span class="nc" id="L231">                        }</span>
+                    };
+                    // Execute the SwingWorker; GUI will not freeze
+<span class="nc" id="L234">                    worker.execute();</span>
+                }
+<span class="nc" id="L236">            }</span>
+
+        });
+<span class="nc" id="L239">    }</span>
+
+    void showErrorPopup(final String message, final String title) {
+<span class="nc" id="L242">        JOptionPane.showMessageDialog(null,</span>
+                message,
+                title,
+                JOptionPane.ERROR_MESSAGE);
+<span class="nc" id="L246">    }</span>
+
+    /**
+     * Current directory is the representation of this component.
+     *
+     * @return The currently selected directory.
+     */
+    final String getSelectedDirectory() {
+<span class="nc" id="L254">        String currentSelection = this.textField.getText();</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {</span>
+<span class="nc" id="L256">            currentSelection = currentSelection.replaceAll(&quot;~&quot;, System.getProperty(&quot;user.home&quot;));</span>
+<span class="nc" id="L257">            currentSelection = currentSelection.trim();</span>
+<span class="nc" id="L258">            LOG.debug(&quot;User input transformed into &quot; + currentSelection);</span>
+        }
+<span class="nc" id="L260">        return currentSelection;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

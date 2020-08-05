@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainUIWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.gui</a> &gt; <span class="el_source">MainUIWindow.java</span></div><h1>MainUIWindow.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * &lt;p/&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p/&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p/&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.gui;
+
+import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
+import de.aikiit.fotorenamer.exception.NoFilesFoundException;
+import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
+import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
+import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
+import de.aikiit.fotorenamer.util.Version;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+
+/**
+ * This class holds the main application window and allows to select a directory
+ * to perform the image name processing.
+ *
+ * @author hirsch, 13.10.2003
+ * @version 2004-01-08
+ */
+public final class MainUIWindow extends JFrame implements ActionListener {
+    /**
+     * The logger of this class.
+     **/
+<span class="nc" id="L49">    private static final Logger LOG =</span>
+<span class="nc" id="L50">            LogManager.getLogger(MainUIWindow.class);</span>
+
+    /**
+     * Provide version information in the UI (taken from maven).
+     */
+<span class="nc" id="L55">    private static final String VERSION = getParameterizedBundleString(&quot;fotorenamer.ui.main.version&quot;, //</span>
+<span class="nc" id="L56">            new SimpleDateFormat(getBundleString(&quot;fotorenamer.datepattern&quot;)).</span>
+<span class="nc" id="L57">                    format(new Date(Long.parseLong(</span>
+                            Version.TIMESTAMP))), //
+            Version.VERSION, //
+            Version.TIMESTAMP
+    );
+    /**
+     * Relative location of the UI's image icon.
+     */
+<span class="nc" id="L65">    private static final String IMAGE_LOCATION =</span>
+            File.separator + &quot;image&quot; + File.separator + &quot;miniCamera.png&quot;;
+
+    /**
+     * Component containing the help window of this application.
+     */
+<span class="nc" id="L71">    private static final HelpWindow helpWindow = new HelpWindow();</span>
+    /**
+     * The UI's help button.
+     */
+<span class="nc" id="L75">    private JButton helpButton = null;</span>
+    /**
+     * The UI's start button.
+     */
+<span class="nc" id="L79">    private JButton goButton = null;</span>
+    /**
+     * The UI's exit button.
+     */
+<span class="nc" id="L83">    private JButton endButton = null;</span>
+    /**
+     * The UI's info/versioning button.
+     */
+<span class="nc" id="L87">    private JButton infoButton = null;</span>
+    /**
+     * The UI's revert renaming button.
+     */
+<span class="nc" id="L91">    private JButton revertButton = null;</span>
+    /**
+     * Component that selects the directory to work on.
+     */
+<span class="nc" id="L95">    private ImageDirectorySelector imageDirectorySelector = null;</span>
+
+<span class="nc" id="L97">    private MainUIWindow() {</span>
+<span class="nc" id="L98">        SwingUtilities.invokeLater(this::init);</span>
+<span class="nc" id="L99">    }</span>
+
+    /**
+     * Creates the main UI window and initializes all internal UI-components.
+     */
+    public static void build() {
+<span class="nc" id="L105">        new MainUIWindow();</span>
+<span class="nc" id="L106">    }</span>
+
+    /**
+     * Helper class to perform the internal initialization of the UI.
+     */
+    private void init() {
+<span class="nc" id="L112">        String os = &quot;[&quot; + System.getProperty(&quot;os.name&quot;);</span>
+<span class="nc" id="L113">        os += &quot; &quot; + System.getProperty(&quot;os.version&quot;);</span>
+<span class="nc" id="L114">        os += &quot; &quot; + System.getProperty(&quot;os.arch&quot;) + &quot;]&quot;;</span>
+
+<span class="nc" id="L116">        this.setTitle(getParameterizedBundleString(&quot;fotorenamer.ui.main.title&quot;, os));</span>
+<span class="nc" id="L117">        this.getContentPane().setLayout(new BorderLayout());</span>
+<span class="nc" id="L118">        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);</span>
+
+        // select directory
+<span class="nc" id="L121">        JPanel verzeichnis = new JPanel(new BorderLayout());</span>
+<span class="nc" id="L122">        this.imageDirectorySelector = new ImageDirectorySelector(</span>
+<span class="nc" id="L123">                ComponentGaugeUtil.createImageIcon(IMAGE_LOCATION));</span>
+<span class="nc" id="L124">        verzeichnis.add(imageDirectorySelector);</span>
+
+        // help
+<span class="nc" id="L127">        JPanel knoepfe = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L128">        this.helpButton = new JButton(getBundleString(&quot;fotorenamer.ui.main.menu.help&quot;));</span>
+<span class="nc" id="L129">        this.helpButton.addActionListener(this);</span>
+<span class="nc" id="L130">        this.helpButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.main.menu.help.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L131">        knoepfe.add(this.helpButton);</span>
+
+        // info
+<span class="nc" id="L134">        this.infoButton = new JButton(getBundleString(&quot;fotorenamer.ui.main.menu.info&quot;));</span>
+<span class="nc" id="L135">        this.infoButton.addActionListener(this);</span>
+<span class="nc" id="L136">        this.infoButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.main.menu.info.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L137">        knoepfe.add(this.infoButton);</span>
+
+        // exit
+<span class="nc" id="L140">        this.endButton = new JButton(getBundleString(&quot;fotorenamer.ui.main.menu.end&quot;));</span>
+<span class="nc" id="L141">        this.endButton.addActionListener(this);</span>
+<span class="nc" id="L142">        this.endButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.main.menu.end.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L143">        knoepfe.add(this.endButton);</span>
+
+        // start
+<span class="nc" id="L146">        this.goButton = new JButton(getBundleString(&quot;fotorenamer.ui.main.menu.start&quot;));</span>
+<span class="nc" id="L147">        this.goButton.addActionListener(this);</span>
+<span class="nc" id="L148">        this.goButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.main.menu.start.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L149">        knoepfe.add(this.goButton);</span>
+
+        // revert
+<span class="nc" id="L152">        this.revertButton = new JButton(getBundleString(&quot;fotorenamer.ui.main.menu.revert&quot;));</span>
+<span class="nc" id="L153">        this.revertButton.addActionListener(this);</span>
+<span class="nc" id="L154">        this.revertButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.main.menu.revert.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L155">        knoepfe.add(this.revertButton);</span>
+
+<span class="nc" id="L157">        this.getContentPane().add(verzeichnis, BorderLayout.NORTH);</span>
+<span class="nc" id="L158">        this.getContentPane().add(knoepfe, BorderLayout.CENTER);</span>
+<span class="nc" id="L159">        this.pack();</span>
+<span class="nc" id="L160">        ComponentGaugeUtil.makeCentered(this);</span>
+<span class="nc" id="L161">        this.setVisible(true);</span>
+<span class="nc" id="L162">    }</span>
+
+    /**
+     * Action listener method to react on events.
+     *
+     * @param event Events that was fired on this component.
+     */
+    public void actionPerformed(final ActionEvent event) {
+        final SwingWorker&lt;Void, Void&gt; worker;
+
+        // end
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (event.getSource() == this.endButton) {</span>
+<span class="nc" id="L174">            LOG.info(&quot;Bye Bye :-)&quot;);</span>
+<span class="nc" id="L175">            System.exit(0);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        } else if (event.getSource() == this.helpButton) {</span>
+<span class="nc" id="L177">            LOG.info(&quot;Displaying help window.&quot;);</span>
+<span class="nc" id="L178">            showHelpWindow();</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        } else if (event.getSource() == this.infoButton) {</span>
+            // info
+<span class="nc" id="L181">            JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L182">                    getParameterizedBundleString(&quot;fotorenamer.ui.about&quot;, VERSION, new SimpleDateFormat(&quot;yyyy&quot;).</span>
+<span class="nc" id="L183">                            format(new Date(</span>
+<span class="nc" id="L184">                                    Long.parseLong(</span>
+                                            Version.TIMESTAMP)))),
+<span class="nc" id="L186">                    getBundleString(&quot;fotorenamer.ui.main.version.title&quot;),</span>
+                    JOptionPane.INFORMATION_MESSAGE);
+<span class="nc bnc" id="L188" title="All 4 branches missed.">        } else if (event.getSource() == this.revertButton || event.getSource()</span>
+                == this.goButton) {
+<span class="nc" id="L190">            worker = new SwingWorker&lt;Void, Void&gt;() {</span>
+                @Override
+                protected Void doInBackground() {
+<span class="nc bnc" id="L193" title="All 2 branches missed.">                    if (imageDirectorySelector.isWaiting()) {</span>
+<span class="nc" id="L194">                        JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L195">                                getBundleString(&quot;fotorenamer.ui.error.nodirectory&quot;),</span>
+<span class="nc" id="L196">                                getBundleString(&quot;fotorenamer.ui.error.nodirectory.title&quot;),</span>
+                                JOptionPane.ERROR_MESSAGE);
+<span class="nc" id="L198">                        return null;</span>
+                    }
+
+                    // perform renaming
+                    try {
+<span class="nc bnc" id="L203" title="All 2 branches missed.">                        if (event.getSource() == goButton) {</span>
+<span class="nc" id="L204">                            goButton.setEnabled(false);</span>
+<span class="nc" id="L205">                            goButton.setText(getBundleString(&quot;fotorenamer.ui.main.progress&quot;));</span>
+<span class="nc" id="L206">                            CreationDateFromExifImageRenamer renamer =</span>
+                                    new CreationDateFromExifImageRenamer(
+<span class="nc" id="L208">                                            imageDirectorySelector.getSelectedDirectory()</span>
+                                    );
+<span class="nc" id="L210">                            new Thread(renamer).start();</span>
+<span class="nc" id="L211">                        } else {</span>
+<span class="nc" id="L212">                            revertButton.setEnabled(false);</span>
+<span class="nc" id="L213">                            revertButton.setText(getBundleString(&quot;fotorenamer.ui.main.progress&quot;));</span>
+<span class="nc" id="L214">                            new RemoveExifPrefixRenamer(</span>
+<span class="nc" id="L215">                                    imageDirectorySelector.getSelectedDirectory());</span>
+                        }
+<span class="nc" id="L217">                    } catch (InvalidDirectoryException uv) {</span>
+<span class="nc" id="L218">                        LOG.info(&quot;Invalid directory selected: &quot; + uv.getMessage());</span>
+<span class="nc" id="L219">                        JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L220">                                getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()),</span>
+<span class="nc" id="L221">                                getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;),</span>
+                                JOptionPane.ERROR_MESSAGE);
+<span class="nc" id="L223">                    } catch (NoFilesFoundException kde) {</span>
+<span class="nc" id="L224">                        LOG.info(&quot;No files found in &quot; + kde.getMessage());</span>
+<span class="nc" id="L225">                        JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L226">                                getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()),</span>
+<span class="nc" id="L227">                                getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;),</span>
+                                JOptionPane.ERROR_MESSAGE);
+<span class="nc" id="L229">                    }</span>
+<span class="nc" id="L230">                    return null;</span>
+                }
+
+                @Override
+                protected void done() {
+<span class="nc" id="L235">                    LOG.debug(&quot;Finished working, will reset UI.&quot;);</span>
+                    // reset gui if all workers terminated
+<span class="nc" id="L237">                    goButton.setEnabled(true);</span>
+<span class="nc" id="L238">                    goButton.setText(getBundleString(&quot;fotorenamer.ui.main.menu.start&quot;));</span>
+<span class="nc" id="L239">                    revertButton.setEnabled(true);</span>
+<span class="nc" id="L240">                    revertButton.setText(getBundleString(&quot;fotorenamer.ui.main.menu.revert&quot;));</span>
+<span class="nc" id="L241">                }</span>
+            };
+            // Execute the SwingWorker; GUI will not freeze
+<span class="nc" id="L244">            worker.execute();</span>
+        }
+<span class="nc" id="L246">    }</span>
+
+    /**
+     * Helper to enable visibility of help window.
+     *
+     * @see HelpWindow
+     */
+    private static void showHelpWindow() {
+<span class="nc" id="L254">        helpWindow.setVisible(true);</span>
+<span class="nc" id="L255">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

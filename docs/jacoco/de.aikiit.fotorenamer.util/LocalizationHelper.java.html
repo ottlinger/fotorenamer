@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LocalizationHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.util</a> &gt; <span class="el_source">LocalizationHelper.java</span></div><h1>LocalizationHelper.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * &lt;p/&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p/&gt;
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p/&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.util;
+
+import com.google.common.base.Strings;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+/**
+ * Helper to deal with localizations and ease the usage of
+ * resource bundles within fotorenamer.
+ *
+ * @author hirsch
+ * @version 23.08.11
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class LocalizationHelper {
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L42">    private static final Logger LOG =</span>
+<span class="fc" id="L43">            LogManager.getLogger(LocalizationHelper.class);</span>
+
+    /**
+     * ResourceBundle used for this application.
+     */
+    private static final String BASE_NAME = &quot;fotorenamer&quot;;
+<span class="fc" id="L49">    private static final Locale FALLBACK_LOCALE = Locale.GERMANY;</span>
+
+    private static ResourceBundle BUNDLE;
+    private static Locale LOCALE;
+    private static MessageFormat FORMAT;
+
+    static {
+<span class="fc" id="L56">        setLocale();</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Set locale depending on system properties, in case of errors fallback is Locale.GERMANY.
+     */
+    public static void setLocale() {
+<span class="fc" id="L63">        String userLanguage = System.getProperty(&quot;user.language&quot;);</span>
+<span class="fc" id="L64">        String userCountry = System.getProperty(&quot;user.country&quot;);</span>
+
+<span class="fc" id="L66">        LOG.info(String.format(&quot;Your system emits the following l10n-properties: language=%s, country=%s&quot;, userLanguage, userCountry));</span>
+
+<span class="pc bpc" id="L68" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(userLanguage) || Strings.isNullOrEmpty(userCountry)) {</span>
+<span class="fc" id="L69">            LOCALE = FALLBACK_LOCALE;</span>
+<span class="fc" id="L70">            LOG.info(&quot;Falling back to locale &quot; + LOCALE);</span>
+        } else {
+<span class="fc" id="L72">            LOCALE = new Locale(userLanguage, userCountry);</span>
+<span class="fc" id="L73">            LOG.info(&quot;Setting locale to &quot; + LOCALE);</span>
+        }
+
+<span class="fc" id="L76">        BUNDLE = ResourceBundle.getBundle(BASE_NAME, LOCALE);</span>
+<span class="fc" id="L77">        FORMAT = new MessageFormat(&quot;&quot;);</span>
+<span class="fc" id="L78">        FORMAT.setLocale(LOCALE);</span>
+<span class="fc" id="L79">    }</span>
+
+    /**
+     * @return the currently set Locale of this application. Fallback is Locale.GERMANY.
+     */
+    public static Locale getLocale() {
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">        if (LOCALE == null) {</span>
+<span class="nc" id="L86">            LOG.warn(&quot;Returning fallback Locale for Germany - please make sure you've configured your environment correctly via system properties 'user.country'/'user.language'.&quot;);</span>
+<span class="nc" id="L87">            return FALLBACK_LOCALE;</span>
+        }
+<span class="fc" id="L89">        return LOCALE;</span>
+    }
+
+    /**
+     * @return the currently set language
+     */
+    public static String getLanguage() {
+<span class="fc" id="L96">        return getLocale().getLanguage();</span>
+    }
+
+    /**
+     * Helper function to retrieve a given key
+     * from the underlying resource bundle.
+     *
+     * @param key Key to retrieve from the bundle,
+     *            e.g. &lt;i&gt;fotorenamer.foo.title&lt;/i&gt;
+     * @return Returns the value from the bundle.
+     */
+    public static String getBundleString(final String key) {
+<span class="fc" id="L108">        LOG.debug(&quot;Retrieving key &quot; + key);</span>
+        try {
+<span class="fc" id="L110">            return BUNDLE.getString(key);</span>
+<span class="fc" id="L111">        } catch (MissingResourceException mre) {</span>
+<span class="fc" id="L112">            LOG.error(&quot;Retrieving unknown key &quot; + key + &quot;. Please fix your property files.&quot;);</span>
+<span class="fc" id="L113">            return key;</span>
+        }
+        // l18n basics:
+        // http://www.kodejava.org/examples/220.html
+        // l18n buttons:
+        // http://www.java2s.com/Code/Java/I18N/Createonebuttoninternationalizedly.htm
+        // l18n with parameters:
+        // http://www.java2s.com/Code/Java/I18N/ResourceBundlewithparameterposition.htm
+        // parameters are a but uneasier than with grails -
+        // http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html
+        // encoding issues / eclipse plugin:
+        // http://stackoverflow.com/questions/863838/problem-with-java-properties-utf8-encoding-in-eclipse
+    }
+
+    /**
+     * Helper function to retrieve a given key
+     * from the underlying resource bundle while
+     * applying localization parameters.
+     *
+     * @param key        Key to retrieve from the bundle,
+     *                   e.g. &lt;i&gt;fotorenamer.foo.parameteredtitle&lt;/i&gt;.
+     * @param parameters Object array with all parameters.
+     * @return Returns the value from the bundle
+     * with the given parameters applied.
+     * @see &lt;a href=&quot;http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html&quot;&gt;
+     * I18N-tutorial&lt;/a&gt;
+     */
+    public static String getParameterizedBundleString(final String key, final Object... parameters) {
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        LOG.debug(&quot;Applying &quot; + ((parameters == null) ? null : parameters</span>
+                .length) + &quot; parameters to &quot; + key);
+<span class="fc" id="L143">        FORMAT.applyPattern(getBundleString(key));</span>
+<span class="fc" id="L144">        return FORMAT.format(parameters);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
