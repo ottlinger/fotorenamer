@@ -238,7 +238,7 @@ class ImageDirectorySelector extends JPanel {
         });
     }
 
-    void showErrorPopup(String message, String title) {
+    void showErrorPopup(final String message, final String title) {
         JOptionPane.showMessageDialog(null,
                 message,
                 title,
