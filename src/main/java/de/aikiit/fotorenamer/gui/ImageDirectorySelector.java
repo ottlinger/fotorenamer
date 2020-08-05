@@ -205,10 +205,7 @@ class ImageDirectorySelector extends JPanel {
                         @Override
                         protected Void doInBackground() {
                             if (isWaiting()) {
-                                JOptionPane.showMessageDialog(null,
-                                        getBundleString("fotorenamer.ui.error.nodirectory"),
-                                        getBundleString("fotorenamer.ui.error.nodirectory.title"),
-                                        JOptionPane.ERROR_MESSAGE);
+                                showErrorPopup(getBundleString("fotorenamer.ui.error.nodirectory"), getBundleString("fotorenamer.ui.error.nodirectory.title"));
                                 return null;
                             }
 
@@ -219,16 +216,10 @@ class ImageDirectorySelector extends JPanel {
                                 new Thread(renamer).start();
                             } catch (InvalidDirectoryException uv) {
                                 LOG.info("Invalid directory selected: " + uv.getMessage());
-                                JOptionPane.showMessageDialog(null,
-                                        getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
-                                        getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
-                                        JOptionPane.ERROR_MESSAGE);
+                                showErrorPopup(getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()), getBundleString("fotorenamer.ui.error.invaliddirectory.title"));
                             } catch (NoFilesFoundException kde) {
                                 LOG.info("No files found in " + kde.getMessage());
-                                JOptionPane.showMessageDialog(null,
-                                        getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()),
-                                        getBundleString("fotorenamer.ui.error.nofiles.title"),
-                                        JOptionPane.ERROR_MESSAGE);
+                                showErrorPopup(getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()), getBundleString("fotorenamer.ui.error.nofiles.title"));
                             }
                             return null;
                         }
@@ -245,6 +236,13 @@ class ImageDirectorySelector extends JPanel {
             }
 
         });
+    }
+
+    void showErrorPopup(String message, String title) {
+        JOptionPane.showMessageDialog(null,
+                message,
+                title,
+                JOptionPane.ERROR_MESSAGE);
     }
 
     /**
