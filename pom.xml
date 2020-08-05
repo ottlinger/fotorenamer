@@ -348,6 +348,7 @@ limitations under the License.
             <excludes>
               <exclude>.travis.yml</exclude>
               <exclude>LICENSE.txt</exclude>
+              <exclude>**/docs/**/*</exclude>
               <exclude>**/*.properties</exclude>
               <exclude>*.md</exclude>
               <exclude>**/*.vm</exclude>
