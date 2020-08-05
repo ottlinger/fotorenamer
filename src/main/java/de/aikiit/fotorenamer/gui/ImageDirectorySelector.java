@@ -126,13 +126,13 @@ class ImageDirectorySelector extends JPanel {
         gbc.anchor = GridBagConstraints.EAST;
 
         // show button
-        browseButton = (this.imageIcon == null
+        browseButton = this.imageIcon == null
                 ? new JButton(
                 getBundleString(
                         "fotorenamer.ui.selector.title"))
                 : new JButton(
                 getBundleString(
-                        "fotorenamer.ui.selector.title"), this.imageIcon));
+                        "fotorenamer.ui.selector.title"), this.imageIcon);
         browseButton.setMnemonic(getBundleString("fotorenamer.ui.selector.title.mnemonic").charAt(0));
         browseButton.setMargin(new Insets(1, 1, 1, 1));
         grid.setConstraints(browseButton, gbc);
