@@ -103,7 +103,7 @@ final class MetaDataExtractor {
                         + " yields " + result);
             }
         }
-        return (result == null ? EMPTY_STRING : result);
+        return result == null ? EMPTY_STRING : result;
     }
 
     /**
