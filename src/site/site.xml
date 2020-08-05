@@ -29,8 +29,8 @@ under the License.
     <version position="bottom"/>
 
     <poweredBy>
-       <logo name="Maven" href="http://maven.apache.org/"
-             img="http://maven.apache.org/images/logos/maven-feather.png"/>
+       <logo name="Maven" href="https://maven.apache.org/"
+             img="https://maven.apache.org/images/logos/maven-feather.png"/>
      </poweredBy>
 
     <!-- https://maven.apache.org/doxia/doxia-sitetools/doxia-decoration-model/decoration.html -->
