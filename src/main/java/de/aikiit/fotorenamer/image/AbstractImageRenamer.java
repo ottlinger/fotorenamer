@@ -111,7 +111,6 @@ abstract class AbstractImageRenamer implements Runnable {
         LOG.info("Starting to rename " + this.amountOfFiles + " files.");
 
         Consumer<File> consumer = file -> {
-            Boolean renamingResult;
             // extract EXIF data and fetch target filename
             String targetFilename = renameImage(file);
 
