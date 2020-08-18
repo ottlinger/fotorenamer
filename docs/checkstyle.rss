@@ -60,20 +60,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.util.ComponentGaugeUtil.java">de/aikiit/fotorenamer/util/ComponentGaugeUtil.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.exception.package-info.java">de/aikiit/fotorenamer/exception/package-info.java</a>
                 </td>
                 <td>
@@ -84,6 +70,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.util.ComponentGaugeUtil.java">de/aikiit/fotorenamer/util/ComponentGaugeUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
               </tr>
                           <tr>
@@ -102,20 +102,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.gui.ProgressBar.java">de/aikiit/fotorenamer/gui/ProgressBar.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  7
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.exception.InvalidDirectoryException.java">de/aikiit/fotorenamer/exception/InvalidDirectoryException.java</a>
                 </td>
                 <td>
@@ -126,6 +112,20 @@ under the License.
                 </td>
                 <td>
                   2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.gui.ProgressBar.java">de/aikiit/fotorenamer/gui/ProgressBar.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
                 </td>
               </tr>
                           <tr>
@@ -172,20 +172,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.image.ImageFilenameFilter.java">de/aikiit/fotorenamer/image/ImageFilenameFilter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  3
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.package-info.java">de/aikiit/fotorenamer/package-info.java</a>
                 </td>
                 <td>
@@ -196,6 +182,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/ottlinger/fotorenamer//checkstyle.html#de.aikiit.fotorenamer.image.ImageFilenameFilter.java">de/aikiit/fotorenamer/image/ImageFilenameFilter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
                 </td>
               </tr>
                           <tr>
