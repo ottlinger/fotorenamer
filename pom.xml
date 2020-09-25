@@ -55,7 +55,7 @@ limitations under the License.
     <guava.version>29.0-jre</guava.version>
     <logger.version>2.13.3</logger.version>
     <junit.version>4.13</junit.version>
-    <mockito.version>3.5.7</mockito.version>
+    <mockito.version>3.5.13</mockito.version>
     <shade.version>3.2.4</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
