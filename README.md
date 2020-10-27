@@ -27,8 +27,8 @@ During my parental leave in 2011 I decided to use this dirty little hack to eval
 
 The project moved over to GitHub :smile:
 
-# USAGE #
-## Building ##
+# USAGE
+## Building
 This tool can be used with [Maven3](http://maven.apache.org/download.html) in two ways:
   * run as a standalone application
 ```
@@ -41,14 +41,14 @@ $ java -jar target/fotorenamer-2.0.0-executable.jar
 ```  
   * start a deprecated stable version [(0.1.3-SNAPSHOT)](http://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via Webstart
 
-## Running ##
+## Running
 1. Create a backup of your images.
 1. Start this tool.
 1. Select your image directory.
 1. Hit 'Umbenennen' (Rename) to get your files renamed automatically.
 1. Done :-)
 
-### Localization ###
+### Localization
 
 Relates to [issue #10](../../issues/10)
 
@@ -57,6 +57,6 @@ Relates to [issue #10](../../issues/10)
 $ mvn -Plive-demo -Duser.language=en -Duser.country=US
 ```
 
-## Developer Documentation ##
+## Developer Documentation
 
 The project is built with maven - you can have a look at the current [site reports](https://ottlinger.github.io/fotorenamer/).
