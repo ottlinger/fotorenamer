@@ -12,18 +12,18 @@ https://github.com/users/ottlinger/projects/4
 
 After logging in you may see the [SourceClear-status](https://app.sourceclear.com/teams/200tX8V/issues/vulnerabilities).
 
-# ABSTRACT #
+# ABSTRACT
 Helper to change image filenames from **IMG\_number** to **YYYYMMDD\_IMG\_number** in order to allow an easier photo sorting. YYYMMDD itself is extracted from the photograph's EXIF metadata.
 
 Do not forget to do backups of your photos before using this tool!
 
-# HISTORY #
-## 2003 - the beginnings ##
+# HISTORY
+## 2003 - the beginnings
 The idea for this little tool appeared in 2003, when I did my first students programming courses at university and discovered that my little IXUS camera set the images date to the date the image was taken.
 After several operating system upgrades this behaviour changed and I needed to find a way to extract the creation date from the images metadata. Therefore I needed to evaluate EXIF data extraction ...
-## 2011 - some time ##
+## 2011 - some time
 During my parental leave in 2011 I decided to use this dirty little hack to evaluate the usage of google code as a project tool and to get used to my IntelliJ :-)
-## 2015 ##
+## 2015
 
 The project moved over to GitHub :smile:
 
