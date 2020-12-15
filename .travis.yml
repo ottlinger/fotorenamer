@@ -8,7 +8,8 @@ jdk:
   - openjdk13
   - openjdk14
   - openjdk15
-  - openjdk16
+# 20201215: compilation failure on
+#  - openjdk16
 
 addons:
   apt:
