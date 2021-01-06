@@ -6,8 +6,7 @@
 
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/ottlinger/fotorenamer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ottlinger/fotorenamer/context:java)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/1069017d3898425095363374b2519b03)](https://www.codacy.com/app/github_25/fotorenamer)
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d9d0476d0f3c40bcbb1c2b4dc09099b1)](https://www.codacy.com/gh/ottlinger/fotorenamer/dashboard)
 https://github.com/users/ottlinger/projects/4
 
 After logging in you may see the [SourceClear-status](https://app.sourceclear.com/teams/200tX8V/issues/vulnerabilities).
