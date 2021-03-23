@@ -29,13 +29,13 @@ import static org.junit.Assert.assertEquals;
  * @author hirsch
  * @version 23.08.11
  */
-public class LocalizationHelperTest {
+class LocalizationHelperTest {
 
     /**
      * Retrieve a plain i18n-value.
      */
     @Test
-    public final void checkValueRetrievingFromBundle() {
+    void checkValueRetrievingFromBundle() {
         assertEquals("Fortschritt", getBundleString("fotorenamer.ui.progress"));
     }
 
@@ -43,7 +43,7 @@ public class LocalizationHelperTest {
      * Retrieve a i18n-value with parameters set.
      */
     @Test
-    public final void checkParametrizedValueExtraction() {
+    void checkParametrizedValueExtraction() {
         assertEquals("Erfolg und dann folgt noch die 7", getParameterizedBundleString("fotorenamer.test.param",
                 "Erfolg", 7));
         // ignore warning, we want to test what happens here! An empty String or null changes the output.
@@ -52,7 +52,7 @@ public class LocalizationHelperTest {
     }
 
     @Test
-    public final void fallbackLocale() {
+    void fallbackLocale() {
         // WHEN: reset system properties
         System.setProperty("user.language", "");
         System.setProperty("user.country", "");
@@ -63,7 +63,7 @@ public class LocalizationHelperTest {
     }
 
     @Test
-    public final void setLocaleViaSystemProperties() {
+    void setLocaleViaSystemProperties() {
         // WHEN: reset system properties
         final String french = "fr";
         System.setProperty("user.language", french);
@@ -75,12 +75,12 @@ public class LocalizationHelperTest {
     }
 
     @Test
-    public final void umlautEncodingWorksCorrectly() {
+    void umlautEncodingWorksCorrectly() {
         assertEquals("ßäü", getBundleString("fotorenamer.test.umlauts"));
     }
 
     @Test
-    public final void unknownKey() {
+    void unknownKey() {
         String unknown = "abcde.unknown";
         assertEquals(unknown, getBundleString(unknown));
     }
