@@ -42,7 +42,7 @@ public class CreationDateFromExifImageRenamerTest {
      * @throws Exception in case of errors.
      */
     @Test(expected = InvalidDirectoryException.class)
-    void checkNPECorrectnessInConstructor() throws Exception {
+    public void checkNPECorrectnessInConstructor() throws Exception {
         CreationDateFromExifImageRenamer imageRenamer = new
                 CreationDateFromExifImageRenamer(null);
         // just to avoid compiler warnings, code will not be reached
@@ -56,7 +56,7 @@ public class CreationDateFromExifImageRenamerTest {
     // TODO redesign application - component mingles function and GUI and is
     // not clearly testable
     @Test
-    void renameTestImageAndDeleteFileAfterwards() throws Exception {
+    public void renameTestImageAndDeleteFileAfterwards() throws Exception {
 
         LOG.info("Working on file " + FULLPATH_TEST_IMG);
         assertTrue("Test image directory has to exist, i.e. mvn filtering was correct",

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <!--
-Copyright 2011-2020, Aiki IT, FotoRenamer
+  Copyright 2011-2020, Aiki IT, FotoRenamer
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.aikiit</groupId>
   <artifactId>fotorenamer</artifactId>
@@ -54,13 +54,14 @@ limitations under the License.
     <lombok.version>1.18.16</lombok.version>
     <guava.version>29.0-jre</guava.version>
     <logger.version>2.14.0</logger.version>
-    <junit.version>4.13.1</junit.version>
     <mockito.version>3.6.28</mockito.version>
     <shade.version>3.2.4</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.13</rat.version>
     <javadoc-plugin.version>3.2.0</javadoc-plugin.version>
+    <junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
+    <junit.platform.version>1.8.0-M1</junit.platform.version>
   </properties>
   <dependencies>
     <!-- test dependencies -->
@@ -71,9 +72,15 @@ limitations under the License.
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-runner</artifactId>
+      <version>${junit.platform.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- http://logging.apache.org/log4j/2.x/manual/api.html -->
@@ -161,12 +168,12 @@ limitations under the License.
         </configuration>
       </plugin>
       <!-- Generates null error
-      <plugin>
-        <groupId>org.sonatype.maven.plugin</groupId>
-        <artifactId>emma-maven-plugin</artifactId>
-        <version>1.2</version>
-      </plugin>
-  -->
+            <plugin>
+              <groupId>org.sonatype.maven.plugin</groupId>
+              <artifactId>emma-maven-plugin</artifactId>
+              <version>1.2</version>
+            </plugin>
+        -->
       <!-- check if this is necessary since reports are generated twice, once empty -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -242,7 +249,9 @@ limitations under the License.
   </reporting>
   <build>
     <!-- not working with JDK8 locally: defaultGoal>clean install webstart:jnlp</defaultGoal-->
-    <defaultGoal>clean versions:display-dependency-updates versions:display-plugin-updates enforcer:display-info install</defaultGoal>
+    <defaultGoal>clean versions:display-dependency-updates versions:display-plugin-updates enforcer:display-info
+            install
+        </defaultGoal>
     <extensions>
       <extension>
         <groupId>org.apache.maven.scm</groupId>
@@ -443,11 +452,11 @@ limitations under the License.
           <reuseForks>true</reuseForks>
           <enableAssertions>true</enableAssertions>
           <!-- systemProperties>
-                        <property>
-                            <name>java.awt.headless</name>
-                            <value>true</value>
-                        </property>
-                    </systemProperties-->
+                                  <property>
+                                      <name>java.awt.headless</name>
+                                      <value>true</value>
+                                  </property>
+                              </systemProperties-->
         </configuration>
       </plugin>
       <plugin>
@@ -482,7 +491,8 @@ limitations under the License.
             </goals>
             <configuration>
               <propertiesEncoding>UTF-8</propertiesEncoding>
-              <outputDirectory>${project.build.directory}/generated-sources/de/aikiit/fotorenamer/util</outputDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/de/aikiit/fotorenamer/util
+                            </outputDirectory>
               <resources>
                 <resource>
                   <directory>${basedir}/src/main/resources/filtered</directory>
@@ -580,17 +590,17 @@ limitations under the License.
         </configuration>
       </plugin>
       <!-- Plugin for JNLP creation
-                mvn package
+                      mvn package
 
-                Manual JNLP creation:
-                mvn webstart:jnlp-inline
+                      Manual JNLP creation:
+                      mvn webstart:jnlp-inline
 
-                This way everything is packaged and bundled:
-                mvn install webstart:jnlp
-                mvn clean install webstart:jnlp
+                      This way everything is packaged and bundled:
+                      mvn install webstart:jnlp
+                      mvn clean install webstart:jnlp
 
-                BUG/REVIEW: http://code.google.com/p/fotorenamer/issues/detail?id=8
-             -->
+                      BUG/REVIEW: http://code.google.com/p/fotorenamer/issues/detail?id=8
+                   -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
@@ -605,7 +615,7 @@ limitations under the License.
         </executions>
         <configuration>
           <!-- you have to manually add all necessary dependencies that need to be included in the JNLP-ZIP,
-                    this does not work with mvn3 if sources are generated: http://jira.codehaus.org/browse/MNG-4672 -->
+                              this does not work with mvn3 if sources are generated: http://jira.codehaus.org/browse/MNG-4672 -->
           <dependencies>
             <includes>
               <include>org.apache.logging.log4j:log4j-1.2-api</include>
@@ -728,10 +738,10 @@ limitations under the License.
     </repository>
   </repositories>
   <!-- disable to speed up the travis build pluginRepositories>
-    <pluginRepository>
-      <id>staged-releases</id>
-      <url>https://repository.apache.org/content/repositories/orgapachecreadur-1004/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  -->
+      <pluginRepository>
+        <id>staged-releases</id>
+        <url>https://repository.apache.org/content/repositories/orgapachecreadur-1004/</url>
+      </pluginRepository>
+    </pluginRepositories>
+    -->
 </project>
