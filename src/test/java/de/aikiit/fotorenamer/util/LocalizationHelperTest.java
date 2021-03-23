@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
  * @author hirsch
  * @version 23.08.11
  */
-class LocalizationHelperTest {
+public class LocalizationHelperTest {
 
     /**
      * Retrieve a plain i18n-value.

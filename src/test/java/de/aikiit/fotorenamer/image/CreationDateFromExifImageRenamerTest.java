@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  * @author hirsch
  * @version 2011-06-02, 13:41
  */
-class CreationDateFromExifImageRenamerTest {
+public class CreationDateFromExifImageRenamerTest {
 
     private static final Logger LOG = Logger.
             getLogger(CreationDateFromExifImageRenamerTest.class);

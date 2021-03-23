@@ -23,7 +23,7 @@ import static org.junit.Assert.assertFalse;
  * @author hirsch
  * @version 2016-01-17, 21:44
  */
-class ImageFilenameFilterTest {
+public class ImageFilenameFilterTest {
 
     @Test
     void nullArgumentsAreSafe() {

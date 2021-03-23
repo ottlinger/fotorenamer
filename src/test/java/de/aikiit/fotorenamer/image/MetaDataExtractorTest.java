@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  *
  * @author hirsch
  */
-class MetaDataExtractorTest {
+public class MetaDataExtractorTest {
     private static final Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
 
     @Test
