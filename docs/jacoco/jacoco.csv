@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,CreationDateFromExifImageRenamer,7,20,0,0,3,9,0,3,0,3
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,AbstractImageRenamer,97,164,7,8,14,38,8,7,1,6
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,AbstractImageRenamer,62,199,6,9,10,42,7,8,1,6
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,MetaDataExtractor,16,133,8,12,2,24,8,5,0,3
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,ImageFilenameFilter,3,65,5,9,2,8,5,6,0,4
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RemoveExifPrefixRenamer,254,0,20,0,48,0,15,0,5,0
