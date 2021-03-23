@@ -15,6 +15,7 @@ limitations under the License.
 package de.aikiit.fotorenamer.gui;
 
 import de.aikiit.fotorenamer.gui.ProgressBar;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -24,15 +25,15 @@ import static org.junit.Assert.assertNotNull;
  * @author hirsch
  * @version 2011-04-03, 20:24
  */
-@org.junit.Ignore("Not working in travis.")
-public class ProgressBarTest {
+@Ignore("Not working in travis.")
+class ProgressBarTest {
     private static final String TEXT = "Text";
 
     /**
      * Check progress bar initialization and value setting.
      */
     @Test
-    public final void checkInitAndDefaults() {
+    void checkInitAndDefaults() {
         ProgressBar bar = new ProgressBar(0);
         assertNotNull(bar);
         assertEquals("", bar.getText());
@@ -43,7 +44,7 @@ public class ProgressBarTest {
      * Manually set values and retrieve these values.
      */
     @Test
-    public final void checkSetterGetter() {
+    void checkSetterGetter() {
         ProgressBar bar = new ProgressBar(10);
         assertNotNull(bar);
         bar.setProgress();
