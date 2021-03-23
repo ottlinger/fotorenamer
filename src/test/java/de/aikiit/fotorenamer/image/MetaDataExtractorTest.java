@@ -31,17 +31,17 @@ import static org.junit.Assert.assertTrue;
  *
  * @author hirsch
  */
-public class MetaDataExtractorTest {
+class MetaDataExtractorTest {
     private static final Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
 
     @Test
-    public void makeSurePatternMatchesMultipleRenamedFiles() {
+    void makeSurePatternMatchesMultipleRenamedFiles() {
         Matcher matcher = TestConstants.IS_TEST_FILE.matcher("123123123123_20110130_131102_IMG_7559_mini.JpG");
         assertTrue(matcher.find());
     }
 
     @Test
-    public final void ensureGivenExampleFileIsRenamed() throws Exception {
+    void ensureGivenExampleFileIsRenamed() throws Exception {
         File f = new File(TestConstants.FULLPATH_TEST_IMG);
 
         int minLength = TestConstants.PLAIN_FILE_NAME.length();
@@ -67,7 +67,7 @@ public class MetaDataExtractorTest {
      * @throws Exception in case of errors.
      */
     @Test(expected = AssertionError.class)
-    public final void checkAssertionErrors() throws Exception {
+    void checkAssertionErrors() throws Exception {
         assertNull(MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
     }
 
@@ -77,7 +77,7 @@ public class MetaDataExtractorTest {
      * @throws Exception in case of errors.
      */
     @Test(expected = AssertionError.class)
-    public final void checkAssertionErrorTag() throws Exception {
+    void checkAssertionErrorTag() throws Exception {
         assertNull(MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
     }
 
