@@ -14,14 +14,13 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.exception;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Ignore("Maybe GH pages error is connected to this test?")
+//@Disable("Maybe GH pages error is connected to this test?")
 class FotorenamerExceptionTest {
     @Test
     void planConstructors() {

@@ -14,10 +14,9 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Call help window.
@@ -25,7 +24,6 @@ import static org.junit.Assert.assertNotNull;
  * @author hirsch
  * @version 2011-04-08, 00:24
  */
-@Ignore("Not working in travis.")
 public class HelpWindowTest {
     @Test
     void initWindow() {

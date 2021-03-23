@@ -16,15 +16,13 @@ package de.aikiit.fotorenamer.image;
 
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import org.apache.log4j.Logger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 import static de.aikiit.fotorenamer.TestConstants.FULLPATH_IMAGES;
 import static de.aikiit.fotorenamer.TestConstants.FULLPATH_TEST_IMG;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test image renaming.
@@ -32,25 +30,29 @@ import static org.junit.Assert.assertTrue;
  * @author hirsch
  * @version 2011-06-02, 13:41
  */
-public class CreationDateFromExifImageRenamerTest {
+class CreationDateFromExifImageRenamerTest {
 
     private static final Logger LOG = Logger.
             getLogger(CreationDateFromExifImageRenamerTest.class);
 
     /**
      * Ensure that no NullPointerException is thrown with null arguments.
+     *
      * @throws Exception in case of errors.
      */
-    @Test(expected = InvalidDirectoryException.class)
+    @Test
     public void checkNPECorrectnessInConstructor() throws Exception {
-        CreationDateFromExifImageRenamer imageRenamer = new
-                CreationDateFromExifImageRenamer(null);
-        // just to avoid compiler warnings, code will not be reached
-        assertNotNull(imageRenamer);
+        assertThrows(InvalidDirectoryException.class, () -> {
+            CreationDateFromExifImageRenamer imageRenamer = new
+                    CreationDateFromExifImageRenamer(null);
+            // just to avoid compiler warnings, code will not be reached
+            assertNotNull(imageRenamer);
+        });
     }
 
     /**
      * Perform file renaming (while waiting for Thread to finish).
+     *
      * @throws Exception in case of errors.
      */
     // TODO redesign application - component mingles function and GUI and is
@@ -59,9 +61,8 @@ public class CreationDateFromExifImageRenamerTest {
     public void renameTestImageAndDeleteFileAfterwards() throws Exception {
 
         LOG.info("Working on file " + FULLPATH_TEST_IMG);
-        assertTrue("Test image directory has to exist, i.e. mvn filtering was correct",
-                new File(FULLPATH_TEST_IMG).exists());
-        assertTrue("Test image has to exist", new File(FULLPATH_TEST_IMG).exists());
+        assertTrue(new File(FULLPATH_TEST_IMG).exists());
+        assertTrue(new File(FULLPATH_TEST_IMG).exists());
 
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(FULLPATH_IMAGES);
         Thread t = new Thread(renamer);

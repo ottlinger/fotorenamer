@@ -14,12 +14,12 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
-import de.aikiit.fotorenamer.gui.ProgressBar;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /**
  * @author hirsch

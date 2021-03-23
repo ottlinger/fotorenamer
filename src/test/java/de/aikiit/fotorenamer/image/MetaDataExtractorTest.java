@@ -18,20 +18,20 @@ package de.aikiit.fotorenamer.image;
 import de.aikiit.fotorenamer.TestConstants;
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
 import org.apache.log4j.Logger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.regex.Matcher;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Read properties from test images and verify exif-metadata extraction.
  *
  * @author hirsch
  */
-public class MetaDataExtractorTest {
+class MetaDataExtractorTest {
     private static final Logger LOG = Logger.getLogger(MetaDataExtractorTest.class);
 
     @Test
@@ -58,7 +58,7 @@ public class MetaDataExtractorTest {
                 MetaDataExtractor
                         .generateCreationDateInCorrectFormat(f);
         assertTrue(renamedFile.endsWith(TestConstants.PLAIN_FILE_NAME));
-        assertTrue("Expecting at least " + minLength + " chars, got " + renamedFile, renamedFile.length() >= minLength);
+        assertTrue(renamedFile.length() >= minLength);
     }
 
     /**
@@ -66,9 +66,9 @@ public class MetaDataExtractorTest {
      *
      * @throws Exception in case of errors.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     void checkAssertionErrors() throws Exception {
-        assertNull(MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
+        assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
     }
 
     /**
@@ -76,9 +76,9 @@ public class MetaDataExtractorTest {
      *
      * @throws Exception in case of errors.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     void checkAssertionErrorTag() throws Exception {
-        assertNull(MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
+        assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
     }
 
 }

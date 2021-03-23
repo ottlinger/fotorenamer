@@ -15,7 +15,7 @@
  */
 package de.aikiit.fotorenamer;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 
 import java.io.File;
 import java.util.regex.Pattern;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * @author hirsch
  * @version 2011-06-02, 13:42
  */
-@Ignore("Only constants defined here.")
+@Disabled("Only constants defined here.")
 public class TestConstants {
 
     /**

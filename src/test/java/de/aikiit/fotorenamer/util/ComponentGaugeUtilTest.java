@@ -14,16 +14,15 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.util;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import javax.swing.JButton;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 
-import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
+import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.createImageIcon;
+import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.makeCentered;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests util methods.
@@ -31,7 +30,7 @@ import static org.junit.Assert.assertNull;
  * @author hirsch
  * @version 2011-03-21, 13:18
  */
-@Ignore("Not working in travis.")
+//@Disabled("Not working in travis.")
 class ComponentGaugeUtilTest {
     /**
      * Checks image creation with a valid and an invalid path.
@@ -46,11 +45,12 @@ class ComponentGaugeUtilTest {
     /**
      * Checks assertion failure with null parameter.
      */
-    @Test(expected = AssertionError.class)
+    @Test
     void createIconFromStringPathWithAssertionFailure() {
-        assertNull(createImageIcon(null));
+        assertThrows(AssertionError.class, () ->
+                assertNull(createImageIcon(null))
+        );
     }
-
 
     /**
      * Checks that a component gets a non-default location after calling util

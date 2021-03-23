@@ -15,7 +15,7 @@
  */
 package de.aikiit.fotorenamer.image;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertFalse;
  * @author hirsch
  * @version 2016-01-17, 21:44
  */
-public class ImageFilenameFilterTest {
+class ImageFilenameFilterTest {
 
     @Test
     void nullArgumentsAreSafe() {

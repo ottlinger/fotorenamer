@@ -15,13 +15,12 @@
  */
 package de.aikiit.fotorenamer.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.*;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testing resource bundling.
