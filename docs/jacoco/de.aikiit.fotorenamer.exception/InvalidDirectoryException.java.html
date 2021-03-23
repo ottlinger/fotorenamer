@@ -32,10 +32,14 @@ public class InvalidDirectoryException extends Exception {
 <span class="fc" id="L32">    private static final Logger LOG =</span>
 <span class="fc" id="L33">            Logger.getLogger(InvalidDirectoryException.class);</span>
 
+    /**
+    * Shows and logs a given error message.
+    * @param message the error message.
+    */
     public InvalidDirectoryException(String message) {
-<span class="fc" id="L36">        super(message);</span>
-<span class="fc" id="L37">        LOG.error(&quot;invalid directory: &quot; + message);</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L40">        super(message);</span>
+<span class="fc" id="L41">        LOG.error(&quot;invalid directory: &quot; + message);</span>
+<span class="fc" id="L42">    }</span>
 
     /**
      * Provide error messages for one directory.
@@ -43,9 +47,9 @@ public class InvalidDirectoryException extends Exception {
      * @param directory Current directory.
      */
     public InvalidDirectoryException(final File directory) {
-<span class="nc" id="L46">        super(directory.toString());</span>
-<span class="nc" id="L47">        LOG.error(&quot;invalid directory: &quot; + directory);</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L50">        super(directory.toString());</span>
+<span class="nc" id="L51">        LOG.error(&quot;invalid directory: &quot; + directory);</span>
+<span class="nc" id="L52">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

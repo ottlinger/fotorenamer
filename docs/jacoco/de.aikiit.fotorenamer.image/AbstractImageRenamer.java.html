@@ -123,9 +123,9 @@ abstract class AbstractImageRenamer implements Runnable {
             try {
 <span class="fc" id="L124">                Files.move(file.toPath(), new File(file.getParent(),</span>
 <span class="fc" id="L125">                        targetFilename).toPath());</span>
-<span class="fc" id="L126">            } catch (IOException e) {</span>
-<span class="fc" id="L127">                LOG.error(&quot;Unable to rename '&quot;</span>
-<span class="fc" id="L128">                        + file.getName() + &quot;' to '&quot;</span>
+<span class="nc" id="L126">            } catch (IOException e) {</span>
+<span class="nc" id="L127">                LOG.error(&quot;Unable to rename '&quot;</span>
+<span class="nc" id="L128">                        + file.getName() + &quot;' to '&quot;</span>
                         + targetFilename + &quot;'&quot;);
 <span class="fc" id="L130">            }</span>
 <span class="fc" id="L131">        };</span>
@@ -169,7 +169,7 @@ abstract class AbstractImageRenamer implements Runnable {
         }
 
         // show UI-notification
-<span class="pc bpc" id="L172" title="1 of 3 branches missed.">        switch (this.amountOfFiles) {</span>
+<span class="pc bpc" id="L172" title="2 of 3 branches missed.">        switch (this.amountOfFiles) {</span>
             case 0:
 <span class="nc" id="L174">                notification = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName());</span>
 <span class="nc" id="L175">                break;</span>
@@ -177,7 +177,7 @@ abstract class AbstractImageRenamer implements Runnable {
 <span class="fc" id="L177">                notification = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName());</span>
 <span class="fc" id="L178">                break;</span>
             default:
-<span class="fc" id="L180">                notification = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.amountOfFiles, this.currentDirectory.getName());</span>
+<span class="nc" id="L180">                notification = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.amountOfFiles, this.currentDirectory.getName());</span>
                 break;
         }
 
