@@ -32,6 +32,10 @@ public class InvalidDirectoryException extends Exception {
     private static final Logger LOG =
             Logger.getLogger(InvalidDirectoryException.class);
 
+    /**
+    * Shows and logs a given error message.
+    * @param message the error message.
+    */
     public InvalidDirectoryException(String message) {
         super(message);
         LOG.error("invalid directory: " + message);
