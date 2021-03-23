@@ -481,6 +481,7 @@ limitations under the License.
               <goal>copy-resources</goal>
             </goals>
             <configuration>
+              <propertiesEncoding>UTF-8</propertiesEncoding>
               <outputDirectory>${project.build.directory}/generated-sources/de/aikiit/fotorenamer/util</outputDirectory>
               <resources>
                 <resource>
