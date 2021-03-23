@@ -14,6 +14,9 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -22,9 +25,9 @@ import static org.junit.Assert.assertNotNull;
  * @author hirsch
  * @version 2011-04-08, 00:24
  */
-@org.junit.Ignore("Not working in travis.")
+@Ignore("Not working in travis.")
 public class HelpWindowTest {
-    @org.junit.Test
+    @Test
     void initWindow() {
         assertNotNull(new HelpWindow());
     }
