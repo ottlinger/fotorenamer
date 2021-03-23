@@ -60,6 +60,9 @@ public class ProgressBar extends JFrame {
      */
     private int delayInUI = -1;
 
+    /**
+    * Current success rate/counter.
+    */
     private final AtomicInteger currentState;
 
     /**
