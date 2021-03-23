@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
  * @author hirsch
  * @version 2011-06-02, 13:41
  */
-public class CreationDateFromExifImageRenamerTest {
+class CreationDateFromExifImageRenamerTest {
 
     private static final Logger LOG = Logger.
             getLogger(CreationDateFromExifImageRenamerTest.class);
@@ -42,7 +42,7 @@ public class CreationDateFromExifImageRenamerTest {
      * @throws Exception in case of errors.
      */
     @Test(expected = InvalidDirectoryException.class)
-    public final void checkNPECorrectnessInConstructor() throws Exception {
+    void checkNPECorrectnessInConstructor() throws Exception {
         CreationDateFromExifImageRenamer imageRenamer = new
                 CreationDateFromExifImageRenamer(null);
         // just to avoid compiler warnings, code will not be reached
@@ -56,8 +56,7 @@ public class CreationDateFromExifImageRenamerTest {
     // TODO redesign application - component mingles function and GUI and is
     // not clearly testable
     @Test
-    public final void renameTestImageAndDeleteFileAfterwards() throws
-            Exception {
+    void renameTestImageAndDeleteFileAfterwards() throws Exception {
 
         LOG.info("Working on file " + FULLPATH_TEST_IMG);
         assertTrue("Test image directory has to exist, i.e. mvn filtering was correct",

@@ -23,10 +23,10 @@ import static org.junit.Assert.assertFalse;
  * @author hirsch
  * @version 2016-01-17, 21:44
  */
-public class ImageFilenameFilterTest {
+class ImageFilenameFilterTest {
 
     @Test
-    public final void nullArgumentsAreSafe() {
+    void nullArgumentsAreSafe() {
         assertFalse(new ImageFilenameFilter().accept(null, null));
         assertFalse(new ImageFilenameFilter().accept(null, "anyMatch"));
     }
