@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @Ignore("Maybe GH pages error is connected to this test?")
 class FotorenamerExceptionTest {
     @Test
-    public final void planConstructors() {
+    void planConstructors() {
         RenamingErrorException e = new RenamingErrorException("woo");
         assertTrue(e.getMessage().contains("woo"));
 
@@ -34,7 +34,7 @@ class FotorenamerExceptionTest {
     }
 
     @Test
-    public final void invalidDirectories() {
+    void invalidDirectories() {
         InvalidDirectoryException e1 = new InvalidDirectoryException(new File
                 ("woo"));
         assertNotNull(e1);
