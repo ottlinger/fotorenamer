@@ -22,7 +22,7 @@ import java.io.File;
 import static org.junit.Assert.*;
 
 @Ignore("Maybe GH pages error is connected to this test?")
-public class FotorenamerExceptionTest {
+class FotorenamerExceptionTest {
     @Test
     public final void planConstructors() {
         RenamingErrorException e = new RenamingErrorException("woo");
