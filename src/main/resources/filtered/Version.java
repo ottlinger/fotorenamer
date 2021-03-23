@@ -19,10 +19,25 @@ package de.aikiit.fotorenamer.util;
  */
 public class Version {
 
+    /**
+    * Current version of the project read from pom.xml.
+    */
     public static final String VERSION = "${project.version}";
+    /**
+    * Build timestamp in milliseconds.
+    */
     public static final String TIMESTAMP = "${timestamp}";
+    /**
+    * Build number of the current artifact.
+    */
     public static final String BUILD_NUMBER = "${buildNumber}";
+    /**
+    * Maven coordinate: project.artifactId.
+    */
     public static final String PROJECT_ARTIFACT_ID = "${project.artifactId}";
+    /**
+    * Maven coordinate: project.version.
+    */
     public static final String PROJECT_VERSION = "${project.version}";
 
 } 
