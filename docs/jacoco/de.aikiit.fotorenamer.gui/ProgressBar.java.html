@@ -37,7 +37,7 @@ public class ProgressBar extends JFrame {
     /**
      * Logger for this class.
      */
-<span class="fc" id="L40">    private static final Logger LOG = LogManager.getLogger(ProgressBar.class);</span>
+<span class="nc" id="L40">    private static final Logger LOG = LogManager.getLogger(ProgressBar.class);</span>
     /**
      * By default the UI sleeps for 200 ms to be able to read the file names
      * during operation.
@@ -47,18 +47,18 @@ public class ProgressBar extends JFrame {
     /**
      * Text field to show current file or other information during run.
      */
-<span class="fc" id="L50">    private JLabel textInfo = null;</span>
+<span class="nc" id="L50">    private JLabel textInfo = null;</span>
     /**
      * The visual progress bar.
      */
-<span class="fc" id="L54">    private JProgressBar progressBar = null;</span>
+<span class="nc" id="L54">    private JProgressBar progressBar = null;</span>
     /**
      * Amount of seconds the UI sleeps in order to give a
      * user a chance to read the screen,
      * this value is calculated dynamically
      * depending on the amount of pictures to be processed.
      */
-<span class="fc" id="L61">    private int delayInUI = -1;</span>
+<span class="nc" id="L61">    private int delayInUI = -1;</span>
 
     /**
     * Current success rate/counter.
@@ -70,10 +70,10 @@ public class ProgressBar extends JFrame {
      *
      * @param maxCapacity Defines the 100%-scale for this progress bar.
      */
-<span class="fc" id="L73">    public ProgressBar(final int maxCapacity) {</span>
-<span class="fc" id="L74">        currentState = new AtomicInteger(0);</span>
-<span class="fc" id="L75">        init(maxCapacity);</span>
-<span class="fc" id="L76">    }</span>
+<span class="nc" id="L73">    public ProgressBar(final int maxCapacity) {</span>
+<span class="nc" id="L74">        currentState = new AtomicInteger(0);</span>
+<span class="nc" id="L75">        init(maxCapacity);</span>
+<span class="nc" id="L76">    }</span>
 
     /**
      * Perform internal initialization of UI components.
@@ -83,32 +83,32 @@ public class ProgressBar extends JFrame {
      */
     private void init(final int maxCapacity) {
         // set window title
-<span class="fc" id="L86">        this.setTitle(</span>
-<span class="fc" id="L87">                getBundleString(&quot;fotorenamer.ui.progress&quot;));</span>
+<span class="nc" id="L86">        this.setTitle(</span>
+<span class="nc" id="L87">                getBundleString(&quot;fotorenamer.ui.progress&quot;));</span>
 
-<span class="fc" id="L89">        this.setResizable(false);</span>
-<span class="fc" id="L90">        this.progressBar = new JProgressBar(0, maxCapacity);</span>
+<span class="nc" id="L89">        this.setResizable(false);</span>
+<span class="nc" id="L90">        this.progressBar = new JProgressBar(0, maxCapacity);</span>
 
-<span class="fc" id="L92">        JLabel info = new JLabel(</span>
-<span class="fc" id="L93">                getBundleString(</span>
+<span class="nc" id="L92">        JLabel info = new JLabel(</span>
+<span class="nc" id="L93">                getBundleString(</span>
                         &quot;fotorenamer.ui.progress.title&quot;));
-<span class="fc" id="L95">        this.textInfo = new JLabel();</span>
-<span class="fc" id="L96">        this.progressBar.setValue(0);</span>
-<span class="fc" id="L97">        this.progressBar.setStringPainted(true);</span>
+<span class="nc" id="L95">        this.textInfo = new JLabel();</span>
+<span class="nc" id="L96">        this.progressBar.setValue(0);</span>
+<span class="nc" id="L97">        this.progressBar.setStringPainted(true);</span>
         // default value: 200 ms
         // calculate delay in UI depending on maximum capacity of the bar
         // itself; the more files the lower the delay
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        this.delayInUI = maxCapacity &lt; 35</span>
-<span class="pc" id="L102">                ? DEFAULT_UI_DELAY : DEFAULT_UI_DELAY / 3;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        this.delayInUI = maxCapacity &lt; 35</span>
+<span class="nc" id="L102">                ? DEFAULT_UI_DELAY : DEFAULT_UI_DELAY / 3;</span>
 
-<span class="fc" id="L104">        this.getContentPane().setLayout(new GridLayout(3, 1));</span>
-<span class="fc" id="L105">        this.getContentPane().add(info);</span>
-<span class="fc" id="L106">        this.getContentPane().add(textInfo);</span>
-<span class="fc" id="L107">        this.getContentPane().add(progressBar);</span>
-<span class="fc" id="L108">        ComponentGaugeUtil.makeCentered(this);</span>
-<span class="fc" id="L109">        this.pack();</span>
-<span class="fc" id="L110">        this.setVisible(true);</span>
-<span class="fc" id="L111">    } // end of init</span>
+<span class="nc" id="L104">        this.getContentPane().setLayout(new GridLayout(3, 1));</span>
+<span class="nc" id="L105">        this.getContentPane().add(info);</span>
+<span class="nc" id="L106">        this.getContentPane().add(textInfo);</span>
+<span class="nc" id="L107">        this.getContentPane().add(progressBar);</span>
+<span class="nc" id="L108">        ComponentGaugeUtil.makeCentered(this);</span>
+<span class="nc" id="L109">        this.pack();</span>
+<span class="nc" id="L110">        this.setVisible(true);</span>
+<span class="nc" id="L111">    } // end of init</span>
 
     /**
      * After any changes the UI needs to be repainted and recentered which is
@@ -116,26 +116,26 @@ public class ProgressBar extends JFrame {
      * human readable.
      */
     public final void updateUI() {
-<span class="fc" id="L119">        this.pack();</span>
-<span class="fc" id="L120">        ComponentGaugeUtil.makeCentered(this);</span>
+<span class="nc" id="L119">        this.pack();</span>
+<span class="nc" id="L120">        ComponentGaugeUtil.makeCentered(this);</span>
 
         // TODO replace with a Timer - see
         // http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
         try {
-<span class="fc" id="L125">            TimeUnit.MILLISECONDS.sleep(this.delayInUI);</span>
+<span class="nc" id="L125">            TimeUnit.MILLISECONDS.sleep(this.delayInUI);</span>
 <span class="nc" id="L126">        } catch (InterruptedException e) {</span>
 <span class="nc" id="L127">            Thread.currentThread().interrupt();</span>
 <span class="nc" id="L128">            LOG.error(&quot;Thread sleep error during repaint of ProgressBar, &quot; + e.getMessage());</span>
-<span class="fc" id="L129">        }</span>
-<span class="fc" id="L130">    }</span>
+<span class="nc" id="L129">        }</span>
+<span class="nc" id="L130">    }</span>
 
     /**
      * Set progress by setting the amount of items that are processed
      * successfully.
      */
     public final void setProgress() {
-<span class="fc" id="L137">        this.progressBar.setValue(currentState.getAndIncrement());</span>
-<span class="fc" id="L138">    }</span>
+<span class="nc" id="L137">        this.progressBar.setValue(currentState.getAndIncrement());</span>
+<span class="nc" id="L138">    }</span>
 
     /**
      * Sets the part of this component that shows above the graphical bar.
@@ -143,8 +143,8 @@ public class ProgressBar extends JFrame {
      * @param textContent Content to show under the graphical progress bar.
      */
     public final void setText(final String textContent) {
-<span class="fc" id="L146">        this.textInfo.setText(textContent);</span>
-<span class="fc" id="L147">    }</span>
+<span class="nc" id="L146">        this.textInfo.setText(textContent);</span>
+<span class="nc" id="L147">    }</span>
 
     /**
      * Getter for text value.

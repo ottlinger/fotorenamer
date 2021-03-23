@@ -30,13 +30,13 @@ import java.awt.Toolkit;
  * @author hirsch, 20.10.2003
  * @version 2003-10-22
  */
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">@NoArgsConstructor(access = AccessLevel.PRIVATE)</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">@NoArgsConstructor(access = AccessLevel.PRIVATE)</span>
 public final class ComponentGaugeUtil {
     /**
      * Logger for this class.
      */
-<span class="fc" id="L38">    private static final Logger LOG =</span>
-<span class="fc" id="L39">            LogManager.getLogger(ComponentGaugeUtil.class);</span>
+<span class="nc" id="L38">    private static final Logger LOG =</span>
+<span class="nc" id="L39">            LogManager.getLogger(ComponentGaugeUtil.class);</span>
 
     /**
      * Gauge the given component on screen.
@@ -44,13 +44,13 @@ public final class ComponentGaugeUtil {
      * @param component Swing-component to gauge.
      */
     public static void makeCentered(final Component component) {
-<span class="fc" id="L47">        Toolkit toolkit = Toolkit.getDefaultToolkit();</span>
-<span class="fc" id="L48">        Dimension dim = toolkit.getScreenSize();</span>
-<span class="fc" id="L49">        int screenWidth = dim.width;</span>
-<span class="fc" id="L50">        int screenHeight = dim.height;</span>
-<span class="fc" id="L51">        component.setLocation((screenWidth - component.getSize().width) / 2,</span>
-<span class="fc" id="L52">                (screenHeight - component.getSize().height) / 2);</span>
-<span class="fc" id="L53">    }</span>
+<span class="nc" id="L47">        Toolkit toolkit = Toolkit.getDefaultToolkit();</span>
+<span class="nc" id="L48">        Dimension dim = toolkit.getScreenSize();</span>
+<span class="nc" id="L49">        int screenWidth = dim.width;</span>
+<span class="nc" id="L50">        int screenHeight = dim.height;</span>
+<span class="nc" id="L51">        component.setLocation((screenWidth - component.getSize().width) / 2,</span>
+<span class="nc" id="L52">                (screenHeight - component.getSize().height) / 2);</span>
+<span class="nc" id="L53">    }</span>
 
     /**
      * Helper that transforms a given path into an ImageIcon. In case of errors
