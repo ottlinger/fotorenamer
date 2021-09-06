@@ -15,8 +15,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <FindBugsFilter>
-<Match>
-  <Class name="de.aikiit.fotorenamer.gui.MainUIWindow" />
-  <Bug pattern="DM_EXIT" />
-</Match>
+  <Match>
+    <Class name="de.aikiit.fotorenamer.gui.MainUIWindow" />
+    <Bug pattern="DM_EXIT" />
+  </Match>
+  <Match>
+    <Class name="de.aikiit.fotorenamer.util.LocalizationHelper" />
+    <Bug pattern="MS_EXPOSE_REP" />
+  </Match>
 </FindBugsFilter>
