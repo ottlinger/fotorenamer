@@ -2,8 +2,8 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,CreationDateFromExifImageRenamer,27,0,0,0,12,0,3,0,3,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,AbstractImageRenamer,261,0,15,0,52,0,15,0,7,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,MetaDataExtractor,149,0,20,0,26,0,13,0,3,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RemoveExifPrefixRenamer,254,0,20,0,48,0,15,0,5,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,ImageFilenameFilter,68,0,14,0,10,0,11,0,4,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RemoveExifPrefixRenamer,254,0,20,0,48,0,15,0,5,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,RenamingErrorException,18,0,0,0,5,0,2,0,2,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,NoFilesFoundException,24,0,2,0,5,0,3,0,2,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,InvalidDirectoryException,33,0,0,0,8,0,3,0,3,0
