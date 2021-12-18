@@ -482,7 +482,9 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <propertiesEncoding>UTF-8</propertiesEncoding>
+              <!-- as we are running with JDK8 and UTF-8 is default from JDK9 upwards -->
+              <propertiesEncoding>ISO-8859-1</propertiesEncoding>
+              <encoding>UTF-8</encoding>
               <outputDirectory>${project.build.directory}/generated-sources/de/aikiit/fotorenamer/util
                             </outputDirectory>
               <resources>
