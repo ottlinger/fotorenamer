@@ -537,7 +537,7 @@
       <!-- set compiler level to 1.8 -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.9.0</version>
+        <version>3.10.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <source>1.8</source>
