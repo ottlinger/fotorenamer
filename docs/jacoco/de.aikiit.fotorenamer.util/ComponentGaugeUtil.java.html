@@ -30,7 +30,7 @@ import java.awt.Toolkit;
  * @author hirsch, 20.10.2003
  * @version 2003-10-22
  */
-<span class="nc bnc" id="L33" title="All 2 branches missed.">@NoArgsConstructor(access = AccessLevel.PRIVATE)</span>
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ComponentGaugeUtil {
     /**
      * Logger for this class.
@@ -60,7 +60,7 @@ public final class ComponentGaugeUtil {
      * @return ImageIcon, located at the given path.
      */
     public static ImageIcon createImageIcon(final String path) {
-<span class="nc bnc" id="L63" title="All 4 branches missed.">        assert path != null : &quot;Path for image icon needs to be set.&quot;;</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        assert path != null : &quot;Path for image icon needs to be set.&quot;;</span>
 <span class="nc" id="L64">        LOG.debug(&quot;Creating image icon from path &quot; + path);</span>
 <span class="nc" id="L65">        java.net.URL imgURL = ComponentGaugeUtil.class.getResource(path);</span>
 <span class="nc" id="L66">        LOG.debug(&quot;extracted URL is: &quot; + imgURL);</span>
@@ -74,4 +74,4 @@ public final class ComponentGaugeUtil {
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
