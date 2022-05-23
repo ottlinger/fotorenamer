@@ -32,7 +32,7 @@ import java.io.IOException;
  * Helper class to extract metadata from given images. This class uses Apache
  * Sanslean to perform the metadata extraction itself.
  */
-<span class="nc bnc" id="L35" title="All 2 branches missed.">final class MetaDataExtractor {</span>
+final class MetaDataExtractor {
     /**
      * This class' logger.
      */
@@ -88,8 +88,8 @@ import java.io.IOException;
     public static String getExifMetadata(final File image,
                                          final TagInfo tag)
             throws IOException, ImageReadException {
-<span class="nc bnc" id="L91" title="All 4 branches missed.">        assert image != null : &quot;Parameter image must not be null&quot;;</span>
-<span class="nc bnc" id="L92" title="All 4 branches missed.">        assert tag != null : &quot;Parameter tag must not be null&quot;;</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        assert image != null : &quot;Parameter image must not be null&quot;;</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        assert tag != null : &quot;Parameter tag must not be null&quot;;</span>
 
 <span class="nc" id="L94">        String result = EMPTY_STRING;</span>
 <span class="nc" id="L95">        ImageMetadata metadata = Imaging.getMetadata(image);</span>
@@ -164,4 +164,4 @@ import java.io.IOException;
 <span class="nc" id="L164">        return dateValue;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
