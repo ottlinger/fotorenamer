@@ -56,6 +56,11 @@ under the License.
         <src>/images/topbar-logo.png</src>
         <href>/index.html</href>
       </topBarIcon>
+      <gitHub>
+        <projectId>ottlinger/fotorenamer</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>darkblue</ribbonColor>
+      </gitHub>
     </fluidoSkin>
   </custom>
 </project>
