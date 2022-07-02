@@ -23,4 +23,13 @@ limitations under the License.
     <Class name="de.aikiit.fotorenamer.util.LocalizationHelper" />
     <Bug pattern="MS_EXPOSE_REP" />
   </Match>
+  <!-- 20220703: Usage of SwingWorker gives this exception -->
+  <Match>
+    <Class name="de.aikiit.fotorenamer.gui.ImageDirectorySelector$2$1" />
+    <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+  </Match>
+  <Match>
+    <Class name="de.aikiit.fotorenamer.gui.MainUIWindow$1" />
+    <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+  </Match>
 </FindBugsFilter>
