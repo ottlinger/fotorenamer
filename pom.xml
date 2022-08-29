@@ -59,7 +59,7 @@
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.14</rat.version>
-    <javadoc-plugin.version>3.4.0</javadoc-plugin.version>
+    <javadoc-plugin.version>3.4.1</javadoc-plugin.version>
     <junit.jupiter.version>5.9.0</junit.jupiter.version>
     <junit.platform.version>1.9.0</junit.platform.version>
   </properties>
