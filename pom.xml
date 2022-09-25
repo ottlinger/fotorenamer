@@ -60,7 +60,7 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.14</rat.version>
     <javadoc-plugin.version>3.4.1</javadoc-plugin.version>
-    <junit.jupiter.version>5.9.0</junit.jupiter.version>
+    <junit.jupiter.version>5.9.1</junit.jupiter.version>
     <junit.platform.version>1.9.0</junit.platform.version>
   </properties>
   <dependencies>
@@ -191,7 +191,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.18.0</version>
+        <version>3.19.0</version>
         <configuration>
           <linkXRef>true</linkXRef>
           <sourceEncoding>UTF-8</sourceEncoding>
