@@ -60,7 +60,7 @@ class ImageDirectorySelector extends JPanel {
     /**
      * An image icon that is displayed as part of the button.
      */
-    private ImageIcon imageIcon;
+    private final ImageIcon imageIcon;
 
     /**
      * Default constructor provides means to create an imageSelect with a given
