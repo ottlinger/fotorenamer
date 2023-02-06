@@ -17,12 +17,8 @@ package de.aikiit.fotorenamer.image;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-/**
- * @author hirsch
- * @version 2016-01-17, 21:44
- */
 class ImageFilenameFilterTest {
 
     @Test

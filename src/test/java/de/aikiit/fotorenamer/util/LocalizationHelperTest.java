@@ -41,6 +41,7 @@ public class LocalizationHelperTest {
     /**
      * Retrieve a i18n-value with parameters set.
      */
+    @SuppressWarnings("RedundantArrayCreation")
     @Test
     void checkParametrizedValueExtraction() {
         assertEquals("Erfolg und dann folgt noch die 7", getParameterizedBundleString("fotorenamer.test.param",
