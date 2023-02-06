@@ -49,7 +49,7 @@ $ java -jar target/fotorenamer-2.0.0-executable.jar
 
 ### Localization
 
-Relates to [issue #10](../../issues/10)
+Relates to [issue #10](https://github.com/ottlinger/fotorenamer/issues/10)
 
   As of now the application can be localized (at the moment only German and English is supported). Use the following parameters to explicitly set language and country or trust your system defaults:
 ```
