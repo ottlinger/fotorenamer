@@ -60,7 +60,7 @@ class ImageDirectorySelector extends JPanel {
     /**
      * An image icon that is displayed as part of the button.
      */
-<span class="nc" id="L63">    private ImageIcon imageIcon = null;</span>
+    private ImageIcon imageIcon;
 
     /**
      * Default constructor provides means to create an imageSelect with a given
@@ -176,74 +176,75 @@ class ImageDirectorySelector extends JPanel {
                                     DataFlavor.javaFileListFlavor);
 
 <span class="nc bnc" id="L178" title="All 2 branches missed.">                    if (transferData instanceof java.util.List) {</span>
-<span class="nc" id="L179">                        java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;</span>
-<span class="nc bnc" id="L180" title="All 2 branches missed.">                        if (!droppedFiles.isEmpty()) {</span>
-<span class="nc bnc" id="L181" title="All 2 branches missed.">                            for (File droppedFile : droppedFiles) {</span>
-<span class="nc bnc" id="L182" title="All 2 branches missed.">                                if (droppedFile.isDirectory()) {</span>
-<span class="nc" id="L183">                                    final String path = droppedFile.getAbsolutePath();</span>
-<span class="nc" id="L184">                                    LOG.info(&quot;Drag'n'drop done for file: &quot; + path + &quot; with &quot; + droppedFiles.size() + &quot; element(s) received&quot;);</span>
-<span class="nc" id="L185">                                    textField.setText(path);</span>
-<span class="nc" id="L186">                                    break;</span>
+                        //noinspection unchecked
+<span class="nc" id="L180">                        java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">                        if (!droppedFiles.isEmpty()) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">                            for (File droppedFile : droppedFiles) {</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">                                if (droppedFile.isDirectory()) {</span>
+<span class="nc" id="L184">                                    final String path = droppedFile.getAbsolutePath();</span>
+<span class="nc" id="L185">                                    LOG.info(&quot;Drag'n'drop done for file: &quot; + path + &quot; with &quot; + droppedFiles.size() + &quot; element(s) received&quot;);</span>
+<span class="nc" id="L186">                                    textField.setText(path);</span>
+<span class="nc" id="L187">                                    break;</span>
                                 }
-<span class="nc" id="L188">                            }</span>
+<span class="nc" id="L189">                            }</span>
                         }
                     }
 
-<span class="nc" id="L192">                } catch (Exception ex) {</span>
-<span class="nc" id="L193">                    LOG.info(&quot;Drag'd'drop did not work due to &quot; + ex);</span>
-<span class="nc" id="L194">                }</span>
-<span class="nc" id="L195">            }</span>
+<span class="nc" id="L193">                } catch (Exception ex) {</span>
+<span class="nc" id="L194">                    LOG.info(&quot;Drag'd'drop did not work due to &quot; + ex);</span>
+<span class="nc" id="L195">                }</span>
+<span class="nc" id="L196">            }</span>
         });
 
         // make textfield react on Enter/copied over from MainUIWindow
-<span class="nc" id="L199">        textField.addKeyListener(new KeyAdapter() {</span>
+<span class="nc" id="L200">        textField.addKeyListener(new KeyAdapter() {</span>
             @Override
             public void keyPressed(final KeyEvent e) {
-<span class="nc bnc" id="L202" title="All 2 branches missed.">                if (e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">                if (e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
 
-<span class="nc" id="L204">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;Void, Void&gt;() {</span>
+<span class="nc" id="L205">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;Void, Void&gt;() {</span>
                         @Override
                         protected Void doInBackground() {
-<span class="nc bnc" id="L207" title="All 2 branches missed.">                            if (isWaiting()) {</span>
-<span class="nc" id="L208">                                showErrorPopup(getBundleString(&quot;fotorenamer.ui.error.nodirectory&quot;), getBundleString(&quot;fotorenamer.ui.error.nodirectory.title&quot;));</span>
-<span class="nc" id="L209">                                return null;</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                            if (isWaiting()) {</span>
+<span class="nc" id="L209">                                showErrorPopup(getBundleString(&quot;fotorenamer.ui.error.nodirectory&quot;), getBundleString(&quot;fotorenamer.ui.error.nodirectory.title&quot;));</span>
+<span class="nc" id="L210">                                return null;</span>
                             }
 
                             // perform renaming
                             try {
-<span class="nc" id="L214">                                CreationDateFromExifImageRenamer renamer =</span>
-<span class="nc" id="L215">                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());</span>
-<span class="nc" id="L216">                                new Thread(renamer).start();</span>
-<span class="nc" id="L217">                            } catch (InvalidDirectoryException uv) {</span>
-<span class="nc" id="L218">                                LOG.info(&quot;Invalid directory selected: &quot; + uv.getMessage());</span>
-<span class="nc" id="L219">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()), getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;));</span>
-<span class="nc" id="L220">                            } catch (NoFilesFoundException kde) {</span>
-<span class="nc" id="L221">                                LOG.info(&quot;No files found in &quot; + kde.getMessage());</span>
-<span class="nc" id="L222">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()), getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;));</span>
-<span class="nc" id="L223">                            }</span>
-<span class="nc" id="L224">                            return null;</span>
+<span class="nc" id="L215">                                CreationDateFromExifImageRenamer renamer =</span>
+<span class="nc" id="L216">                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());</span>
+<span class="nc" id="L217">                                new Thread(renamer).start();</span>
+<span class="nc" id="L218">                            } catch (InvalidDirectoryException uv) {</span>
+<span class="nc" id="L219">                                LOG.info(&quot;Invalid directory selected: &quot; + uv.getMessage());</span>
+<span class="nc" id="L220">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()), getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;));</span>
+<span class="nc" id="L221">                            } catch (NoFilesFoundException kde) {</span>
+<span class="nc" id="L222">                                LOG.info(&quot;No files found in &quot; + kde.getMessage());</span>
+<span class="nc" id="L223">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()), getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;));</span>
+<span class="nc" id="L224">                            }</span>
+<span class="nc" id="L225">                            return null;</span>
                         }
 
                         @Override
                         protected void done() {
                             // TODO how can I communicate with the surrounding UI to block the user from pressing the buttons
-<span class="nc" id="L230">                            LOG.debug(&quot;Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.&quot;);</span>
-<span class="nc" id="L231">                        }</span>
+<span class="nc" id="L231">                            LOG.debug(&quot;Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.&quot;);</span>
+<span class="nc" id="L232">                        }</span>
                     };
                     // Execute the SwingWorker; GUI will not freeze
-<span class="nc" id="L234">                    worker.execute();</span>
+<span class="nc" id="L235">                    worker.execute();</span>
                 }
-<span class="nc" id="L236">            }</span>
+<span class="nc" id="L237">            }</span>
 
         });
-<span class="nc" id="L239">    }</span>
+<span class="nc" id="L240">    }</span>
 
     void showErrorPopup(final String message, final String title) {
-<span class="nc" id="L242">        JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L243">        JOptionPane.showMessageDialog(null,</span>
                 message,
                 title,
                 JOptionPane.ERROR_MESSAGE);
-<span class="nc" id="L246">    }</span>
+<span class="nc" id="L247">    }</span>
 
     /**
      * Current directory is the representation of this component.
@@ -251,13 +252,13 @@ class ImageDirectorySelector extends JPanel {
      * @return The currently selected directory.
      */
     final String getSelectedDirectory() {
-<span class="nc" id="L254">        String currentSelection = this.textField.getText();</span>
-<span class="nc bnc" id="L255" title="All 2 branches missed.">        if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {</span>
-<span class="nc" id="L256">            currentSelection = currentSelection.replaceAll(&quot;~&quot;, System.getProperty(&quot;user.home&quot;));</span>
-<span class="nc" id="L257">            currentSelection = currentSelection.trim();</span>
-<span class="nc" id="L258">            LOG.debug(&quot;User input transformed into &quot; + currentSelection);</span>
+<span class="nc" id="L255">        String currentSelection = this.textField.getText();</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">        if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {</span>
+<span class="nc" id="L257">            currentSelection = currentSelection.replaceAll(&quot;~&quot;, System.getProperty(&quot;user.home&quot;));</span>
+<span class="nc" id="L258">            currentSelection = currentSelection.trim();</span>
+<span class="nc" id="L259">            LOG.debug(&quot;User input transformed into &quot; + currentSelection);</span>
         }
-<span class="nc" id="L260">        return currentSelection;</span>
+<span class="nc" id="L261">        return currentSelection;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

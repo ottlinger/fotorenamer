@@ -48,7 +48,7 @@ public class RemoveExifPrefixRenamer implements Runnable {
      */
     private static final String REPLACE_PATTERN = &quot;\\d{8}[_]\\d{4}[_]&quot;;
 
-<span class="nc" id="L51">    private File currentDirectory = null;</span>
+    private File currentDirectory;
 <span class="nc" id="L52">    private List&lt;File&gt; listOfFiles = Lists.newArrayList();</span>
 <span class="nc" id="L53">    private ProgressBar progressBar = null;</span>
 <span class="nc" id="L54">    private final AtomicInteger done = new AtomicInteger(0);</span>

@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * An image icon that is displayed as part of the button.</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> ImageIcon imageIcon = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">private</strong> ImageIcon imageIcon;
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * Default constructor provides means to create an imageSelect with a given</em>
@@ -184,90 +184,91 @@
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>                                     DataFlavor.javaFileListFlavor);
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>                     <strong class="jxr_keyword">if</strong> (transferData instanceof java.util.List) {
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>                         java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>                         <strong class="jxr_keyword">if</strong> (!droppedFiles.isEmpty()) {
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>                             <strong class="jxr_keyword">for</strong> (File droppedFile : droppedFiles) {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                                 <strong class="jxr_keyword">if</strong> (droppedFile.isDirectory()) {
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>                                     <strong class="jxr_keyword">final</strong> String path = droppedFile.getAbsolutePath();
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>                                     LOG.info(<span class="jxr_string">"Drag'n'drop done for file: "</span> + path + <span class="jxr_string">" with "</span> + droppedFiles.size() + <span class="jxr_string">" element(s) received"</span>);
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>                                     textField.setText(path);
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>                                     <strong class="jxr_keyword">break</strong>;
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>                                 }
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>                             }
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>                         }
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>                     }
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> 
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>                 } <strong class="jxr_keyword">catch</strong> (Exception ex) {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>                     LOG.info(<span class="jxr_string">"Drag'd'drop did not work due to "</span> + ex);
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>                 }
-<a class="jxr_linenumber" name="L195" href="#L195">195</a>             }
-<a class="jxr_linenumber" name="L196" href="#L196">196</a>         });
-<a class="jxr_linenumber" name="L197" href="#L197">197</a> 
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <em class="jxr_comment">// make textfield react on Enter/copied over from MainUIWindow</em>
-<a class="jxr_linenumber" name="L199" href="#L199">199</a>         textField.addKeyListener(<strong class="jxr_keyword">new</strong> KeyAdapter() {
-<a class="jxr_linenumber" name="L200" href="#L200">200</a>             @Override
-<a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> keyPressed(<strong class="jxr_keyword">final</strong> KeyEvent e) {
-<a class="jxr_linenumber" name="L202" href="#L202">202</a>                 <strong class="jxr_keyword">if</strong> (e.getKeyCode() == KeyEvent.VK_ENTER) {
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
-<a class="jxr_linenumber" name="L204" href="#L204">204</a>                     SwingWorker&lt;Void, Void&gt; worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;Void, Void&gt;() {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a>                         @Override
-<a class="jxr_linenumber" name="L206" href="#L206">206</a>                         <strong class="jxr_keyword">protected</strong> Void doInBackground() {
-<a class="jxr_linenumber" name="L207" href="#L207">207</a>                             <strong class="jxr_keyword">if</strong> (isWaiting()) {
-<a class="jxr_linenumber" name="L208" href="#L208">208</a>                                 showErrorPopup(getBundleString(<span class="jxr_string">"fotorenamer.ui.error.nodirectory"</span>), getBundleString(<span class="jxr_string">"fotorenamer.ui.error.nodirectory.title"</span>));
-<a class="jxr_linenumber" name="L209" href="#L209">209</a>                                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>                             }
-<a class="jxr_linenumber" name="L211" href="#L211">211</a> 
-<a class="jxr_linenumber" name="L212" href="#L212">212</a>                             <em class="jxr_comment">// perform renaming</em>
-<a class="jxr_linenumber" name="L213" href="#L213">213</a>                             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>                                 <a name="CreationDateFromExifImageRenamer" href="../../../../de/aikiit/fotorenamer/image/CreationDateFromExifImageRenamer.html#CreationDateFromExifImageRenamer">CreationDateFromExifImageRenamer</a> renamer =
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>                                         <strong class="jxr_keyword">new</strong> <a name="CreationDateFromExifImageRenamer" href="../../../../de/aikiit/fotorenamer/image/CreationDateFromExifImageRenamer.html#CreationDateFromExifImageRenamer">CreationDateFromExifImageRenamer</a>(getSelectedDirectory());
-<a class="jxr_linenumber" name="L216" href="#L216">216</a>                                 <strong class="jxr_keyword">new</strong> Thread(renamer).start();
-<a class="jxr_linenumber" name="L217" href="#L217">217</a>                             } <strong class="jxr_keyword">catch</strong> (<a name="InvalidDirectoryException" href="../../../../de/aikiit/fotorenamer/exception/InvalidDirectoryException.html#InvalidDirectoryException">InvalidDirectoryException</a> uv) {
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>                                 LOG.info(<span class="jxr_string">"Invalid directory selected: "</span> + uv.getMessage());
-<a class="jxr_linenumber" name="L219" href="#L219">219</a>                                 showErrorPopup(getParameterizedBundleString(<span class="jxr_string">"fotorenamer.ui.error.invaliddirectory"</span>, uv.getMessage()), getBundleString(<span class="jxr_string">"fotorenamer.ui.error.invaliddirectory.title"</span>));
-<a class="jxr_linenumber" name="L220" href="#L220">220</a>                             } <strong class="jxr_keyword">catch</strong> (<a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a> kde) {
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>                                 LOG.info(<span class="jxr_string">"No files found in "</span> + kde.getMessage());
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>                                 showErrorPopup(getParameterizedBundleString(<span class="jxr_string">"fotorenamer.ui.error.nofiles"</span>, kde.getMessage()), getBundleString(<span class="jxr_string">"fotorenamer.ui.error.nofiles.title"</span>));
-<a class="jxr_linenumber" name="L223" href="#L223">223</a>                             }
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>                             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>                         }
-<a class="jxr_linenumber" name="L226" href="#L226">226</a> 
-<a class="jxr_linenumber" name="L227" href="#L227">227</a>                         @Override
-<a class="jxr_linenumber" name="L228" href="#L228">228</a>                         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> done() {
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>                             <em class="jxr_comment">// TODO how can I communicate with the surrounding UI to block the user from pressing the buttons</em>
-<a class="jxr_linenumber" name="L230" href="#L230">230</a>                             LOG.debug(<span class="jxr_string">"Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow."</span>);
-<a class="jxr_linenumber" name="L231" href="#L231">231</a>                         }
-<a class="jxr_linenumber" name="L232" href="#L232">232</a>                     };
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>                     <em class="jxr_comment">// Execute the SwingWorker; GUI will not freeze</em>
-<a class="jxr_linenumber" name="L234" href="#L234">234</a>                     worker.execute();
-<a class="jxr_linenumber" name="L235" href="#L235">235</a>                 }
-<a class="jxr_linenumber" name="L236" href="#L236">236</a>             }
-<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
-<a class="jxr_linenumber" name="L238" href="#L238">238</a>         });
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>     }
-<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
-<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">void</strong> showErrorPopup(<strong class="jxr_keyword">final</strong> String message, <strong class="jxr_keyword">final</strong> String title) {
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
-<a class="jxr_linenumber" name="L243" href="#L243">243</a>                 message,
-<a class="jxr_linenumber" name="L244" href="#L244">244</a>                 title,
-<a class="jxr_linenumber" name="L245" href="#L245">245</a>                 JOptionPane.ERROR_MESSAGE);
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>     }
-<a class="jxr_linenumber" name="L247" href="#L247">247</a> 
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L249" href="#L249">249</a> <em class="jxr_javadoccomment">     * Current directory is the representation of this component.</em>
-<a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">     * @return The currently selected directory.</em>
-<a class="jxr_linenumber" name="L252" href="#L252">252</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">final</strong> String getSelectedDirectory() {
-<a class="jxr_linenumber" name="L254" href="#L254">254</a>         String currentSelection = <strong class="jxr_keyword">this</strong>.textField.getText();
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <strong class="jxr_keyword">if</strong> (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>             currentSelection = currentSelection.replaceAll(<span class="jxr_string">"~"</span>, System.getProperty(<span class="jxr_string">"user.home"</span>));
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>             currentSelection = currentSelection.trim();
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>             LOG.debug(<span class="jxr_string">"User input transformed into "</span> + currentSelection);
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         }
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         <strong class="jxr_keyword">return</strong> currentSelection;
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>     }
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> }
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>                         <em class="jxr_comment">//noinspection unchecked</em>
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>                         java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>                         <strong class="jxr_keyword">if</strong> (!droppedFiles.isEmpty()) {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>                             <strong class="jxr_keyword">for</strong> (File droppedFile : droppedFiles) {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>                                 <strong class="jxr_keyword">if</strong> (droppedFile.isDirectory()) {
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>                                     <strong class="jxr_keyword">final</strong> String path = droppedFile.getAbsolutePath();
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>                                     LOG.info(<span class="jxr_string">"Drag'n'drop done for file: "</span> + path + <span class="jxr_string">" with "</span> + droppedFiles.size() + <span class="jxr_string">" element(s) received"</span>);
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>                                     textField.setText(path);
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>                                     <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>                                 }
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>                             }
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>                         }
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>                     }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a> 
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>                 } <strong class="jxr_keyword">catch</strong> (Exception ex) {
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>                     LOG.info(<span class="jxr_string">"Drag'd'drop did not work due to "</span> + ex);
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>                 }
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>             }
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         });
+<a class="jxr_linenumber" name="L198" href="#L198">198</a> 
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         <em class="jxr_comment">// make textfield react on Enter/copied over from MainUIWindow</em>
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>         textField.addKeyListener(<strong class="jxr_keyword">new</strong> KeyAdapter() {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>             @Override
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> keyPressed(<strong class="jxr_keyword">final</strong> KeyEvent e) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>                 <strong class="jxr_keyword">if</strong> (e.getKeyCode() == KeyEvent.VK_ENTER) {
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> 
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>                     SwingWorker&lt;Void, Void&gt; worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;Void, Void&gt;() {
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>                         @Override
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>                         <strong class="jxr_keyword">protected</strong> Void doInBackground() {
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>                             <strong class="jxr_keyword">if</strong> (isWaiting()) {
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>                                 showErrorPopup(getBundleString(<span class="jxr_string">"fotorenamer.ui.error.nodirectory"</span>), getBundleString(<span class="jxr_string">"fotorenamer.ui.error.nodirectory.title"</span>));
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>                                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>                             }
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>                             <em class="jxr_comment">// perform renaming</em>
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>                             <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>                                 <a name="CreationDateFromExifImageRenamer" href="../../../../de/aikiit/fotorenamer/image/CreationDateFromExifImageRenamer.html#CreationDateFromExifImageRenamer">CreationDateFromExifImageRenamer</a> renamer =
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>                                         <strong class="jxr_keyword">new</strong> <a name="CreationDateFromExifImageRenamer" href="../../../../de/aikiit/fotorenamer/image/CreationDateFromExifImageRenamer.html#CreationDateFromExifImageRenamer">CreationDateFromExifImageRenamer</a>(getSelectedDirectory());
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>                                 <strong class="jxr_keyword">new</strong> Thread(renamer).start();
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>                             } <strong class="jxr_keyword">catch</strong> (<a name="InvalidDirectoryException" href="../../../../de/aikiit/fotorenamer/exception/InvalidDirectoryException.html#InvalidDirectoryException">InvalidDirectoryException</a> uv) {
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>                                 LOG.info(<span class="jxr_string">"Invalid directory selected: "</span> + uv.getMessage());
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>                                 showErrorPopup(getParameterizedBundleString(<span class="jxr_string">"fotorenamer.ui.error.invaliddirectory"</span>, uv.getMessage()), getBundleString(<span class="jxr_string">"fotorenamer.ui.error.invaliddirectory.title"</span>));
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>                             } <strong class="jxr_keyword">catch</strong> (<a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a> kde) {
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>                                 LOG.info(<span class="jxr_string">"No files found in "</span> + kde.getMessage());
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>                                 showErrorPopup(getParameterizedBundleString(<span class="jxr_string">"fotorenamer.ui.error.nofiles"</span>, kde.getMessage()), getBundleString(<span class="jxr_string">"fotorenamer.ui.error.nofiles.title"</span>));
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>                             }
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>                             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>                         }
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> 
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                         @Override
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                         <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> done() {
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>                             <em class="jxr_comment">// TODO how can I communicate with the surrounding UI to block the user from pressing the buttons</em>
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>                             LOG.debug(<span class="jxr_string">"Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow."</span>);
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>                         }
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>                     };
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>                     <em class="jxr_comment">// Execute the SwingWorker; GUI will not freeze</em>
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>                     worker.execute();
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>                 }
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>             }
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> 
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         });
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>     }
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> 
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">void</strong> showErrorPopup(<strong class="jxr_keyword">final</strong> String message, <strong class="jxr_keyword">final</strong> String title) {
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>         JOptionPane.showMessageDialog(<strong class="jxr_keyword">null</strong>,
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>                 message,
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>                 title,
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>                 JOptionPane.ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>     }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">     * Current directory is the representation of this component.</em>
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> <em class="jxr_javadoccomment">     * @return The currently selected directory.</em>
+<a class="jxr_linenumber" name="L253" href="#L253">253</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>     <strong class="jxr_keyword">final</strong> String getSelectedDirectory() {
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>         String currentSelection = <strong class="jxr_keyword">this</strong>.textField.getText();
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">if</strong> (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>             currentSelection = currentSelection.replaceAll(<span class="jxr_string">"~"</span>, System.getProperty(<span class="jxr_string">"user.home"</span>));
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>             currentSelection = currentSelection.trim();
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>             LOG.debug(<span class="jxr_string">"User input transformed into "</span> + currentSelection);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>         }
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>         <strong class="jxr_keyword">return</strong> currentSelection;
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>     }
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2023 <a href="https://www.aiki-it.de">Aiki IT</a>. All rights reserved.</div>
