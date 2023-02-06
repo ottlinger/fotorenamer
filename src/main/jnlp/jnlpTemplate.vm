@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jnlp
     spec="1.0+"
-    codebase="http://www.aiki-it.de/sw/ixus/"
+    codebase="https://www.aiki-it.de/sw/ixus/"
     href="$outputFile">
   <information>
     <icon
@@ -14,7 +14,7 @@
 
     <title>Bildbearbeiter - FotoRenamer</title>
     <vendor>AIKI IT Berlin</vendor>
-    <homepage href="http://www.aiki-it.de/sw/ixus/"/>
+    <homepage href="https://www.aiki-it.de/sw/ixus/"/>
     <description kind="one-line">FotoRenamer - rename your camera images photographs automatically.</description>
     <description kind="short">This helper renames your files according to
         their EXIF-creation date.</description>
