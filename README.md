@@ -28,7 +28,7 @@ The project moved over to GitHub :smile:
 
 # USAGE
 ## Building
-This tool can be used with [Maven3](http://maven.apache.org/download.html) in two ways:
+This tool can be used with [Maven3](https://maven.apache.org/download.html) in two ways:
   * run as a standalone application
 ```
 $ mvn clean install -Plive-demo
@@ -38,7 +38,7 @@ $ mvn clean install -Plive-demo
 $ mvn clean install
 $ java -jar target/fotorenamer-2.0.0-executable.jar
 ```  
-  * start a deprecated stable version [(0.1.3-SNAPSHOT)](http://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via Webstart
+  * start a deprecated stable version [(0.1.3-SNAPSHOT)](https://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via Webstart
 
 ## Running
 1. Create a backup of your images.
