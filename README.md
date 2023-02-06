@@ -1,6 +1,6 @@
 # FotoRenamer
 
-[![Build Status](https://travis-ci.org/ottlinger/fotorenamer.svg?branch=master)](https://travis-ci.org/ottlinger/fotorenamer)
+[![Github Action master branch status](https://github.com/ottlinger/fotorenamer/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/ottlinger/fotorenamer/actions)
 
 [![codecov.io](http://codecov.io/github/ottlinger/fotorenamer/coverage.svg?branch=master)](http://codecov.io/github/ottlinger/fotorenamer?branch=master)
 
