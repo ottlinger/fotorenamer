@@ -63,21 +63,17 @@ class MetaDataExtractorTest {
 
     /**
      * Checks assertion failure with null parameter.
-     *
-     * @throws Exception in case of errors.
      */
     @Test
-    void checkAssertionErrors() throws Exception {
+    void checkAssertionErrors() {
         assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
     }
 
     /**
      * Checks assertion failure with null parameter.
-     *
-     * @throws Exception in case of errors.
      */
     @Test
-    void checkAssertionErrorTag() throws Exception {
+    void checkAssertionErrorTag() {
         assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
     }
 

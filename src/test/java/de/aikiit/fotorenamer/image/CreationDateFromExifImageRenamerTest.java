@@ -38,10 +38,9 @@ class CreationDateFromExifImageRenamerTest {
     /**
      * Ensure that no NullPointerException is thrown with null arguments.
      *
-     * @throws Exception in case of errors.
      */
     @Test
-    public void checkNPECorrectnessInConstructor() throws Exception {
+    public void checkNPECorrectnessInConstructor() {
         assertThrows(InvalidDirectoryException.class, () -> {
             CreationDateFromExifImageRenamer imageRenamer = new
                     CreationDateFromExifImageRenamer(null);
