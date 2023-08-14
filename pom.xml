@@ -487,7 +487,27 @@
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.3.0</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <!-- as we are running with JDK8 and UTF-8 is default from JDK9 upwards -->
+          <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+        </configuration>
         <executions>
+          <execution>
+            <id>copy-sidebar-icon</id>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/resources/image/</directory>
+                </resource>
+              </resources>
+              <outputDirectory>${basedir}/target/site/img/</outputDirectory>
+            </configuration>
+          </execution>
           <execution>
             <id>copy-version-information-resources</id>
             <phase>process-resources</phase>
@@ -495,9 +515,6 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <!-- as we are running with JDK8 and UTF-8 is default from JDK9 upwards -->
-              <propertiesEncoding>UTF-8</propertiesEncoding>
-              <encoding>UTF-8</encoding>
               <outputDirectory>${project.build.directory}/generated-sources/de/aikiit/fotorenamer/util
                             </outputDirectory>
               <resources>

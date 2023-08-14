@@ -53,7 +53,7 @@ under the License.
       <topBarIcon>
         <name>Project documentationn</name>
         <alt>Fotorenamer logo</alt>
-        <src>/images/topbar-logo.png</src>
+        <src>/img/logo.png</src>
         <href>/index.html</href>
       </topBarIcon>
       <gitHub>
