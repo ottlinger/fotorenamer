@@ -14,18 +14,17 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
 /**
  * @author hirsch
  * @version 2011-04-03, 20:24
  */
-@Ignore("Not working in travis.")
+@Disabled("Not working in travis.")
 class ProgressBarTest {
     private static final String TEXT = "Text";
 
