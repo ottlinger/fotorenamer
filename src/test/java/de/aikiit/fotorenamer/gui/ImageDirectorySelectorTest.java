@@ -15,7 +15,7 @@
  */
 package de.aikiit.fotorenamer.gui;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author hirsch
  * @version 2011-04-08, 00:22
  */
-@Ignore("Not working on travis since no X11 present")
+@Disabled("Not working on travis since no X11 present")
 class ImageDirectorySelectorTest {
     @Test
     void performInit() {
