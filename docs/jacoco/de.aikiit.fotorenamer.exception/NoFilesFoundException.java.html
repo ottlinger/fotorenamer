@@ -32,8 +32,8 @@ public class NoFilesFoundException extends Exception {
     /**
      * Logger.
      */
-<span class="nc" id="L35">    private static final Logger LOG =</span>
-<span class="nc" id="L36">            Logger.getLogger(NoFilesFoundException.class);</span>
+<span class="fc" id="L35">    private static final Logger LOG =</span>
+<span class="fc" id="L36">            Logger.getLogger(NoFilesFoundException.class);</span>
 
     /**
      * Provide error messages for a directory.
@@ -41,9 +41,9 @@ public class NoFilesFoundException extends Exception {
      * @param directory Current directory.
      */
     public NoFilesFoundException(final File directory) {
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        super(directory == null ? getBundleString(&quot;fotorenamer.error.noselection&quot;) : directory.getAbsolutePath());</span>
-<span class="nc" id="L45">        LOG.error(&quot;no files found in &quot; + directory);</span>
-<span class="nc" id="L46">    }</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        super(directory == null ? getBundleString(&quot;fotorenamer.error.noselection&quot;) : directory.getAbsolutePath());</span>
+<span class="fc" id="L45">        LOG.error(&quot;no files found in &quot; + directory);</span>
+<span class="fc" id="L46">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

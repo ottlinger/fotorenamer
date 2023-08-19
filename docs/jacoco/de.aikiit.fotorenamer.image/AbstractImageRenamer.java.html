@@ -51,26 +51,26 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * The logger of this class.
      */
-<span class="nc" id="L54">    private static final Logger LOG =</span>
-<span class="nc" id="L55">            LogManager.getLogger(AbstractImageRenamer.class);</span>
+<span class="fc" id="L54">    private static final Logger LOG =</span>
+<span class="fc" id="L55">            LogManager.getLogger(AbstractImageRenamer.class);</span>
 
     /**
      * The currently selected directory to work on.
      */
-<span class="nc" id="L60">    private File currentDirectory = null;</span>
+<span class="pc" id="L60">    private File currentDirectory = null;</span>
     /**
      * The list of all relevant files in the current directory.
      */
-<span class="nc" id="L64">    private List&lt;File&gt; imageList = null;</span>
+<span class="pc" id="L64">    private List&lt;File&gt; imageList = null;</span>
 
     /**
      * Progress bar for visual feedback of what's going on.
      */
-<span class="nc" id="L69">    private ProgressBar progressBar = null;</span>
+<span class="pc" id="L69">    private ProgressBar progressBar = null;</span>
     /**
      * Number of files that need processing.
      */
-<span class="nc" id="L73">    private int amountOfFiles = 0;</span>
+<span class="pc" id="L73">    private int amountOfFiles = 0;</span>
 
     /**
      * Starts image processing on the given directory if it contains
@@ -83,10 +83,10 @@ abstract class AbstractImageRenamer implements Runnable {
      * @throws NoFilesFoundException     If the selected directory is empty.
      */
     AbstractImageRenamer(final String directory)
-<span class="nc" id="L86">            throws InvalidDirectoryException, NoFilesFoundException {</span>
+<span class="fc" id="L86">            throws InvalidDirectoryException, NoFilesFoundException {</span>
 
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (directory == null) {</span>
-<span class="nc" id="L89">            throw new InvalidDirectoryException(&quot;null is not a directory&quot;);</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">        if (directory == null) {</span>
+<span class="fc" id="L89">            throw new InvalidDirectoryException(&quot;null is not a directory&quot;);</span>
         }
 
 <span class="nc" id="L92">        this.currentDirectory = new File(directory);</span>

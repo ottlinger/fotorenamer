@@ -36,7 +36,7 @@ final class MetaDataExtractor {
     /**
      * This class' logger.
      */
-<span class="nc" id="L39">    private static final Logger LOG = Logger.getLogger(MetaDataExtractor.class);</span>
+<span class="fc" id="L39">    private static final Logger LOG = Logger.getLogger(MetaDataExtractor.class);</span>
 
     /**
      * Constant for an empty string.
@@ -88,22 +88,22 @@ final class MetaDataExtractor {
     public static String getExifMetadata(final File image,
                                          final TagInfo tag)
             throws IOException, ImageReadException {
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        assert image != null : &quot;Parameter image must not be null&quot;;</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        assert tag != null : &quot;Parameter tag must not be null&quot;;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        assert image != null : &quot;Parameter image must not be null&quot;;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        assert tag != null : &quot;Parameter tag must not be null&quot;;</span>
 
-<span class="nc" id="L94">        String result = EMPTY_STRING;</span>
-<span class="nc" id="L95">        ImageMetadata metadata = Imaging.getMetadata(image);</span>
+<span class="fc" id="L94">        String result = EMPTY_STRING;</span>
+<span class="fc" id="L95">        ImageMetadata metadata = Imaging.getMetadata(image);</span>
 
-<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (metadata instanceof JpegImageMetadata) {</span>
-<span class="nc" id="L98">            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;</span>
-<span class="nc" id="L99">            TiffField field = jpegMetadata.findEXIFValueWithExactMatch(tag);</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">            if (field != null) {</span>
-<span class="nc" id="L101">                result = field.getValueDescription();</span>
-<span class="nc" id="L102">                LOG.info(&quot;extraction of &quot; + tag.getDescription()</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (metadata instanceof JpegImageMetadata) {</span>
+<span class="fc" id="L98">            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;</span>
+<span class="fc" id="L99">            TiffField field = jpegMetadata.findEXIFValueWithExactMatch(tag);</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            if (field != null) {</span>
+<span class="fc" id="L101">                result = field.getValueDescription();</span>
+<span class="fc" id="L102">                LOG.info(&quot;extraction of &quot; + tag.getDescription()</span>
                         + &quot; yields &quot; + result);
             }
         }
-<span class="nc bnc" id="L106" title="All 2 branches missed.">        return result == null ? EMPTY_STRING : result;</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        return result == null ? EMPTY_STRING : result;</span>
     }
 
     /**
@@ -138,13 +138,13 @@ final class MetaDataExtractor {
     public static String generateCreationDateInCorrectFormat(final File image)
             throws ImageReadException, IOException {
 
-<span class="nc" id="L141">        String dateValue =</span>
-<span class="nc" id="L142">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
+<span class="fc" id="L141">        String dateValue =</span>
+<span class="fc" id="L142">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
 
-<span class="nc" id="L144">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
+<span class="fc" id="L144">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
 
         // Invalid length of EXIF metadata, not complying to the standard.
-<span class="nc bnc" id="L147" title="All 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
+<span class="pc bpc" id="L147" title="2 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
 <span class="nc" id="L148">            LOG.info(&quot;No valid creation date extracted from file &quot; + image);</span>
 <span class="nc" id="L149">            return EMPTY_STRING;</span>
         }
@@ -153,15 +153,15 @@ final class MetaDataExtractor {
         // does not work due to '-signs in the date string
         // (unparseable pattern is &quot;'yyyy:MM:dd HH:mm:ss'&quot;)
         // replace special characters to extract digits only
-<span class="nc" id="L156">        dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);</span>
-<span class="nc" id="L157">        dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);</span>
-<span class="nc" id="L158">        dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);</span>
-<span class="nc" id="L159">        dateValue += UNDERSCORE;</span>
+<span class="fc" id="L156">        dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);</span>
+<span class="fc" id="L157">        dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);</span>
+<span class="fc" id="L158">        dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);</span>
+<span class="fc" id="L159">        dateValue += UNDERSCORE;</span>
         //convert '2011:01:30 13:11:02' to &quot;yyyyMMdd_HHmm_&quot;+fileName
-<span class="nc" id="L161">        dateValue += image.getName();</span>
+<span class="fc" id="L161">        dateValue += image.getName();</span>
 
-<span class="nc" id="L163">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
-<span class="nc" id="L164">        return dateValue;</span>
+<span class="fc" id="L163">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
+<span class="fc" id="L164">        return dateValue;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

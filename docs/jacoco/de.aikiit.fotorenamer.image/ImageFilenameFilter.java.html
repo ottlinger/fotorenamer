@@ -29,9 +29,9 @@ import java.util.List;
  * @author hirsch
  * @version 2011-04-02, 13:52
  */
-<span class="nc" id="L32">class ImageFilenameFilter implements FilenameFilter {</span>
+<span class="fc" id="L32">class ImageFilenameFilter implements FilenameFilter {</span>
 
-<span class="nc" id="L34">    private static final List&lt;String&gt; EXTENSIONS = Lists.newArrayList(&quot;jpg&quot;, &quot;png&quot;);</span>
+<span class="fc" id="L34">    private static final List&lt;String&gt; EXTENSIONS = Lists.newArrayList(&quot;jpg&quot;, &quot;png&quot;);</span>
 
     /**
      * Filter filenames in a directory for images.
@@ -42,7 +42,7 @@ import java.util.List;
      * the file's prefix is part of {@link #EXTENSIONS}.
      */
     public final boolean accept(final File dir, final String name) {
-<span class="nc bnc" id="L45" title="All 8 branches missed.">        return !(Strings.isNullOrEmpty(name) || dir == null) &amp;&amp; new File(dir, name).isFile() &amp;&amp; isSuffixExifExtractable(name);</span>
+<span class="pc bpc" id="L45" title="5 of 8 branches missed.">        return !(Strings.isNullOrEmpty(name) || dir == null) &amp;&amp; new File(dir, name).isFile() &amp;&amp; isSuffixExifExtractable(name);</span>
     }
 
     private static boolean isSuffixExifExtractable(final String name) {
