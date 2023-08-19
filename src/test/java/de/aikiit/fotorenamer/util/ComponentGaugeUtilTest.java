@@ -14,6 +14,7 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.util;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author hirsch
  * @version 2011-03-21, 13:18
  */
+@Disabled("No X11 on GHA")
 class ComponentGaugeUtilTest {
     /**
      * Checks image creation with a valid and an invalid path.

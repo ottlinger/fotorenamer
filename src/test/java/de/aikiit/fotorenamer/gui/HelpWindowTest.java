@@ -14,6 +14,7 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @version 2011-04-08, 00:24
  */
 public class HelpWindowTest {
-    @Test
+    @Disabled("No X11 on GHA")
     void initWindow() {
         assertNotNull(new HelpWindow());
     }
