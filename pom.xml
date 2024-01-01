@@ -598,7 +598,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>4.0.0-M11</version>
+        <version>4.0.0-M13</version>
         <configuration>
           <outputEncoding>UTF-8</outputEncoding>
           <inputEncoding>UTF-8</inputEncoding>
