@@ -58,7 +58,7 @@
     <shade.version>3.5.1</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-    <rat.version>0.15</rat.version>
+    <rat.version>0.16.1</rat.version>
     <javadoc-plugin.version>3.4.1</javadoc-plugin.version>
     <junit.jupiter.version>5.10.1</junit.jupiter.version>
     <junit.platform.version>1.10.0</junit.platform.version>
