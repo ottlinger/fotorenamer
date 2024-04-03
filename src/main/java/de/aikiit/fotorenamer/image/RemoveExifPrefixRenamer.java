@@ -147,13 +147,17 @@ public class RemoveExifPrefixRenamer implements Runnable {
         this.progressBar.dispose();
 
         String statusMessage;
-        if (this.done.get() == 0) {
-            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName());
-        } else if (this.done.get() == 1) {
-            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName());
-        } else {
-            statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.done, this.listOfFiles.size(), this.currentDirectory.getName());
+        switch(this.done.get()) {
+            case 0:
+                statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName());
+                break;
+            case 1:
+                statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName());
+                break;
+            default:
+                statusMessage = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.done, this.listOfFiles.size(), this.currentDirectory.getName());
         }
+
         JOptionPane.showMessageDialog(null, statusMessage, getBundleString("fotorenamer.ui.rerename.success.title"),
                 JOptionPane.INFORMATION_MESSAGE);
     }
