@@ -17,7 +17,6 @@ package de.aikiit.fotorenamer.image;
 
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,7 +74,7 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
 
         try {
             newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
-        } catch (ImageReadException | IOException e) {
+        } catch (IOException e) {
             LOG.error("Error during exif date extraction: ", e);
             return newImageName;
         }

@@ -16,7 +16,6 @@
 package de.aikiit.fotorenamer.image;
 
 import com.google.common.base.Strings;
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.ImageMetadata;
 import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
@@ -83,11 +82,10 @@ final class MetaDataExtractor {
      * @return Returns exif tag value, in case of any errors the value is an
      * empty String.
      * @throws IOException        if file cannot be accessed.
-     * @throws ImageReadException if an error occurred during image processing.
      */
     public static String getExifMetadata(final File image,
                                          final TagInfo tag)
-            throws IOException, ImageReadException {
+            throws IOException {
         assert image != null : "Parameter image must not be null";
         assert tag != null : "Parameter tag must not be null";
 
@@ -96,7 +94,7 @@ final class MetaDataExtractor {
 
         if (metadata instanceof JpegImageMetadata) {
             JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
-            TiffField field = jpegMetadata.findEXIFValueWithExactMatch(tag);
+            TiffField field = jpegMetadata.findExifValueWithExactMatch(tag);
             if (field != null) {
                 result = field.getValueDescription();
                 LOG.info("extraction of " + tag.getDescription()
@@ -125,7 +123,6 @@ final class MetaDataExtractor {
      *
      * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
-     * @throws ImageReadException If image cannot be read.
      * @throws IOException        If an error occurs when accessing the image's
      *                            metadata.
      * @see <a href="http://www.exif.org/samples/canon-ixus.html">Canon EXIF
@@ -136,7 +133,7 @@ final class MetaDataExtractor {
      * specification</a>
      */
     public static String generateCreationDateInCorrectFormat(final File image)
-            throws ImageReadException, IOException {
+            throws IOException {
 
         String dateValue =
                 getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);
