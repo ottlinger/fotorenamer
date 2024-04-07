@@ -147,15 +147,19 @@ public class RemoveExifPrefixRenamer implements Runnable {
 <span class="nc" id="L147">        this.progressBar.dispose();</span>
 
         String statusMessage;
-<span class="nc bnc" id="L150" title="All 2 branches missed.">        if (this.done.get() == 0) {</span>
-<span class="nc" id="L151">            statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName());</span>
-<span class="nc bnc" id="L152" title="All 2 branches missed.">        } else if (this.done.get() == 1) {</span>
-<span class="nc" id="L153">            statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName());</span>
-        } else {
-<span class="nc" id="L155">            statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.done, this.listOfFiles.size(), this.currentDirectory.getName());</span>
+<span class="nc bnc" id="L150" title="All 3 branches missed.">        switch(this.done.get()) {</span>
+            case 0:
+<span class="nc" id="L152">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName());</span>
+<span class="nc" id="L153">                break;</span>
+            case 1:
+<span class="nc" id="L155">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName());</span>
+<span class="nc" id="L156">                break;</span>
+            default:
+<span class="nc" id="L158">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.done, this.listOfFiles.size(), this.currentDirectory.getName());</span>
         }
-<span class="nc" id="L157">        JOptionPane.showMessageDialog(null, statusMessage, getBundleString(&quot;fotorenamer.ui.rerename.success.title&quot;),</span>
+
+<span class="nc" id="L161">        JOptionPane.showMessageDialog(null, statusMessage, getBundleString(&quot;fotorenamer.ui.rerename.success.title&quot;),</span>
                 JOptionPane.INFORMATION_MESSAGE);
-<span class="nc" id="L159">    }</span>
+<span class="nc" id="L163">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

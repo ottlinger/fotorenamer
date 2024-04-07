@@ -17,7 +17,6 @@ package de.aikiit.fotorenamer.image;
 
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,8 +40,8 @@ import java.io.IOException;
 public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
 
     /** Logger for this class. */
-<span class="fc" id="L44">    private static final Logger LOG =</span>
-<span class="fc" id="L45">            LogManager.getLogger(CreationDateFromExifImageRenamer.class);</span>
+<span class="fc" id="L43">    private static final Logger LOG =</span>
+<span class="fc" id="L44">            LogManager.getLogger(CreationDateFromExifImageRenamer.class);</span>
 
     /**
      * The given directory is scanned for image files that
@@ -55,8 +54,8 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
      */
     public CreationDateFromExifImageRenamer(final String targetDirectory) throws
             InvalidDirectoryException, NoFilesFoundException {
-<span class="nc" id="L58">        super(targetDirectory);</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L57">        super(targetDirectory);</span>
+<span class="nc" id="L58">    }</span>
 
     /**
      * Extracts creation date from EXIF information and returns new filename. If
@@ -70,17 +69,17 @@ public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
      */
     @Override
     public final String renameImage(final File imageFile) {
-<span class="nc" id="L73">        String newImageName = imageFile.getName();</span>
-<span class="nc" id="L74">        LOG.info(&quot;Start renaming in CreationDateFromExifImageRenamer&quot;);</span>
+<span class="nc" id="L72">        String newImageName = imageFile.getName();</span>
+<span class="nc" id="L73">        LOG.info(&quot;Start renaming in CreationDateFromExifImageRenamer&quot;);</span>
 
         try {
-<span class="nc" id="L77">            newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);</span>
-<span class="nc" id="L78">        } catch (ImageReadException | IOException e) {</span>
-<span class="nc" id="L79">            LOG.error(&quot;Error during exif date extraction: &quot;, e);</span>
-<span class="nc" id="L80">            return newImageName;</span>
-<span class="nc" id="L81">        }</span>
+<span class="nc" id="L76">            newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);</span>
+<span class="nc" id="L77">        } catch (IOException e) {</span>
+<span class="nc" id="L78">            LOG.error(&quot;Error during exif date extraction: &quot;, e);</span>
+<span class="nc" id="L79">            return newImageName;</span>
+<span class="nc" id="L80">        }</span>
 
-<span class="nc" id="L83">        return newImageName;</span>
+<span class="nc" id="L82">        return newImageName;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
