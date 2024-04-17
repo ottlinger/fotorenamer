@@ -37,7 +37,7 @@ import java.io.IOException;
  * @author hirsch
  * @version 2011-06-02, 13:22
  */
-public class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
+public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
 
     /** Logger for this class. */
     private static final Logger LOG =

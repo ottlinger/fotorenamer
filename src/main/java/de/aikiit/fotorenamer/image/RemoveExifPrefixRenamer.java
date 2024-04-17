@@ -39,7 +39,7 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBund
  * @author hirsch, 08.12.2003
  * @version 2004-01-08
  */
-public class RemoveExifPrefixRenamer implements Runnable {
+public final class RemoveExifPrefixRenamer implements Runnable {
     private static final Logger LOG =
             LogManager.getLogger(RemoveExifPrefixRenamer.class);
     /**
