@@ -16,6 +16,10 @@ limitations under the License.
 -->
 <FindBugsFilter>
   <Match>
+    <Class name="de.aikiit.fotorenamer.image.AbstractImageRenamer" />
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+  </Match>
+  <Match>
     <Class name="de.aikiit.fotorenamer.gui.MainUIWindow" />
     <Bug pattern="DM_EXIT" />
   </Match>
