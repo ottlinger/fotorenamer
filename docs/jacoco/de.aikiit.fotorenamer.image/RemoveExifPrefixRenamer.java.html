@@ -20,6 +20,7 @@ import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.exception.RenamingErrorException;
 import de.aikiit.fotorenamer.gui.ProgressBar;
+import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,8 +41,8 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBund
  * @version 2004-01-08
  */
 public final class RemoveExifPrefixRenamer implements Runnable {
-<span class="nc" id="L43">    private static final Logger LOG =</span>
-<span class="nc" id="L44">            LogManager.getLogger(RemoveExifPrefixRenamer.class);</span>
+<span class="nc" id="L44">    private static final Logger LOG =</span>
+<span class="nc" id="L45">            LogManager.getLogger(RemoveExifPrefixRenamer.class);</span>
     /**
      * Pattern applied to find already renamed image files.
      * Should match: 20110507_180520_IMG_8192small.JPG
@@ -49,9 +50,9 @@ public final class RemoveExifPrefixRenamer implements Runnable {
     private static final String REPLACE_PATTERN = &quot;\\d{8}[_]\\d{4}[_]&quot;;
 
     private final File currentDirectory;
-<span class="nc" id="L52">    private List&lt;File&gt; listOfFiles = Lists.newArrayList();</span>
-<span class="nc" id="L53">    private ProgressBar progressBar = null;</span>
-<span class="nc" id="L54">    private final AtomicInteger done = new AtomicInteger(0);</span>
+<span class="nc" id="L53">    private List&lt;File&gt; listOfFiles = Lists.newArrayList();</span>
+<span class="nc" id="L54">    private ProgressBar progressBar = null;</span>
+<span class="nc" id="L55">    private final AtomicInteger done = new AtomicInteger(0);</span>
 
     /**
      * Main constructor that takes a directory to work on.
@@ -62,11 +63,11 @@ public final class RemoveExifPrefixRenamer implements Runnable {
      * @throws NoFilesFoundException     If directory is empty.
      */
     public RemoveExifPrefixRenamer(final String directory)
-<span class="nc" id="L65">            throws InvalidDirectoryException, NoFilesFoundException {</span>
-<span class="nc" id="L66">        this.currentDirectory = new File(directory);</span>
-<span class="nc" id="L67">        checkInputAndInitialize();</span>
-<span class="nc" id="L68">        new Thread(this).start();</span>
-<span class="nc" id="L69">    }</span>
+<span class="nc" id="L66">            throws InvalidDirectoryException, NoFilesFoundException {</span>
+<span class="nc" id="L67">        this.currentDirectory = new File(directory);</span>
+<span class="nc" id="L68">        checkInputAndInitialize();</span>
+<span class="nc" id="L69">        new Thread(this).start();</span>
+<span class="nc" id="L70">    }</span>
 
     /**
      * Performs actual renaming/removing of date information from the
@@ -76,30 +77,30 @@ public final class RemoveExifPrefixRenamer implements Runnable {
      * @see #checkInputAndInitialize()
      */
     private void rename() throws RenamingErrorException {
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (final File listOfFile : this.listOfFiles) {</span>
-<span class="nc" id="L80">            String name = listOfFile.getName();</span>
-<span class="nc" id="L81">            String nameNeu = name.replaceFirst(REPLACE_PATTERN, &quot;&quot;);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (final File listOfFile : this.listOfFiles) {</span>
+<span class="nc" id="L81">            String name = LocalizationHelper.removeCrLf(listOfFile.getName());</span>
+<span class="nc" id="L82">            String nameNeu = name.replaceFirst(REPLACE_PATTERN, &quot;&quot;);</span>
 
             // count files to be done
-<span class="nc bnc" id="L84" title="All 2 branches missed.">            if (!nameNeu.equalsIgnoreCase(name)) {</span>
-<span class="nc" id="L85">                done.incrementAndGet();</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">            if (!nameNeu.equalsIgnoreCase(name)) {</span>
+<span class="nc" id="L86">                done.incrementAndGet();</span>
             }
 
             // update UI
-<span class="nc" id="L89">            this.progressBar.setProgress();</span>
-<span class="nc" id="L90">            this.progressBar.setText(name);</span>
-<span class="nc" id="L91">            this.progressBar.updateUI();</span>
+<span class="nc" id="L90">            this.progressBar.setProgress();</span>
+<span class="nc" id="L91">            this.progressBar.setText(name);</span>
+<span class="nc" id="L92">            this.progressBar.updateUI();</span>
 
             // rename files only
-<span class="nc bnc" id="L94" title="All 4 branches missed.">            if (listOfFile.isFile() &amp;&amp; !listOfFile.renameTo(</span>
-<span class="nc" id="L95">                    new File(listOfFile.getParent()</span>
+<span class="nc bnc" id="L95" title="All 4 branches missed.">            if (listOfFile.isFile() &amp;&amp; !listOfFile.renameTo(</span>
+<span class="nc" id="L96">                    new File(listOfFile.getParent()</span>
                             + File.separatorChar + nameNeu))) {
-<span class="nc" id="L97">                LOG.error(&quot;Problem with file &quot; + listOfFile.getName());</span>
-<span class="nc" id="L98">                throw new RenamingErrorException(getParameterizedBundleString(&quot;fotorenamer.ui.rerename.error.detail&quot;,</span>
-<span class="nc" id="L99">                        listOfFile.getName()));</span>
+<span class="nc" id="L98">                LOG.error(&quot;Problem with file &quot; + listOfFile.getName());</span>
+<span class="nc" id="L99">                throw new RenamingErrorException(getParameterizedBundleString(&quot;fotorenamer.ui.rerename.error.detail&quot;,</span>
+<span class="nc" id="L100">                        listOfFile.getName()));</span>
             }
-<span class="nc" id="L101">        }</span>
-<span class="nc" id="L102">    }</span>
+<span class="nc" id="L102">        }</span>
+<span class="nc" id="L103">    }</span>
 
     /**
      * Checks whether current UI-configuration is valid in order to perform the
@@ -112,20 +113,20 @@ public final class RemoveExifPrefixRenamer implements Runnable {
     private void checkInputAndInitialize()
             throws NoFilesFoundException, InvalidDirectoryException {
         // valid directory
-<span class="nc bnc" id="L115" title="All 4 branches missed.">        if (this.currentDirectory == null || !this.currentDirectory.isDirectory()) {</span>
-<span class="nc" id="L116">            throw new InvalidDirectoryException(&quot;&quot; + this.currentDirectory);</span>
+<span class="nc bnc" id="L116" title="All 4 branches missed.">        if (this.currentDirectory == null || !this.currentDirectory.isDirectory()) {</span>
+<span class="nc" id="L117">            throw new InvalidDirectoryException(&quot;&quot; + this.currentDirectory);</span>
         }
 
-<span class="nc" id="L119">        final File[] files = this.currentDirectory.listFiles(</span>
+<span class="nc" id="L120">        final File[] files = this.currentDirectory.listFiles(</span>
                 new ImageFilenameFilter());
 
         // files available
-<span class="nc bnc" id="L123" title="All 4 branches missed.">        if(files == null || files.length == 0) {</span>
-<span class="nc" id="L124">            throw new NoFilesFoundException(this.currentDirectory);</span>
+<span class="nc bnc" id="L124" title="All 4 branches missed.">        if(files == null || files.length == 0) {</span>
+<span class="nc" id="L125">            throw new NoFilesFoundException(this.currentDirectory);</span>
         }
 
-<span class="nc" id="L127">        this.listOfFiles = Arrays.asList(files);</span>
-<span class="nc" id="L128">    }</span>
+<span class="nc" id="L128">        this.listOfFiles = Arrays.asList(files);</span>
+<span class="nc" id="L129">    }</span>
 
     /**
      * Updates the UI and performs the renaming. All error handling is done in
@@ -134,32 +135,32 @@ public final class RemoveExifPrefixRenamer implements Runnable {
      * @see #rename()
      */
     public final void run() {
-<span class="nc" id="L137">        this.progressBar = new ProgressBar(this.listOfFiles.size());</span>
+<span class="nc" id="L138">        this.progressBar = new ProgressBar(this.listOfFiles.size());</span>
 
         try {
-<span class="nc" id="L140">            rename();</span>
-<span class="nc" id="L141">        } catch (RenamingErrorException uf) {</span>
-<span class="nc" id="L142">            JOptionPane.showMessageDialog(null, getParameterizedBundleString(&quot;fotorenamer.ui.rename.error&quot;, uf.getMessage()),</span>
-<span class="nc" id="L143">                    getBundleString(&quot;fotorenamer.ui.rerename.error.title&quot;),</span>
+<span class="nc" id="L141">            rename();</span>
+<span class="nc" id="L142">        } catch (RenamingErrorException uf) {</span>
+<span class="nc" id="L143">            JOptionPane.showMessageDialog(null, getParameterizedBundleString(&quot;fotorenamer.ui.rename.error&quot;, uf.getMessage()),</span>
+<span class="nc" id="L144">                    getBundleString(&quot;fotorenamer.ui.rerename.error.title&quot;),</span>
                     JOptionPane.ERROR_MESSAGE);
-<span class="nc" id="L145">            return;</span>
-<span class="nc" id="L146">        }</span>
-<span class="nc" id="L147">        this.progressBar.dispose();</span>
+<span class="nc" id="L146">            return;</span>
+<span class="nc" id="L147">        }</span>
+<span class="nc" id="L148">        this.progressBar.dispose();</span>
 
         String statusMessage;
-<span class="nc bnc" id="L150" title="All 3 branches missed.">        switch(this.done.get()) {</span>
+<span class="nc bnc" id="L151" title="All 3 branches missed.">        switch(this.done.get()) {</span>
             case 0:
-<span class="nc" id="L152">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName());</span>
-<span class="nc" id="L153">                break;</span>
+<span class="nc" id="L153">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName());</span>
+<span class="nc" id="L154">                break;</span>
             case 1:
-<span class="nc" id="L155">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName());</span>
-<span class="nc" id="L156">                break;</span>
+<span class="nc" id="L156">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName());</span>
+<span class="nc" id="L157">                break;</span>
             default:
-<span class="nc" id="L158">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.done, this.listOfFiles.size(), this.currentDirectory.getName());</span>
+<span class="nc" id="L159">                statusMessage = getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.done, this.listOfFiles.size(), this.currentDirectory.getName());</span>
         }
 
-<span class="nc" id="L161">        JOptionPane.showMessageDialog(null, statusMessage, getBundleString(&quot;fotorenamer.ui.rerename.success.title&quot;),</span>
+<span class="nc" id="L162">        JOptionPane.showMessageDialog(null, statusMessage, getBundleString(&quot;fotorenamer.ui.rerename.success.title&quot;),</span>
                 JOptionPane.INFORMATION_MESSAGE);
-<span class="nc" id="L163">    }</span>
+<span class="nc" id="L164">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

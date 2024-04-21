@@ -144,5 +144,17 @@ public final class LocalizationHelper {
 <span class="fc" id="L144">        return FORMAT.format(parameters);</span>
     }
 
+    /**
+     * Helper method to prevent CRLF injection in logs.
+     *
+     * @param input any input
+     * @return input without CRLF.
+     */
+    public static String removeCrLf(final String input) {
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if (!Strings.isNullOrEmpty(input)) {</span>
+<span class="nc" id="L155">            return input.replaceAll(&quot;[\r\n]&quot;, &quot;&quot;);</span>
+        }
+<span class="nc" id="L157">        return input;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
