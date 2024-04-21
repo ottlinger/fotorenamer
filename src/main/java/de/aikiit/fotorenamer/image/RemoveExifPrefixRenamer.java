@@ -20,6 +20,7 @@ import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.exception.RenamingErrorException;
 import de.aikiit.fotorenamer.gui.ProgressBar;
+import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,7 +78,7 @@ public final class RemoveExifPrefixRenamer implements Runnable {
      */
     private void rename() throws RenamingErrorException {
         for (final File listOfFile : this.listOfFiles) {
-            String name = listOfFile.getName();
+            String name = LocalizationHelper.removeCrLf(listOfFile.getName());
             String nameNeu = name.replaceFirst(REPLACE_PATTERN, "");
 
             // count files to be done

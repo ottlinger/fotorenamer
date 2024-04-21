@@ -16,24 +16,41 @@ limitations under the License.
 -->
 <FindBugsFilter>
   <Match>
-    <Class name="de.aikiit.fotorenamer.image.AbstractImageRenamer" />
-    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+    <Class name="de.aikiit.fotorenamer.image.AbstractImageRenamer"/>
+    <Bug pattern="CT_CONSTRUCTOR_THROW"/>
   </Match>
   <Match>
-    <Class name="de.aikiit.fotorenamer.gui.MainUIWindow" />
-    <Bug pattern="DM_EXIT" />
+    <Class name="de.aikiit.fotorenamer.gui.MainUIWindow"/>
+    <Bug pattern="DM_EXIT"/>
   </Match>
   <Match>
-    <Class name="de.aikiit.fotorenamer.util.LocalizationHelper" />
-    <Bug pattern="MS_EXPOSE_REP" />
+    <Class name="de.aikiit.fotorenamer.util.LocalizationHelper"/>
+    <Bug pattern="MS_EXPOSE_REP"/>
   </Match>
   <!-- 20220703: Usage of SwingWorker gives this exception -->
   <Match>
-    <Class name="de.aikiit.fotorenamer.gui.ImageDirectorySelector$2$1" />
-    <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    <Class name="de.aikiit.fotorenamer.gui.ImageDirectorySelector$2$1"/>
+    <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION"/>
   </Match>
   <Match>
-    <Class name="de.aikiit.fotorenamer.gui.MainUIWindow$1" />
-    <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    <Class name="de.aikiit.fotorenamer.gui.MainUIWindow$1"/>
+    <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION"/>
+  </Match>
+  <!-- 20240421 after enabling findbugs-security filters -->
+  <Match>
+    <Class name="de.aikiit.fotorenamer.util.LocalizationHelper"/>
+    <Bug pattern="PATH_TRAVERSAL_IN"/>
+  </Match>
+  <Match>
+    <Class name="de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer"/>
+    <Bug pattern="PATH_TRAVERSAL_IN"/>
+  </Match>
+  <Match>
+    <Class name="de.aikiit.fotorenamer.image.ImageFilenameFilter"/>
+    <Bug pattern="PATH_TRAVERSAL_IN"/>
+  </Match>
+  <Match>
+    <Class name="de.aikiit.fotorenamer.gui.ImageDirectorySelector"/>
+    <Bug pattern="CRLF_INJECTION_LOGS"/>
   </Match>
 </FindBugsFilter>

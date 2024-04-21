@@ -144,4 +144,16 @@ public final class LocalizationHelper {
         return FORMAT.format(parameters);
     }
 
+    /**
+     * Helper method to prevent CRLF injection in logs.
+     *
+     * @param input any input
+     * @return input without CRLF.
+     */
+    public static String removeCrLf(final String input) {
+        if (!Strings.isNullOrEmpty(input)) {
+            return input.replaceAll("[\r\n]", "");
+        }
+        return input;
+    }
 }

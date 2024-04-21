@@ -18,6 +18,7 @@ package de.aikiit.fotorenamer.gui;
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
+import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
@@ -252,7 +253,7 @@ class ImageDirectorySelector extends JPanel {
      * @return The currently selected directory.
      */
     final String getSelectedDirectory() {
-        String currentSelection = this.textField.getText();
+        String currentSelection = LocalizationHelper.removeCrLf(this.textField.getText());
         if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
             currentSelection = currentSelection.replaceAll("~", System.getProperty("user.home"));
             currentSelection = currentSelection.trim();
