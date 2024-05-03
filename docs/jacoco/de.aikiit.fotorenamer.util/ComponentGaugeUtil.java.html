@@ -61,16 +61,15 @@ public final class ComponentGaugeUtil {
      */
     public static ImageIcon createImageIcon(final String path) {
 <span class="nc bnc" id="L63" title="All 2 branches missed.">        assert path != null : &quot;Path for image icon needs to be set.&quot;;</span>
-<span class="nc" id="L64">        LOG.debug(&quot;Creating image icon from path &quot; + path);</span>
+<span class="nc" id="L64">        LOG.debug(&quot;Creating image icon from path {}&quot;, path);</span>
 <span class="nc" id="L65">        java.net.URL imgURL = ComponentGaugeUtil.class.getResource(path);</span>
-<span class="nc" id="L66">        LOG.debug(&quot;extracted URL is: &quot; + imgURL);</span>
+<span class="nc" id="L66">        LOG.debug(&quot;extracted URL is: {}&quot;, imgURL);</span>
 
 <span class="nc bnc" id="L68" title="All 2 branches missed.">        if (imgURL != null) {</span>
 <span class="nc" id="L69">            return new ImageIcon(imgURL);</span>
         } else {
-<span class="nc" id="L71">            LOG.error(&quot;Could not generate a valid URL from the given path: &quot;</span>
-                    + path);
-<span class="nc" id="L73">            return null;</span>
+<span class="nc" id="L71">            LOG.error(&quot;Could not generate a valid URL from the given path: {}&quot;, path);</span>
+<span class="nc" id="L72">            return null;</span>
         }
     }
 }

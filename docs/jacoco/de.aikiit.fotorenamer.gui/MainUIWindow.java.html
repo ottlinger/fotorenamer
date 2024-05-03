@@ -169,24 +169,24 @@ public final class MainUIWindow extends JFrame implements ActionListener {
     public void actionPerformed(final ActionEvent event) {
         final SwingWorker&lt;Void, Void&gt; worker;
 
+<span class="nc" id="L172">        Object source = event.getSource();</span>
         // end
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (event.getSource() == this.endButton) {</span>
-<span class="nc" id="L174">            LOG.info(&quot;Bye Bye :-)&quot;);</span>
-<span class="nc" id="L175">            System.exit(0);</span>
-<span class="nc bnc" id="L176" title="All 2 branches missed.">        } else if (event.getSource() == this.helpButton) {</span>
-<span class="nc" id="L177">            LOG.info(&quot;Displaying help window.&quot;);</span>
-<span class="nc" id="L178">            showHelpWindow();</span>
-<span class="nc bnc" id="L179" title="All 2 branches missed.">        } else if (event.getSource() == this.infoButton) {</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (this.endButton.equals(source)) {</span>
+<span class="nc" id="L175">            LOG.info(&quot;Bye Bye :-)&quot;);</span>
+<span class="nc" id="L176">            System.exit(0);</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">        } else if (this.helpButton.equals(source)) {</span>
+<span class="nc" id="L178">            LOG.info(&quot;Displaying help window.&quot;);</span>
+<span class="nc" id="L179">            showHelpWindow();</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        } else if (this.infoButton.equals(source)) {</span>
             // info
-<span class="nc" id="L181">            JOptionPane.showMessageDialog(null,</span>
-<span class="nc" id="L182">                    getParameterizedBundleString(&quot;fotorenamer.ui.about&quot;, VERSION, new SimpleDateFormat(&quot;yyyy&quot;).</span>
-<span class="nc" id="L183">                            format(new Date(</span>
-<span class="nc" id="L184">                                    Long.parseLong(</span>
+<span class="nc" id="L182">            JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L183">                    getParameterizedBundleString(&quot;fotorenamer.ui.about&quot;, VERSION, new SimpleDateFormat(&quot;yyyy&quot;).</span>
+<span class="nc" id="L184">                            format(new Date(</span>
+<span class="nc" id="L185">                                    Long.parseLong(</span>
                                             Version.TIMESTAMP)))),
-<span class="nc" id="L186">                    getBundleString(&quot;fotorenamer.ui.main.version.title&quot;),</span>
+<span class="nc" id="L187">                    getBundleString(&quot;fotorenamer.ui.main.version.title&quot;),</span>
                     JOptionPane.INFORMATION_MESSAGE);
-<span class="nc bnc" id="L188" title="All 4 branches missed.">        } else if (event.getSource() == this.revertButton || event.getSource()</span>
-                == this.goButton) {
+<span class="nc bnc" id="L189" title="All 4 branches missed.">        } else if (this.revertButton.equals(source) || this.goButton.equals(source)) {</span>
 <span class="nc" id="L190">            worker = new SwingWorker&lt;Void, Void&gt;() {</span>
                 @Override
                 protected Void doInBackground() {
@@ -200,7 +200,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
 
                     // perform renaming
                     try {
-<span class="nc bnc" id="L203" title="All 2 branches missed.">                        if (event.getSource() == goButton) {</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">                        if (goButton.equals(source)) {</span>
 <span class="nc" id="L204">                            goButton.setEnabled(false);</span>
 <span class="nc" id="L205">                            goButton.setText(getBundleString(&quot;fotorenamer.ui.main.progress&quot;));</span>
 <span class="nc" id="L206">                            CreationDateFromExifImageRenamer renamer =</span>
@@ -215,13 +215,13 @@ public final class MainUIWindow extends JFrame implements ActionListener {
 <span class="nc" id="L215">                                    imageDirectorySelector.getSelectedDirectory());</span>
                         }
 <span class="nc" id="L217">                    } catch (InvalidDirectoryException uv) {</span>
-<span class="nc" id="L218">                        LOG.info(&quot;Invalid directory selected: &quot; + uv.getMessage());</span>
+<span class="nc" id="L218">                        LOG.info(&quot;Invalid directory selected: {}&quot;, uv.getMessage());</span>
 <span class="nc" id="L219">                        JOptionPane.showMessageDialog(null,</span>
 <span class="nc" id="L220">                                getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()),</span>
 <span class="nc" id="L221">                                getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;),</span>
                                 JOptionPane.ERROR_MESSAGE);
 <span class="nc" id="L223">                    } catch (NoFilesFoundException kde) {</span>
-<span class="nc" id="L224">                        LOG.info(&quot;No files found in &quot; + kde.getMessage());</span>
+<span class="nc" id="L224">                        LOG.info(&quot;No files found in {}&quot;, kde.getMessage());</span>
 <span class="nc" id="L225">                        JOptionPane.showMessageDialog(null,</span>
 <span class="nc" id="L226">                                getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()),</span>
 <span class="nc" id="L227">                                getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;),</span>

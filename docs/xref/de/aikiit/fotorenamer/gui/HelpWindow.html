@@ -102,7 +102,7 @@
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">this</strong>.pack();
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          ComponentGaugeUtil.makeCentered(<strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <em class="jxr_comment">// let button get the focus, needs to be run in the and and async</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          <em class="jxr_comment">// let button get the focus, needs to be run in the end and async</em>
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          SwingUtilities.invokeLater(() -&gt; {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>              getRootPane().setDefaultButton(endButton);
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>             endButton.requestFocusInWindow();
@@ -141,7 +141,7 @@
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * @param event Event to react on in this UI-component.</em>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">void</strong> actionPerformed(<strong class="jxr_keyword">final</strong> ActionEvent event) {
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">if</strong> (event.getSource() == <strong class="jxr_keyword">this</strong>.endButton) {
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.endButton.equals(event.getSource())) {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>             LOG.debug(<span class="jxr_string">"Disabling visibility of helpWindow."</span>);
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>             setVisible(false);
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         }

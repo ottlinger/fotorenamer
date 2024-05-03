@@ -113,7 +113,7 @@ public class ProgressBar extends JFrame {
     /**
      * After any changes the UI needs to be repainted and recentered which is
      * done by that method. This method waits 200ms in order to make the UI more
-     * human readable.
+     * human-readable.
      */
     public final void updateUI() {
 <span class="nc" id="L119">        this.pack();</span>
@@ -125,7 +125,7 @@ public class ProgressBar extends JFrame {
 <span class="nc" id="L125">            TimeUnit.MILLISECONDS.sleep(this.delayInUI);</span>
 <span class="nc" id="L126">        } catch (InterruptedException e) {</span>
 <span class="nc" id="L127">            Thread.currentThread().interrupt();</span>
-<span class="nc" id="L128">            LOG.error(&quot;Thread sleep error during repaint of ProgressBar, &quot; + e.getMessage());</span>
+<span class="nc" id="L128">            LOG.error(&quot;Thread sleep error during repaint of ProgressBar, {}&quot;, e.getMessage());</span>
 <span class="nc" id="L129">        }</span>
 <span class="nc" id="L130">    }</span>
 

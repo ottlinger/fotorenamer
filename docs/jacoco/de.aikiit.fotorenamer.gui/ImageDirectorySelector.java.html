@@ -103,149 +103,161 @@ class ImageDirectorySelector extends JPanel {
      * Initialize internal UI components.
      */
     private void init() {
-        // Set layout.
-<span class="nc" id="L107">        GridBagLayout grid = new GridBagLayout();</span>
-<span class="nc" id="L108">        GridBagConstraints gbc = new GridBagConstraints();</span>
-<span class="nc" id="L109">        gbc.insets = new Insets(0, 2, 0, 2);</span>
-<span class="nc" id="L110">        setLayout(grid);</span>
+<span class="nc" id="L106">        createBaseLayout();</span>
+<span class="nc" id="L107">        initTextField();</span>
+<span class="nc" id="L108">        makeTextFieldDragAndDropable();</span>
+<span class="nc" id="L109">        makeTextFieldReactOnEnterOrCopyPasteFromMainUI();</span>
+<span class="nc" id="L110">    }</span>
+
+    private void createBaseLayout() {
+<span class="nc" id="L113">        GridBagLayout grid = new GridBagLayout();</span>
+<span class="nc" id="L114">        GridBagConstraints gbc = new GridBagConstraints();</span>
+<span class="nc" id="L115">        gbc.insets = new Insets(0, 2, 0, 2);</span>
+<span class="nc" id="L116">        setLayout(grid);</span>
 
         // Add field.
-<span class="nc" id="L113">        gbc.gridx = 0;</span>
-<span class="nc" id="L114">        gbc.gridy = 0;</span>
-<span class="nc" id="L115">        gbc.gridheight = 1;</span>
-<span class="nc" id="L116">        gbc.gridwidth = 2;</span>
-<span class="nc" id="L117">        gbc.anchor = GridBagConstraints.WEST;</span>
-<span class="nc" id="L118">        textField = new JTextField(60);</span>
-<span class="nc" id="L119">        grid.setConstraints(textField, gbc);</span>
-<span class="nc" id="L120">        add(textField);</span>
+<span class="nc" id="L119">        gbc.gridx = 0;</span>
+<span class="nc" id="L120">        gbc.gridy = 0;</span>
+<span class="nc" id="L121">        gbc.gridheight = 1;</span>
+<span class="nc" id="L122">        gbc.gridwidth = 2;</span>
+<span class="nc" id="L123">        gbc.anchor = GridBagConstraints.WEST;</span>
+<span class="nc" id="L124">        textField = new JTextField(60);</span>
+<span class="nc" id="L125">        grid.setConstraints(textField, gbc);</span>
+<span class="nc" id="L126">        add(textField);</span>
 
         // Add button.
-<span class="nc" id="L123">        gbc.gridx = 2;</span>
-<span class="nc" id="L124">        gbc.gridy = 0;</span>
-<span class="nc" id="L125">        gbc.gridheight = 1;</span>
-<span class="nc" id="L126">        gbc.gridwidth = 1;</span>
-<span class="nc" id="L127">        gbc.anchor = GridBagConstraints.EAST;</span>
+<span class="nc" id="L129">        gbc.gridx = 2;</span>
+<span class="nc" id="L130">        gbc.gridy = 0;</span>
+<span class="nc" id="L131">        gbc.gridheight = 1;</span>
+<span class="nc" id="L132">        gbc.gridwidth = 1;</span>
+<span class="nc" id="L133">        gbc.anchor = GridBagConstraints.EAST;</span>
 
         // show button
-<span class="nc bnc" id="L130" title="All 2 branches missed.">        browseButton = this.imageIcon == null</span>
-<span class="nc" id="L131">                ? new JButton(</span>
-<span class="nc" id="L132">                getBundleString(</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        browseButton = this.imageIcon == null</span>
+<span class="nc" id="L137">                ? new JButton(</span>
+<span class="nc" id="L138">                getBundleString(</span>
                         &quot;fotorenamer.ui.selector.title&quot;))
-<span class="nc" id="L134">                : new JButton(</span>
-<span class="nc" id="L135">                getBundleString(</span>
+<span class="nc" id="L140">                : new JButton(</span>
+<span class="nc" id="L141">                getBundleString(</span>
                         &quot;fotorenamer.ui.selector.title&quot;), this.imageIcon);
-<span class="nc" id="L137">        browseButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.selector.title.mnemonic&quot;).charAt(0));</span>
-<span class="nc" id="L138">        browseButton.setMargin(new Insets(1, 1, 1, 1));</span>
-<span class="nc" id="L139">        grid.setConstraints(browseButton, gbc);</span>
-<span class="nc" id="L140">        add(browseButton);</span>
+<span class="nc" id="L143">        browseButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.selector.title.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L144">        browseButton.setMargin(new Insets(1, 1, 1, 1));</span>
+<span class="nc" id="L145">        grid.setConstraints(browseButton, gbc);</span>
+<span class="nc" id="L146">        add(browseButton);</span>
+<span class="nc" id="L147">    }</span>
 
+    private void initTextField() {
         // Add action listener and take current contents of textfield as start directory
-<span class="nc" id="L143">        browseButton.addActionListener(event -&gt; {</span>
+<span class="nc" id="L151">        browseButton.addActionListener(event -&gt; {</span>
 
-<span class="nc" id="L145">            String currentPath = getSelectedDirectory();</span>
-<span class="nc bnc" id="L146" title="All 2 branches missed.">            JFileChooser fileDlg = new JFileChooser(com.google.common.base.Strings.isNullOrEmpty(currentPath) ? null : currentPath);</span>
+<span class="nc" id="L153">            String currentPath = getSelectedDirectory();</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">            JFileChooser fileDlg = new JFileChooser(com.google.common.base.Strings.isNullOrEmpty(currentPath) ? null : currentPath);</span>
 
-<span class="nc" id="L148">            fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);</span>
-<span class="nc" id="L149">            fileDlg.setDialogTitle(</span>
-<span class="nc" id="L150">                    getBundleString(</span>
+<span class="nc" id="L156">            fileDlg.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);</span>
+<span class="nc" id="L157">            fileDlg.setDialogTitle(</span>
+<span class="nc" id="L158">                    getBundleString(</span>
                             &quot;fotorenamer.ui.selector.directory&quot;));
-<span class="nc" id="L152">            fileDlg.setApproveButtonText(getBundleString(</span>
+<span class="nc" id="L160">            fileDlg.setApproveButtonText(getBundleString(</span>
                     &quot;fotorenamer.ui.selector.select&quot;));
 
-<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (fileDlg.showOpenDialog(this)</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (fileDlg.showOpenDialog(this)</span>
                     == JFileChooser.APPROVE_OPTION) {
                 // use getCanonicalPath() to avoid ..-path manipulations and
                 // try to set the selected file in the UI
                 try {
-<span class="nc" id="L160">                    textField.setText(</span>
-<span class="nc" id="L161">                            fileDlg.getSelectedFile().getCanonicalPath());</span>
-<span class="nc" id="L162">                } catch (IOException ioe) {</span>
-<span class="nc" id="L163">                    LOG.error(&quot;Error while selecting directory, extracted text is: &quot;</span>
-<span class="nc" id="L164">                            + textField.getText());</span>
-<span class="nc" id="L165">                    LOG.error(ioe.getMessage());</span>
-<span class="nc" id="L166">                }</span>
+<span class="nc" id="L168">                    textField.setText(</span>
+<span class="nc" id="L169">                            fileDlg.getSelectedFile().getCanonicalPath());</span>
+<span class="nc" id="L170">                } catch (IOException ioe) {</span>
+<span class="nc" id="L171">                    LOG.error(&quot;Error while selecting directory, extracted text is: &quot;</span>
+<span class="nc" id="L172">                            + textField.getText());</span>
+<span class="nc" id="L173">                    LOG.error(ioe.getMessage());</span>
+<span class="nc" id="L174">                }</span>
             }
-<span class="nc" id="L168">        });</span>
+<span class="nc" id="L176">        });</span>
+<span class="nc" id="L177">    }</span>
 
-        // make textfield drag'n'dropable
-<span class="nc" id="L171">        textField.setDropTarget(new DropTarget() {</span>
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-<span class="nc" id="L174">                    evt.acceptDrop(DnDConstants.ACTION_COPY);</span>
-<span class="nc" id="L175">                    Object transferData = evt</span>
-<span class="nc" id="L176">                            .getTransferable().getTransferData(</span>
-                                    DataFlavor.javaFileListFlavor);
-
-<span class="nc bnc" id="L179" title="All 2 branches missed.">                    if (transferData instanceof java.util.List) {</span>
-                        //noinspection unchecked
-<span class="nc" id="L181">                        java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;</span>
-<span class="nc bnc" id="L182" title="All 2 branches missed.">                        if (!droppedFiles.isEmpty()) {</span>
-<span class="nc bnc" id="L183" title="All 2 branches missed.">                            for (File droppedFile : droppedFiles) {</span>
-<span class="nc bnc" id="L184" title="All 2 branches missed.">                                if (droppedFile.isDirectory()) {</span>
-<span class="nc" id="L185">                                    final String path = droppedFile.getAbsolutePath();</span>
-<span class="nc" id="L186">                                    LOG.info(&quot;Drag'n'drop done for file: &quot; + path + &quot; with &quot; + droppedFiles.size() + &quot; element(s) received&quot;);</span>
-<span class="nc" id="L187">                                    textField.setText(path);</span>
-<span class="nc" id="L188">                                    break;</span>
-                                }
-<span class="nc" id="L190">                            }</span>
-                        }
-                    }
-
-<span class="nc" id="L194">                } catch (Exception ex) {</span>
-<span class="nc" id="L195">                    LOG.info(&quot;Drag'd'drop did not work due to &quot; + ex);</span>
-<span class="nc" id="L196">                }</span>
-<span class="nc" id="L197">            }</span>
-        });
-
+    private void makeTextFieldReactOnEnterOrCopyPasteFromMainUI() {
         // make textfield react on Enter/copied over from MainUIWindow
-<span class="nc" id="L201">        textField.addKeyListener(new KeyAdapter() {</span>
+<span class="nc" id="L181">        textField.addKeyListener(new KeyAdapter() {</span>
             @Override
             public void keyPressed(final KeyEvent e) {
-<span class="nc bnc" id="L204" title="All 2 branches missed.">                if (e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">                if (e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
 
-<span class="nc" id="L206">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;Void, Void&gt;() {</span>
+<span class="nc" id="L186">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;Void, Void&gt;() {</span>
                         @Override
                         protected Void doInBackground() {
-<span class="nc bnc" id="L209" title="All 2 branches missed.">                            if (isWaiting()) {</span>
-<span class="nc" id="L210">                                showErrorPopup(getBundleString(&quot;fotorenamer.ui.error.nodirectory&quot;), getBundleString(&quot;fotorenamer.ui.error.nodirectory.title&quot;));</span>
-<span class="nc" id="L211">                                return null;</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">                            if (isWaiting()) {</span>
+<span class="nc" id="L190">                                showErrorPopup(getBundleString(&quot;fotorenamer.ui.error.nodirectory&quot;), getBundleString(&quot;fotorenamer.ui.error.nodirectory.title&quot;));</span>
+<span class="nc" id="L191">                                return null;</span>
                             }
 
                             // perform renaming
                             try {
-<span class="nc" id="L216">                                CreationDateFromExifImageRenamer renamer =</span>
-<span class="nc" id="L217">                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());</span>
-<span class="nc" id="L218">                                new Thread(renamer).start();</span>
-<span class="nc" id="L219">                            } catch (InvalidDirectoryException uv) {</span>
-<span class="nc" id="L220">                                LOG.info(&quot;Invalid directory selected: &quot; + uv.getMessage());</span>
-<span class="nc" id="L221">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()), getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;));</span>
-<span class="nc" id="L222">                            } catch (NoFilesFoundException kde) {</span>
-<span class="nc" id="L223">                                LOG.info(&quot;No files found in &quot; + kde.getMessage());</span>
-<span class="nc" id="L224">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()), getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;));</span>
-<span class="nc" id="L225">                            }</span>
-<span class="nc" id="L226">                            return null;</span>
+<span class="nc" id="L196">                                CreationDateFromExifImageRenamer renamer =</span>
+<span class="nc" id="L197">                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());</span>
+<span class="nc" id="L198">                                new Thread(renamer).start();</span>
+<span class="nc" id="L199">                            } catch (InvalidDirectoryException uv) {</span>
+<span class="nc" id="L200">                                LOG.info(&quot;Invalid directory selected: {}&quot;, uv.getMessage());</span>
+<span class="nc" id="L201">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.invaliddirectory&quot;, uv.getMessage()), getBundleString(&quot;fotorenamer.ui.error.invaliddirectory.title&quot;));</span>
+<span class="nc" id="L202">                            } catch (NoFilesFoundException kde) {</span>
+<span class="nc" id="L203">                                LOG.info(&quot;No files found in {}&quot;, kde.getMessage());</span>
+<span class="nc" id="L204">                                showErrorPopup(getParameterizedBundleString(&quot;fotorenamer.ui.error.nofiles&quot;, kde.getMessage()), getBundleString(&quot;fotorenamer.ui.error.nofiles.title&quot;));</span>
+<span class="nc" id="L205">                            }</span>
+<span class="nc" id="L206">                            return null;</span>
                         }
 
                         @Override
                         protected void done() {
                             // TODO how can I communicate with the surrounding UI to block the user from pressing the buttons
-<span class="nc" id="L232">                            LOG.debug(&quot;Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.&quot;);</span>
-<span class="nc" id="L233">                        }</span>
+<span class="nc" id="L212">                            LOG.debug(&quot;Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.&quot;);</span>
+<span class="nc" id="L213">                        }</span>
                     };
                     // Execute the SwingWorker; GUI will not freeze
-<span class="nc" id="L236">                    worker.execute();</span>
+<span class="nc" id="L216">                    worker.execute();</span>
                 }
-<span class="nc" id="L238">            }</span>
+<span class="nc" id="L218">            }</span>
 
         });
-<span class="nc" id="L241">    }</span>
+<span class="nc" id="L221">    }</span>
+
+    private void makeTextFieldDragAndDropable() {
+        // make textfield drag'n'dropable
+<span class="nc" id="L225">        textField.setDropTarget(new DropTarget() {</span>
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+<span class="nc" id="L228">                    evt.acceptDrop(DnDConstants.ACTION_COPY);</span>
+<span class="nc" id="L229">                    Object transferData = evt</span>
+<span class="nc" id="L230">                            .getTransferable().getTransferData(</span>
+                                    DataFlavor.javaFileListFlavor);
+
+<span class="nc bnc" id="L233" title="All 2 branches missed.">                    if (transferData instanceof java.util.List) {</span>
+                        //noinspection unchecked
+<span class="nc" id="L235">                        java.util.List&lt;File&gt; droppedFiles = (java.util.List&lt;File&gt;) transferData;</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">                        if (!droppedFiles.isEmpty()) {</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">                            for (File droppedFile : droppedFiles) {</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">                                if (droppedFile.isDirectory()) {</span>
+<span class="nc" id="L239">                                    final String path = droppedFile.getAbsolutePath();</span>
+<span class="nc" id="L240">                                    LOG.info(&quot;Drag'n'drop done for file: {} with {} element(s) received&quot;, path, droppedFiles.size());</span>
+<span class="nc" id="L241">                                    textField.setText(path);</span>
+<span class="nc" id="L242">                                    break;</span>
+                                }
+<span class="nc" id="L244">                            }</span>
+                        }
+                    }
+
+<span class="nc" id="L248">                } catch (Exception ex) {</span>
+<span class="nc" id="L249">                    LOG.info(&quot;Drag'd'drop did not work due to exception&quot;, ex);</span>
+<span class="nc" id="L250">                }</span>
+<span class="nc" id="L251">            }</span>
+        });
+<span class="nc" id="L253">    }</span>
 
     void showErrorPopup(final String message, final String title) {
-<span class="nc" id="L244">        JOptionPane.showMessageDialog(null,</span>
+<span class="nc" id="L256">        JOptionPane.showMessageDialog(null,</span>
                 message,
                 title,
                 JOptionPane.ERROR_MESSAGE);
-<span class="nc" id="L248">    }</span>
+<span class="nc" id="L260">    }</span>
 
     /**
      * Current directory is the representation of this component.
@@ -253,13 +265,13 @@ class ImageDirectorySelector extends JPanel {
      * @return The currently selected directory.
      */
     final String getSelectedDirectory() {
-<span class="nc" id="L256">        String currentSelection = LocalizationHelper.removeCrLf(this.textField.getText());</span>
-<span class="nc bnc" id="L257" title="All 2 branches missed.">        if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {</span>
-<span class="nc" id="L258">            currentSelection = currentSelection.replaceAll(&quot;~&quot;, System.getProperty(&quot;user.home&quot;));</span>
-<span class="nc" id="L259">            currentSelection = currentSelection.trim();</span>
-<span class="nc" id="L260">            LOG.debug(&quot;User input transformed into &quot; + currentSelection);</span>
+<span class="nc" id="L268">        String currentSelection = LocalizationHelper.removeCrLf(this.textField.getText());</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {</span>
+<span class="nc" id="L270">            currentSelection = currentSelection.replaceAll(&quot;~&quot;, System.getProperty(&quot;user.home&quot;));</span>
+<span class="nc" id="L271">            currentSelection = currentSelection.trim();</span>
+<span class="nc" id="L272">            LOG.debug(&quot;User input transformed into {}&quot;, currentSelection);</span>
         }
-<span class="nc" id="L262">        return currentSelection;</span>
+<span class="nc" id="L274">        return currentSelection;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

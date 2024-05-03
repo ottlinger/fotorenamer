@@ -1,21 +1,21 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,CreationDateFromExifImageRenamer,23,4,0,0,10,2,2,1,2,1
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,AbstractImageRenamer,236,25,14,1,43,9,13,2,5,2
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,AbstractImageRenamer,224,25,14,1,40,8,13,2,5,2
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,MetaDataExtractor,14,126,5,9,2,23,5,5,0,3
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,ImageFilenameFilter,45,27,11,3,7,3,7,4,1,3
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RemoveExifPrefixRenamer,247,0,19,0,48,0,15,0,5,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,ImageFilenameFilter,45,23,11,3,7,3,7,4,1,3
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,RenamingErrorException,0,18,0,0,0,5,0,2,0,2
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,NoFilesFoundException,3,21,1,1,0,5,1,2,0,2
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,InvalidDirectoryException,0,33,0,0,0,8,0,3,0,3
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer,ApplicationStarter,20,0,0,0,8,0,2,0,2,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.util,ComponentGaugeUtil,83,0,4,0,17,0,5,0,3,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer,ApplicationStarter,14,0,0,0,8,0,2,0,2,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.util,ComponentGaugeUtil,65,0,4,0,17,0,5,0,3,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.util,Version,3,0,0,0,1,0,1,0,1,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.util,LocalizationHelper,17,137,5,5,5,28,5,7,1,6
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,HelpWindow,211,0,4,0,47,0,8,0,6,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,MainUIWindow.new SwingWorker() {...},156,0,4,0,35,0,5,0,3,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector,250,0,8,0,65,0,12,0,8,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ProgressBar,144,0,2,0,41,0,9,0,8,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector.new DropTarget() {...},76,0,8,0,18,0,6,0,2,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,MainUIWindow,367,0,10,0,73,0,11,0,6,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector.2.new SwingWorker() {...},96,0,2,0,17,0,4,0,3,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.util,LocalizationHelper,17,102,5,5,5,28,5,7,1,6
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,HelpWindow,212,0,4,0,47,0,8,0,6,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,MainUIWindow.new SwingWorker() {...},144,0,4,0,35,0,5,0,3,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector,256,0,8,0,73,0,16,0,12,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ProgressBar,138,0,2,0,41,0,9,0,8,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector.new KeyAdapter() {...},18,0,2,0,5,0,3,0,2,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,MainUIWindow,370,0,10,0,74,0,11,0,6,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector.1.new SwingWorker() {...},84,0,2,0,17,0,4,0,3,0
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector.new DropTarget() {...},60,0,8,0,18,0,6,0,2,0

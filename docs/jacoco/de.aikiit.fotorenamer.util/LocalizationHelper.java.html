@@ -67,10 +67,10 @@ public final class LocalizationHelper {
 
 <span class="pc bpc" id="L68" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(userLanguage) || Strings.isNullOrEmpty(userCountry)) {</span>
 <span class="fc" id="L69">            LOCALE = FALLBACK_LOCALE;</span>
-<span class="fc" id="L70">            LOG.info(&quot;Falling back to locale &quot; + LOCALE);</span>
+<span class="fc" id="L70">            LOG.info(&quot;Falling back to locale {}&quot;, LOCALE);</span>
         } else {
 <span class="fc" id="L72">            LOCALE = new Locale(userLanguage, userCountry);</span>
-<span class="fc" id="L73">            LOG.info(&quot;Setting locale to &quot; + LOCALE);</span>
+<span class="fc" id="L73">            LOG.info(&quot;Setting locale to {}&quot;, LOCALE);</span>
         }
 
 <span class="fc" id="L76">        BUNDLE = ResourceBundle.getBundle(BASE_NAME, LOCALE);</span>
@@ -105,11 +105,11 @@ public final class LocalizationHelper {
      * @return Returns the value from the bundle.
      */
     public static String getBundleString(final String key) {
-<span class="fc" id="L108">        LOG.debug(&quot;Retrieving key &quot; + key);</span>
+<span class="fc" id="L108">        LOG.debug(&quot;Retrieving key {}&quot;, key);</span>
         try {
 <span class="fc" id="L110">            return BUNDLE.getString(key);</span>
 <span class="fc" id="L111">        } catch (MissingResourceException mre) {</span>
-<span class="fc" id="L112">            LOG.error(&quot;Retrieving unknown key &quot; + key + &quot;. Please fix your property files.&quot;);</span>
+<span class="fc" id="L112">            LOG.error(&quot;Retrieving unknown key {}. Please fix your property files.&quot;, key);</span>
 <span class="fc" id="L113">            return key;</span>
         }
         // l18n basics:
@@ -118,7 +118,7 @@ public final class LocalizationHelper {
         // http://www.java2s.com/Code/Java/I18N/Createonebuttoninternationalizedly.htm
         // l18n with parameters:
         // http://www.java2s.com/Code/Java/I18N/ResourceBundlewithparameterposition.htm
-        // parameters are a but uneasier than with grails -
+        // parameters are a bit uneasier than with grails -
         // http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html
         // encoding issues / eclipse plugin:
         // http://stackoverflow.com/questions/863838/problem-with-java-properties-utf8-encoding-in-eclipse
@@ -134,12 +134,12 @@ public final class LocalizationHelper {
      * @param parameters Object array with all parameters.
      * @return Returns the value from the bundle
      * with the given parameters applied.
-     * @see &lt;a href=&quot;http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html&quot;&gt;
+     * @see &lt;a href=&quot;https://docs.oracle.com/javase/tutorial/i18n/format/messageFormat.html&quot;&gt;
      * I18N-tutorial&lt;/a&gt;
      */
     public static String getParameterizedBundleString(final String key, final Object... parameters) {
-<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        LOG.debug(&quot;Applying &quot; + ((parameters == null) ? null : parameters</span>
-                .length) + &quot; parameters to &quot; + key);
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        LOG.debug(&quot;Applying {} parameters to {}&quot;, (parameters == null) ? null : parameters</span>
+                .length, key);
 <span class="fc" id="L143">        FORMAT.applyPattern(getBundleString(key));</span>
 <span class="fc" id="L144">        return FORMAT.format(parameters);</span>
     }
