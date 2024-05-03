@@ -134,7 +134,7 @@ public final class RemoveExifPrefixRenamer implements Runnable {
      *
      * @see #rename()
      */
-    public final void run() {
+    public void run() {
         this.progressBar = new ProgressBar(this.listOfFiles.size());
 
         try {
