@@ -169,14 +169,15 @@ public final class MainUIWindow extends JFrame implements ActionListener {
     public void actionPerformed(final ActionEvent event) {
         final SwingWorker<Void, Void> worker;
 
+        Object source = event.getSource();
         // end
-        if (event.getSource() == this.endButton) {
+        if (this.endButton.equals(source)) {
             LOG.info("Bye Bye :-)");
             System.exit(0);
-        } else if (event.getSource() == this.helpButton) {
+        } else if (this.helpButton.equals(source)) {
             LOG.info("Displaying help window.");
             showHelpWindow();
-        } else if (event.getSource() == this.infoButton) {
+        } else if (this.infoButton.equals(source)) {
             // info
             JOptionPane.showMessageDialog(null,
                     getParameterizedBundleString("fotorenamer.ui.about", VERSION, new SimpleDateFormat("yyyy").
@@ -185,8 +186,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
                                             Version.TIMESTAMP)))),
                     getBundleString("fotorenamer.ui.main.version.title"),
                     JOptionPane.INFORMATION_MESSAGE);
-        } else if (event.getSource() == this.revertButton || event.getSource()
-                == this.goButton) {
+        } else if (this.revertButton.equals(source) || this.goButton.equals(source)) {
             worker = new SwingWorker<Void, Void>() {
                 @Override
                 protected Void doInBackground() {
@@ -200,7 +200,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
 
                     // perform renaming
                     try {
-                        if (event.getSource() == goButton) {
+                        if (goButton.equals(source)) {
                             goButton.setEnabled(false);
                             goButton.setText(getBundleString("fotorenamer.ui.main.progress"));
                             CreationDateFromExifImageRenamer renamer =
