@@ -115,7 +115,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
 
         this.setTitle(getParameterizedBundleString("fotorenamer.ui.main.title", os));
         this.getContentPane().setLayout(new BorderLayout());
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // select directory
         JPanel verzeichnis = new JPanel(new BorderLayout());
