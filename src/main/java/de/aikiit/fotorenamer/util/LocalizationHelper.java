@@ -67,10 +67,10 @@ public final class LocalizationHelper {
 
         if (Strings.isNullOrEmpty(userLanguage) || Strings.isNullOrEmpty(userCountry)) {
             LOCALE = FALLBACK_LOCALE;
-            LOG.info("Falling back to locale " + LOCALE);
+            LOG.info("Falling back to locale {}", LOCALE);
         } else {
             LOCALE = new Locale(userLanguage, userCountry);
-            LOG.info("Setting locale to " + LOCALE);
+            LOG.info("Setting locale to {}", LOCALE);
         }
 
         BUNDLE = ResourceBundle.getBundle(BASE_NAME, LOCALE);
@@ -105,11 +105,11 @@ public final class LocalizationHelper {
      * @return Returns the value from the bundle.
      */
     public static String getBundleString(final String key) {
-        LOG.debug("Retrieving key " + key);
+        LOG.debug("Retrieving key {}", key);
         try {
             return BUNDLE.getString(key);
         } catch (MissingResourceException mre) {
-            LOG.error("Retrieving unknown key " + key + ". Please fix your property files.");
+            LOG.error("Retrieving unknown key {}. Please fix your property files.", key);
             return key;
         }
         // l18n basics:
@@ -118,7 +118,7 @@ public final class LocalizationHelper {
         // http://www.java2s.com/Code/Java/I18N/Createonebuttoninternationalizedly.htm
         // l18n with parameters:
         // http://www.java2s.com/Code/Java/I18N/ResourceBundlewithparameterposition.htm
-        // parameters are a but uneasier than with grails -
+        // parameters are a bit uneasier than with grails -
         // http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html
         // encoding issues / eclipse plugin:
         // http://stackoverflow.com/questions/863838/problem-with-java-properties-utf8-encoding-in-eclipse
@@ -134,12 +134,12 @@ public final class LocalizationHelper {
      * @param parameters Object array with all parameters.
      * @return Returns the value from the bundle
      * with the given parameters applied.
-     * @see <a href="http://download.oracle.com/javase/tutorial/i18n/format/messageFormat.html">
+     * @see <a href="https://docs.oracle.com/javase/tutorial/i18n/format/messageFormat.html">
      * I18N-tutorial</a>
      */
     public static String getParameterizedBundleString(final String key, final Object... parameters) {
-        LOG.debug("Applying " + ((parameters == null) ? null : parameters
-                .length) + " parameters to " + key);
+        LOG.debug("Applying {} parameters to {}", (parameters == null) ? null : parameters
+                .length, key);
         FORMAT.applyPattern(getBundleString(key));
         return FORMAT.format(parameters);
     }

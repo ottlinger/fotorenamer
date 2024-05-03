@@ -61,15 +61,14 @@ public final class ComponentGaugeUtil {
      */
     public static ImageIcon createImageIcon(final String path) {
         assert path != null : "Path for image icon needs to be set.";
-        LOG.debug("Creating image icon from path " + path);
+        LOG.debug("Creating image icon from path {}", path);
         java.net.URL imgURL = ComponentGaugeUtil.class.getResource(path);
-        LOG.debug("extracted URL is: " + imgURL);
+        LOG.debug("extracted URL is: {}", imgURL);
 
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            LOG.error("Could not generate a valid URL from the given path: "
-                    + path);
+            LOG.error("Could not generate a valid URL from the given path: {}", path);
             return null;
         }
     }

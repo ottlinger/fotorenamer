@@ -31,7 +31,7 @@ import java.util.List;
  */
 class ImageFilenameFilter implements FilenameFilter {
 
-    private static final List<String> EXTENSIONS = Lists.newArrayList("jpg", "png");
+    private static final List<String> EXTENSIONS = Lists.newArrayList("jpg", "jpeg", "png");
 
     /**
      * Filter filenames in a directory for images.
