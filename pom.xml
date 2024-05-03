@@ -171,9 +171,16 @@
         <artifactId>maven-jxr-plugin</artifactId>
         <version>3.3.2</version>
         <configuration>
-          <aggregate>true</aggregate>
           <linkJavadoc>true</linkJavadoc>
         </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>jxr-no-fork</report>
+              <report>test-jxr-no-fork</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <!-- Generates null error
             <plugin>
@@ -307,9 +314,9 @@
             <excludeFilterFile>spotbugs_ignore.xml</excludeFilterFile>
             <plugins>
               <plugin>
-                  <groupId>com.h3xstream.findsecbugs</groupId>
-                  <artifactId>findsecbugs-plugin</artifactId>
-                  <version>1.13.0</version>
+                <groupId>com.h3xstream.findsecbugs</groupId>
+                <artifactId>findsecbugs-plugin</artifactId>
+                <version>1.13.0</version>
               </plugin>
             </plugins>
           </configuration>
