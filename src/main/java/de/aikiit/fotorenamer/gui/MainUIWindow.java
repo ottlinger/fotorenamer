@@ -215,13 +215,13 @@ public final class MainUIWindow extends JFrame implements ActionListener {
                                     imageDirectorySelector.getSelectedDirectory());
                         }
                     } catch (InvalidDirectoryException uv) {
-                        LOG.info("Invalid directory selected: " + uv.getMessage());
+                        LOG.info("Invalid directory selected: {}", uv.getMessage());
                         JOptionPane.showMessageDialog(null,
                                 getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
                                 getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
                                 JOptionPane.ERROR_MESSAGE);
                     } catch (NoFilesFoundException kde) {
-                        LOG.info("No files found in " + kde.getMessage());
+                        LOG.info("No files found in {}", kde.getMessage());
                         JOptionPane.showMessageDialog(null,
                                 getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()),
                                 getBundleString("fotorenamer.ui.error.nofiles.title"),
