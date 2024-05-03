@@ -51,6 +51,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <assertj.version>3.25.3</assertj.version>
     <lombok.version>1.18.32</lombok.version>
     <guava.version>33.2.0-jre</guava.version>
     <logger.version>2.23.1</logger.version>
@@ -62,6 +63,8 @@
     <javadoc-plugin.version>3.6.3</javadoc-plugin.version>
     <junit.jupiter.version>5.10.2</junit.jupiter.version>
     <junit.platform.version>1.10.0</junit.platform.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   <dependencies>
     <dependency>
@@ -70,6 +73,12 @@
       <version>2.0.0-M8</version>
     </dependency>
     <!-- test dependencies -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
@@ -559,10 +568,7 @@
         <version>3.13.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>1.8</source>
-          <target>1.8</target>
           <fork>true</fork>
-          <compilerVersion>1.8</compilerVersion>
         </configuration>
       </plugin>
       <!--  generate source and javadoc.jar -->

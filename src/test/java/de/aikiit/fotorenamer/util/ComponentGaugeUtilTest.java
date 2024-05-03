@@ -64,4 +64,5 @@ class ComponentGaugeUtilTest {
         makeCentered(button);
         assertNotSame(new Point(0, 0), button.getLocation());
     }
+
 }
