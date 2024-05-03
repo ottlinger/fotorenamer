@@ -51,8 +51,7 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * The logger of this class.
      */
-    private static final Logger LOG =
-            LogManager.getLogger(AbstractImageRenamer.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractImageRenamer.class);
 
     /**
      * The currently selected directory to work on.
@@ -82,8 +81,7 @@ abstract class AbstractImageRenamer implements Runnable {
      *                                   the selected directory.
      * @throws NoFilesFoundException     If the selected directory is empty.
      */
-    AbstractImageRenamer(final String directory)
-            throws InvalidDirectoryException, NoFilesFoundException {
+    AbstractImageRenamer(final String directory) throws InvalidDirectoryException, NoFilesFoundException {
 
         if (directory == null) {
             throw new InvalidDirectoryException("null is not a directory");
@@ -95,8 +93,7 @@ abstract class AbstractImageRenamer implements Runnable {
         }
 
         // retrieve relevant images in directory
-        File[] files = this.currentDirectory.listFiles(
-                new ImageFilenameFilter());
+        File[] files = this.currentDirectory.listFiles(new ImageFilenameFilter());
         if (files == null || files.length == 0) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
@@ -108,7 +105,7 @@ abstract class AbstractImageRenamer implements Runnable {
      * Performs the actual/technical renaming.
      */
     private void renameFiles() {
-        LOG.info("Starting to rename " + this.amountOfFiles + " files.");
+        LOG.info("Starting to rename {} files.", this.amountOfFiles);
 
         Consumer<File> consumer = file -> {
             // extract EXIF data and fetch target filename
@@ -121,12 +118,9 @@ abstract class AbstractImageRenamer implements Runnable {
 
             // TODO add second progressbar or counter for errors
             try {
-                Files.move(file.toPath(), new File(file.getParent(),
-                        targetFilename).toPath());
+                Files.move(file.toPath(), new File(file.getParent(), targetFilename).toPath());
             } catch (IOException e) {
-                LOG.error("Unable to rename '"
-                        + file.getName() + "' to '"
-                        + targetFilename + "'");
+                LOG.error("Unable to rename '{}' to '{}'", file.getName(), targetFilename);
             }
         };
         Predicate<File> fileOnly = file -> file != null && file.isFile();
@@ -152,16 +146,12 @@ abstract class AbstractImageRenamer implements Runnable {
      * @see #renameFiles()
      */
     public final void run() {
-        String notification;
         this.progressBar = new ProgressBar(this.amountOfFiles);
 
         try {
             renameFiles();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    getParameterizedBundleString("fotorenamer.ui.rename.error", MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())),
-                    getBundleString("fotorenamer.ui.rename.error.title"),
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, getParameterizedBundleString("fotorenamer.ui.rename.error", MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())), getBundleString("fotorenamer.ui.rename.error.title"), JOptionPane.ERROR_MESSAGE);
 
             this.amountOfFiles = 0;
         } finally {
@@ -169,20 +159,20 @@ abstract class AbstractImageRenamer implements Runnable {
         }
 
         // show UI-notification
+        StringBuilder notification = new StringBuilder();
         switch (this.amountOfFiles) {
             case 0:
-                notification = getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName());
+                notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName()));
                 break;
             case 1:
-                notification = getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName());
+                notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName()));
                 break;
             default:
-                notification = getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.amountOfFiles, this.currentDirectory.getName());
+                notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.amountOfFiles, this.currentDirectory.getName()));
                 break;
         }
 
-        notification += "\n\n";
-        JOptionPane.showMessageDialog(null, notification, getBundleString("fotorenamer.ui.rename.success.title"),
-                JOptionPane.INFORMATION_MESSAGE);
+        notification.append("\n\n");
+        JOptionPane.showMessageDialog(null, notification.toString(), getBundleString("fotorenamer.ui.rename.success.title"), JOptionPane.INFORMATION_MESSAGE);
     }
 }
