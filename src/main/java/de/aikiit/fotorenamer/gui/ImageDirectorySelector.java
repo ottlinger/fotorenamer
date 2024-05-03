@@ -103,7 +103,13 @@ class ImageDirectorySelector extends JPanel {
      * Initialize internal UI components.
      */
     private void init() {
-        // Set layout.
+        createBaseLayout();
+        initTextField();
+        makeTextFieldDragAndDropable();
+        makeTextFieldReactOnEnterOrCopyPasteFromMainUI();
+    }
+
+    private void createBaseLayout() {
         GridBagLayout grid = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 2, 0, 2);
@@ -138,7 +144,9 @@ class ImageDirectorySelector extends JPanel {
         browseButton.setMargin(new Insets(1, 1, 1, 1));
         grid.setConstraints(browseButton, gbc);
         add(browseButton);
+    }
 
+    private void initTextField() {
         // Add action listener and take current contents of textfield as start directory
         browseButton.addActionListener(event -> {
 
@@ -166,37 +174,9 @@ class ImageDirectorySelector extends JPanel {
                 }
             }
         });
+    }
 
-        // make textfield drag'n'dropable
-        textField.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    Object transferData = evt
-                            .getTransferable().getTransferData(
-                                    DataFlavor.javaFileListFlavor);
-
-                    if (transferData instanceof java.util.List) {
-                        //noinspection unchecked
-                        java.util.List<File> droppedFiles = (java.util.List<File>) transferData;
-                        if (!droppedFiles.isEmpty()) {
-                            for (File droppedFile : droppedFiles) {
-                                if (droppedFile.isDirectory()) {
-                                    final String path = droppedFile.getAbsolutePath();
-                                    LOG.info("Drag'n'drop done for file: " + path + " with " + droppedFiles.size() + " element(s) received");
-                                    textField.setText(path);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                } catch (Exception ex) {
-                    LOG.info("Drag'd'drop did not work due to " + ex);
-                }
-            }
-        });
-
+    private void makeTextFieldReactOnEnterOrCopyPasteFromMainUI() {
         // make textfield react on Enter/copied over from MainUIWindow
         textField.addKeyListener(new KeyAdapter() {
             @Override
@@ -217,10 +197,10 @@ class ImageDirectorySelector extends JPanel {
                                         new CreationDateFromExifImageRenamer(getSelectedDirectory());
                                 new Thread(renamer).start();
                             } catch (InvalidDirectoryException uv) {
-                                LOG.info("Invalid directory selected: " + uv.getMessage());
+                                LOG.info("Invalid directory selected: {}", uv.getMessage());
                                 showErrorPopup(getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()), getBundleString("fotorenamer.ui.error.invaliddirectory.title"));
                             } catch (NoFilesFoundException kde) {
-                                LOG.info("No files found in " + kde.getMessage());
+                                LOG.info("No files found in {}", kde.getMessage());
                                 showErrorPopup(getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()), getBundleString("fotorenamer.ui.error.nofiles.title"));
                             }
                             return null;
@@ -237,6 +217,38 @@ class ImageDirectorySelector extends JPanel {
                 }
             }
 
+        });
+    }
+
+    private void makeTextFieldDragAndDropable() {
+        // make textfield drag'n'dropable
+        textField.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    Object transferData = evt
+                            .getTransferable().getTransferData(
+                                    DataFlavor.javaFileListFlavor);
+
+                    if (transferData instanceof java.util.List) {
+                        //noinspection unchecked
+                        java.util.List<File> droppedFiles = (java.util.List<File>) transferData;
+                        if (!droppedFiles.isEmpty()) {
+                            for (File droppedFile : droppedFiles) {
+                                if (droppedFile.isDirectory()) {
+                                    final String path = droppedFile.getAbsolutePath();
+                                    LOG.info("Drag'n'drop done for file: {} with {} element(s) received", path, droppedFiles.size());
+                                    textField.setText(path);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                } catch (Exception ex) {
+                    LOG.info("Drag'd'drop did not work due to exception", ex);
+                }
+            }
         });
     }
 
@@ -257,7 +269,7 @@ class ImageDirectorySelector extends JPanel {
         if (!com.google.common.base.Strings.isNullOrEmpty(currentSelection)) {
             currentSelection = currentSelection.replaceAll("~", System.getProperty("user.home"));
             currentSelection = currentSelection.trim();
-            LOG.debug("User input transformed into " + currentSelection);
+            LOG.debug("User input transformed into {}", currentSelection);
         }
         return currentSelection;
     }
