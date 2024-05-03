@@ -94,7 +94,7 @@ class HelpWindow extends JFrame implements ActionListener {
         this.pack();
         ComponentGaugeUtil.makeCentered(this);
 
-        // let button get the focus, needs to be run in the and and async
+        // let button get the focus, needs to be run in the end and async
         SwingUtilities.invokeLater(() -> {
             getRootPane().setDefaultButton(endButton);
             endButton.requestFocusInWindow();
@@ -133,7 +133,7 @@ class HelpWindow extends JFrame implements ActionListener {
      * @param event Event to react on in this UI-component.
      */
     public final void actionPerformed(final ActionEvent event) {
-        if (event.getSource() == this.endButton) {
+        if (this.endButton.equals(event.getSource())) {
             LOG.debug("Disabling visibility of helpWindow.");
             setVisible(false);
         }

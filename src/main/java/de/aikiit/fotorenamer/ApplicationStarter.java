@@ -45,7 +45,7 @@ public final class ApplicationStarter {
             UIManager.setLookAndFeel(
                     UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {
-            LOG.error("Error during application startup: " + e);
+            LOG.error("Error during application startup", e);
         }
         MainUIWindow.build();
     }
