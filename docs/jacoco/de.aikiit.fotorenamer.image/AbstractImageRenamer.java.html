@@ -45,7 +45,7 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBund
  * @author hirsch
  * @version 2011-03-22, 11:43
  */
-<span class="nc" id="L48">@NoArgsConstructor(access = AccessLevel.PRIVATE)</span>
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 abstract class AbstractImageRenamer implements Runnable {
 
     /**
@@ -56,20 +56,20 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * The currently selected directory to work on.
      */
-<span class="pc" id="L59">    private File currentDirectory = null;</span>
+<span class="fc" id="L59">    private File currentDirectory = null;</span>
     /**
      * The list of all relevant files in the current directory.
      */
-<span class="pc" id="L63">    private List&lt;File&gt; imageList = null;</span>
+<span class="fc" id="L63">    private List&lt;File&gt; imageList = null;</span>
 
     /**
      * Progress bar for visual feedback of what's going on.
      */
-<span class="pc" id="L68">    private ProgressBar progressBar = null;</span>
+<span class="fc" id="L68">    private ProgressBar progressBar = null;</span>
     /**
      * Number of files that need processing.
      */
-<span class="pc" id="L72">    private int amountOfFiles = 0;</span>
+<span class="fc" id="L72">    private int amountOfFiles = 0;</span>
 
     /**
      * Starts image processing on the given directory if it contains
