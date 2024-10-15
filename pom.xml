@@ -55,7 +55,7 @@
     <lombok.version>1.18.34</lombok.version>
     <guava.version>33.3.0-jre</guava.version>
     <logger.version>2.24.0</logger.version>
-    <mockito.version>5.13.0</mockito.version>
+    <mockito.version>5.14.2</mockito.version>
     <shade.version>3.6.0</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
