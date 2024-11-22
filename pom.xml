@@ -54,7 +54,7 @@
     <assertj.version>3.26.3</assertj.version>
     <lombok.version>1.18.34</lombok.version>
     <guava.version>33.3.1-jre</guava.version>
-    <logger.version>2.24.1</logger.version>
+    <logger.version>2.24.2</logger.version>
     <mockito.version>5.14.2</mockito.version>
     <shade.version>3.6.0</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
