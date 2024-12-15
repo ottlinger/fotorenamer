@@ -95,7 +95,7 @@ public final class RemoveExifPrefixRenamer implements Runnable {
             if (listOfFile.isFile() && !listOfFile.renameTo(
                     new File(listOfFile.getParent()
                             + File.separatorChar + nameNeu))) {
-                LOG.error("Problem with file " + listOfFile.getName());
+                LOG.error("Problem with file {}", listOfFile.getName());
                 throw new RenamingErrorException(getParameterizedBundleString("fotorenamer.ui.rerename.error.detail",
                         listOfFile.getName()));
             }

@@ -168,8 +168,7 @@ class ImageDirectorySelector extends JPanel {
                     textField.setText(
                             fileDlg.getSelectedFile().getCanonicalPath());
                 } catch (IOException ioe) {
-                    LOG.error("Error while selecting directory, extracted text is: "
-                            + textField.getText());
+                    LOG.error("Error while selecting directory, extracted text is: {}", textField.getText());
                     LOG.error(ioe.getMessage());
                 }
             }

@@ -95,7 +95,7 @@ public final class RemoveExifPrefixRenamer implements Runnable {
 <span class="nc bnc" id="L95" title="All 4 branches missed.">            if (listOfFile.isFile() &amp;&amp; !listOfFile.renameTo(</span>
 <span class="nc" id="L96">                    new File(listOfFile.getParent()</span>
                             + File.separatorChar + nameNeu))) {
-<span class="nc" id="L98">                LOG.error(&quot;Problem with file &quot; + listOfFile.getName());</span>
+<span class="nc" id="L98">                LOG.error(&quot;Problem with file {}&quot;, listOfFile.getName());</span>
 <span class="nc" id="L99">                throw new RenamingErrorException(getParameterizedBundleString(&quot;fotorenamer.ui.rerename.error.detail&quot;,</span>
 <span class="nc" id="L100">                        listOfFile.getName()));</span>
             }
