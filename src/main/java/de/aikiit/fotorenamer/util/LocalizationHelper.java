@@ -57,13 +57,13 @@ public final class LocalizationHelper {
     }
 
     /**
-     * Set locale depending on system properties, in case of errors fallback is Locale.GERMANY.
+     * Set locale depending on system properties, in case of errors fallback is {@code Locale.GERMANY}.
      */
     public static void setLocale() {
         String userLanguage = System.getProperty("user.language");
         String userCountry = System.getProperty("user.country");
 
-        LOG.info(String.format("Your system emits the following l10n-properties: language=%s, country=%s", userLanguage, userCountry));
+        LOG.info("Your system emits the following l10n-properties: language={}, country={}", userLanguage, userCountry);
 
         if (Strings.isNullOrEmpty(userLanguage) || Strings.isNullOrEmpty(userCountry)) {
             LOCALE = FALLBACK_LOCALE;
@@ -79,7 +79,8 @@ public final class LocalizationHelper {
     }
 
     /**
-     * @return the currently set Locale of this application. Fallback is Locale.GERMANY.
+     * Returns the application's locale.
+     * @return the currently set Locale of this application. Fallback is {@code Locale.GERMANY}.
      */
     public static Locale getLocale() {
         if (LOCALE == null) {
@@ -90,7 +91,8 @@ public final class LocalizationHelper {
     }
 
     /**
-     * @return the currently set language
+     * Returns the currently set language.
+     * @return the currently set language.
      */
     public static String getLanguage() {
         return getLocale().getLanguage();
@@ -102,7 +104,7 @@ public final class LocalizationHelper {
      *
      * @param key Key to retrieve from the bundle,
      *            e.g. <i>fotorenamer.foo.title</i>
-     * @return Returns the value from the bundle.
+     * @return the value from the bundle.
      */
     public static String getBundleString(final String key) {
         LOG.debug("Retrieving key {}", key);
@@ -132,8 +134,7 @@ public final class LocalizationHelper {
      * @param key        Key to retrieve from the bundle,
      *                   e.g. <i>fotorenamer.foo.parameteredtitle</i>.
      * @param parameters Object array with all parameters.
-     * @return Returns the value from the bundle
-     * with the given parameters applied.
+     * @return the value from the bundle with the given parameters applied.
      * @see <a href="https://docs.oracle.com/javase/tutorial/i18n/format/messageFormat.html">
      * I18N-tutorial</a>
      */
