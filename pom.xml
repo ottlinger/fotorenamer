@@ -61,7 +61,7 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.16.1</rat.version>
     <javadoc-plugin.version>3.11.2</javadoc-plugin.version>
-    <junit.jupiter.version>5.11.4</junit.jupiter.version>
+    <junit.jupiter.version>5.12.0</junit.jupiter.version>
     <junit.platform.version>1.10.0</junit.platform.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
