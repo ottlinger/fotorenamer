@@ -58,11 +58,11 @@ public class ProgressBar extends JFrame {
      * this value is calculated dynamically
      * depending on the amount of pictures to be processed.
      */
-    private int delayInUI = -1;
+    private AtomicInteger delayInUI = new AtomicInteger(-1);
 
     /**
-    * Current success rate/counter.
-    */
+     * Current success rate/counter.
+     */
     private final AtomicInteger currentState;
 
     /**
@@ -99,7 +99,7 @@ public class ProgressBar extends JFrame {
         // calculate delay in UI depending on maximum capacity of the bar
         // itself; the more files the lower the delay
         this.delayInUI = maxCapacity < 35
-                ? DEFAULT_UI_DELAY : DEFAULT_UI_DELAY / 3;
+                ? new AtomicInteger(DEFAULT_UI_DELAY) : new AtomicInteger(DEFAULT_UI_DELAY / 3);
 
         this.getContentPane().setLayout(new GridLayout(3, 1));
         this.getContentPane().add(info);
@@ -122,7 +122,7 @@ public class ProgressBar extends JFrame {
         // TODO replace with a Timer - see
         // http://download.oracle.com/javase/tutorial/uiswing/misc/timer.html
         try {
-            TimeUnit.MILLISECONDS.sleep(this.delayInUI);
+            TimeUnit.MILLISECONDS.sleep(this.delayInUI.get());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             LOG.error("Thread sleep error during repaint of ProgressBar, {}", e.getMessage());
