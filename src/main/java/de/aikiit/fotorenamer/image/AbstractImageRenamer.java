@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -69,7 +70,7 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * Number of files that need processing.
      */
-    private int amountOfFiles = 0;
+    private AtomicInteger amountOfFiles = new AtomicInteger(0);
 
     /**
      * Starts image processing on the given directory if it contains
@@ -98,7 +99,7 @@ abstract class AbstractImageRenamer implements Runnable {
             throw new NoFilesFoundException(this.currentDirectory);
         }
         this.imageList = Lists.newArrayList(files);
-        this.amountOfFiles = this.imageList.size();
+        this.amountOfFiles = new AtomicInteger(this.imageList.size());
     }
 
     /**
@@ -146,21 +147,21 @@ abstract class AbstractImageRenamer implements Runnable {
      * @see #renameFiles()
      */
     public final void run() {
-        this.progressBar = new ProgressBar(this.amountOfFiles);
+        this.progressBar = new ProgressBar(this.amountOfFiles.get());
 
         try {
             renameFiles();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, getParameterizedBundleString("fotorenamer.ui.rename.error", MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())), getBundleString("fotorenamer.ui.rename.error.title"), JOptionPane.ERROR_MESSAGE);
 
-            this.amountOfFiles = 0;
+            this.amountOfFiles = new AtomicInteger(0);
         } finally {
             this.progressBar.dispose();
         }
 
         // show UI-notification
         StringBuilder notification = new StringBuilder();
-        switch (this.amountOfFiles) {
+        switch (this.amountOfFiles.get()) {
             case 0:
                 notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName()));
                 break;
