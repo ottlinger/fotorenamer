@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        java: [11,17,21]
+        java: [11,17,21,24]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -52,6 +52,6 @@ jobs:
         run: ./mvnw -e -B -V site:site 
 
       - name: Code coverage with codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
