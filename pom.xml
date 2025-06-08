@@ -61,17 +61,26 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.16.1</rat.version>
     <javadoc-plugin.version>3.11.2</javadoc-plugin.version>
-    <junit.jupiter.version>5.13.0</junit.jupiter.version>
-    <junit.platform.version>1.10.0</junit.platform.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+         <groupId>org.junit</groupId>
+         <artifactId>junit-bom</artifactId>
+         <version>5.13.1</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
+       <dependency>
+         <groupId>org.apache.maven.skins</groupId>
+         <artifactId>maven-fluido-skin</artifactId>
+         <version>2.1.0</version>
+       </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
-    <dependency>
-      <groupId>org.apache.maven.skins</groupId>
-      <artifactId>maven-fluido-skin</artifactId>
-      <version>2.1.0</version>
-    </dependency>
     <!-- test dependencies -->
     <dependency>
       <groupId>org.assertj</groupId>
@@ -88,7 +97,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- http://logging.apache.org/log4j/2.x/manual/api.html -->
