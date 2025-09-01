@@ -168,11 +168,12 @@
           <source>8</source>
         </configuration>
       </plugin>
+<!-- Disable until git deprecated issue is solved
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changelog-plugin</artifactId>
         <version>2.3</version>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
