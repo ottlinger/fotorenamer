@@ -467,7 +467,7 @@
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.4</version>
         <configuration>
           <systemPropertyVariables>
             <java.awt.headless>true</java.awt.headless>
