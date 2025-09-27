@@ -53,7 +53,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <assertj.version>3.27.4</assertj.version>
     <lombok.version>1.18.42</lombok.version>
-    <guava.version>33.4.8-jre</guava.version>
+    <guava.version>33.5.0-jre</guava.version>
     <logger.version>2.25.1</logger.version>
     <mockito.version>5.19.0</mockito.version>
     <shade.version>3.6.1</shade.version>
