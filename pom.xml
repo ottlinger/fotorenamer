@@ -51,7 +51,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <assertj.version>3.27.4</assertj.version>
+    <assertj.version>3.27.6</assertj.version>
     <lombok.version>1.18.42</lombok.version>
     <guava.version>33.5.0-jre</guava.version>
     <logger.version>2.25.2</logger.version>
