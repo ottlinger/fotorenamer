@@ -51,11 +51,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <assertj.version>3.27.4</assertj.version>
-    <lombok.version>1.18.40</lombok.version>
-    <guava.version>33.4.8-jre</guava.version>
-    <logger.version>2.25.1</logger.version>
-    <mockito.version>5.19.0</mockito.version>
+    <assertj.version>3.27.6</assertj.version>
+    <lombok.version>1.18.42</lombok.version>
+    <guava.version>33.5.0-jre</guava.version>
+    <logger.version>2.25.2</logger.version>
+    <mockito.version>5.20.0</mockito.version>
     <shade.version>3.6.1</shade.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -201,7 +201,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.4</version>
         <configuration>
           <!-- set to false with big projects -->
           <showSuccess>true</showSuccess>
@@ -317,7 +317,7 @@
         <plugin>
           <groupId>com.github.spotbugs</groupId>
           <artifactId>spotbugs-maven-plugin</artifactId>
-          <version>4.9.4.1</version>
+          <version>4.9.6.0</version>
           <configuration>
             <excludeFilterFile>spotbugs_ignore.xml</excludeFilterFile>
             <plugins>
@@ -467,7 +467,7 @@
       <!-- add test configuration to prevent tests from failing if no AWT can be opened -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.4</version>
         <configuration>
           <systemPropertyVariables>
             <java.awt.headless>true</java.awt.headless>
