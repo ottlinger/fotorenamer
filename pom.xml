@@ -61,8 +61,8 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.16.1</rat.version>
     <javadoc-plugin.version>3.11.3</javadoc-plugin.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -165,7 +165,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc-plugin.version}</version>
         <configuration>
-          <source>8</source>
+          <source>11</source>
         </configuration>
       </plugin>
 <!-- Disable until git deprecated issue is solved
@@ -214,7 +214,7 @@
           <linkXRef>true</linkXRef>
           <sourceEncoding>UTF-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>1.8</targetJdk>
+          <targetJdk>11</targetJdk>
           <excludes>
             <exclude>**/generated-sources/**/*.java</exclude>
           </excludes>
@@ -502,7 +502,6 @@
         <version>3.3.1</version>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
-          <!-- as we are running with JDK8 and UTF-8 is default from JDK9 upwards -->
           <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
         </configuration>
         <executions>
@@ -577,12 +576,12 @@
           </filesets>
         </configuration>
       </plugin>
-      <!-- set compiler level to 1.8 -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.14.0</version>
         <configuration>
           <encoding>UTF-8</encoding>
+          <release>11</release>
           <fork>true</fork>
           <annotationProcessorPaths>
             <path>

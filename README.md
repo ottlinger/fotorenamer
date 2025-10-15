@@ -24,7 +24,7 @@ The project moved over to GitHub :smile:
 
 # USAGE
 ## Building
-This tool can be used with [Maven3](https://maven.apache.org/download.html) in two ways:
+This tool can be used with [Maven](https://maven.apache.org/download.html) in two ways:
   * run as a standalone application
 ```
 $ ./mvnw clean install -Plive-demo
