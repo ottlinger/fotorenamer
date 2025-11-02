@@ -184,13 +184,13 @@
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>     }
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> makeTextFieldReactOnEnterOrCopyPasteFromMainUI() {
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <em class="jxr_comment">// make textfield react on Enter/copied over from MainUIWindow</em>
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         <em class="jxr_comment">// make text field react on Enter/copied over from MainUIWindow</em>
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         textField.addKeyListener(<strong class="jxr_keyword">new</strong> KeyAdapter() {
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>             @Override
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> keyPressed(<strong class="jxr_keyword">final</strong> KeyEvent e) {
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>                 <strong class="jxr_keyword">if</strong> (e.getKeyCode() == KeyEvent.VK_ENTER) {
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> 
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>                     SwingWorker&lt;Void, Void&gt; worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;Void, Void&gt;() {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>                     SwingWorker&lt;Void, Void&gt; worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;&gt;() {
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>                         @Override
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>                         <strong class="jxr_keyword">protected</strong> Void doInBackground() {
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>                             <strong class="jxr_keyword">if</strong> (isWaiting()) {

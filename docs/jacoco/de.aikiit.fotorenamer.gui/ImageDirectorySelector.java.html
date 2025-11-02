@@ -176,13 +176,13 @@ class ImageDirectorySelector extends JPanel {
 <span class="nc" id="L176">    }</span>
 
     private void makeTextFieldReactOnEnterOrCopyPasteFromMainUI() {
-        // make textfield react on Enter/copied over from MainUIWindow
+        // make text field react on Enter/copied over from MainUIWindow
 <span class="nc" id="L180">        textField.addKeyListener(new KeyAdapter() {</span>
             @Override
             public void keyPressed(final KeyEvent e) {
 <span class="nc bnc" id="L183" title="All 2 branches missed.">                if (e.getKeyCode() == KeyEvent.VK_ENTER) {</span>
 
-<span class="nc" id="L185">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;Void, Void&gt;() {</span>
+<span class="nc" id="L185">                    SwingWorker&lt;Void, Void&gt; worker = new SwingWorker&lt;&gt;() {</span>
                         @Override
                         protected Void doInBackground() {
 <span class="nc bnc" id="L188" title="All 2 branches missed.">                            if (isWaiting()) {</span>

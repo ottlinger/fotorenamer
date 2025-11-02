@@ -195,7 +195,7 @@
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>                     getBundleString(<span class="jxr_string">"fotorenamer.ui.main.version.title"</span>),
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>                     JOptionPane.INFORMATION_MESSAGE);
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.revertButton.equals(source) || <strong class="jxr_keyword">this</strong>.goButton.equals(source)) {
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>             worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;Void, Void&gt;() {
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>             worker = <strong class="jxr_keyword">new</strong> SwingWorker&lt;&gt;() {
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>                 @Override
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>                 <strong class="jxr_keyword">protected</strong> Void doInBackground() {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>                     <strong class="jxr_keyword">if</strong> (imageDirectorySelector.isWaiting()) {
