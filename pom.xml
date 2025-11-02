@@ -369,7 +369,6 @@
             </execution>
           </executions>
           <configuration>
-            <licensesApproved>GPL3</licensesApproved>
             <consoleOutput>true</consoleOutput>
             <ignoreErrors>false</ignoreErrors>
             <inputExcludeStds>
@@ -378,8 +377,6 @@
             <inputExcludeParsedScm>GIT</inputExcludeParsedScm>
             <inputExcludes>
               <exclude>.github/**</exclude>
-              <exclude>.travis.yml</exclude>
-              <exclude>LICENSE.txt</exclude>
               <exclude>**/*.properties</exclude>
               <exclude>*.md</exclude>
               <exclude>**/*.vm</exclude>
@@ -387,9 +384,9 @@
               <exclude>src/test/resources/**/*</exclude>
               <exclude>docs/**</exclude>
               <exclude>**/*.log</exclude>
-              <exclude>**/.checkstyle/**/*</exclude>
-              <exclude>**/.gitignore</exclude>
-              <exclude>**/.gitattributes</exclude>
+              <exclude>.checkstyle/**/*</exclude>
+              <exclude>.gitignore</exclude>
+              <exclude>.gitattributes</exclude>
             </inputExcludes>
           </configuration>
         </plugin>
