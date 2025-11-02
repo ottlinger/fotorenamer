@@ -47,7 +47,7 @@ public final class RemoveExifPrefixRenamer implements Runnable {
      * Pattern applied to find already renamed image files.
      * Should match: 20110507_180520_IMG_8192small.JPG
      */
-    private static final String REPLACE_PATTERN = "\\d{8}[_]\\d{4}[_]";
+    private static final String REPLACE_PATTERN = "\\d{8}_\\d{4}_";
 
     private final File currentDirectory;
     private List<File> listOfFiles = Lists.newArrayList();

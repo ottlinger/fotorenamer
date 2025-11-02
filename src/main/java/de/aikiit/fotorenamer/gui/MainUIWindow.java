@@ -187,7 +187,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
                     getBundleString("fotorenamer.ui.main.version.title"),
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (this.revertButton.equals(source) || this.goButton.equals(source)) {
-            worker = new SwingWorker<Void, Void>() {
+            worker = new SwingWorker<>() {
                 @Override
                 protected Void doInBackground() {
                     if (imageDirectorySelector.isWaiting()) {

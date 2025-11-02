@@ -175,7 +175,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${javadoc-plugin.version}</version>
         <configuration>
-          <source>11</source>
+          <source>17</source>
         </configuration>
       </plugin>
       <!-- Disable until git deprecated issue is solved
@@ -222,9 +222,8 @@
         <version>3.28.0</version>
         <configuration>
           <linkXRef>true</linkXRef>
-          <sourceEncoding>UTF-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>11</targetJdk>
+          <targetJdk>17</targetJdk>
           <excludes>
             <exclude>**/generated-sources/**/*.java</exclude>
           </excludes>
@@ -255,18 +254,39 @@
         <artifactId>taglist-maven-plugin</artifactId>
         <version>3.2.1</version>
         <configuration>
-          <tags>
-            <tag>TODO</tag>
-            <tag>todo</tag>
-            <tag>FIXME</tag>
-            <tag>fixme</tag>
-            <tag>REFACTOR</tag>
-            <tag>refactor</tag>
-            <tag>REVIEW</tag>
-            <tag>review</tag>
-            <tag>@todo</tag>
-            <tag>@deprecated</tag>
-          </tags>
+          <tagListOptions>
+            <tagClasses>
+              <tagClass>
+                <displayName>Known issues / Things to be done</displayName>
+                <tags>
+                  <tag>
+                    <matchString>todo</matchString>
+                    <matchType>ignoreCase</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>review</matchString>
+                    <matchType>ignoreCase</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>refactor</matchString>
+                    <matchType>ignoreCase</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>hackalert</matchString>
+                    <matchType>ignoreCase</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>FIXME</matchString>
+                    <matchType>ignoreCase</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>@deprecated</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                </tags>
+              </tagClass>
+            </tagClasses>
+          </tagListOptions>
         </configuration>
       </plugin>
       <plugin>
@@ -581,6 +601,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.14.1</version>
         <configuration>
+          <source>17</source>
+          <release>17</release>
+          <target>17</target>
           <encoding>UTF-8</encoding>
           <annotationProcessorPaths>
             <path>
