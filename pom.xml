@@ -376,20 +376,16 @@
               <exclude>ALL</exclude>
             </inputExcludeStds>
             <inputExcludeParsedScm>GIT</inputExcludeParsedScm>
-            <addDefaultLicenseMatchers>true</addDefaultLicenseMatchers>
             <inputExcludes>
               <exclude>.github/**</exclude>
               <exclude>.travis.yml</exclude>
               <exclude>LICENSE.txt</exclude>
-              <exclude>**/docs/**/*</exclude>
               <exclude>**/*.properties</exclude>
               <exclude>*.md</exclude>
               <exclude>**/*.vm</exclude>
               <exclude>src/main/resources/**/*</exclude>
               <exclude>src/test/resources/**/*</exclude>
-              <exclude>webpage/**</exclude>
-              <exclude>**/out*/**</exclude>
-              <exclude>**/site*/**</exclude>
+              <exclude>docs/**</exclude>
               <exclude>**/*.log</exclude>
               <exclude>**/.checkstyle/**/*</exclude>
               <exclude>**/.gitignore</exclude>
