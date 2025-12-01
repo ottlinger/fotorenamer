@@ -520,7 +520,7 @@
       <!-- copy Version.java independent of normal resource copying to avoid eclipse errors -->
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.4.0</version>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
           <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
