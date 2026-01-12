@@ -237,7 +237,7 @@
         <reportSets>
           <reportSet>
             <reports>
-              <report>changes-report</report>
+              <report>change-report</report>
             </reports>
           </reportSet>
         </reportSets>
