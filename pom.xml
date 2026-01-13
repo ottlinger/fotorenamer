@@ -198,13 +198,6 @@
           </reportSet>
         </reportSets>
       </plugin>
-      <!-- Generates null error
-            <plugin>
-              <groupId>org.sonatype.maven.plugin</groupId>
-              <artifactId>emma-maven-plugin</artifactId>
-              <version>1.2</version>
-            </plugin>
-        -->
       <!-- check if this is necessary since reports are generated twice, once empty -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
