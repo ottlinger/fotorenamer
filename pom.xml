@@ -178,10 +178,10 @@
           <source>17</source>
         </configuration>
       </plugin>
-      <plugin>
+      <!-- Diable plugin run due to git problem plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changelog-plugin</artifactId>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
