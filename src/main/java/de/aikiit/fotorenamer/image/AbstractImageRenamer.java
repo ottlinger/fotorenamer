@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * <p/>
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -75,7 +75,7 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * Starts image processing on the given directory if it contains
      * relevant images. The strategy of renaming is defined by
-     * subclasses implementation of @see #renameImage(File).
+     * subclasses' implementation of @see #renameImage(File).
      *
      * @param directory Name of directory to work on.
      * @throws InvalidDirectoryException If there's a problem with
@@ -143,8 +143,6 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * Performs the renaming and updates the UI. All error handling is done in
      * other methods.
-     *
-     * @see #renameFiles()
      */
     public final void run() {
         this.progressBar = new ProgressBar(this.amountOfFiles.get());
