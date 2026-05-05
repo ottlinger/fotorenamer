@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * &lt;p/&gt;
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  * &lt;p/&gt;
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
@@ -75,7 +75,7 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * Starts image processing on the given directory if it contains
      * relevant images. The strategy of renaming is defined by
-     * subclasses implementation of @see #renameImage(File).
+     * subclasses' implementation of @see #renameImage(File).
      *
      * @param directory Name of directory to work on.
      * @throws InvalidDirectoryException If there's a problem with
@@ -143,38 +143,36 @@ abstract class AbstractImageRenamer implements Runnable {
     /**
      * Performs the renaming and updates the UI. All error handling is done in
      * other methods.
-     *
-     * @see #renameFiles()
      */
     public final void run() {
-<span class="nc" id="L150">        this.progressBar = new ProgressBar(this.amountOfFiles.get());</span>
+<span class="nc" id="L148">        this.progressBar = new ProgressBar(this.amountOfFiles.get());</span>
 
         try {
-<span class="nc" id="L153">            renameFiles();</span>
-<span class="nc" id="L154">        } catch (Exception e) {</span>
-<span class="nc" id="L155">            JOptionPane.showMessageDialog(null, getParameterizedBundleString(&quot;fotorenamer.ui.rename.error&quot;, MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())), getBundleString(&quot;fotorenamer.ui.rename.error.title&quot;), JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L151">            renameFiles();</span>
+<span class="nc" id="L152">        } catch (Exception e) {</span>
+<span class="nc" id="L153">            JOptionPane.showMessageDialog(null, getParameterizedBundleString(&quot;fotorenamer.ui.rename.error&quot;, MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())), getBundleString(&quot;fotorenamer.ui.rename.error.title&quot;), JOptionPane.ERROR_MESSAGE);</span>
 
-<span class="nc" id="L157">            this.amountOfFiles = new AtomicInteger(0);</span>
+<span class="nc" id="L155">            this.amountOfFiles = new AtomicInteger(0);</span>
         } finally {
-<span class="nc" id="L159">            this.progressBar.dispose();</span>
+<span class="nc" id="L157">            this.progressBar.dispose();</span>
         }
 
         // show UI-notification
-<span class="nc" id="L163">        StringBuilder notification = new StringBuilder();</span>
-<span class="nc bnc" id="L164" title="All 3 branches missed.">        switch (this.amountOfFiles.get()) {</span>
+<span class="nc" id="L161">        StringBuilder notification = new StringBuilder();</span>
+<span class="nc bnc" id="L162" title="All 3 branches missed.">        switch (this.amountOfFiles.get()) {</span>
             case 0:
-<span class="nc" id="L166">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName()));</span>
-<span class="nc" id="L167">                break;</span>
+<span class="nc" id="L164">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName()));</span>
+<span class="nc" id="L165">                break;</span>
             case 1:
-<span class="nc" id="L169">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName()));</span>
-<span class="nc" id="L170">                break;</span>
+<span class="nc" id="L167">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName()));</span>
+<span class="nc" id="L168">                break;</span>
             default:
-<span class="nc" id="L172">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.amountOfFiles, this.currentDirectory.getName()));</span>
+<span class="nc" id="L170">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.amountOfFiles, this.currentDirectory.getName()));</span>
                 break;
         }
 
-<span class="nc" id="L176">        notification.append(&quot;\n\n&quot;);</span>
-<span class="nc" id="L177">        JOptionPane.showMessageDialog(null, notification.toString(), getBundleString(&quot;fotorenamer.ui.rename.success.title&quot;), JOptionPane.INFORMATION_MESSAGE);</span>
-<span class="nc" id="L178">    }</span>
+<span class="nc" id="L174">        notification.append(&quot;\n\n&quot;);</span>
+<span class="nc" id="L175">        JOptionPane.showMessageDialog(null, notification.toString(), getBundleString(&quot;fotorenamer.ui.rename.success.title&quot;), JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L176">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
