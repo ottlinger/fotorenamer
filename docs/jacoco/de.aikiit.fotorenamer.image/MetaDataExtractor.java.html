@@ -92,16 +92,15 @@ final class MetaDataExtractor {
 <span class="fc" id="L92">        String result = EMPTY_STRING;</span>
 <span class="fc" id="L93">        ImageMetadata metadata = Imaging.getMetadata(image);</span>
 
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (metadata instanceof JpegImageMetadata) {</span>
-<span class="fc" id="L96">            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;</span>
-<span class="fc" id="L97">            TiffField field = jpegMetadata.findExifValueWithExactMatch(tag);</span>
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">            if (field != null) {</span>
-<span class="fc" id="L99">                result = field.getValueDescription();</span>
-<span class="fc" id="L100">                LOG.info(&quot;extraction of &quot; + tag.getDescription()</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if (metadata instanceof JpegImageMetadata jpegMetadata) {</span>
+<span class="fc" id="L96">            TiffField field = jpegMetadata.findExifValueWithExactMatch(tag);</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">            if (field != null) {</span>
+<span class="fc" id="L98">                result = field.getValueDescription();</span>
+<span class="fc" id="L99">                LOG.info(&quot;extraction of &quot; + tag.getDescription()</span>
                         + &quot; yields &quot; + result);
             }
         }
-<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        return result == null ? EMPTY_STRING : result;</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        return result == null ? EMPTY_STRING : result;</span>
     }
 
     /**
@@ -135,30 +134,30 @@ final class MetaDataExtractor {
     public static String generateCreationDateInCorrectFormat(final File image)
             throws IOException {
 
-<span class="fc" id="L138">        String dateValue =</span>
-<span class="fc" id="L139">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
+<span class="fc" id="L137">        String dateValue =</span>
+<span class="fc" id="L138">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
 
-<span class="fc" id="L141">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
+<span class="fc" id="L140">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
 
         // Invalid length of EXIF metadata, not complying to the standard.
-<span class="pc bpc" id="L144" title="2 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
-<span class="nc" id="L145">            LOG.info(&quot;No valid creation date extracted from file &quot; + image);</span>
-<span class="nc" id="L146">            return EMPTY_STRING;</span>
+<span class="pc bpc" id="L143" title="2 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
+<span class="nc" id="L144">            LOG.info(&quot;No valid creation date extracted from file &quot; + image);</span>
+<span class="nc" id="L145">            return EMPTY_STRING;</span>
         }
 
         // Date parsing with apache.DateUtils or JDK-DateFormats
         // does not work due to '-signs in the date string
         // (unparseable pattern is &quot;'yyyy:MM:dd HH:mm:ss'&quot;)
         // replace special characters to extract digits only
-<span class="fc" id="L153">        dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);</span>
-<span class="fc" id="L154">        dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);</span>
-<span class="fc" id="L155">        dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);</span>
-<span class="fc" id="L156">        dateValue += UNDERSCORE;</span>
+<span class="fc" id="L152">        dateValue = dateValue.replace(APOSTROPHE, EMPTY_STRING);</span>
+<span class="fc" id="L153">        dateValue = dateValue.replace(COLON, EMPTY_STRING);</span>
+<span class="fc" id="L154">        dateValue = dateValue.replace(SPACE, UNDERSCORE);</span>
+<span class="fc" id="L155">        dateValue += UNDERSCORE;</span>
         //convert '2011:01:30 13:11:02' to &quot;yyyyMMdd_HHmm_&quot;+fileName
-<span class="fc" id="L158">        dateValue += image.getName();</span>
+<span class="fc" id="L157">        dateValue += image.getName();</span>
 
-<span class="fc" id="L160">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
-<span class="fc" id="L161">        return dateValue;</span>
+<span class="fc" id="L159">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
+<span class="fc" id="L160">        return dateValue;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      @Test
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> checkNPECorrectnessInConstructor() {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">void</strong> checkNPECorrectnessInConstructor() {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          assertThrows(InvalidDirectoryException.<strong class="jxr_keyword">class</strong>, () -&gt; {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>              CreationDateFromExifImageRenamer imageRenamer = <strong class="jxr_keyword">new</strong>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>                      CreationDateFromExifImageRenamer(<strong class="jxr_keyword">null</strong>);
@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      <em class="jxr_comment">// TODO redesign application - component mingles function and GUI and is</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <em class="jxr_comment">// not clearly testable</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      @Disabled(<span class="jxr_string">"Since GHA cannot close the app"</span>)
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> renameTestImageAndDeleteFileAfterwards() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">void</strong> renameTestImageAndDeleteFileAfterwards() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          LOG.info(<span class="jxr_string">"Working on file "</span> + FULLPATH_TEST_IMG);
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertTrue(<strong class="jxr_keyword">new</strong> File(FULLPATH_TEST_IMG).exists());
