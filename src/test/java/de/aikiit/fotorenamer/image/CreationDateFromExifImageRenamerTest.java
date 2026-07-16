@@ -41,7 +41,7 @@ class CreationDateFromExifImageRenamerTest {
      *
      */
     @Test
-    public void checkNPECorrectnessInConstructor() {
+    void checkNPECorrectnessInConstructor() {
         assertThrows(InvalidDirectoryException.class, () -> {
             CreationDateFromExifImageRenamer imageRenamer = new
                     CreationDateFromExifImageRenamer(null);
@@ -58,7 +58,7 @@ class CreationDateFromExifImageRenamerTest {
     // TODO redesign application - component mingles function and GUI and is
     // not clearly testable
     @Disabled("Since GHA cannot close the app")
-    public void renameTestImageAndDeleteFileAfterwards() throws Exception {
+    void renameTestImageAndDeleteFileAfterwards() throws Exception {
 
         LOG.info("Working on file " + FULLPATH_TEST_IMG);
         assertTrue(new File(FULLPATH_TEST_IMG).exists());

@@ -92,8 +92,7 @@ final class MetaDataExtractor {
         String result = EMPTY_STRING;
         ImageMetadata metadata = Imaging.getMetadata(image);
 
-        if (metadata instanceof JpegImageMetadata) {
-            JpegImageMetadata jpegMetadata = (JpegImageMetadata) metadata;
+        if (metadata instanceof JpegImageMetadata jpegMetadata) {
             TiffField field = jpegMetadata.findExifValueWithExactMatch(tag);
             if (field != null) {
                 result = field.getValueDescription();
@@ -150,9 +149,9 @@ final class MetaDataExtractor {
         // does not work due to '-signs in the date string
         // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
         // replace special characters to extract digits only
-        dateValue = dateValue.replaceAll(APOSTROPHE, EMPTY_STRING);
-        dateValue = dateValue.replaceAll(COLON, EMPTY_STRING);
-        dateValue = dateValue.replaceAll(SPACE, UNDERSCORE);
+        dateValue = dateValue.replace(APOSTROPHE, EMPTY_STRING);
+        dateValue = dateValue.replace(COLON, EMPTY_STRING);
+        dateValue = dateValue.replace(SPACE, UNDERSCORE);
         dateValue += UNDERSCORE;
         //convert '2011:01:30 13:11:02' to "yyyyMMdd_HHmm_"+fileName
         dateValue += image.getName();

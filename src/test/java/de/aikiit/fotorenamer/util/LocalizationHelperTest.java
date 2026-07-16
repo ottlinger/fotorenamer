@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author hirsch
  * @version 23.08.11
  */
-public class LocalizationHelperTest {
+class LocalizationHelperTest {
 
     /**
      * Retrieve a plain i18n-value.
@@ -39,7 +39,7 @@ public class LocalizationHelperTest {
     }
 
     /**
-     * Retrieve a i18n-value with parameters set.
+     * Retrieve an i18n-value with parameters set.
      */
     @SuppressWarnings("RedundantArrayCreation")
     @Test
