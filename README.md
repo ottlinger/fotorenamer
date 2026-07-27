@@ -27,6 +27,8 @@ The project moved over to GitHub :smile:
 This tool can be used with [Maven](https://maven.apache.org/download.html) in two ways:
   * run as a standalone application
 ```
+$ ./run.sh 
+OR
 $ ./mvnw clean install -Plive-demo
 ```  
   * run the executable jar
