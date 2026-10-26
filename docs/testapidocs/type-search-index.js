@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"de.aikiit.fotorenamer.gui","l":"HelpWindowTest"},{"p":"de.aikiit.fotorenamer","l":"TestConstants"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.aikiit.fotorenamer.gui","l":"HelpWindowTest"},{"p":"de.aikiit.fotorenamer","l":"TestConstants"}];updateSearchResults();

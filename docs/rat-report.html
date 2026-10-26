@@ -128,22 +128,22 @@
 <pre>*****************************************************
 Summary
 *****************************************************
-Generated at: 2026-10-26T23:02:50+01:00
+Generated at: 2026-10-27T00:20:56+01:00
     by Apache Creadur RAT::Core 0.18 (Apache Software Foundation)
 
 -----------------------------------------------------
 Counters
 -----------------------------------------------------
     (Entries starting with '!' exceed the minimum or maximum values)
-  Approved:           37    A count of approved licenses.
+  Approved:           49    A count of approved licenses.
   Archives:           0    A count of archive files.
   Binaries:           4    A count of binary files.
   Document types:     4    A count of distinct document types.
-  Ignored:            17    A count of ignored files.
+  Ignored:            18    A count of ignored files.
   License categories: 1    A count of distinct license categories.
   License names:      1    A count of distinct license names.
   Notices:            1    A count of notice files.
-  Standards:          37    A count of standard files.
+  Standards:          49    A count of standard files.
   Unapproved:         0    A count of unapproved licenses.
   Unknown:            0    A count of unknown file types.
 
@@ -152,22 +152,22 @@ Counters
 Licenses detected
 -----------------------------------------------------
 
-Apache License 2.0: 37 
+Apache License 2.0: 49 
 
 -----------------------------------------------------
 License Categories detected
 -----------------------------------------------------
 
-AL   : 37 
+AL   : 49 
 
 -----------------------------------------------------
 Document Types detected
 -----------------------------------------------------
 
 BINARY: 4 
-IGNORED: 17 
+IGNORED: 18 
 NOTICE: 1 
-STANDARD: 37 
+STANDARD: 49 
 
 *****************************************************
 Detail
@@ -213,6 +213,13 @@ Detail
 
   /docs
   I         application/octet-stream     (directory)
+
+  /jbang/FotoRenamer.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /jbang-catalog.json
+  I         application/json    
 
   /mvnw
   B         application/x-sh    
@@ -270,6 +277,14 @@ Detail
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
+  /src/main/java/de/aikiit/fotorenamer/gui/RenameWorker.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/main/java/de/aikiit/fotorenamer/gui/StartupSplash.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
   /src/main/java/de/aikiit/fotorenamer/gui/package-info.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
@@ -282,7 +297,11 @@ Detail
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
-  /src/main/java/de/aikiit/fotorenamer/image/ImageFilenameFilter.java
+  /src/main/java/de/aikiit/fotorenamer/image/ImageContentFilter.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/main/java/de/aikiit/fotorenamer/image/ImageRenamer.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
@@ -291,6 +310,14 @@ Detail
     AL       AL2.0         Apache License 2.0
 
   /src/main/java/de/aikiit/fotorenamer/image/RemoveExifPrefixRenamer.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/main/java/de/aikiit/fotorenamer/image/RenameProgress.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/main/java/de/aikiit/fotorenamer/image/RenameResult.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
@@ -333,6 +360,10 @@ Detail
   S         application/xml    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
+  /src/test/java/de/aikiit/fotorenamer/ApplicationStarterTest.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
   /src/test/java/de/aikiit/fotorenamer/TestConstants.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
@@ -357,6 +388,14 @@ Detail
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
+  /src/test/java/de/aikiit/fotorenamer/gui/RenameWorkerTest.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/test/java/de/aikiit/fotorenamer/gui/StartupSplashTest.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
   /src/test/java/de/aikiit/fotorenamer/gui/package-info.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
@@ -365,11 +404,23 @@ Detail
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
-  /src/test/java/de/aikiit/fotorenamer/image/ImageFilenameFilterTest.java
+  /src/test/java/de/aikiit/fotorenamer/image/ImageContentFilterTest.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/test/java/de/aikiit/fotorenamer/image/ImageDirectoryTest.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 
   /src/test/java/de/aikiit/fotorenamer/image/MetaDataExtractorTest.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/test/java/de/aikiit/fotorenamer/image/RemoveExifPrefixRenamerTest.java
+  S         text/x-java-source    ISO-8859-1
+    AL       AL2.0         Apache License 2.0
+
+  /src/test/java/de/aikiit/fotorenamer/image/RenameProcessingTest.java
   S         text/x-java-source    ISO-8859-1
     AL       AL2.0         Apache License 2.0
 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StartupSplash.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.gui</a> &gt; <span class="el_source">StartupSplash.java</span></div><h1>StartupSplash.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2026, Aiki IT, FotoRenamer
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.gui;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
+import java.awt.GraphicsEnvironment;
+import java.awt.SplashScreen;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+
+/**
+ * Uses the JVM splash when available, otherwise shows the existing camera image
+ * in a Swing window. Show and close on the Swing event dispatch thread.
+ */
+public final class StartupSplash implements AutoCloseable {
+
+<span class="fc" id="L38">    private static final Logger LOG = LogManager.getLogger(StartupSplash.class);</span>
+    static final String IMAGE_LOCATION = &quot;/html/camera.jpg&quot;;
+
+    private final SplashScreen nativeSplash;
+    private final JWindow window;
+    private boolean closed;
+
+<span class="fc" id="L45">    StartupSplash(final SplashScreen nativeSplash, final JWindow window) {</span>
+<span class="fc" id="L46">        this.nativeSplash = nativeSplash;</span>
+<span class="fc" id="L47">        this.window = window;</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Shows the splash without delaying application startup artificially.
+     * In headless mode, no native or Swing splash is accessed.
+     *
+     * @return A splash handle to close when the main window is visible or startup fails.
+     */
+    public static StartupSplash show() {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (GraphicsEnvironment.isHeadless()) {</span>
+<span class="fc" id="L58">            return new StartupSplash(null, null);</span>
+        }
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (!SwingUtilities.isEventDispatchThread()) {</span>
+<span class="nc" id="L61">            throw new IllegalStateException(&quot;Show the splash on the Swing event dispatch thread&quot;);</span>
+        }
+
+<span class="fc" id="L64">        JWindow fallback = null;</span>
+        try {
+<span class="fc" id="L66">            SplashScreen nativeSplash = SplashScreen.getSplashScreen();</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">            if (nativeSplash != null) {</span>
+<span class="fc" id="L68">                return new StartupSplash(nativeSplash, null);</span>
+            }
+<span class="nc" id="L70">            URL resource = StartupSplash.class.getResource(IMAGE_LOCATION);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            if (resource == null) {</span>
+<span class="nc" id="L72">                throw new IOException(&quot;Splash image not found: &quot; + IMAGE_LOCATION);</span>
+            }
+<span class="nc" id="L74">            BufferedImage image = ImageIO.read(resource);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (image == null) {</span>
+<span class="nc" id="L76">                throw new IOException(&quot;Unable to decode splash image: &quot; + IMAGE_LOCATION);</span>
+            }
+<span class="nc" id="L78">            fallback = new JWindow();</span>
+<span class="nc" id="L79">            fallback.setFocusableWindowState(false);</span>
+<span class="nc" id="L80">            fallback.getContentPane().add(new JLabel(new ImageIcon(image)));</span>
+<span class="nc" id="L81">            fallback.pack();</span>
+<span class="nc" id="L82">            fallback.setLocationRelativeTo(null);</span>
+<span class="nc" id="L83">            fallback.setVisible(true);</span>
+            // Paint before main-window initialization occupies the event thread.
+<span class="nc" id="L85">            fallback.getRootPane().paintImmediately(0, 0, fallback.getWidth(), fallback.getHeight());</span>
+<span class="nc" id="L86">            return new StartupSplash(null, fallback);</span>
+<span class="fc" id="L87">        } catch (IOException | RuntimeException e) {</span>
+<span class="fc" id="L88">            LOG.warn(&quot;Unable to show startup splash using '{}'&quot;, IMAGE_LOCATION, e);</span>
+<span class="fc" id="L89">            StartupSplash failedSplash = new StartupSplash(null, fallback);</span>
+<span class="fc" id="L90">            failedSplash.close();</span>
+<span class="fc" id="L91">            return failedSplash;</span>
+        }
+    }
+
+    /** Closes the splash, including on startup failure. Safe to call repeatedly. */
+    @Override
+    public void close() {
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (closed) {</span>
+<span class="fc" id="L99">            return;</span>
+        }
+<span class="fc" id="L101">        closed = true;</span>
+        try {
+            // The JVM normally closes its splash when the main window appears.
+<span class="fc bfc" id="L104" title="All 4 branches covered.">            if (nativeSplash != null &amp;&amp; nativeSplash.isVisible()) {</span>
+<span class="fc" id="L105">                nativeSplash.close();</span>
+            }
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            if (window != null) {</span>
+<span class="fc" id="L108">                window.dispose();</span>
+            }
+<span class="fc" id="L110">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L111">            LOG.warn(&quot;Unable to close startup splash&quot;, e);</span>
+<span class="fc" id="L112">        }</span>
+<span class="fc" id="L113">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

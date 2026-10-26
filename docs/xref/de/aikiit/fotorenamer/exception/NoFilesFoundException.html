@@ -25,7 +25,7 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.apache.log4j.Logger;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.io.File;
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> java.nio.file.Path;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
@@ -48,8 +48,8 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">     * @param directory Current directory.</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">public</strong> <a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a>(<strong class="jxr_keyword">final</strong> File directory) {
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">super</strong>(directory == <strong class="jxr_keyword">null</strong> ? getBundleString(<span class="jxr_string">"fotorenamer.error.noselection"</span>) : directory.getAbsolutePath());
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <strong class="jxr_keyword">public</strong> <a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a>(<strong class="jxr_keyword">final</strong> Path directory) {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>          <strong class="jxr_keyword">super</strong>(directory == <strong class="jxr_keyword">null</strong> ? getBundleString(<span class="jxr_string">"fotorenamer.error.noselection"</span>) : directory.toAbsolutePath().toString());
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>          LOG.error(<span class="jxr_string">"no files found in "</span> + directory);
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      }
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  

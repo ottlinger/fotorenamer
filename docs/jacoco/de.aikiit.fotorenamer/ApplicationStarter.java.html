@@ -15,6 +15,7 @@ limitations under the License.
 package de.aikiit.fotorenamer;
 
 import de.aikiit.fotorenamer.gui.MainUIWindow;
+import de.aikiit.fotorenamer.gui.StartupSplash;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +34,7 @@ public final class ApplicationStarter {
     /**
      * Logger for this class.
      */
-<span class="nc" id="L36">    private static final Logger LOG = LogManager.getLogger(ApplicationStarter.class);</span>
+<span class="fc" id="L37">    private static final Logger LOG = LogManager.getLogger(ApplicationStarter.class);</span>
 
     /**
      * Creates an application window and runs the application.
@@ -41,13 +42,23 @@ public final class ApplicationStarter {
      * @param args Runtime/CLI arguments.
      */
     public static void main(final String[] args) {
-        try {
-<span class="nc" id="L45">            UIManager.setLookAndFeel(</span>
-<span class="nc" id="L46">                    UIManager.getCrossPlatformLookAndFeelClassName());</span>
-<span class="nc" id="L47">        } catch (Exception e) {</span>
-<span class="nc" id="L48">            LOG.error(&quot;Error during application startup&quot;, e);</span>
-<span class="nc" id="L49">        }</span>
-<span class="nc" id="L50">        MainUIWindow.build();</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L45">        SwingUtilities.invokeLater(ApplicationStarter::start);</span>
+<span class="fc" id="L46">    }</span>
+
+    /** Initializes Swing and keeps the splash open until the main window is visible. */
+    static void start() {
+<span class="fc" id="L50">        try (StartupSplash splash = StartupSplash.show()) {</span>
+            try {
+<span class="fc" id="L52">                UIManager.setLookAndFeel(</span>
+<span class="fc" id="L53">                        UIManager.getCrossPlatformLookAndFeelClassName());</span>
+<span class="fc" id="L54">            } catch (Exception e) {</span>
+<span class="fc" id="L55">                LOG.error(&quot;Error setting application look and feel&quot;, e);</span>
+<span class="fc" id="L56">            }</span>
+            // Already on the event dispatch thread: build completes synchronously.
+<span class="fc" id="L58">            MainUIWindow.build();</span>
+<span class="fc" id="L59">        } catch (RuntimeException | LinkageError e) {</span>
+<span class="fc" id="L60">            LOG.error(&quot;Error during application startup&quot;, e);</span>
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
