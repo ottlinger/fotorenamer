@@ -19,6 +19,8 @@ import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
 import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
+import de.aikiit.fotorenamer.image.RenameProgress;
+import de.aikiit.fotorenamer.image.RenameResult;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
 import de.aikiit.fotorenamer.util.Version;
 import org.apache.logging.log4j.LogManager;
@@ -28,8 +30,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.CancellationException;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
@@ -92,6 +97,8 @@ public final class MainUIWindow extends JFrame implements ActionListener {
      * Component that selects the directory to work on.
      */
     private ImageDirectorySelector imageDirectorySelector = null;
+    // Accessed only on the EDT, including the selector's Enter action.
+    private boolean renaming;
 
     private MainUIWindow() {
         init();
@@ -125,6 +132,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
         JPanel verzeichnis = new JPanel(new BorderLayout());
         this.imageDirectorySelector = new ImageDirectorySelector(
                 ComponentGaugeUtil.createImageIcon(IMAGE_LOCATION));
+        imageDirectorySelector.onStart(() -> startRenaming(false));
         verzeichnis.add(imageDirectorySelector);
 
         // help
@@ -171,8 +179,6 @@ public final class MainUIWindow extends JFrame implements ActionListener {
      * @param event Events that was fired on this component.
      */
     public void actionPerformed(final ActionEvent event) {
-        final SwingWorker<Void, Void> worker;
-
         Object source = event.getSource();
         // end
         if (this.endButton.equals(source)) {
@@ -191,62 +197,108 @@ public final class MainUIWindow extends JFrame implements ActionListener {
                     getBundleString("fotorenamer.ui.main.version.title"),
                     JOptionPane.INFORMATION_MESSAGE);
         } else if (this.revertButton.equals(source) || this.goButton.equals(source)) {
-            worker = new SwingWorker<>() {
-                @Override
-                protected Void doInBackground() {
-                    if (imageDirectorySelector.isWaiting()) {
-                        JOptionPane.showMessageDialog(null,
-                                getBundleString("fotorenamer.ui.error.nodirectory"),
-                                getBundleString("fotorenamer.ui.error.nodirectory.title"),
-                                JOptionPane.ERROR_MESSAGE);
-                        return null;
-                    }
-
-                    // perform renaming
-                    try {
-                        if (goButton.equals(source)) {
-                            goButton.setEnabled(false);
-                            goButton.setText(getBundleString("fotorenamer.ui.main.progress"));
-                            CreationDateFromExifImageRenamer renamer =
-                                    new CreationDateFromExifImageRenamer(
-                                            imageDirectorySelector.getSelectedDirectory()
-                                    );
-                            new Thread(renamer).start();
-                        } else {
-                            revertButton.setEnabled(false);
-                            revertButton.setText(getBundleString("fotorenamer.ui.main.progress"));
-                            new Thread(new RemoveExifPrefixRenamer(
-                                    imageDirectorySelector.getSelectedDirectory())).start();
-                        }
-                    } catch (InvalidDirectoryException uv) {
-                        LOG.info("Invalid directory selected: {}", uv.getMessage());
-                        JOptionPane.showMessageDialog(null,
-                                getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()),
-                                getBundleString("fotorenamer.ui.error.invaliddirectory.title"),
-                                JOptionPane.ERROR_MESSAGE);
-                    } catch (NoFilesFoundException kde) {
-                        LOG.info("No files found in {}", kde.getMessage());
-                        JOptionPane.showMessageDialog(null,
-                                getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()),
-                                getBundleString("fotorenamer.ui.error.nofiles.title"),
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void done() {
-                    LOG.debug("Finished working, will reset UI.");
-                    // reset gui if all workers terminated
-                    goButton.setEnabled(true);
-                    goButton.setText(getBundleString("fotorenamer.ui.main.menu.start"));
-                    revertButton.setEnabled(true);
-                    revertButton.setText(getBundleString("fotorenamer.ui.main.menu.revert"));
-                }
-            };
-            // Execute the SwingWorker; GUI will not freeze
-            worker.execute();
+            startRenaming(revertButton.equals(source));
         }
+    }
+
+    /** Takes a snapshot of UI input before starting a single background job. */
+    private void startRenaming(final boolean reverse) {
+        if (renaming) {
+            return;
+        }
+        String directory = imageDirectorySelector.getSelectedDirectory();
+        if (directory == null || directory.isBlank()) {
+            JOptionPane.showMessageDialog(this, getBundleString("fotorenamer.ui.error.nodirectory"),
+                    getBundleString("fotorenamer.ui.error.nodirectory.title"), JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        setProcessing(true, reverse);
+        ProgressBar progress;
+        try {
+            progress = new ProgressBar(0);
+        } catch (RuntimeException e) {
+            setProcessing(false, reverse);
+            showFailure(directory, e);
+            return;
+        }
+        RenameWorker.View view = new RenameWorker.View() {
+            @Override
+            public void progress(RenameProgress update) {
+                progress.updateProgress(update);
+            }
+
+            @Override
+            public void finished() {
+                try {
+                    progress.dispose();
+                } finally {
+                    setProcessing(false, reverse);
+                }
+            }
+
+            @Override
+            public void result(RenameResult result) {
+                showResult(directory, reverse, result);
+            }
+
+            @Override
+            public void failure(Throwable cause) {
+                showFailure(directory, cause);
+            }
+        };
+        RenameWorker worker = new RenameWorker(() -> reverse
+                ? new RemoveExifPrefixRenamer(directory) : new CreationDateFromExifImageRenamer(directory), view);
+        progress.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                worker.requestCancellation();
+                progress.setTitle(getBundleString("fotorenamer.ui.progress.cancelling"));
+            }
+        });
+        try {
+            worker.execute();
+        } catch (RuntimeException e) {
+            view.finished();
+            view.failure(e);
+        }
+    }
+
+    private void setProcessing(final boolean busy, final boolean reverse) {
+        renaming = busy;
+        goButton.setEnabled(!busy);
+        revertButton.setEnabled(!busy);
+        imageDirectorySelector.setEnabled(!busy);
+        goButton.setText(getBundleString(busy && !reverse
+                ? "fotorenamer.ui.main.progress" : "fotorenamer.ui.main.menu.start"));
+        revertButton.setText(getBundleString(busy && reverse
+                ? "fotorenamer.ui.main.progress" : "fotorenamer.ui.main.menu.revert"));
+    }
+
+    private void showResult(final String directory, final boolean reverse, final RenameResult result) {
+        String titleKey = result.cancelled() ? "fotorenamer.ui.rename.cancelled"
+                : result.failed() > 0 ? "fotorenamer.ui.rename.result.warning"
+                : reverse ? "fotorenamer.ui.rerename.success.title" : "fotorenamer.ui.rename.success.title";
+        String message = getParameterizedBundleString("fotorenamer.ui.rename.result.summary", directory,
+                result.processed(), result.total(), result.renamed(), result.skipped(), result.failed());
+        JOptionPane.showMessageDialog(this, message, getBundleString(titleKey),
+                result.cancelled() || result.failed() > 0 ? JOptionPane.WARNING_MESSAGE : JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showFailure(final String directory, final Throwable cause) {
+        if (cause instanceof CancellationException) {
+            LOG.info("Processing cancelled for '{}'", directory);
+            JOptionPane.showMessageDialog(this, getBundleString("fotorenamer.ui.rename.cancelled"),
+                    getBundleString("fotorenamer.ui.rename.cancelled"), JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        LOG.error("Unable to process images in '{}'", directory, cause);
+        String messageKey = cause instanceof InvalidDirectoryException ? "fotorenamer.ui.error.invaliddirectory"
+                : cause instanceof NoFilesFoundException ? "fotorenamer.ui.error.nofiles" : "fotorenamer.ui.rename.error";
+        String titleKey = cause instanceof InvalidDirectoryException ? "fotorenamer.ui.error.invaliddirectory.title"
+                : cause instanceof NoFilesFoundException ? "fotorenamer.ui.error.nofiles.title" : "fotorenamer.ui.rename.error.title";
+        String detail = cause.getMessage() == null ? cause.getClass().getSimpleName() : cause.getMessage();
+        JOptionPane.showMessageDialog(this, getParameterizedBundleString(messageKey, detail),
+                getBundleString(titleKey), JOptionPane.ERROR_MESSAGE);
     }
 
     /**

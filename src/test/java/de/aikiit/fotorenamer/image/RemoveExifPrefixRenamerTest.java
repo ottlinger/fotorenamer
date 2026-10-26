@@ -43,7 +43,7 @@ class RemoveExifPrefixRenamerTest {
         Path original = copyImage("holiday.dat");
         byte[] content = Files.readAllBytes(original);
         var forward = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(1, forward.renameFiles(file -> { }));
+        assertEquals(1, forward.renameFiles().renamed());
         Path prefixed = directory.resolve("20110130_131102_holiday.dat");
         assertTrue(Files.exists(prefixed));
         assertFalse(Files.exists(original));
@@ -51,7 +51,7 @@ class RemoveExifPrefixRenamerTest {
         var reverse = new RemoveExifPrefixRenamer(directory.toString());
         // Construction no longer starts a worker or performs any renaming.
         assertTrue(Files.exists(prefixed));
-        assertEquals(1, reverse.renameFiles(file -> { }));
+        assertEquals(1, reverse.renameFiles().renamed());
         assertFalse(Files.exists(prefixed));
         assertArrayEquals(content, Files.readAllBytes(original));
     }
@@ -63,7 +63,7 @@ class RemoveExifPrefixRenamerTest {
         byte[] legacyContent = Files.readAllBytes(legacy);
         byte[] unicodeContent = Files.readAllBytes(unicode);
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
-        assertEquals(2, renamer.renameFiles(file -> { }));
+        assertEquals(new RenameResult(2, 2, 2, 0, 0, false), renamer.renameFiles());
         assertArrayEquals(legacyContent, Files.readAllBytes(directory.resolve("legacy.jpg")));
         assertArrayEquals(unicodeContent, Files.readAllBytes(directory.resolve("Urlaub am See äß")));
     }
@@ -77,7 +77,8 @@ class RemoveExifPrefixRenamerTest {
         }
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
         List<Path> processed = new ArrayList<>();
-        assertEquals(0, renamer.renameFiles(processed::add));
+        assertEquals(new RenameResult(4, 4, 0, 4, 0, false),
+                renamer.renameFiles(progress -> processed.add(progress.file())));
         assertEquals(names.size(), processed.size());
         for (String name : names) {
             assertTrue(Files.exists(directory.resolve(name)), name);
@@ -89,7 +90,7 @@ class RemoveExifPrefixRenamerTest {
         Path image = copyImage("20110130_131102_20110129_1200_photo.bin");
         byte[] original = Files.readAllBytes(image);
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
-        assertEquals(1, renamer.renameFiles(file -> { }));
+        assertEquals(1, renamer.renameFiles().renamed());
         assertArrayEquals(original, Files.readAllBytes(directory.resolve("20110129_1200_photo.bin")));
     }
 
@@ -99,7 +100,7 @@ class RemoveExifPrefixRenamerTest {
         Path folder = Files.createDirectory(directory.resolve("20110130_131102_folder"));
         copyImage("20110130_131102_photo");
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
-        assertEquals(1, renamer.renameFiles(file -> { }));
+        assertEquals(1, renamer.renameFiles().renamed());
         assertTrue(Files.exists(directory.resolve("photo")));
         assertEquals("not an image", Files.readString(text));
         assertTrue(Files.isDirectory(folder));
@@ -123,7 +124,7 @@ class RemoveExifPrefixRenamerTest {
         appender.start();
         logger.addAppender(appender);
         try {
-            assertEquals(1, renamer.renameFiles(file -> { }));
+            assertEquals(new RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
             assertTrue(events.stream().anyMatch(event -> event.getLevel() == Level.ERROR
                     && event.getThrown() instanceof FileAlreadyExistsException
                     && event.getMessage().getFormattedMessage().contains(source.toString())
@@ -144,7 +145,8 @@ class RemoveExifPrefixRenamerTest {
         Files.delete(source);
         Files.createDirectory(source);
         List<Path> processed = new ArrayList<>();
-        assertEquals(0, renamer.renameFiles(processed::add));
+        assertEquals(new RenameResult(1, 1, 0, 1, 0, false),
+                renamer.renameFiles(progress -> processed.add(progress.file())));
         assertEquals(List.of(source), processed);
         assertTrue(Files.isDirectory(source));
         assertFalse(Files.exists(directory.resolve("replaced")));
@@ -156,7 +158,7 @@ class RemoveExifPrefixRenamerTest {
         copyImage("20110130_131102_existing");
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
         Files.delete(missing);
-        assertEquals(1, renamer.renameFiles(file -> { }));
+        assertEquals(new RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
         assertTrue(Files.exists(directory.resolve("existing")));
         assertFalse(Files.exists(directory.resolve("missing")));
     }

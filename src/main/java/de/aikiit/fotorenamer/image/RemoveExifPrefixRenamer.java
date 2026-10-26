@@ -44,8 +44,4 @@ public final class RemoveExifPrefixRenamer extends AbstractImageRenamer {
         return EXIF_PREFIX.matcher(fileName(imageFile)).replaceFirst("");
     }
 
-    @Override
-    protected String successTitleKey() {
-        return "fotorenamer.ui.rerename.success.title";
-    }
 }

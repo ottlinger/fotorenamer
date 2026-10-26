@@ -17,8 +17,6 @@ package de.aikiit.fotorenamer.image;
 
 import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
 import de.aikiit.fotorenamer.exception.NoFilesFoundException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -39,10 +37,6 @@ import java.nio.file.Path;
  */
 public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer {
 
-    /** Logger for this class. */
-    private static final Logger LOG =
-            LogManager.getLogger(CreationDateFromExifImageRenamer.class);
-
     /**
      * The given directory is scanned for image files that
      * are processed.
@@ -58,9 +52,8 @@ public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer
     }
 
     /**
-     * Extracts creation date from EXIF information and returns new filename. If
-     * an error occurs during EXIF data extraction the original filename is
-     * returned.
+     * Extracts the EXIF date. Missing dates leave the name unchanged; extraction
+     * failures propagate to the batch processor for logging and failure counting.
      *
      * @param imageFile Filename to renameFiles according to the subclass
      *                  implementation.
@@ -68,18 +61,8 @@ public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer
      * @see MetaDataExtractor for more information about the file format.
      */
     @Override
-    public String renameImage(final Path imageFile) {
-        String originalName = fileName(imageFile);
-        String newImageName = originalName;
-        LOG.info("Start renaming in CreationDateFromExifImageRenamer");
-
-        try {
-            newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
-        } catch (IOException | IllegalArgumentException | SecurityException e) {
-            LOG.error("Error during EXIF date extraction from '{}'", imageFile.toAbsolutePath(), e);
-            return newImageName;
-        }
-
-        return newImageName == null || newImageName.isEmpty() ? originalName : newImageName;
+    public String renameImage(final Path imageFile) throws IOException {
+        String newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
+        return newImageName == null || newImageName.isEmpty() ? fileName(imageFile) : newImageName;
     }
 }

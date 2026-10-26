@@ -15,9 +15,6 @@
  */
 package de.aikiit.fotorenamer.gui;
 
-import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
-import de.aikiit.fotorenamer.exception.NoFilesFoundException;
-import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
 import de.aikiit.fotorenamer.util.LocalizationHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,13 +26,11 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
-import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /**
  * This component provides a means to select images that are to be renamed.
@@ -62,6 +57,12 @@ class ImageDirectorySelector extends JPanel {
      * An image icon that is displayed as part of the button.
      */
     private final ImageIcon imageIcon;
+    private Runnable startAction = () -> { };
+
+    /** Lets the owning UI route Enter through the same job controller as Start. */
+    void onStart(final Runnable action) {
+        startAction = Objects.requireNonNull(action, "action");
+    }
 
     /**
      * Default constructor provides means to create an imageSelect with a given
@@ -83,8 +84,13 @@ class ImageDirectorySelector extends JPanel {
      * @param enable Enable/disable this component.
      */
     public final void setEnabled(final boolean enable) {
-        textField.setEnabled(enable);
-        browseButton.setEnabled(enable);
+        super.setEnabled(enable);
+        if (textField != null) {
+            textField.setEnabled(enable);
+        }
+        if (browseButton != null) {
+            browseButton.setEnabled(enable);
+        }
     }
 
     /**
@@ -177,45 +183,10 @@ class ImageDirectorySelector extends JPanel {
 
     private void makeTextFieldReactOnEnterOrCopyPasteFromMainUI() {
         // make text field react on Enter/copied over from MainUIWindow
-        textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(final KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
-                    SwingWorker<Void, Void> worker = new SwingWorker<>() {
-                        @Override
-                        protected Void doInBackground() {
-                            if (isWaiting()) {
-                                showErrorPopup(getBundleString("fotorenamer.ui.error.nodirectory"), getBundleString("fotorenamer.ui.error.nodirectory.title"));
-                                return null;
-                            }
-
-                            // perform renaming
-                            try {
-                                CreationDateFromExifImageRenamer renamer =
-                                        new CreationDateFromExifImageRenamer(getSelectedDirectory());
-                                new Thread(renamer).start();
-                            } catch (InvalidDirectoryException uv) {
-                                LOG.info("Invalid directory selected: {}", uv.getMessage());
-                                showErrorPopup(getParameterizedBundleString("fotorenamer.ui.error.invaliddirectory", uv.getMessage()), getBundleString("fotorenamer.ui.error.invaliddirectory.title"));
-                            } catch (NoFilesFoundException kde) {
-                                LOG.info("No files found in {}", kde.getMessage());
-                                showErrorPopup(getParameterizedBundleString("fotorenamer.ui.error.nofiles", kde.getMessage()), getBundleString("fotorenamer.ui.error.nofiles.title"));
-                            }
-                            return null;
-                        }
-
-                        @Override
-                        protected void done() {
-                            // TODO how can I communicate with the surrounding UI to block the user from pressing the buttons
-                            LOG.debug("Finished working, cannot reset UI from the selector itself. Should find a way to lock the startbutton somehow.");
-                        }
-                    };
-                    // Execute the SwingWorker; GUI will not freeze
-                    worker.execute();
-                }
+        textField.addActionListener(event -> {
+            if (isEnabled()) {
+                startAction.run();
             }
-
         });
     }
 
@@ -223,6 +194,10 @@ class ImageDirectorySelector extends JPanel {
         // make textfield drag'n'dropable
         textField.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
+                if (!isEnabled()) {
+                    evt.rejectDrop();
+                    return;
+                }
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     Object transferData = evt
@@ -249,13 +224,6 @@ class ImageDirectorySelector extends JPanel {
                 }
             }
         });
-    }
-
-    void showErrorPopup(final String message, final String title) {
-        JOptionPane.showMessageDialog(null,
-                message,
-                title,
-                JOptionPane.ERROR_MESSAGE);
     }
 
     /**

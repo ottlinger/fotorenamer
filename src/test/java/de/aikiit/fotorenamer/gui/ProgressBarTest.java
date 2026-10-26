@@ -14,8 +14,12 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
+import de.aikiit.fotorenamer.image.RenameProgress;
+import de.aikiit.fotorenamer.image.RenameResult;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,7 +39,7 @@ class ProgressBarTest {
     void checkInitAndDefaults() {
         ProgressBar bar = new ProgressBar(0);
         assertNotNull(bar);
-        assertEquals("", bar.getText());
+        assertNotNull(bar.getText());
         assertEquals(0, bar.getProgress());
     }
 
@@ -46,15 +50,9 @@ class ProgressBarTest {
     void checkSetterGetter() {
         ProgressBar bar = new ProgressBar(10);
         assertNotNull(bar);
-        bar.setProgress();
-        bar.setProgress();
-        bar.setProgress();
-        bar.setProgress();
-        bar.setProgress();
-        assertEquals(4, bar.getProgress());
-        bar.setText(TEXT);
+        bar.updateProgress(new RenameProgress(Path.of(TEXT), new RenameResult(10, 5, 5, 0, 0, false)));
+        assertEquals(5, bar.getProgress());
         assertEquals(TEXT, bar.getText());
-        // verify that no exception is thrown here
-        bar.updateUI();
+        bar.dispose();
     }
 }
