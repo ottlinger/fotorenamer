@@ -68,7 +68,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
     /**
      * Component containing the help window of this application.
      */
-    private static final HelpWindow helpWindow = new HelpWindow();
+    private final HelpWindow helpWindow = new HelpWindow();
     /**
      * The UI's help button.
      */
@@ -95,14 +95,19 @@ public final class MainUIWindow extends JFrame implements ActionListener {
     private ImageDirectorySelector imageDirectorySelector = null;
 
     private MainUIWindow() {
-        SwingUtilities.invokeLater(this::init);
+        init();
     }
 
     /**
-     * Creates the main UI window and initializes all internal UI-components.
+     * Creates and shows the main UI window on the event dispatch thread.
+     * Completes synchronously when called on that thread; otherwise queues startup.
      */
     public static void build() {
-        new MainUIWindow();
+        if (SwingUtilities.isEventDispatchThread()) {
+            new MainUIWindow();
+        } else {
+            SwingUtilities.invokeLater(MainUIWindow::new);
+        }
     }
 
     /**
@@ -250,7 +255,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
      *
      * @see HelpWindow
      */
-    private static void showHelpWindow() {
+    private void showHelpWindow() {
         helpWindow.setVisible(true);
     }
 }

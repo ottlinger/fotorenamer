@@ -15,6 +15,7 @@ limitations under the License.
 package de.aikiit.fotorenamer;
 
 import de.aikiit.fotorenamer.gui.MainUIWindow;
+import de.aikiit.fotorenamer.gui.StartupSplash;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -41,12 +42,22 @@ public final class ApplicationStarter {
      * @param args Runtime/CLI arguments.
      */
     public static void main(final String[] args) {
-        try {
-            UIManager.setLookAndFeel(
-                    UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (Exception e) {
+        SwingUtilities.invokeLater(ApplicationStarter::start);
+    }
+
+    /** Initializes Swing and keeps the splash open until the main window is visible. */
+    static void start() {
+        try (StartupSplash splash = StartupSplash.show()) {
+            try {
+                UIManager.setLookAndFeel(
+                        UIManager.getCrossPlatformLookAndFeelClassName());
+            } catch (Exception e) {
+                LOG.error("Error setting application look and feel", e);
+            }
+            // Already on the event dispatch thread: build completes synchronously.
+            MainUIWindow.build();
+        } catch (RuntimeException | LinkageError e) {
             LOG.error("Error during application startup", e);
         }
-        MainUIWindow.build();
     }
 }
