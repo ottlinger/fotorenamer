@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractImageRenamer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.image</a> &gt; <span class="el_source">AbstractImageRenamer.java</span></div><h1>AbstractImageRenamer.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2011, Aiki IT, FotoRenamer
+ * &lt;p/&gt;
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * &lt;p/&gt;
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * &lt;p/&gt;
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.image;
+
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Lists;
+import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
+import de.aikiit.fotorenamer.exception.NoFilesFoundException;
+import de.aikiit.fotorenamer.gui.ProgressBar;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+
+/**
+ * Abstract class that handles image renaming and file handling.
+ * &lt;br&gt;
+ * The onliest abstract method generates a filename from a given file
+ * and should be used to provide different strategies for image renaming.
+ *
+ * @author hirsch
+ * @version 2011-03-22, 11:43
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+abstract class AbstractImageRenamer implements Runnable {
+
+    /**
+     * The logger of this class.
+     */
+<span class="fc" id="L55">    private static final Logger LOG = LogManager.getLogger(AbstractImageRenamer.class);</span>
+
+    /**
+     * The currently selected directory to work on.
+     */
+<span class="fc" id="L60">    private File currentDirectory = null;</span>
+    /**
+     * The list of all relevant files in the current directory.
+     */
+<span class="fc" id="L64">    private List&lt;File&gt; imageList = null;</span>
+
+    /**
+     * Progress bar for visual feedback of what's going on.
+     */
+<span class="fc" id="L69">    private ProgressBar progressBar = null;</span>
+    /**
+     * Number of files that need processing.
+     */
+<span class="fc" id="L73">    private AtomicInteger amountOfFiles = new AtomicInteger(0);</span>
+
+    /**
+     * Starts image processing on the given directory if it contains
+     * relevant images. The strategy of renaming is defined by
+     * subclasses' implementation of @see #renameImage(File).
+     *
+     * @param directory Name of directory to work on.
+     * @throws InvalidDirectoryException If there's a problem with
+     *                                   the selected directory.
+     * @throws NoFilesFoundException     If the selected directory is empty.
+     */
+<span class="fc" id="L85">    AbstractImageRenamer(final String directory) throws InvalidDirectoryException, NoFilesFoundException {</span>
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (directory == null) {</span>
+<span class="fc" id="L88">            throw new InvalidDirectoryException(&quot;null is not a directory&quot;);</span>
+        }
+
+<span class="nc" id="L91">        this.currentDirectory = new File(directory);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (!this.currentDirectory.isDirectory()) {</span>
+<span class="nc" id="L93">            throw new InvalidDirectoryException(this.currentDirectory);</span>
+        }
+
+        // retrieve relevant images in directory
+<span class="nc" id="L97">        File[] files = this.currentDirectory.listFiles(new ImageFilenameFilter());</span>
+<span class="nc bnc" id="L98" title="All 4 branches missed.">        if (files == null || files.length == 0) {</span>
+<span class="nc" id="L99">            throw new NoFilesFoundException(this.currentDirectory);</span>
+        }
+<span class="nc" id="L101">        this.imageList = Lists.newArrayList(files);</span>
+<span class="nc" id="L102">        this.amountOfFiles = new AtomicInteger(this.imageList.size());</span>
+<span class="nc" id="L103">    }</span>
+
+    /**
+     * Performs the actual/technical renaming.
+     */
+    private void renameFiles() {
+<span class="nc" id="L109">        LOG.info(&quot;Starting to rename {} files.&quot;, this.amountOfFiles);</span>
+
+<span class="nc" id="L111">        Consumer&lt;File&gt; consumer = file -&gt; {</span>
+            // extract EXIF data and fetch target filename
+<span class="nc" id="L113">            String targetFilename = renameImage(file);</span>
+
+            // update progress bar (names have a different length)
+<span class="nc" id="L116">            progressBar.setProgress();</span>
+<span class="nc" id="L117">            progressBar.setText(file.getName());</span>
+<span class="nc" id="L118">            progressBar.updateUI();</span>
+
+            // TODO add second progressbar or counter for errors
+            try {
+<span class="nc" id="L122">                Files.move(file.toPath(), new File(file.getParent(), targetFilename).toPath());</span>
+<span class="nc" id="L123">            } catch (IOException e) {</span>
+<span class="nc" id="L124">                LOG.error(&quot;Unable to rename '{}' to '{}'&quot;, file.getName(), targetFilename);</span>
+<span class="nc" id="L125">            }</span>
+<span class="nc" id="L126">        };</span>
+<span class="nc bnc" id="L127" title="All 4 branches missed.">        Predicate&lt;File&gt; fileOnly = file -&gt; file != null &amp;&amp; file.isFile();</span>
+
+<span class="nc" id="L129">        this.imageList.parallelStream().filter(fileOnly).forEach(consumer);</span>
+<span class="nc" id="L130">    }</span>
+
+    /**
+     * This method provides a strategy to rename image files when
+     * iterating over a list of files.
+     * It is called during image processing.
+     *
+     * @param imageFile Filename to renameFiles according to the subclass
+     *                  implementation.
+     * @return New filename for the given file.
+     */
+    protected abstract String renameImage(File imageFile);
+
+    /**
+     * Performs the renaming and updates the UI. All error handling is done in
+     * other methods.
+     */
+    public final void run() {
+<span class="nc" id="L148">        this.progressBar = new ProgressBar(this.amountOfFiles.get());</span>
+
+        try {
+<span class="nc" id="L151">            renameFiles();</span>
+<span class="nc" id="L152">        } catch (Exception e) {</span>
+<span class="nc" id="L153">            JOptionPane.showMessageDialog(null, getParameterizedBundleString(&quot;fotorenamer.ui.rename.error&quot;, MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())), getBundleString(&quot;fotorenamer.ui.rename.error.title&quot;), JOptionPane.ERROR_MESSAGE);</span>
+
+<span class="nc" id="L155">            this.amountOfFiles = new AtomicInteger(0);</span>
+        } finally {
+<span class="nc" id="L157">            this.progressBar.dispose();</span>
+        }
+
+        // show UI-notification
+<span class="nc" id="L161">        StringBuilder notification = new StringBuilder();</span>
+<span class="nc bnc" id="L162" title="All 3 branches missed.">        switch (this.amountOfFiles.get()) {</span>
+            case 0:
+<span class="nc" id="L164">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.none&quot;, this.currentDirectory.getName()));</span>
+<span class="nc" id="L165">                break;</span>
+            case 1:
+<span class="nc" id="L167">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message.one&quot;, this.currentDirectory.getName()));</span>
+<span class="nc" id="L168">                break;</span>
+            default:
+<span class="nc" id="L170">                notification.append(getParameterizedBundleString(&quot;fotorenamer.ui.rename.success.message&quot;, this.amountOfFiles, this.currentDirectory.getName()));</span>
+                break;
+        }
+
+<span class="nc" id="L174">        notification.append(&quot;\n\n&quot;);</span>
+<span class="nc" id="L175">        JOptionPane.showMessageDialog(null, notification.toString(), getBundleString(&quot;fotorenamer.ui.rename.success.title&quot;), JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L176">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
