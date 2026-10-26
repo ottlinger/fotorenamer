@@ -126,6 +126,16 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+    </dependency>
+    <!-- Content-based image detection; no Tika parsers are needed. -->
+    <dependency>
+      <groupId>org.apache.tika</groupId>
+      <artifactId>tika-core</artifactId>
+      <version>4.1.0</version>
+    </dependency>
     <!-- normal dependencies -->
     <!-- library for EXIF metadata extraction -->
     <dependency>
@@ -448,6 +458,7 @@
                 <shadedArtifactAttached>true</shadedArtifactAttached>
                 <shadedClassifierName>executable</shadedClassifierName>
                 <transformers>
+                  <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                   <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                     <manifestEntries>
                       <Main-Class>de.aikiit.fotorenamer.ApplicationStarter</Main-Class>

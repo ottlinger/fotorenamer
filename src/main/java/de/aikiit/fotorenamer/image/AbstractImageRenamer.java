@@ -94,7 +94,7 @@ abstract class AbstractImageRenamer implements Runnable {
         }
 
         // retrieve relevant images in directory
-        File[] files = this.currentDirectory.listFiles(new ImageFilenameFilter());
+        File[] files = this.currentDirectory.listFiles(new ImageContentFilter());
         if (files == null || files.length == 0) {
             throw new NoFilesFoundException(this.currentDirectory);
         }
@@ -103,30 +103,31 @@ abstract class AbstractImageRenamer implements Runnable {
     }
 
     /**
-     * Performs the actual/technical renaming.
+     * Processes the detected images independently of the GUI.
+     *
+     * @param onProcessed Callback for progress reporting after each image.
+     * @return Number of successfully renamed files.
      */
-    private void renameFiles() {
-        LOG.info("Starting to rename {} files.", this.amountOfFiles);
-
-        Consumer<File> consumer = file -> {
-            // extract EXIF data and fetch target filename
-            String targetFilename = renameImage(file);
-
-            // update progress bar (names have a different length)
-            progressBar.setProgress();
-            progressBar.setText(file.getName());
-            progressBar.updateUI();
-
-            // TODO add second progressbar or counter for errors
-            try {
-                Files.move(file.toPath(), new File(file.getParent(), targetFilename).toPath());
-            } catch (IOException e) {
-                LOG.error("Unable to rename '{}' to '{}'", file.getName(), targetFilename);
-            }
-        };
+    final int renameFiles(final Consumer<File> onProcessed) {
+        LOG.info("Starting to process {} image files.", this.amountOfFiles);
+        AtomicInteger renamed = new AtomicInteger();
         Predicate<File> fileOnly = file -> file != null && file.isFile();
 
-        this.imageList.parallelStream().filter(fileOnly).forEach(consumer);
+        this.imageList.parallelStream().filter(fileOnly).forEach(file -> {
+            String targetFilename = renameImage(file);
+            // No EXIF date or no change: do not attempt a filesystem operation.
+            if (targetFilename != null && !targetFilename.isEmpty()
+                    && !targetFilename.equals(file.getName())) {
+                try {
+                    Files.move(file.toPath(), new File(file.getParent(), targetFilename).toPath());
+                    renamed.incrementAndGet();
+                } catch (IOException | SecurityException e) {
+                    LOG.error("Unable to rename '{}' to '{}'", file.getAbsolutePath(), targetFilename, e);
+                }
+            }
+            onProcessed.accept(file);
+        });
+        return renamed.get();
     }
 
     /**
@@ -147,19 +148,23 @@ abstract class AbstractImageRenamer implements Runnable {
     public final void run() {
         this.progressBar = new ProgressBar(this.amountOfFiles.get());
 
+        int renamedFiles = 0;
         try {
-            renameFiles();
+            renamedFiles = renameFiles(file -> {
+                progressBar.setProgress();
+                progressBar.setText(file.getName());
+                progressBar.updateUI();
+            });
         } catch (Exception e) {
+            LOG.error("Unable to process images in '{}'", this.currentDirectory.getAbsolutePath(), e);
             JOptionPane.showMessageDialog(null, getParameterizedBundleString("fotorenamer.ui.rename.error", MoreObjects.firstNonNull(e.getMessage(), e.getClass().getSimpleName())), getBundleString("fotorenamer.ui.rename.error.title"), JOptionPane.ERROR_MESSAGE);
-
-            this.amountOfFiles = new AtomicInteger(0);
         } finally {
             this.progressBar.dispose();
         }
 
         // show UI-notification
         StringBuilder notification = new StringBuilder();
-        switch (this.amountOfFiles.get()) {
+        switch (renamedFiles) {
             case 0:
                 notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message.none", this.currentDirectory.getName()));
                 break;
@@ -167,7 +172,7 @@ abstract class AbstractImageRenamer implements Runnable {
                 notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message.one", this.currentDirectory.getName()));
                 break;
             default:
-                notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message", this.amountOfFiles, this.currentDirectory.getName()));
+                notification.append(getParameterizedBundleString("fotorenamer.ui.rename.success.message", renamedFiles, this.currentDirectory.getName()));
                 break;
         }
 

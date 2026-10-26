@@ -20,16 +20,21 @@ import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.ImageMetadata;
 import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
 import org.apache.commons.imaging.formats.tiff.TiffField;
+import org.apache.commons.imaging.formats.tiff.TiffImageMetadata;
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
 import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Helper class to extract metadata from given images. This class uses Apache
- * Sanslean to perform the metadata extraction itself.
+ * Commons Imaging to perform the metadata extraction itself.
  */
 final class MetaDataExtractor {
     /**
@@ -43,19 +48,9 @@ final class MetaDataExtractor {
     private static final String EMPTY_STRING = "";
 
     /**
-     * Constant for a blank character.
-     */
-    private static final String SPACE = " ";
-
-    /**
      * Constant for an underscore character.
      */
     private static final String UNDERSCORE = "_";
-
-    /**
-     * Constant for a colon.
-     */
-    private static final String COLON = ":";
 
     /**
      * Constant for an apostrophe.
@@ -66,6 +61,11 @@ final class MetaDataExtractor {
      * Constant to describe a valid length of an EXIF date (currently 21).
      */
     private static final int VALID_EXIF_DATE_LENGTH = 21;
+
+    private static final DateTimeFormatter EXIF_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("uuuu:MM:dd HH:mm:ss").withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter FILENAME_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("uuuuMMdd_HHmmss");
 
     /**
      * Constructor is not visible to avoid instantiation.
@@ -92,13 +92,16 @@ final class MetaDataExtractor {
         String result = EMPTY_STRING;
         ImageMetadata metadata = Imaging.getMetadata(image);
 
+        TiffField field = null;
         if (metadata instanceof JpegImageMetadata jpegMetadata) {
-            TiffField field = jpegMetadata.findExifValueWithExactMatch(tag);
-            if (field != null) {
-                result = field.getValueDescription();
-                LOG.info("extraction of " + tag.getDescription()
-                        + " yields " + result);
-            }
+            field = jpegMetadata.findExifValueWithExactMatch(tag);
+        } else if (metadata instanceof TiffImageMetadata tiffMetadata) {
+            field = tiffMetadata.findField(tag);
+        }
+        if (field != null) {
+            result = field.getValueDescription();
+            LOG.info("extraction of " + tag.getDescription()
+                    + " from " + image.getAbsolutePath() + " yields " + result);
         }
         return result == null ? EMPTY_STRING : result;
     }
@@ -145,16 +148,14 @@ final class MetaDataExtractor {
             return EMPTY_STRING;
         }
 
-        // Date parsing with apache.DateUtils or JDK-DateFormats
-        // does not work due to '-signs in the date string
-        // (unparseable pattern is "'yyyy:MM:dd HH:mm:ss'")
-        // replace special characters to extract digits only
-        dateValue = dateValue.replace(APOSTROPHE, EMPTY_STRING);
-        dateValue = dateValue.replace(COLON, EMPTY_STRING);
-        dateValue = dateValue.replace(SPACE, UNDERSCORE);
-        dateValue += UNDERSCORE;
-        //convert '2011:01:30 13:11:02' to "yyyyMMdd_HHmm_"+fileName
-        dateValue += image.getName();
+        try {
+            LocalDateTime captureDate = LocalDateTime.parse(
+                    dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);
+            dateValue = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE + image.getName();
+        } catch (DateTimeParseException e) {
+            LOG.warn("Invalid EXIF creation date in " + image.getAbsolutePath(), e);
+            return EMPTY_STRING;
+        }
 
         LOG.info("Target filename is: " + dateValue);
         return dateValue;

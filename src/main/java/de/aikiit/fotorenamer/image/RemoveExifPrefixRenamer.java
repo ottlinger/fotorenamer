@@ -118,7 +118,7 @@ public final class RemoveExifPrefixRenamer implements Runnable {
         }
 
         final File[] files = this.currentDirectory.listFiles(
-                new ImageFilenameFilter());
+                new ImageContentFilter());
 
         // files available
         if(files == null || files.length == 0) {

@@ -89,6 +89,22 @@ jbang run -Duser.language=en -Duser.country=US fotorenamer@jbang-catalog.json
 1. Hit 'Umbenennen' (Rename) to get your files renamed automatically.
 1. Done :-)
 
+### Image detection and EXIF metadata
+
+Images are detected by their contents using Apache Tika, not by their filename or
+extension ([issue #13](https://github.com/ottlinger/fotorenamer/issues/13)). For example,
+a JPEG named `holiday.dat` or `holiday` is still considered for renaming, while a
+text file named `notes.jpg` is ignored.
+
+For detected images, Apache Commons Imaging attempts to read the EXIF capture date
+(`DateTimeOriginal`). JPEG and TIFF EXIF dates are supported. Images without a
+usable date, unsupported formats, and unreadable or damaged files are left unchanged.
+Processing errors are logged with the file path and exception; processing continues
+with the other files. Detection alone does not guarantee EXIF support.
+
+Renaming preserves the original extension and file contents, and never overwrites an
+existing target file. The result message counts only successful renames.
+
 ### Localization
 
 Relates to [issue #10](https://github.com/ottlinger/fotorenamer/issues/10)

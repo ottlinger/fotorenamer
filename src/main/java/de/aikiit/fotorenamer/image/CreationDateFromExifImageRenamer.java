@@ -74,11 +74,11 @@ public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer
 
         try {
             newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
-        } catch (IOException e) {
-            LOG.error("Error during exif date extraction: ", e);
+        } catch (IOException | IllegalArgumentException | SecurityException e) {
+            LOG.error("Error during EXIF date extraction from '{}'", imageFile.getAbsolutePath(), e);
             return newImageName;
         }
 
-        return newImageName;
+        return newImageName == null || newImageName.isEmpty() ? imageFile.getName() : newImageName;
     }
 }
