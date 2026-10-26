@@ -39,7 +39,7 @@ $ ./mvnw clean install -Plive-demo
   * run the executable jar
 ```
 $ ./mvnw clean install
-$ java -jar target/fotorenamer-2.0.0-executable.jar
+$ java -jar target/fotorenamer-3.0.0-executable.jar
 ```  
 
 ## Running
