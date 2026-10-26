@@ -5,7 +5,6 @@
 [![codecov](https://codecov.io/gh/ottlinger/fotorenamer/branch/master/graph/badge.svg)](https://codecov.io/gh/ottlinger/fotorenamer)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d9d0476d0f3c40bcbb1c2b4dc09099b1)](https://app.codacy.com/gh/ottlinger/fotorenamer/dashboard)
-https://github.com/users/ottlinger/projects/4
 
 # ABSTRACT
 Helper to change image filenames from **IMG\_number** to **YYYYMMDD\_IMG\_number** in order to allow an easier photo sorting. YYYMMDD itself is extracted from the photograph's EXIF metadata.
