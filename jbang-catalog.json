@@ -1,0 +1,9 @@
+{
+  "catalogs": {},
+  "aliases": {
+    "fotorenamer": {
+      "script-ref": "jbang/FotoRenamer.java",
+      "description": "Rename photos using EXIF metadata (requires a local Maven installation of FotoRenamer)."
+    }
+  }
+}

@@ -42,6 +42,46 @@ $ ./mvnw clean install
 $ java -jar target/fotorenamer-3.0.0-executable.jar
 ```  
 
+## Running with JBang
+
+Install [JBang](https://www.jbang.dev/download/) and build and install the current
+snapshot into your local Maven repository once (on Windows use `mvnw.cmd`):
+
+```sh
+./mvnw clean install
+jbang run --fresh fotorenamer@jbang-catalog.json
+```
+
+The catalog launches the existing Swing GUI, not a command-line renamer. A graphical
+desktop session is required. JBang selects Java 17 or newer and can download a
+suitable JDK if needed; the Maven build itself also requires a suitable JDK.
+
+Alternatively, run the launcher directly:
+
+```sh
+jbang run --fresh jbang/FotoRenamer.java
+```
+
+To make the command available outside the checkout:
+
+```sh
+jbang app install --name fotorenamer jbang/FotoRenamer.java
+fotorenamer
+```
+
+The launcher uses `de.aikiit:fotorenamer:3.0.0-SNAPSHOT:executable` from your local
+Maven repository. It does **not** currently download a published FotoRenamer release;
+keep the version in `jbang/FotoRenamer.java` in sync with `pom.xml`. After changing
+application code, repeat `./mvnw clean install` and use `jbang run --fresh` to avoid
+reusing cached snapshot dependencies. Reinstall an installed command with
+`jbang app install --force --fresh --name fotorenamer jbang/FotoRenamer.java`.
+
+JVM properties can be passed before the alias, for example to select English:
+
+```sh
+jbang run -Duser.language=en -Duser.country=US fotorenamer@jbang-catalog.json
+```
+
 ## Running
 1. Create a backup of your images.
 1. Start this tool.

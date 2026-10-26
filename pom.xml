@@ -417,6 +417,7 @@
               <exclude>.checkstyle/**/*</exclude>
               <exclude>.gitignore</exclude>
               <exclude>.gitattributes</exclude>
+              <exclude>jbang-catalog.json</exclude>
             </inputExcludes>
           </configuration>
         </plugin>
