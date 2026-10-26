@@ -26,7 +26,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,8 +33,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class ImageContentFilterTest {
 
@@ -46,7 +43,7 @@ class ImageContentFilterTest {
 
     @Test
     void nullArgumentIsSafe() {
-        assertFalse(filter.accept(null));
+        assertFalse(filter.test(null));
     }
 
     @Test
@@ -57,7 +54,7 @@ class ImageContentFilterTest {
                 assertNotNull(input);
                 Files.copy(input, image);
             }
-            assertTrue(filter.accept(image.toFile()), name);
+            assertTrue(filter.test(image), name);
         }
     }
 
@@ -65,27 +62,23 @@ class ImageContentFilterTest {
     void detectsPngWithoutAnImageExtension() throws Exception {
         Path image = directory.resolve("image.bin");
         assertTrue(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), "png", image.toFile()));
-        assertTrue(filter.accept(image.toFile()));
+        assertTrue(filter.test(image));
     }
 
     @Test
     void rejectsNonImagesEvenWithImageExtensions() throws Exception {
         for (String name : List.of("notes.jpg", "notes.png", "notes")) {
             Files.writeString(directory.resolve(name), "This is plain text, not an image.");
-            assertFalse(filter.accept(directory.resolve(name).toFile()), name);
+            assertFalse(filter.test(directory.resolve(name)), name);
         }
         Files.createFile(directory.resolve("empty.jpg"));
-        assertFalse(filter.accept(directory.resolve("empty.jpg").toFile()));
+        assertFalse(filter.test(directory.resolve("empty.jpg")));
     }
 
     @Test
     void logsReadFailuresWithFilePathAndCause() {
-        // Simulate a file disappearing between the isFile check and opening it.
+        // Attribute lookup failures must retain the filesystem exception, too.
         Path missing = directory.resolve("disappeared.jpg");
-        File file = mock(File.class);
-        when(file.isFile()).thenReturn(true);
-        when(file.toPath()).thenReturn(missing);
-        when(file.getAbsolutePath()).thenReturn(missing.toAbsolutePath().toString());
         Logger logger = (Logger) LogManager.getLogger(ImageContentFilter.class);
         List<LogEvent> events = new CopyOnWriteArrayList<>();
         AbstractAppender appender = new AbstractAppender("detection-errors", null, null, false, Property.EMPTY_ARRAY) {
@@ -97,7 +90,7 @@ class ImageContentFilterTest {
         appender.start();
         logger.addAppender(appender);
         try {
-            assertFalse(filter.accept(file));
+            assertFalse(filter.test(missing));
             assertTrue(events.stream().anyMatch(event -> event.getLevel() == Level.ERROR
                     && event.getThrown() instanceof IOException
                     && event.getMessage().getFormattedMessage().contains(missing.toAbsolutePath().toString())));
@@ -110,7 +103,7 @@ class ImageContentFilterTest {
     @Test
     void rejectsDirectoriesAndMissingFiles() throws Exception {
         Files.createDirectory(directory.resolve("folder.jpg"));
-        assertFalse(filter.accept(directory.resolve("folder.jpg").toFile()));
-        assertFalse(filter.accept(directory.resolve("missing.jpg").toFile()));
+        assertFalse(filter.test(directory.resolve("folder.jpg")));
+        assertFalse(filter.test(directory.resolve("missing.jpg")));
     }
 }

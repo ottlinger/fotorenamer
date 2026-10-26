@@ -16,7 +16,8 @@ package de.aikiit.fotorenamer.exception;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,20 +28,26 @@ class FotorenamerExceptionTest {
         RenamingErrorException e = new RenamingErrorException("woo");
         assertTrue(e.getMessage().contains("woo"));
 
-        NoFilesFoundException e2 = new NoFilesFoundException(new File
-                ("woo"));
+        NoFilesFoundException e2 = new NoFilesFoundException(Path.of("woo"));
         assertNotNull(e2);
     }
 
     @Test
     void invalidDirectories() {
-        InvalidDirectoryException e1 = new InvalidDirectoryException(new File
-                ("woo"));
+        InvalidDirectoryException e1 = new InvalidDirectoryException(Path.of("woo"));
         assertNotNull(e1);
 
         e1 = new InvalidDirectoryException("woo");
         assertNotNull(e1);
         assertEquals("woo", e1.getMessage());
+    }
+
+    @Test
+    void directoryAccessFailureRetainsItsCause() {
+        IOException cause = new IOException("access denied");
+        InvalidDirectoryException exception = new InvalidDirectoryException("photos", cause);
+        assertEquals("photos", exception.getMessage());
+        assertSame(cause, exception.getCause());
     }
 
 }

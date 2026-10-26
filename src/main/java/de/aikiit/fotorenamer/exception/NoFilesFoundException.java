@@ -17,7 +17,7 @@ package de.aikiit.fotorenamer.exception;
 
 import org.apache.log4j.Logger;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 
@@ -40,8 +40,8 @@ public class NoFilesFoundException extends Exception {
      *
      * @param directory Current directory.
      */
-    public NoFilesFoundException(final File directory) {
-        super(directory == null ? getBundleString("fotorenamer.error.noselection") : directory.getAbsolutePath());
+    public NoFilesFoundException(final Path directory) {
+        super(directory == null ? getBundleString("fotorenamer.error.noselection") : directory.toAbsolutePath().toString());
         LOG.error("no files found in " + directory);
     }
 

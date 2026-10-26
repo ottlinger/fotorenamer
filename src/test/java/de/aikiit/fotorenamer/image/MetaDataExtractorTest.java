@@ -20,7 +20,8 @@ import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.regex.Matcher;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -42,17 +43,17 @@ class MetaDataExtractorTest {
 
     @Test
     void ensureGivenExampleFileIsRenamed() throws Exception {
-        File f = new File(TestConstants.FULLPATH_TEST_IMG);
+        Path f = Path.of(TestConstants.FULLPATH_TEST_IMG);
 
         int minLength = TestConstants.PLAIN_FILE_NAME.length();
 
-        if (!f.exists()) {
+        if (!Files.exists(f)) {
             LOG.debug("Switching to renamed file, since another test may have touched it before.");
-            f = new File(TestConstants.FULLPATH_TEST_IMG_RENAMED);
-            minLength = f.getName().length();
+            f = Path.of(TestConstants.FULLPATH_TEST_IMG_RENAMED);
+            minLength = f.getFileName().toString().length();
         }
 
-        LOG.debug("Extracting metadata from " + f.getAbsolutePath());
+        LOG.debug("Extracting metadata from " + f.toAbsolutePath());
 
         String renamedFile =
                 MetaDataExtractor
@@ -74,7 +75,7 @@ class MetaDataExtractorTest {
      */
     @Test
     void checkAssertionErrorTag() {
-        assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(new File(TestConstants.FULLPATH_TEST_IMG), null));
+        assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(Path.of(TestConstants.FULLPATH_TEST_IMG), null));
     }
 
 }

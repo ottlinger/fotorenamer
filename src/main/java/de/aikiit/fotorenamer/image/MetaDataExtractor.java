@@ -25,8 +25,8 @@ import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
 import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;
 import org.apache.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -83,14 +83,15 @@ final class MetaDataExtractor {
      * empty String.
      * @throws IOException        if file cannot be accessed.
      */
-    public static String getExifMetadata(final File image,
+    public static String getExifMetadata(final Path image,
                                          final TagInfo tag)
             throws IOException {
         assert image != null : "Parameter image must not be null";
         assert tag != null : "Parameter tag must not be null";
 
         String result = EMPTY_STRING;
-        ImageMetadata metadata = Imaging.getMetadata(image);
+        // Commons Imaging's File API is confined to this library boundary.
+        ImageMetadata metadata = Imaging.getMetadata(image.toFile());
 
         TiffField field = null;
         if (metadata instanceof JpegImageMetadata jpegMetadata) {
@@ -101,7 +102,7 @@ final class MetaDataExtractor {
         if (field != null) {
             result = field.getValueDescription();
             LOG.info("extraction of " + tag.getDescription()
-                    + " from " + image.getAbsolutePath() + " yields " + result);
+                    + " from " + image.toAbsolutePath() + " yields " + result);
         }
         return result == null ? EMPTY_STRING : result;
     }
@@ -134,7 +135,7 @@ final class MetaDataExtractor {
      * @see <a href="http://www.exif.org/Exif2-2.PDF">EXIF2-2.pdf
      * specification</a>
      */
-    public static String generateCreationDateInCorrectFormat(final File image)
+    public static String generateCreationDateInCorrectFormat(final Path image)
             throws IOException {
 
         String dateValue =
@@ -151,9 +152,9 @@ final class MetaDataExtractor {
         try {
             LocalDateTime captureDate = LocalDateTime.parse(
                     dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);
-            dateValue = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE + image.getName();
+            dateValue = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE + image.getFileName();
         } catch (DateTimeParseException e) {
-            LOG.warn("Invalid EXIF creation date in " + image.getAbsolutePath(), e);
+            LOG.warn("Invalid EXIF creation date in " + image.toAbsolutePath(), e);
             return EMPTY_STRING;
         }
 

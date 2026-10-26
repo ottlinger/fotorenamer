@@ -28,7 +28,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -63,7 +62,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
      * Relative location of the UI's image icon.
      */
     private static final String IMAGE_LOCATION =
-            File.separator + "image" + File.separator + "miniCamera.png";
+            "/image/miniCamera.png";
 
     /**
      * Component containing the help window of this application.
@@ -216,8 +215,8 @@ public final class MainUIWindow extends JFrame implements ActionListener {
                         } else {
                             revertButton.setEnabled(false);
                             revertButton.setText(getBundleString("fotorenamer.ui.main.progress"));
-                            new RemoveExifPrefixRenamer(
-                                    imageDirectorySelector.getSelectedDirectory());
+                            new Thread(new RemoveExifPrefixRenamer(
+                                    imageDirectorySelector.getSelectedDirectory())).start();
                         }
                     } catch (InvalidDirectoryException uv) {
                         LOG.info("Invalid directory selected: {}", uv.getMessage());

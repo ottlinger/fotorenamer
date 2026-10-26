@@ -20,8 +20,8 @@ import de.aikiit.fotorenamer.exception.NoFilesFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * This class transforms picture file names. All relevant files
@@ -68,17 +68,18 @@ public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer
      * @see MetaDataExtractor for more information about the file format.
      */
     @Override
-    public String renameImage(final File imageFile) {
-        String newImageName = imageFile.getName();
+    public String renameImage(final Path imageFile) {
+        String originalName = fileName(imageFile);
+        String newImageName = originalName;
         LOG.info("Start renaming in CreationDateFromExifImageRenamer");
 
         try {
             newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
         } catch (IOException | IllegalArgumentException | SecurityException e) {
-            LOG.error("Error during EXIF date extraction from '{}'", imageFile.getAbsolutePath(), e);
+            LOG.error("Error during EXIF date extraction from '{}'", imageFile.toAbsolutePath(), e);
             return newImageName;
         }
 
-        return newImageName == null || newImageName.isEmpty() ? imageFile.getName() : newImageName;
+        return newImageName == null || newImageName.isEmpty() ? originalName : newImageName;
     }
 }

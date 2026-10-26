@@ -23,7 +23,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getLanguage;
@@ -50,8 +49,7 @@ class HelpWindow extends JFrame implements ActionListener {
     /**
      * Relative location of the UI's help page.
      */
-    private static final String HTML_HELP_LOCATION = File.separator + "html"
-            + File.separator;
+    static final String HTML_HELP_LOCATION = "/html/";
 
     /**
      * Creates a HelpWindow, initializes its components but does

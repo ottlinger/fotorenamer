@@ -16,7 +16,7 @@ package de.aikiit.fotorenamer.exception;
 
 import org.apache.log4j.Logger;
 
-import java.io.File;
+import java.nio.file.Path;
 
 /**
  * Exception that indicates that an error occurred when touching the selected
@@ -46,9 +46,19 @@ public class InvalidDirectoryException extends Exception {
      *
      * @param directory Current directory.
      */
-    public InvalidDirectoryException(final File directory) {
-        super(directory.toString());
-        LOG.error("invalid directory: " + directory);
+    public InvalidDirectoryException(final Path directory) {
+        this(String.valueOf(directory));
+    }
+
+    /**
+     * Preserves and logs the cause of a directory access or enumeration failure.
+     *
+     * @param directory Selected directory.
+     * @param cause Original filesystem error.
+     */
+    public InvalidDirectoryException(final String directory, final Throwable cause) {
+        super(directory, cause);
+        LOG.error("Unable to read directory '" + directory + "'", cause);
     }
 
 }

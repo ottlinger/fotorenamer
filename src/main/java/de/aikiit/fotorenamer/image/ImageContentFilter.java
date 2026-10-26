@@ -20,36 +20,38 @@ import org.apache.logging.log4j.Logger;
 import org.apache.tika.Tika;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.function.Predicate;
 
 /**
  * Detects image candidates by content, independently of their filename.
  * Detection does not guarantee that Commons Imaging can extract EXIF metadata.
  */
-final class ImageContentFilter implements FileFilter {
+final class ImageContentFilter implements Predicate<Path> {
 
     private static final Logger LOG = LogManager.getLogger(ImageContentFilter.class);
     private final Tika tika = new Tika();
 
     @Override
-    public boolean accept(final File file) {
+    public boolean test(final Path file) {
         if (file == null) {
             return false;
         }
         try {
-            if (!file.isFile()) {
+            // Follow links as before, but retain diagnostics for failed attribute reads.
+            if (!Files.readAttributes(file, BasicFileAttributes.class).isRegularFile()) {
                 return false;
             }
             // Do not supply a filename: detection must rely on content only.
-            try (InputStream input = new BufferedInputStream(Files.newInputStream(file.toPath()))) {
+            try (InputStream input = new BufferedInputStream(Files.newInputStream(file))) {
                 return tika.detect(input).startsWith("image/");
             }
         } catch (IOException | SecurityException e) {
-            LOG.error("Unable to detect image type of '{}'", file.getAbsolutePath(), e);
+            LOG.error("Unable to detect image type of '{}'", file.toAbsolutePath(), e);
             return false;
         }
     }

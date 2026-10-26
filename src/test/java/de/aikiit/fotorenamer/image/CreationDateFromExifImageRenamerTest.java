@@ -68,8 +68,8 @@ class CreationDateFromExifImageRenamerTest {
         Path text = Files.writeString(directory.resolve("notes.jpg"), "not an image");
 
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals("no-exif.bin", renamer.renameImage(png.toFile()));
-        assertEquals("no-exif", renamer.renameImage(jpeg.toFile()));
+        assertEquals("no-exif.bin", renamer.renameImage(png));
+        assertEquals("no-exif", renamer.renameImage(jpeg));
         assertEquals(1, renamer.renameFiles(file -> { }));
 
         assertFalse(Files.exists(image));
@@ -106,7 +106,7 @@ class CreationDateFromExifImageRenamerTest {
         Path image = writeExifTiff("scan", "0000:00:00 00:00:00");
         byte[] original = Files.readAllBytes(image);
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals("scan", renamer.renameImage(image.toFile()));
+        assertEquals("scan", renamer.renameImage(image));
         assertEquals(0, renamer.renameFiles(file -> { }));
         assertArrayEquals(original, Files.readAllBytes(image));
     }
@@ -116,7 +116,7 @@ class CreationDateFromExifImageRenamerTest {
         Path valid = copyExifImage("valid");
         byte[] truncated = Arrays.copyOf(Files.readAllBytes(valid), 20);
         Path broken = Files.write(directory.resolve("broken.jpg"), truncated);
-        assertTrue(new ImageContentFilter().accept(broken.toFile()));
+        assertTrue(new ImageContentFilter().test(broken));
 
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
         assertEquals(1, renamer.renameFiles(file -> { }));
@@ -128,7 +128,7 @@ class CreationDateFromExifImageRenamerTest {
     void skipsUnsupportedImageFormatsAndContinuesWithOtherImages() throws Exception {
         String svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1\" height=\"1\"></svg>";
         Path image = Files.writeString(directory.resolve("drawing"), svg);
-        assertTrue(new ImageContentFilter().accept(image.toFile()));
+        assertTrue(new ImageContentFilter().test(image));
         copyExifImage("valid");
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
         assertEquals(1, renamer.renameFiles(file -> { }));
