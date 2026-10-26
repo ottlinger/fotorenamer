@@ -19,7 +19,7 @@
   <groupId>de.aikiit</groupId>
   <artifactId>fotorenamer</artifactId>
   <packaging>jar</packaging>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <name>FotoRenamer - rename your photos automatically</name>
   <description>Helper to rename your photos based on EXIF metadata extracted from the image itself.</description>
   <url>https://github.com/ottlinger/fotorenamer/</url>
@@ -132,6 +132,18 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-imaging</artifactId>
       <version>1.0.0-alpha6</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- fix CVE-2025-48924 in commons-imaging -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.21.0</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -290,7 +302,6 @@
     </plugins>
   </reporting>
   <build>
-    <!-- not working with JDK8 locally: defaultGoal>clean install webstart:jnlp</defaultGoal-->
     <defaultGoal>clean versions:display-dependency-updates versions:display-plugin-updates install</defaultGoal>
     <extensions>
       <extension>
@@ -636,78 +647,6 @@
           <inputEncoding>UTF-8</inputEncoding>
         </configuration>
       </plugin>
-      <!-- Plugin for JNLP creation
-                      mvn package
-
-                      Manual JNLP creation:
-                      mvn webstart:jnlp-inline
-
-                      This way everything is packaged and bundled:
-                      mvn install webstart:jnlp
-                      mvn clean install webstart:jnlp
-
-                      BUG/REVIEW: http://code.google.com/p/fotorenamer/issues/detail?id=8
-                   -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>webstart-maven-plugin</artifactId>
-        <!-- since webstart-plugin beta7 is not available - fixes https://jira.codehaus.org/browse/MWEBSTART-269 -->
-        <version>1.0-beta-7</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>jnlp-inline</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <!-- you have to manually add all necessary dependencies that need to be included in the JNLP-ZIP,
-                              this does not work with mvn3 if sources are generated: http://jira.codehaus.org/browse/MNG-4672 -->
-          <dependencies>
-            <includes>
-              <include>org.apache.logging.log4j:log4j-1.2-api</include>
-              <include>org.apache.logging.log4j:log4j-api</include>
-              <include>org.apache.logging.log4j:log4j-core</include>
-              <include>org.apache.commons:commons-imaging</include>
-              <include>com.google.guava:guava</include>
-            </includes>
-          </dependencies>
-          <!-- add pictures for webstart here -->
-          <resourcesDirectory>${project.basedir}/src/main/jnlp/resources</resourcesDirectory>
-          <jnlp>
-            <!-- path must be a relative one -->
-            <inputTemplate>src/main/jnlp/jnlpTemplate.vm</inputTemplate>
-            <outputFile>bildbearbeiter.jnlp</outputFile>
-            <mainClass>de.aikiit.fotorenamer.ApplicationStarter</mainClass>
-          </jnlp>
-          <!-- SIGNING -->
-          <!-- defining this will automatically sign the jar and its dependencies -->
-          <!-- FIXME: http://cwe.mitre.org/data/definitions/798.html#Demonstrative%20Examples - this is fake data in here, change for yourself -->
-          <sign>
-            <keystore>${project.build.directory}/keystore</keystore>
-            <keypass>m2m2m2</keypass>
-            <storepass>m2m2m2</storepass>
-            <!--sigfile>m2m2m2</sigfile-->
-            <alias>alias</alias>
-            <validity>360</validity>
-            <dnameCn>www.aiki-it.de</dnameCn>
-            <dnameOu>AIKI IT</dnameOu>
-            <dnameO>bildbearbeiter</dnameO>
-            <dnameL>Berlin</dnameL>
-            <dnameSt>Berlin</dnameSt>
-            <dnameC>DE</dnameC>
-            <verify>true</verify>
-            <keystoreConfig>
-              <delete>true</delete>
-              <gen>true</gen>
-            </keystoreConfig>
-          </sign>
-          <!-- was true -->
-          <verbose>false</verbose>
-        </configuration>
-      </plugin>
-      <!-- 2011-03-26 generates build number for filtering, seems to fail with hg as SCM provider, see http://jira.codehaus.org/browse/MOJO-1436 -->
-      <!-- 2011-08-23 http://stackoverflow.com/questions/802677/adding-the-current-date-with-maven2-filtering done with groovy -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>

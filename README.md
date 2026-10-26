@@ -17,13 +17,19 @@ The idea for this little tool appeared in 2003, when I did my first students pro
 After several operating system upgrades this behaviour changed and I needed to find a way to extract the creation date from the images metadata. Therefore I needed to evaluate EXIF data extraction ...
 ## 2011 - some time
 During my parental leave in 2011 I decided to use this dirty little hack to evaluate the usage of google code as a project tool and to get used to my IntelliJ :-)
-## 2015
+## since 2015
 
 The project moved over to GitHub :smile:
+
+A lot of stuff I used before just vanished as deprecated or was removed from the JDK entirely:
+* WebStart
+* DEVHINT: start a deprecated, but old stable version [(0.1.3-SNAPSHOT)](https://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via WebStart
+* Applets
 
 # USAGE
 ## Building
 This tool can be used with [Maven](https://maven.apache.org/download.html) in two ways:
+
   * run as a standalone application
 ```
 $ ./run.sh 
@@ -33,9 +39,8 @@ $ ./mvnw clean install -Plive-demo
   * run the executable jar
 ```
 $ ./mvnw clean install
-$ java -jar target/fotorenamer-2.0.0-executable.jar
+$ java -jar target/fotorenamer-3.0.0-executable.jar
 ```  
-  * start a deprecated stable version [(0.1.3-SNAPSHOT)](https://www.aiki-it.de/sw/ixus/bildbearbeiter.jnlp) via Webstart
 
 ## Running
 1. Create a backup of your images.
