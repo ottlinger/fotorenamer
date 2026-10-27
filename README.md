@@ -36,10 +36,10 @@ $ ./run.sh
 OR
 $ ./mvnw clean install -Plive-demo
 ```  
-  * run the executable jar
+  * run the executable GUI FatJAR (includes runtime dependencies)
 ```
 $ ./mvnw clean install
-$ java -jar target/fotorenamer-3.0.0-executable.jar
+$ java -jar target/fotorenamer-3.0.0-SNAPSHOT-executable.jar
 ```  
 
 ## Running with JBang
@@ -81,6 +81,56 @@ JVM properties can be passed before the alias, for example to select English:
 ```sh
 jbang run -Duser.language=en -Duser.country=US fotorenamer@jbang-catalog.json
 ```
+
+## Running from the command line
+
+The headless console runner uses [picocli](https://picocli.info/) and the same image
+processing as the GUI ([issue #15](https://github.com/ottlinger/fotorenamer/issues/15)).
+Java 17 or newer is required; no graphical desktop is needed. **Back up your images
+before running it.**
+
+Build the additional CLI FatJAR, including its runtime dependencies:
+
+```sh
+./mvnw clean verify -Pcli
+```
+
+This also runs headless integration tests against the packaged CLI. The usual
+`fotorenamer-3.0.0-SNAPSHOT-executable.jar` still launches the GUI; the additional
+`fotorenamer-3.0.0-SNAPSHOT-cli.jar` launches only the console runner, without a
+splashscreen. `./mvnw clean package -Pcli` builds both JARs without running the
+packaged-JAR integration tests.
+
+```sh
+# Add the EXIF capture timestamp to image filenames
+java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar /home/myphotos
+
+# Remove one leading timestamp prefix (also accepts --reverse)
+java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar -r /home/myphotos
+
+# Show help or the application version without processing files
+java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --help
+java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --version
+```
+
+Quote directory paths containing spaces. Only images directly in the selected
+directory are processed, not subdirectories. Reverse mode removes one prefix in
+`yyyyMMdd_HHmmss_` or the legacy `yyyyMMdd_HHmm_` format; it does not check the EXIF
+date. The console summary reports processed, renamed, skipped, and failed counts.
+Existing target files are never overwritten, and individual processing failures
+do not stop the remaining files.
+
+Exit codes for scripts:
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Successful processing (including skipped images), help, or version |
+| `1` | Processing failure, unreadable directory, or no images found |
+| `2` | Invalid arguments, missing directory argument, or a path that is not a directory |
+
+The JBang launcher above remains a **GUI launcher**, not a CLI alias. Use the CLI
+FatJAR for console or server environments, optionally with `-Djava.awt.headless=true`
+before `-jar`.
 
 ## Running
 1. Create a backup of your images.

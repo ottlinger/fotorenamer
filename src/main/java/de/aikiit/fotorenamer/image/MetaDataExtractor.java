@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.Objects;
 
 /**
  * Helper class to extract metadata from given images. This class uses Apache
@@ -155,7 +156,7 @@ final class MetaDataExtractor {
             LocalDateTime captureDate = LocalDateTime.parse(
                     dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);
             String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;
-            String filename = image.getFileName().toString();
+            String filename = Objects.requireNonNull(image.getFileName(), "Image must have a filename").toString();
             dateValue = filename.startsWith(prefix) ? filename : prefix + filename;
         } catch (DateTimeParseException e) {
             LOG.warn("Invalid EXIF creation date in " + image.toAbsolutePath(), e);

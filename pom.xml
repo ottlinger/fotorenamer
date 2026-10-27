@@ -57,6 +57,7 @@
     <logger.version>2.26.1</logger.version>
     <mockito.version>5.24.0</mockito.version>
     <shade.version>3.6.2</shade.version>
+    <picocli.version>4.7.7</picocli.version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <rat.version>0.18</rat.version>
@@ -135,6 +136,11 @@
       <groupId>org.apache.tika</groupId>
       <artifactId>tika-core</artifactId>
       <version>4.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>${picocli.version}</version>
     </dependency>
     <!-- normal dependencies -->
     <!-- library for EXIF metadata extraction -->
@@ -678,6 +684,60 @@
   </build>
   <!-- Run mvn clean install -Plive-demo for a live demo of this tool -->
   <profiles>
+    <!-- Additional headless console artifact for issue #15; preserve the GUI JAR. -->
+    <profile>
+      <id>cli</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>cli</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>shade</goal>
+                </goals>
+                <configuration>
+                  <shadedArtifactAttached>true</shadedArtifactAttached>
+                  <shadedClassifierName>cli</shadedClassifierName>
+                  <createDependencyReducedPom>false</createDependencyReducedPom>
+                  <transformers combine.self="override">
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                      <mainClass>de.aikiit.fotorenamer.cli.ConsoleRunner</mainClass>
+                      <manifestEntries>
+                        <Build-Number>${project.version}</Build-Number>
+                      </manifestEntries>
+                    </transformer>
+                  </transformers>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>3.6.1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <systemPropertyVariables>
+                <cli.jar>${project.build.directory}/${project.build.finalName}-cli.jar</cli.jar>
+                <gui.jar>${project.build.directory}/${project.build.finalName}-executable.jar</gui.jar>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>live-demo</id>
       <build>
