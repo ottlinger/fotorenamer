@@ -105,6 +105,14 @@ with the other files. Detection alone does not guarantee EXIF support.
 Renaming preserves the original extension and file contents, and never overwrites an
 existing target file. The result message counts only successful renames.
 
+To avoid repeated renaming ([issue #593](https://github.com/ottlinger/fotorenamer/issues/593)),
+images whose filename already starts with the exact EXIF capture timestamp in
+`yyyyMMdd_HHmmss_` format are left unchanged and counted as skipped in the result
+summary. For example, with EXIF date `2011:01:30 13:11:02`,
+`20110130_131102_holiday.jpg` is skipped. A different timestamp, a legacy
+minute-only prefix such as `20110130_1311_`, or a timestamp elsewhere in the name
+does not match: the EXIF prefix is prepended as usual, preserving the existing name.
+
 ### Localization
 
 Relates to [issue #10](https://github.com/ottlinger/fotorenamer/issues/10)

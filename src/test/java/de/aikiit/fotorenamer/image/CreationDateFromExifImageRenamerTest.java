@@ -83,6 +83,62 @@ class CreationDateFromExifImageRenamerTest {
     }
 
     @Test
+    void skipsExactExifPrefixesAndReportsMixedBatchProgress() throws Exception {
+        Path prefixed = copyExifImage("20110130_131102_holiday.JPG");
+        byte[] original = Files.readAllBytes(prefixed);
+        copyExifImage("new.dat");
+        List<RenameProgress> progress = new CopyOnWriteArrayList<>();
+        var renamer = new CreationDateFromExifImageRenamer(directory.toString());
+
+        assertEquals(prefixed.getFileName().toString(), renamer.renameImage(prefixed));
+        RenameResult result = renamer.renameFiles(progress::add);
+
+        assertEquals(new RenameResult(2, 2, 1, 1, 0, false), result);
+        assertEquals(2, progress.size());
+        assertEquals(result, progress.get(progress.size() - 1).result());
+        assertArrayEquals(original, Files.readAllBytes(prefixed));
+        assertArrayEquals(original, Files.readAllBytes(directory.resolve("20110130_131102_new.dat")));
+        assertFalse(Files.exists(directory.resolve("20110130_131102_20110130_131102_holiday.JPG")));
+    }
+
+    @Test
+    void secondRunSkipsPreviouslyRenamedImage() throws Exception {
+        Path image = copyExifImage("holiday");
+        byte[] original = Files.readAllBytes(image);
+        var firstRun = new CreationDateFromExifImageRenamer(directory.toString());
+        assertEquals(new RenameResult(1, 1, 1, 0, 0, false), firstRun.renameFiles());
+
+        var secondRun = new CreationDateFromExifImageRenamer(directory.toString());
+        assertEquals(new RenameResult(1, 1, 0, 1, 0, false), secondRun.renameFiles());
+        assertArrayEquals(original, Files.readAllBytes(directory.resolve("20110130_131102_holiday")));
+        try (var files = Files.list(directory)) {
+            assertEquals(1, files.count());
+        }
+    }
+
+    @Test
+    void onlySkipsAnExactLeadingExifPrefix() throws Exception {
+        List<String> filenames = List.of(
+                "20110130_131103_holiday.jpg",
+                "20110131_131102_holiday.jpg",
+                "20110130_1311_holiday.jpg",
+                "holiday_20110130_131102.jpg",
+                "20110130_131102holiday.jpg");
+        for (String filename : filenames) {
+            Path caseDirectory = Files.createTempDirectory(directory, "case-");
+            Path image = copyExifImage(caseDirectory.getFileName() + "/" + filename);
+            byte[] original = Files.readAllBytes(image);
+            String expected = "20110130_131102_" + filename;
+            var renamer = new CreationDateFromExifImageRenamer(caseDirectory.toString());
+
+            assertEquals(expected, renamer.renameImage(image), filename);
+            assertEquals(new RenameResult(1, 1, 1, 0, 0, false), renamer.renameFiles(), filename);
+            assertFalse(Files.exists(image), filename);
+            assertArrayEquals(original, Files.readAllBytes(caseDirectory.resolve(expected)), filename);
+        }
+    }
+
+    @Test
     void renamesExifImageWithoutAnExtension() throws Exception {
         Path image = copyExifImage("holiday");
         byte[] original = Files.readAllBytes(image);

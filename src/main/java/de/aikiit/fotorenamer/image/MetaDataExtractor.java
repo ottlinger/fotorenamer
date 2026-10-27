@@ -123,6 +123,8 @@ final class MetaDataExtractor {
      * unknown. Tag = 306 (132.H) Type = ASCII Count = 20 Default = none </i>
      * <p>
      * If the extracted date value is empty - no new file name is generated.
+     * If the filename already starts with the exact EXIF timestamp prefix, its
+     * original name is returned so the batch processor counts it as skipped (issue #593).
      *
      * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
@@ -152,7 +154,9 @@ final class MetaDataExtractor {
         try {
             LocalDateTime captureDate = LocalDateTime.parse(
                     dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);
-            dateValue = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE + image.getFileName();
+            String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;
+            String filename = image.getFileName().toString();
+            dateValue = filename.startsWith(prefix) ? filename : prefix + filename;
         } catch (DateTimeParseException e) {
             LOG.warn("Invalid EXIF creation date in " + image.toAbsolutePath(), e);
             return EMPTY_STRING;
