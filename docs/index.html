@@ -128,7 +128,7 @@
 <section><a id="FotoRenamer"></a>
 <h1>FotoRenamer</h1>
 <p><a href="https://github.com/ottlinger/fotorenamer/actions" class="externalLink"><img src="https://github.com/ottlinger/fotorenamer/actions/workflows/maven.yml/badge.svg?branch=master" alt="Github Action master branch status" /></a></p>
-<p><a href="https://codecov.io/gh/ottlinger/fotorenamer" class="externalLink"><img src="https://codecov.io/gh/ottlinger/fotorenamer/branch/master/graph/badge.svg" alt="codecov" /></a></p>
+<p><a href="https://app.codecov.io/github/ottlinger/fotorenamer" class="externalLink"><img src="https://codecov.io/gh/ottlinger/fotorenamer/branch/master/graph/badge.svg" alt="codecov" /></a></p>
 <p><a href="https://app.codacy.com/gh/ottlinger/fotorenamer/dashboard" class="externalLink"><img src="https://app.codacy.com/project/badge/Grade/d9d0476d0f3c40bcbb1c2b4dc09099b1" alt="Codacy Badge" /></a></p></section><section><a id="ABSTRACT"></a>
 <h1>ABSTRACT</h1>
 <p>Helper to change image filenames from <strong>IMG_number</strong> to <strong>YYYYMMDD_HHMMSS_IMG_number</strong> in order to allow an easier photo sorting. YYYMMDD_HHMMSS itself is extracted from the photograph's EXIF metadata.</p>
@@ -165,7 +165,7 @@ $ ./mvnw clean install -Plive-demo
 </ul>
 
 <pre><code class="nohighlight nocode">$ ./mvnw clean install
-$ java -jar target/fotorenamer-3.0.0-SNAPSHOT-executable.jar
+$ java -jar target/fotorenamer-4.0.0-SNAPSHOT-executable.jar
 </code></pre></section><section><a id="Running_with_JBang"></a>
 <h2>Running with JBang</h2>
 <p>Install <a href="https://www.jbang.dev/download/" class="externalLink">JBang</a> and build and install the current snapshot into your local Maven repository once (on Windows use <code>mvnw.cmd</code>):</p>
@@ -183,7 +183,7 @@ jbang run --fresh fotorenamer@jbang-catalog.json
 <pre class="prettyprint"><code class="language-sh">jbang app install --name fotorenamer jbang/FotoRenamer.java
 fotorenamer
 </code></pre>
-<p>The launcher uses <code>de.aikiit:fotorenamer:3.0.0-SNAPSHOT:executable</code> from your local Maven repository. It does <strong>not</strong> currently download a published FotoRenamer release; keep the version in <code>jbang/FotoRenamer.java</code> in sync with <code>pom.xml</code>. After changing application code, repeat <code>./mvnw clean install</code> and use <code>jbang run --fresh</code> to avoid reusing cached snapshot dependencies. Reinstall an installed command with <code>jbang app install --force --fresh --name fotorenamer jbang/FotoRenamer.java</code>.</p>
+<p>The launcher uses <code>de.aikiit:fotorenamer:4.0.0-SNAPSHOT:executable</code> from your local Maven repository. It does <strong>not</strong> currently download a published FotoRenamer release; keep the version in <code>jbang/FotoRenamer.java</code> in sync with <code>pom.xml</code>. After changing application code, repeat <code>./mvnw clean install</code> and use <code>jbang run --fresh</code> to avoid reusing cached snapshot dependencies. Reinstall an installed command with <code>jbang app install --force --fresh --name fotorenamer jbang/FotoRenamer.java</code>.</p>
 <p>JVM properties can be passed before the alias, for example to select English:</p>
 
 <pre class="prettyprint"><code class="language-sh">jbang run -Duser.language=en -Duser.country=US fotorenamer@jbang-catalog.json
@@ -194,17 +194,17 @@ fotorenamer
 
 <pre class="prettyprint"><code class="language-sh">./mvnw clean verify -Pcli
 </code></pre>
-<p>This also runs headless integration tests against the packaged CLI. The usual <code>fotorenamer-3.0.0-SNAPSHOT-executable.jar</code> still launches the GUI; the additional <code>fotorenamer-3.0.0-SNAPSHOT-cli.jar</code> launches only the console runner, without a splashscreen. <code>./mvnw clean package -Pcli</code> builds both JARs without running the packaged-JAR integration tests.</p>
+<p>This also runs headless integration tests against the packaged CLI. The usual <code>fotorenamer-4.0.0-SNAPSHOT-executable.jar</code> still launches the GUI; the additional <code>fotorenamer-4.0.0-SNAPSHOT-cli.jar</code> launches only the console runner, without a splashscreen. <code>./mvnw clean package -Pcli</code> builds both JARs without running the packaged-JAR integration tests.</p>
 
 <pre class="prettyprint"><code class="language-sh"># Add the EXIF capture timestamp to image filenames
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar /home/myphotos
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar /home/myphotos
 
 # Remove one leading timestamp prefix (also accepts --reverse)
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar -r /home/myphotos
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar -r /home/myphotos
 
 # Show help or the application version without processing files
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --help
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --version
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar --help
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar --version
 </code></pre>
 <p>Quote directory paths containing spaces. Only images directly in the selected directory are processed, not subdirectories. Reverse mode removes one prefix in <code>yyyyMMdd_HHmmss_</code> or the legacy <code>yyyyMMdd_HHmm_</code> format; it does not check the EXIF date. The console summary reports processed, renamed, skipped, and failed counts. Existing target files are never overwritten, and individual processing failures do not stop the remaining files.</p>
 <p>Exit codes for scripts:</p>
@@ -253,8 +253,7 @@ java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --version
 
 <pre class="prettyprint"><code class="language-sh">./mvnw site
 </code></pre>
-<p>Open <code>target/site/index.html</code> to view it. The <code>pre-site</code> phase copies this README to the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instructions are maintained in one place. Use the <code>site</code> lifecycle rather than calling <code>site:site</code> directly, which skips that preparation. Run <code>./mvnw clean verify -Pcli</code> first if you also want current test and coverage results included in the reports.</p>
-<p>The maintainer script <code>./site.sh</code> rebuilds the site, copies it into <code>docs/</code>, commits it, and pushes it to GitHub for publication. It is not a local preview command.</p></section></section>        </main>
+<p>Open <code>target/site/index.html</code> to view it. The <code>pre-site</code> phase copies this README to the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instructions are maintained in one place. Use the <code>site</code> lifecycle rather than calling <code>site:site</code> directly, which skips that preparation. Run <code>./mvnw clean verify -Pcli</code> first if you also want current test and coverage results included in the reports.</p></section></section>        </main>
       </div>
     </div>
     <hr/>
@@ -264,7 +263,7 @@ java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --version
             <p>©      2026
 <a href="https://www.aiki-it.de">Aiki IT</a>
         <li id="publishDate" class="pull-right">Last Published: 1980-02-01</li>
-          <li id="projectVersion" class="pull-right">Version: 3.0.0-SNAPSHOT</li>
+          <li id="projectVersion" class="pull-right">Version: 4.0.0-SNAPSHOT</li>
 </p>
         </div>
       </div>
