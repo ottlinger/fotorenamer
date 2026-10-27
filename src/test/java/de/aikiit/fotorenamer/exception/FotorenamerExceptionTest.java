@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@Disable("Maybe GH pages error is connected to this test?")
 class FotorenamerExceptionTest {
     @Test
     void planConstructors() {

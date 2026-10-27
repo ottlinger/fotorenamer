@@ -14,7 +14,6 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.gui;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
@@ -60,10 +59,5 @@ public class HelpWindowTest {
                 assertTrue(image.getHeight() > 0);
             }
         }
-    }
-
-    @Disabled("No X11 on GHA")
-    void initWindow() {
-        assertNotNull(new HelpWindow());
     }
 }

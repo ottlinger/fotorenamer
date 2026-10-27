@@ -51,9 +51,10 @@ class StartupSplashTest {
         try (var graphics = mockStatic(GraphicsEnvironment.class);
              var nativeApi = mockStatic(SplashScreen.class)) {
             graphics.when(GraphicsEnvironment::isHeadless).thenReturn(true);
-            StartupSplash splash = StartupSplash.show();
-            assertDoesNotThrow(splash::close);
-            assertDoesNotThrow(splash::close);
+            try (StartupSplash splash = StartupSplash.show()) {
+                assertDoesNotThrow(splash::close);
+                assertDoesNotThrow(splash::close);
+            }
             nativeApi.verifyNoInteractions();
         }
     }
