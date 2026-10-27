@@ -19,8 +19,17 @@ import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,12 +48,12 @@ class HelpWindow extends JFrame implements ActionListener {
     /**
      * Logger for this class.
      */
-<span class="nc" id="L42">    private static final Logger LOG = LogManager.getLogger(HelpWindow.class);</span>
+<span class="nc" id="L51">    private static final Logger LOG = LogManager.getLogger(HelpWindow.class);</span>
     /**
      * End button needs to be visible inside the class to perform application
      * exit.
      */
-<span class="nc" id="L47">    private JButton endButton = null;</span>
+<span class="nc" id="L56">    private JButton endButton = null;</span>
 
     /**
      * Relative location of the UI's help page.
@@ -55,51 +64,51 @@ class HelpWindow extends JFrame implements ActionListener {
      * Creates a HelpWindow, initializes its components but does
      * &lt;strong&gt;not&lt;/strong&gt; show the window.
      */
-<span class="nc" id="L58">    HelpWindow() {</span>
-<span class="nc" id="L59">        SwingUtilities.invokeLater(this::init);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L67">    HelpWindow() {</span>
+<span class="nc" id="L68">        SwingUtilities.invokeLater(this::init);</span>
+<span class="nc" id="L69">    }</span>
 
     /**
      * Initialize UI-components and make them visible.
      */
     private void init() {
-<span class="nc" id="L66">        this.setTitle(getBundleString(</span>
+<span class="nc" id="L75">        this.setTitle(getBundleString(</span>
                 &quot;fotorenamer.ui.help.title&quot;));
-<span class="nc" id="L68">        this.setResizable(false);</span>
-<span class="nc" id="L69">        JPanel top = new JPanel(new FlowLayout());</span>
-<span class="nc" id="L70">        JPanel bottom = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L77">        this.setResizable(false);</span>
+<span class="nc" id="L78">        JPanel top = new JPanel(new FlowLayout());</span>
+<span class="nc" id="L79">        JPanel bottom = new JPanel(new FlowLayout());</span>
 
-<span class="nc" id="L72">        JEditorPane textfield = new JEditorPane();</span>
-<span class="nc" id="L73">        textfield.setContentType(&quot;text/html&quot;);</span>
-<span class="nc" id="L74">        textfield.setEditable(false);</span>
-<span class="nc" id="L75">        loadHelpContents(top, textfield);</span>
+<span class="nc" id="L81">        JEditorPane textfield = new JEditorPane();</span>
+<span class="nc" id="L82">        textfield.setContentType(&quot;text/html&quot;);</span>
+<span class="nc" id="L83">        textfield.setEditable(false);</span>
+<span class="nc" id="L84">        loadHelpContents(top, textfield);</span>
 
-<span class="nc" id="L77">        JScrollPane rollpanel = new JScrollPane(top);</span>
-<span class="nc" id="L78">        rollpanel.setPreferredSize(new Dimension(350, 300));</span>
-<span class="nc" id="L79">        rollpanel.setVerticalScrollBarPolicy(</span>
+<span class="nc" id="L86">        JScrollPane rollpanel = new JScrollPane(top);</span>
+<span class="nc" id="L87">        rollpanel.setPreferredSize(new Dimension(350, 300));</span>
+<span class="nc" id="L88">        rollpanel.setVerticalScrollBarPolicy(</span>
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-<span class="nc" id="L82">        this.endButton = new JButton(getBundleString(</span>
+<span class="nc" id="L91">        this.endButton = new JButton(getBundleString(</span>
                 &quot;fotorenamer.ui.help.close&quot;));
-<span class="nc" id="L84">        this.endButton.addActionListener(this);</span>
-<span class="nc" id="L85">        this.endButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.help.close.mnemonic&quot;).charAt(0));</span>
-<span class="nc" id="L86">        bottom.add(this.endButton);</span>
+<span class="nc" id="L93">        this.endButton.addActionListener(this);</span>
+<span class="nc" id="L94">        this.endButton.setMnemonic(getBundleString(&quot;fotorenamer.ui.help.close.mnemonic&quot;).charAt(0));</span>
+<span class="nc" id="L95">        bottom.add(this.endButton);</span>
 
-<span class="nc" id="L88">        this.getContentPane().setLayout(new BorderLayout());</span>
-<span class="nc" id="L89">        this.getContentPane().add(rollpanel, BorderLayout.NORTH);</span>
-<span class="nc" id="L90">        this.getContentPane().add(bottom, BorderLayout.CENTER);</span>
+<span class="nc" id="L97">        this.getContentPane().setLayout(new BorderLayout());</span>
+<span class="nc" id="L98">        this.getContentPane().add(rollpanel, BorderLayout.NORTH);</span>
+<span class="nc" id="L99">        this.getContentPane().add(bottom, BorderLayout.CENTER);</span>
 
-<span class="nc" id="L92">        this.pack();</span>
-<span class="nc" id="L93">        ComponentGaugeUtil.makeCentered(this);</span>
+<span class="nc" id="L101">        this.pack();</span>
+<span class="nc" id="L102">        ComponentGaugeUtil.makeCentered(this);</span>
 
         // let button get the focus, needs to be run in the end and async
-<span class="nc" id="L96">        SwingUtilities.invokeLater(() -&gt; {</span>
-<span class="nc" id="L97">            getRootPane().setDefaultButton(endButton);</span>
-<span class="nc" id="L98">            endButton.requestFocusInWindow();</span>
-<span class="nc" id="L99">        });</span>
+<span class="nc" id="L105">        SwingUtilities.invokeLater(() -&gt; {</span>
+<span class="nc" id="L106">            getRootPane().setDefaultButton(endButton);</span>
+<span class="nc" id="L107">            endButton.requestFocusInWindow();</span>
+<span class="nc" id="L108">        });</span>
 
-<span class="nc" id="L101">        LOG.debug(&quot;HelpWindow init done.&quot;);</span>
-<span class="nc" id="L102">    }</span>
+<span class="nc" id="L110">        LOG.debug(&quot;HelpWindow init done.&quot;);</span>
+<span class="nc" id="L111">    }</span>
 
     /**
      * Load page contents depending on available languages (fallback is English).
@@ -109,21 +118,21 @@ class HelpWindow extends JFrame implements ActionListener {
      */
     private void loadHelpContents(final JPanel base, final JEditorPane textfield) {
         try {
-<span class="nc" id="L112">            String helpPageLocation = HTML_HELP_LOCATION;</span>
+<span class="nc" id="L121">            String helpPageLocation = HTML_HELP_LOCATION;</span>
 
-<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (getLanguage().startsWith(&quot;de&quot;)) {</span>
-<span class="nc" id="L115">                helpPageLocation += &quot;hilfe.html&quot;;</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">            if (getLanguage().startsWith(&quot;de&quot;)) {</span>
+<span class="nc" id="L124">                helpPageLocation += &quot;hilfe.html&quot;;</span>
             } else {
-<span class="nc" id="L117">                helpPageLocation += &quot;help.html&quot;;</span>
+<span class="nc" id="L126">                helpPageLocation += &quot;help.html&quot;;</span>
             }
 
-<span class="nc" id="L120">            textfield.setPage(HelpWindow.class.getResource(helpPageLocation));</span>
-<span class="nc" id="L121">            base.add(textfield);</span>
-<span class="nc" id="L122">        } catch (Exception e) {</span>
-<span class="nc" id="L123">            base.setLayout(new GridLayout(1, 1));</span>
-<span class="nc" id="L124">            base.add(new JLabel(getParameterizedBundleString(&quot;fotorenamer.ui.help.error&quot;, e.getMessage(), e.getClass().getSimpleName())));</span>
-<span class="nc" id="L125">        }</span>
-<span class="nc" id="L126">    }</span>
+<span class="nc" id="L129">            textfield.setPage(HelpWindow.class.getResource(helpPageLocation));</span>
+<span class="nc" id="L130">            base.add(textfield);</span>
+<span class="nc" id="L131">        } catch (Exception e) {</span>
+<span class="nc" id="L132">            base.setLayout(new GridLayout(1, 1));</span>
+<span class="nc" id="L133">            base.add(new JLabel(getParameterizedBundleString(&quot;fotorenamer.ui.help.error&quot;, e.getMessage(), e.getClass().getSimpleName())));</span>
+<span class="nc" id="L134">        }</span>
+<span class="nc" id="L135">    }</span>
 
     /**
      * Make this component react to close button.
@@ -131,10 +140,10 @@ class HelpWindow extends JFrame implements ActionListener {
      * @param event Event to react on in this UI-component.
      */
     public final void actionPerformed(final ActionEvent event) {
-<span class="nc bnc" id="L134" title="All 2 branches missed.">        if (this.endButton.equals(event.getSource())) {</span>
-<span class="nc" id="L135">            LOG.debug(&quot;Disabling visibility of helpWindow.&quot;);</span>
-<span class="nc" id="L136">            setVisible(false);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (this.endButton.equals(event.getSource())) {</span>
+<span class="nc" id="L144">            LOG.debug(&quot;Disabling visibility of helpWindow.&quot;);</span>
+<span class="nc" id="L145">            setVisible(false);</span>
         }
-<span class="nc" id="L138">    }</span>
+<span class="nc" id="L147">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

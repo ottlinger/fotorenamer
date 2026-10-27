@@ -17,8 +17,11 @@ package de.aikiit.fotorenamer.gui;
 import de.aikiit.fotorenamer.image.RenameProgress;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.nio.file.Path;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
@@ -26,44 +29,44 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
 /** EDT-only progress view; no processing, sleeps, or artificial delays. */
 public class ProgressBar extends JFrame {
 
-<span class="nc" id="L29">    private final JLabel textInfo = new JLabel(&quot; &quot;);</span>
+<span class="nc" id="L32">    private final JLabel textInfo = new JLabel(&quot; &quot;);</span>
     private final JProgressBar progressBar;
 
     /** Shows indeterminate progress during discovery when maxCapacity is zero. */
-<span class="nc" id="L33">    public ProgressBar(final int maxCapacity) {</span>
-<span class="nc" id="L34">        setTitle(getBundleString(&quot;fotorenamer.ui.progress&quot;));</span>
-<span class="nc" id="L35">        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);</span>
-<span class="nc" id="L36">        setResizable(false);</span>
-<span class="nc" id="L37">        progressBar = new JProgressBar(0, maxCapacity);</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">        progressBar.setIndeterminate(maxCapacity == 0);</span>
-<span class="nc" id="L39">        progressBar.setStringPainted(true);</span>
-<span class="nc" id="L40">        textInfo.setText(getBundleString(&quot;fotorenamer.ui.progress.scanning&quot;));</span>
-<span class="nc" id="L41">        textInfo.setPreferredSize(new Dimension(450, textInfo.getPreferredSize().height));</span>
-<span class="nc" id="L42">        getContentPane().setLayout(new GridLayout(3, 1));</span>
-<span class="nc" id="L43">        getContentPane().add(new JLabel(getBundleString(&quot;fotorenamer.ui.progress.title&quot;)));</span>
-<span class="nc" id="L44">        getContentPane().add(textInfo);</span>
-<span class="nc" id="L45">        getContentPane().add(progressBar);</span>
-<span class="nc" id="L46">        pack();</span>
-<span class="nc" id="L47">        ComponentGaugeUtil.makeCentered(this);</span>
-<span class="nc" id="L48">        setVisible(true);</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L36">    public ProgressBar(final int maxCapacity) {</span>
+<span class="nc" id="L37">        setTitle(getBundleString(&quot;fotorenamer.ui.progress&quot;));</span>
+<span class="nc" id="L38">        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);</span>
+<span class="nc" id="L39">        setResizable(false);</span>
+<span class="nc" id="L40">        progressBar = new JProgressBar(0, maxCapacity);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        progressBar.setIndeterminate(maxCapacity == 0);</span>
+<span class="nc" id="L42">        progressBar.setStringPainted(true);</span>
+<span class="nc" id="L43">        textInfo.setText(getBundleString(&quot;fotorenamer.ui.progress.scanning&quot;));</span>
+<span class="nc" id="L44">        textInfo.setPreferredSize(new Dimension(450, textInfo.getPreferredSize().height));</span>
+<span class="nc" id="L45">        getContentPane().setLayout(new GridLayout(3, 1));</span>
+<span class="nc" id="L46">        getContentPane().add(new JLabel(getBundleString(&quot;fotorenamer.ui.progress.title&quot;)));</span>
+<span class="nc" id="L47">        getContentPane().add(textInfo);</span>
+<span class="nc" id="L48">        getContentPane().add(progressBar);</span>
+<span class="nc" id="L49">        pack();</span>
+<span class="nc" id="L50">        ComponentGaugeUtil.makeCentered(this);</span>
+<span class="nc" id="L51">        setVisible(true);</span>
+<span class="nc" id="L52">    }</span>
 
     /** Applies absolute counts, including when SwingWorker coalesces progress events. */
     public final void updateProgress(final RenameProgress progress) {
-<span class="nc" id="L53">        progressBar.setIndeterminate(false);</span>
-<span class="nc" id="L54">        progressBar.setMaximum(progress.result().total());</span>
-<span class="nc" id="L55">        progressBar.setValue(progress.result().processed());</span>
-<span class="nc" id="L56">        Path name = progress.file().getFileName();</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        textInfo.setText(name == null ? progress.file().toString() : name.toString());</span>
-<span class="nc" id="L58">        textInfo.setToolTipText(progress.file().toString());</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L56">        progressBar.setIndeterminate(false);</span>
+<span class="nc" id="L57">        progressBar.setMaximum(progress.result().total());</span>
+<span class="nc" id="L58">        progressBar.setValue(progress.result().processed());</span>
+<span class="nc" id="L59">        Path name = progress.file().getFileName();</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        textInfo.setText(name == null ? progress.file().toString() : name.toString());</span>
+<span class="nc" id="L61">        textInfo.setToolTipText(progress.file().toString());</span>
+<span class="nc" id="L62">    }</span>
 
     public final String getText() {
-<span class="nc" id="L62">        return textInfo.getText();</span>
+<span class="nc" id="L65">        return textInfo.getText();</span>
     }
 
     public final int getProgress() {
-<span class="nc" id="L66">        return progressBar.getValue();</span>
+<span class="nc" id="L69">        return progressBar.getValue();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

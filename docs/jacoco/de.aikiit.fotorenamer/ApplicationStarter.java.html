@@ -19,7 +19,8 @@ import de.aikiit.fotorenamer.gui.StartupSplash;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * Main class to start the application in standalone mode.
@@ -36,7 +37,7 @@ public final class ApplicationStarter {
     /**
      * Logger for this class.
      */
-<span class="fc" id="L39">    private static final Logger LOG = LogManager.getLogger(ApplicationStarter.class);</span>
+<span class="fc" id="L40">    private static final Logger LOG = LogManager.getLogger(ApplicationStarter.class);</span>
 
     /**
      * Creates an application window and runs the application.
@@ -44,23 +45,23 @@ public final class ApplicationStarter {
      * @param args Runtime/CLI arguments.
      */
     public static void main(final String[] args) {
-<span class="fc" id="L47">        SwingUtilities.invokeLater(ApplicationStarter::start);</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L48">        SwingUtilities.invokeLater(ApplicationStarter::start);</span>
+<span class="fc" id="L49">    }</span>
 
     /** Initializes Swing and keeps the splash open until the main window is visible. */
     static void start() {
-<span class="fc" id="L52">        try (StartupSplash splash = StartupSplash.show()) {</span>
+<span class="fc" id="L53">        try (StartupSplash splash = StartupSplash.show()) {</span>
             try {
-<span class="fc" id="L54">                UIManager.setLookAndFeel(</span>
-<span class="fc" id="L55">                        UIManager.getCrossPlatformLookAndFeelClassName());</span>
-<span class="fc" id="L56">            } catch (Exception e) {</span>
-<span class="fc" id="L57">                LOG.error(&quot;Error setting application look and feel&quot;, e);</span>
-<span class="fc" id="L58">            }</span>
+<span class="fc" id="L55">                UIManager.setLookAndFeel(</span>
+<span class="fc" id="L56">                        UIManager.getCrossPlatformLookAndFeelClassName());</span>
+<span class="fc" id="L57">            } catch (Exception e) {</span>
+<span class="fc" id="L58">                LOG.error(&quot;Error setting application look and feel&quot;, e);</span>
+<span class="fc" id="L59">            }</span>
             // Already on the event dispatch thread: build completes synchronously.
-<span class="fc" id="L60">            MainUIWindow.build();</span>
-<span class="fc" id="L61">        } catch (RuntimeException | LinkageError e) {</span>
-<span class="fc" id="L62">            LOG.error(&quot;Error during application startup&quot;, e);</span>
-<span class="fc" id="L63">        }</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L61">            MainUIWindow.build();</span>
+<span class="fc" id="L62">        } catch (RuntimeException | LinkageError e) {</span>
+<span class="fc" id="L63">            LOG.error(&quot;Error during application startup&quot;, e);</span>
+<span class="fc" id="L64">        }</span>
+<span class="fc" id="L65">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

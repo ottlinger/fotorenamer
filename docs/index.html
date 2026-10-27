@@ -253,7 +253,18 @@ java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar --version
 
 <pre class="prettyprint"><code class="language-sh">./mvnw site
 </code></pre>
-<p>Open <code>target/site/index.html</code> to view it. The <code>pre-site</code> phase copies this README to the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instructions are maintained in one place. Use the <code>site</code> lifecycle rather than calling <code>site:site</code> directly, which skips that preparation. Run <code>./mvnw clean verify -Pcli</code> first if you also want current test and coverage results included in the reports.</p></section></section>        </main>
+<p>Open <code>target/site/index.html</code> to view it. The <code>pre-site</code> phase copies this README to the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instructions are maintained in one place. Use the <code>site</code> lifecycle rather than calling <code>site:site</code> directly, which skips that preparation. Run <code>./mvnw clean verify -Pcli</code> first if you also want current test and coverage results included in the reports.</p><section><a id="IntelliJ_IDEA_import_settings"></a>
+<h3>IntelliJ IDEA import settings</h3>
+<p>Use explicit imports for individual Java classes and static members, not wildcard imports. The shared project code style in <code>.idea/codeStyles/</code> preserves this when running <strong>Optimize Imports</strong>. Other local IntelliJ settings remain ignored by Git.</p>
+<p>To check or apply the settings manually, open <strong>Settings / Preferences &#x2192; Editor &#x2192; Code Style &#x2192; Java &#x2192; Imports</strong> and select the <strong>Project</strong> scheme:</p>
+<ul>
+
+<li>Enable <strong>Use single class import</strong>.</li>
+<li>Set <strong>Class count to use import with &#x2018;*&#x2019;</strong> to <code>2147483647</code>.</li>
+<li>Set <strong>Names count to use static import with &#x2018;*&#x2019;</strong> to <code>2147483647</code>.</li>
+<li>Empty <strong>Packages to Use Import with &#x2018;*&#x2019;</strong>, including the default <code>java.awt</code> and <code>javax.swing</code> entries; these exceptions would otherwise still produce wildcards.</li>
+</ul>
+<p>These thresholds cover both normal and static imports. If the project is already open in IntelliJ, reload the project settings if the shared scheme is not picked up automatically.</p></section></section></section>        </main>
       </div>
     </div>
     <hr/>
