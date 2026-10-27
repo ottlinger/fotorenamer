@@ -91,114 +91,170 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      }
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      @Test
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">void</strong> renamesExifImageWithoutAnExtension() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          Path image = copyExifImage(<span class="jxr_string">"holiday"</span>);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          byte[] original = Files.readAllBytes(image);
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          assertEquals(1, renamer.renameFiles().renamed());
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>          assertArrayEquals(original, Files.readAllBytes(directory.resolve(<span class="jxr_string">"20110130_131102_holiday"</span>)));
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>      @Test
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">void</strong> renamesTiffWithExifWithoutRelyingOnItsExtension() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>          Path image = writeExifTiff(<span class="jxr_string">"scan.bin"</span>, <span class="jxr_string">"2026:10:26 14:30:12"</span>);
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          byte[] original = Files.readAllBytes(image);
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>          CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>          assertEquals(1, renamer.renameFiles().renamed());
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         assertFalse(Files.exists(image));
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         assertArrayEquals(original, Files.readAllBytes(directory.resolve(<span class="jxr_string">"20261026_143012_scan.bin"</span>)));
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      <strong class="jxr_keyword">void</strong> skipsExactExifPrefixesAndReportsMixedBatchProgress() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          Path prefixed = copyExifImage(<span class="jxr_string">"20110130_131102_holiday.JPG"</span>);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          byte[] original = Files.readAllBytes(prefixed);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          copyExifImage(<span class="jxr_string">"new.dat"</span>);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          List&lt;RenameProgress&gt; progress = <strong class="jxr_keyword">new</strong> CopyOnWriteArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">var</strong> renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>          assertEquals(prefixed.getFileName().toString(), renamer.renameImage(prefixed));
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          RenameResult result = renamer.renameFiles(progress::add);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(2, 2, 1, 1, 0, false), result);
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          assertEquals(2, progress.size());
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          assertEquals(result, progress.get(progress.size() - 1).result());
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>          assertArrayEquals(original, Files.readAllBytes(prefixed));
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         assertArrayEquals(original, Files.readAllBytes(directory.resolve(<span class="jxr_string">"20110130_131102_new.dat"</span>)));
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>         assertFalse(Files.exists(directory.resolve(<span class="jxr_string">"20110130_131102_20110130_131102_holiday.JPG"</span>)));
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     }
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> 
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     @Test
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">void</strong> leavesImageWithInvalidExifDateUnchanged() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>         Path image = writeExifTiff(<span class="jxr_string">"scan"</span>, <span class="jxr_string">"0000:00:00 00:00:00"</span>);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">void</strong> secondRunSkipsPreviouslyRenamedImage() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>         Path image = copyExifImage(<span class="jxr_string">"holiday"</span>);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         byte[] original = Files.readAllBytes(image);
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>         assertEquals(<span class="jxr_string">"scan"</span>, renamer.renameImage(image));
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 0, 1, 0, false), renamer.renameFiles());
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         assertArrayEquals(original, Files.readAllBytes(image));
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>     }
-<a class="jxr_linenumber" name="L113" href="#L113">113</a> 
-<a class="jxr_linenumber" name="L114" href="#L114">114</a>     @Test
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">void</strong> skipsBrokenImagesAndContinuesWithOtherImages() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         Path valid = copyExifImage(<span class="jxr_string">"valid"</span>);
-<a class="jxr_linenumber" name="L117" href="#L117">117</a>         byte[] truncated = Arrays.copyOf(Files.readAllBytes(valid), 20);
-<a class="jxr_linenumber" name="L118" href="#L118">118</a>         Path broken = Files.write(directory.resolve(<span class="jxr_string">"broken.jpg"</span>), truncated);
-<a class="jxr_linenumber" name="L119" href="#L119">119</a>         assertTrue(<strong class="jxr_keyword">new</strong> ImageContentFilter().test(broken));
-<a class="jxr_linenumber" name="L120" href="#L120">120</a> 
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
-<a class="jxr_linenumber" name="L122" href="#L122">122</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
-<a class="jxr_linenumber" name="L123" href="#L123">123</a>         assertArrayEquals(truncated, Files.readAllBytes(broken));
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>         assertTrue(Files.exists(directory.resolve(<span class="jxr_string">"20110130_131102_valid"</span>)));
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>     }
-<a class="jxr_linenumber" name="L126" href="#L126">126</a> 
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>     @Test
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">void</strong> skipsUnsupportedImageFormatsAndContinuesWithOtherImages() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         String svg = <span class="jxr_string">"&lt;svg xmlns=\&quot;http://www.w3.org/2000/svg\&quot; width=\&quot;1\&quot; height=\&quot;1\&quot;&gt;&lt;/svg&gt;"</span>;
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         Path image = Files.writeString(directory.resolve(<span class="jxr_string">"drawing"</span>), svg);
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         assertTrue(<strong class="jxr_keyword">new</strong> ImageContentFilter().test(image));
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         copyExifImage(<span class="jxr_string">"valid"</span>);
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>         assertEquals(svg, Files.readString(image));
-<a class="jxr_linenumber" name="L136" href="#L136">136</a>         assertTrue(Files.exists(directory.resolve(<span class="jxr_string">"20110130_131102_valid"</span>)));
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
-<a class="jxr_linenumber" name="L138" href="#L138">138</a> 
-<a class="jxr_linenumber" name="L139" href="#L139">139</a>     @Test
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>     <strong class="jxr_keyword">void</strong> neverOverwritesExistingTargetsAndLogsTheCause() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>         Path image = copyExifImage(<span class="jxr_string">"holiday.dat"</span>);
-<a class="jxr_linenumber" name="L142" href="#L142">142</a>         byte[] original = Files.readAllBytes(image);
-<a class="jxr_linenumber" name="L143" href="#L143">143</a>         Path target = Files.writeString(directory.resolve(<span class="jxr_string">"20110130_131102_holiday.dat"</span>), <span class="jxr_string">"keep this file"</span>);
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         Logger logger = (Logger) LogManager.getLogger(AbstractImageRenamer.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L146" href="#L146">146</a>         List&lt;LogEvent&gt; events = <strong class="jxr_keyword">new</strong> CopyOnWriteArrayList&lt;&gt;();
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         AbstractAppender appender = <strong class="jxr_keyword">new</strong> AbstractAppender(<span class="jxr_string">"rename-errors"</span>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, false, Property.EMPTY_ARRAY) {
-<a class="jxr_linenumber" name="L148" href="#L148">148</a>             @Override
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> append(LogEvent event) {
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>                 events.add(event.toImmutable());
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>             }
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         };
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>         appender.start();
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         logger.addAppender(appender);
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>             assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 0, 0, 1, false), renamer.renameFiles());
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>             assertTrue(events.stream().anyMatch(event -&gt; event.getLevel() == Level.ERROR
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>                     &amp;&amp; event.getThrown() != <strong class="jxr_keyword">null</strong>
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>                     &amp;&amp; event.getMessage().getFormattedMessage().contains(image.toAbsolutePath().toString())));
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>         } <strong class="jxr_keyword">finally</strong> {
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>             logger.removeAppender(appender);
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>             appender.stop();
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>         }
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         assertArrayEquals(original, Files.readAllBytes(image));
-<a class="jxr_linenumber" name="L165" href="#L165">165</a>         assertEquals(<span class="jxr_string">"keep this file"</span>, Files.readString(target));
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>     }
-<a class="jxr_linenumber" name="L167" href="#L167">167</a> 
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     <strong class="jxr_keyword">private</strong> Path copyExifImage(String name) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L169" href="#L169">169</a>         Path target = directory.resolve(name);
-<a class="jxr_linenumber" name="L170" href="#L170">170</a>         <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">var</strong> input = getClass().getResourceAsStream(<span class="jxr_string">"/data/IMG_7559_mini.JPG"</span>)) {
-<a class="jxr_linenumber" name="L171" href="#L171">171</a>             assertNotNull(input);
-<a class="jxr_linenumber" name="L172" href="#L172">172</a>             Files.copy(input, target);
-<a class="jxr_linenumber" name="L173" href="#L173">173</a>         }
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>         <strong class="jxr_keyword">return</strong> target;
-<a class="jxr_linenumber" name="L175" href="#L175">175</a>     }
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         <strong class="jxr_keyword">var</strong> firstRun = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 1, 0, 0, false), firstRun.renameFiles());
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> 
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">var</strong> secondRun = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 0, 1, 0, false), secondRun.renameFiles());
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>         assertArrayEquals(original, Files.readAllBytes(directory.resolve(<span class="jxr_string">"20110130_131102_holiday"</span>)));
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">var</strong> files = Files.list(directory)) {
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>             assertEquals(1, files.count());
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         }
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     }
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> 
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     @Test
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">void</strong> onlySkipsAnExactLeadingExifPrefix() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         List&lt;String&gt; filenames = List.of(
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>                 <span class="jxr_string">"20110130_131103_holiday.jpg"</span>,
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>                 <span class="jxr_string">"20110131_131102_holiday.jpg"</span>,
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>                 <span class="jxr_string">"20110130_1311_holiday.jpg"</span>,
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>                 <span class="jxr_string">"holiday_20110130_131102.jpg"</span>,
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>                 <span class="jxr_string">"20110130_131102holiday.jpg"</span>);
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">for</strong> (String filename : filenames) {
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>             Path caseDirectory = Files.createTempDirectory(directory, <span class="jxr_string">"case-"</span>);
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>             Path image = copyExifImage(caseDirectory.getFileName() + <span class="jxr_string">"/"</span> + filename);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>             byte[] original = Files.readAllBytes(image);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>             String expected = <span class="jxr_string">"20110130_131102_"</span> + filename;
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>             <strong class="jxr_keyword">var</strong> renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(caseDirectory.toString());
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> 
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>             assertEquals(expected, renamer.renameImage(image), filename);
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>             assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 1, 0, 0, false), renamer.renameFiles(), filename);
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>             assertFalse(Files.exists(image), filename);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>             assertArrayEquals(original, Files.readAllBytes(caseDirectory.resolve(expected)), filename);
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>         }
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     }
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> 
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     @Test
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     <strong class="jxr_keyword">void</strong> renamesExifImageWithoutAnExtension() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>         Path image = copyExifImage(<span class="jxr_string">"holiday"</span>);
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>         byte[] original = Files.readAllBytes(image);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>         assertEquals(1, renamer.renameFiles().renamed());
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         assertArrayEquals(original, Files.readAllBytes(directory.resolve(<span class="jxr_string">"20110130_131102_holiday"</span>)));
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>     }
+<a class="jxr_linenumber" name="L149" href="#L149">149</a> 
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     @Test
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">void</strong> renamesTiffWithExifWithoutRelyingOnItsExtension() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         Path image = writeExifTiff(<span class="jxr_string">"scan.bin"</span>, <span class="jxr_string">"2026:10:26 14:30:12"</span>);
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>         byte[] original = Files.readAllBytes(image);
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>         assertEquals(1, renamer.renameFiles().renamed());
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>         assertFalse(Files.exists(image));
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>         assertArrayEquals(original, Files.readAllBytes(directory.resolve(<span class="jxr_string">"20261026_143012_scan.bin"</span>)));
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>     }
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> 
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     @Test
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">void</strong> leavesImageWithInvalidExifDateUnchanged() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         Path image = writeExifTiff(<span class="jxr_string">"scan"</span>, <span class="jxr_string">"0000:00:00 00:00:00"</span>);
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>         byte[] original = Files.readAllBytes(image);
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>         assertEquals(<span class="jxr_string">"scan"</span>, renamer.renameImage(image));
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 0, 1, 0, false), renamer.renameFiles());
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         assertArrayEquals(original, Files.readAllBytes(image));
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     }
+<a class="jxr_linenumber" name="L169" href="#L169">169</a> 
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>     @Test
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     <strong class="jxr_keyword">void</strong> skipsBrokenImagesAndContinuesWithOtherImages() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         Path valid = copyExifImage(<span class="jxr_string">"valid"</span>);
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>         byte[] truncated = Arrays.copyOf(Files.readAllBytes(valid), 20);
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         Path broken = Files.write(directory.resolve(<span class="jxr_string">"broken.jpg"</span>), truncated);
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         assertTrue(<strong class="jxr_keyword">new</strong> ImageContentFilter().test(broken));
 <a class="jxr_linenumber" name="L176" href="#L176">176</a> 
-<a class="jxr_linenumber" name="L177" href="#L177">177</a>     <strong class="jxr_keyword">private</strong> Path writeExifTiff(String name, String date) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         Path image = directory.resolve(name);
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         TiffOutputSet outputSet = <strong class="jxr_keyword">new</strong> TiffOutputSet();
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>         outputSet.getOrCreateExifDirectory().add(ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL, date);
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>         <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">var</strong> output = Files.newOutputStream(image)) {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>             <strong class="jxr_keyword">new</strong> TiffImageParser().writeImage(<strong class="jxr_keyword">new</strong> BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), output,
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>                     <strong class="jxr_keyword">new</strong> TiffImagingParameters().setOutputSet(outputSet));
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         }
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         <strong class="jxr_keyword">return</strong> image;
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>     }
-<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>     <strong class="jxr_keyword">private</strong> Path writeImageWithoutExif(String name, String format) <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         Path image = directory.resolve(name);
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         assertTrue(ImageIO.write(<strong class="jxr_keyword">new</strong> BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), format, image.toFile()));
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">return</strong> image;
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
-<a class="jxr_linenumber" name="L193" href="#L193">193</a> }
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         assertArrayEquals(truncated, Files.readAllBytes(broken));
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>         assertTrue(Files.exists(directory.resolve(<span class="jxr_string">"20110130_131102_valid"</span>)));
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     }
+<a class="jxr_linenumber" name="L182" href="#L182">182</a> 
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>     @Test
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     <strong class="jxr_keyword">void</strong> skipsUnsupportedImageFormatsAndContinuesWithOtherImages() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         String svg = <span class="jxr_string">"&lt;svg xmlns=\&quot;http://www.w3.org/2000/svg\&quot; width=\&quot;1\&quot; height=\&quot;1\&quot;&gt;&lt;/svg&gt;"</span>;
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         Path image = Files.writeString(directory.resolve(<span class="jxr_string">"drawing"</span>), svg);
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         assertTrue(<strong class="jxr_keyword">new</strong> ImageContentFilter().test(image));
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         copyExifImage(<span class="jxr_string">"valid"</span>);
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>         assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         assertEquals(svg, Files.readString(image));
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>         assertTrue(Files.exists(directory.resolve(<span class="jxr_string">"20110130_131102_valid"</span>)));
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>     }
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     @Test
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     <strong class="jxr_keyword">void</strong> neverOverwritesExistingTargetsAndLogsTheCause() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>         Path image = copyExifImage(<span class="jxr_string">"holiday.dat"</span>);
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         byte[] original = Files.readAllBytes(image);
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>         Path target = Files.writeString(directory.resolve(<span class="jxr_string">"20110130_131102_holiday.dat"</span>), <span class="jxr_string">"keep this file"</span>);
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>         CreationDateFromExifImageRenamer renamer = <strong class="jxr_keyword">new</strong> CreationDateFromExifImageRenamer(directory.toString());
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>         Logger logger = (Logger) LogManager.getLogger(AbstractImageRenamer.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>         List&lt;LogEvent&gt; events = <strong class="jxr_keyword">new</strong> CopyOnWriteArrayList&lt;&gt;();
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>         AbstractAppender appender = <strong class="jxr_keyword">new</strong> AbstractAppender(<span class="jxr_string">"rename-errors"</span>, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, false, Property.EMPTY_ARRAY) {
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>             @Override
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>             <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> append(LogEvent event) {
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>                 events.add(event.toImmutable());
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>             }
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         };
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>         appender.start();
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         logger.addAppender(appender);
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>             assertEquals(<strong class="jxr_keyword">new</strong> RenameResult(1, 1, 0, 0, 1, false), renamer.renameFiles());
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>             assertTrue(events.stream().anyMatch(event -&gt; event.getLevel() == Level.ERROR
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>                     &amp;&amp; event.getThrown() != <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>                     &amp;&amp; event.getMessage().getFormattedMessage().contains(image.toAbsolutePath().toString())));
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>         } <strong class="jxr_keyword">finally</strong> {
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>             logger.removeAppender(appender);
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>             appender.stop();
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>         }
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>         assertArrayEquals(original, Files.readAllBytes(image));
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         assertEquals(<span class="jxr_string">"keep this file"</span>, Files.readString(target));
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     }
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>     <strong class="jxr_keyword">private</strong> Path copyExifImage(String name) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>         Path target = directory.resolve(name);
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>         <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">var</strong> input = getClass().getResourceAsStream(<span class="jxr_string">"/data/IMG_7559_mini.JPG"</span>)) {
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>             assertNotNull(input);
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>             Files.copy(input, target);
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>         }
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>         <strong class="jxr_keyword">return</strong> target;
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>     }
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">private</strong> Path writeExifTiff(String name, String date) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>         Path image = directory.resolve(name);
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>         TiffOutputSet outputSet = <strong class="jxr_keyword">new</strong> TiffOutputSet();
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>         outputSet.getOrCreateExifDirectory().add(ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL, date);
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>         <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">var</strong> output = Files.newOutputStream(image)) {
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>             <strong class="jxr_keyword">new</strong> TiffImageParser().writeImage(<strong class="jxr_keyword">new</strong> BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), output,
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>                     <strong class="jxr_keyword">new</strong> TiffImagingParameters().setOutputSet(outputSet));
+<a class="jxr_linenumber" name="L240" href="#L240">240</a>         }
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">return</strong> image;
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     }
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> 
+<a class="jxr_linenumber" name="L244" href="#L244">244</a>     <strong class="jxr_keyword">private</strong> Path writeImageWithoutExif(String name, String format) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>         Path image = directory.resolve(name);
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>         assertTrue(ImageIO.write(<strong class="jxr_keyword">new</strong> BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), format, image.toFile()));
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         <strong class="jxr_keyword">return</strong> image;
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     }
+<a class="jxr_linenumber" name="L249" href="#L249">249</a> }
 </pre>
 <hr/>
 <div id="footer">© 2026 <a href="https://www.aiki-it.de">Aiki IT</a></div>

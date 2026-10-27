@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.Objects;
 
 /**
  * Helper class to extract metadata from given images. This class uses Apache
@@ -40,7 +41,7 @@ final class MetaDataExtractor {
     /**
      * This class' logger.
      */
-<span class="fc" id="L43">    private static final Logger LOG = Logger.getLogger(MetaDataExtractor.class);</span>
+<span class="fc" id="L44">    private static final Logger LOG = Logger.getLogger(MetaDataExtractor.class);</span>
 
     /**
      * Constant for an empty string.
@@ -62,10 +63,10 @@ final class MetaDataExtractor {
      */
     private static final int VALID_EXIF_DATE_LENGTH = 21;
 
-<span class="fc" id="L65">    private static final DateTimeFormatter EXIF_DATE_FORMAT =</span>
-<span class="fc" id="L66">            DateTimeFormatter.ofPattern(&quot;uuuu:MM:dd HH:mm:ss&quot;).withResolverStyle(ResolverStyle.STRICT);</span>
-<span class="fc" id="L67">    private static final DateTimeFormatter FILENAME_DATE_FORMAT =</span>
-<span class="fc" id="L68">            DateTimeFormatter.ofPattern(&quot;uuuuMMdd_HHmmss&quot;);</span>
+<span class="fc" id="L66">    private static final DateTimeFormatter EXIF_DATE_FORMAT =</span>
+<span class="fc" id="L67">            DateTimeFormatter.ofPattern(&quot;uuuu:MM:dd HH:mm:ss&quot;).withResolverStyle(ResolverStyle.STRICT);</span>
+<span class="fc" id="L68">    private static final DateTimeFormatter FILENAME_DATE_FORMAT =</span>
+<span class="fc" id="L69">            DateTimeFormatter.ofPattern(&quot;uuuuMMdd_HHmmss&quot;);</span>
 
     /**
      * Constructor is not visible to avoid instantiation.
@@ -86,25 +87,25 @@ final class MetaDataExtractor {
     public static String getExifMetadata(final Path image,
                                          final TagInfo tag)
             throws IOException {
-<span class="fc bfc" id="L89" title="All 2 branches covered.">        assert image != null : &quot;Parameter image must not be null&quot;;</span>
-<span class="fc bfc" id="L90" title="All 2 branches covered.">        assert tag != null : &quot;Parameter tag must not be null&quot;;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        assert image != null : &quot;Parameter image must not be null&quot;;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        assert tag != null : &quot;Parameter tag must not be null&quot;;</span>
 
-<span class="fc" id="L92">        String result = EMPTY_STRING;</span>
+<span class="fc" id="L93">        String result = EMPTY_STRING;</span>
         // Commons Imaging's File API is confined to this library boundary.
-<span class="fc" id="L94">        ImageMetadata metadata = Imaging.getMetadata(image.toFile());</span>
+<span class="fc" id="L95">        ImageMetadata metadata = Imaging.getMetadata(image.toFile());</span>
 
-<span class="fc" id="L96">        TiffField field = null;</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (metadata instanceof JpegImageMetadata jpegMetadata) {</span>
-<span class="fc" id="L98">            field = jpegMetadata.findExifValueWithExactMatch(tag);</span>
-<span class="fc bfc" id="L99" title="All 2 branches covered.">        } else if (metadata instanceof TiffImageMetadata tiffMetadata) {</span>
-<span class="fc" id="L100">            field = tiffMetadata.findField(tag);</span>
+<span class="fc" id="L97">        TiffField field = null;</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (metadata instanceof JpegImageMetadata jpegMetadata) {</span>
+<span class="fc" id="L99">            field = jpegMetadata.findExifValueWithExactMatch(tag);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        } else if (metadata instanceof TiffImageMetadata tiffMetadata) {</span>
+<span class="fc" id="L101">            field = tiffMetadata.findField(tag);</span>
         }
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (field != null) {</span>
-<span class="fc" id="L103">            result = field.getValueDescription();</span>
-<span class="fc" id="L104">            LOG.info(&quot;extraction of &quot; + tag.getDescription()</span>
-<span class="fc" id="L105">                    + &quot; from &quot; + image.toAbsolutePath() + &quot; yields &quot; + result);</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (field != null) {</span>
+<span class="fc" id="L104">            result = field.getValueDescription();</span>
+<span class="fc" id="L105">            LOG.info(&quot;extraction of &quot; + tag.getDescription()</span>
+<span class="fc" id="L106">                    + &quot; from &quot; + image.toAbsolutePath() + &quot; yields &quot; + result);</span>
         }
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        return result == null ? EMPTY_STRING : result;</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        return result == null ? EMPTY_STRING : result;</span>
     }
 
     /**
@@ -123,6 +124,8 @@ final class MetaDataExtractor {
      * unknown. Tag = 306 (132.H) Type = ASCII Count = 20 Default = none &lt;/i&gt;
      * &lt;p&gt;
      * If the extracted date value is empty - no new file name is generated.
+     * If the filename already starts with the exact EXIF timestamp prefix, its
+     * original name is returned so the batch processor counts it as skipped (issue #593).
      *
      * @param image Image to extract metadata from.
      * @return the date this image was created if found, format is
@@ -138,28 +141,30 @@ final class MetaDataExtractor {
     public static String generateCreationDateInCorrectFormat(final Path image)
             throws IOException {
 
-<span class="fc" id="L141">        String dateValue =</span>
-<span class="fc" id="L142">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
+<span class="fc" id="L144">        String dateValue =</span>
+<span class="fc" id="L145">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
 
-<span class="fc" id="L144">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
+<span class="fc" id="L147">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
 
         // Invalid length of EXIF metadata, not complying to the standard.
-<span class="pc bpc" id="L147" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
-<span class="fc" id="L148">            LOG.info(&quot;No valid creation date extracted from file &quot; + image);</span>
-<span class="fc" id="L149">            return EMPTY_STRING;</span>
+<span class="pc bpc" id="L150" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
+<span class="fc" id="L151">            LOG.info(&quot;No valid creation date extracted from file &quot; + image);</span>
+<span class="fc" id="L152">            return EMPTY_STRING;</span>
         }
 
         try {
-<span class="fc" id="L153">            LocalDateTime captureDate = LocalDateTime.parse(</span>
-<span class="fc" id="L154">                    dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);</span>
-<span class="fc" id="L155">            dateValue = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE + image.getFileName();</span>
-<span class="fc" id="L156">        } catch (DateTimeParseException e) {</span>
-<span class="fc" id="L157">            LOG.warn(&quot;Invalid EXIF creation date in &quot; + image.toAbsolutePath(), e);</span>
-<span class="fc" id="L158">            return EMPTY_STRING;</span>
-<span class="fc" id="L159">        }</span>
+<span class="fc" id="L156">            LocalDateTime captureDate = LocalDateTime.parse(</span>
+<span class="fc" id="L157">                    dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);</span>
+<span class="fc" id="L158">            String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;</span>
+<span class="fc" id="L159">            String filename = Objects.requireNonNull(image.getFileName(), &quot;Image must have a filename&quot;).toString();</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">            dateValue = filename.startsWith(prefix) ? filename : prefix + filename;</span>
+<span class="fc" id="L161">        } catch (DateTimeParseException e) {</span>
+<span class="fc" id="L162">            LOG.warn(&quot;Invalid EXIF creation date in &quot; + image.toAbsolutePath(), e);</span>
+<span class="fc" id="L163">            return EMPTY_STRING;</span>
+<span class="fc" id="L164">        }</span>
 
-<span class="fc" id="L161">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
-<span class="fc" id="L162">        return dateValue;</span>
+<span class="fc" id="L166">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
+<span class="fc" id="L167">        return dateValue;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

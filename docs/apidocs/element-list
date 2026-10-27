@@ -1,4 +1,5 @@
 de.aikiit.fotorenamer
+de.aikiit.fotorenamer.cli
 de.aikiit.fotorenamer.exception
 de.aikiit.fotorenamer.gui
 de.aikiit.fotorenamer.image

@@ -1,11 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.cli,ConsoleRunner,24,111,1,7,5,15,2,5,1,2
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RenameProgress,0,17,0,0,0,4,0,1,0,1
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,CreationDateFromExifImageRenamer,0,17,1,3,0,4,1,3,0,2
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,AbstractImageRenamer,26,215,2,22,4,55,2,16,0,6
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RemoveExifPrefixRenamer,0,15,0,0,0,4,0,3,0,3
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,RenameResult,0,51,4,10,0,4,4,4,0,1
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,ImageContentFilter,0,51,0,4,0,12,0,5,0,3
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,MetaDataExtractor,2,129,2,14,0,34,2,9,0,3
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,MetaDataExtractor,2,143,2,16,0,36,2,10,0,3
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.image,ImageRenamer,0,12,0,0,0,2,0,4,0,4
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,RenamingErrorException,0,12,0,0,0,5,0,2,0,2
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.exception,NoFilesFoundException,3,17,1,1,0,5,1,2,0,2

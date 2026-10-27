@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsoleRunner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">FotoRenamer - rename your photos automatically</a> &gt; <a href="index.source.html" class="el_package">de.aikiit.fotorenamer.cli</a> &gt; <span class="el_source">ConsoleRunner.java</span></div><h1>ConsoleRunner.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2026, Aiki IT, FotoRenamer
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.aikiit.fotorenamer.cli;
+
+import de.aikiit.fotorenamer.exception.InvalidDirectoryException;
+import de.aikiit.fotorenamer.exception.NoFilesFoundException;
+import de.aikiit.fotorenamer.image.CreationDateFromExifImageRenamer;
+import de.aikiit.fotorenamer.image.ImageRenamer;
+import de.aikiit.fotorenamer.image.RemoveExifPrefixRenamer;
+import de.aikiit.fotorenamer.image.RenameResult;
+import de.aikiit.fotorenamer.util.Version;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+import picocli.CommandLine.Spec;
+import picocli.CommandLine.Model.CommandSpec;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.concurrent.Callable;
+
+/** Headless console entry point sharing the GUI's image processing (issue #15). */
+@Command(name = &quot;fotorenamer&quot;, mixinStandardHelpOptions = true,
+        version = &quot;FotoRenamer &quot; + Version.VERSION,
+        description = &quot;Rename images using their EXIF capture timestamp.&quot;,
+        footer = &quot;Back up your images before running this tool. Only the selected directory is processed.&quot;)
+<span class="fc" id="L40">public final class ConsoleRunner implements Callable&lt;Integer&gt; {</span>
+
+    @Parameters(index = &quot;0&quot;, paramLabel = &quot;DIRECTORY&quot;, description = &quot;Directory containing the images.&quot;)
+    private Path directory;
+
+    @Option(names = {&quot;-r&quot;, &quot;--reverse&quot;}, description = &quot;Remove one leading EXIF timestamp prefix instead of adding it.&quot;)
+    private boolean reverse;
+
+    @Spec
+    private CommandSpec spec;
+
+    /** Launches the CLI and returns its result to the operating system. */
+    public static void main(final String[] args) {
+<span class="nc" id="L53">        System.exit(new CommandLine(new ConsoleRunner()).execute(args));</span>
+<span class="nc" id="L54">    }</span>
+
+    /** Processes images synchronously without initializing Swing. */
+    @Override
+    public Integer call() {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (!Files.isDirectory(directory)) {</span>
+<span class="fc" id="L60">            throw new CommandLine.ParameterException(spec.commandLine(), &quot;Not a directory: &quot; + directory);</span>
+        }
+        ImageRenamer renamer;
+        try {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            renamer = reverse</span>
+<span class="fc" id="L65">                    ? new RemoveExifPrefixRenamer(directory.toString())</span>
+<span class="fc" id="L66">                    : new CreationDateFromExifImageRenamer(directory.toString());</span>
+<span class="fc" id="L67">        } catch (NoFilesFoundException e) {</span>
+<span class="fc" id="L68">            spec.commandLine().getErr().println(&quot;No images found in: &quot; + directory.toAbsolutePath());</span>
+<span class="fc" id="L69">            return 1;</span>
+<span class="nc" id="L70">        } catch (InvalidDirectoryException e) {</span>
+<span class="nc" id="L71">            spec.commandLine().getErr().println(&quot;Unable to read directory: &quot; + directory.toAbsolutePath());</span>
+<span class="nc" id="L72">            return 1;</span>
+<span class="fc" id="L73">        }</span>
+<span class="fc" id="L74">        RenameResult result = renamer.renameFiles();</span>
+<span class="fc" id="L75">        spec.commandLine().getOut().printf(</span>
+                &quot;Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%nFailed: %d%n&quot;,
+<span class="fc" id="L77">                directory.toAbsolutePath(), result.processed(), result.total(),</span>
+<span class="fc" id="L78">                result.renamed(), result.skipped(), result.failed());</span>
+<span class="pc bpc" id="L79" title="1 of 4 branches missed.">        return result.failed() == 0 &amp;&amp; !result.cancelled() ? 0 : 1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>
