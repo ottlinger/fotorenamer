@@ -174,4 +174,20 @@ $ mvn -Plive-demo -Duser.language=en -Duser.country=US
 
 ## Developer Documentation
 
-The project is built with maven - you can have a look at the current [site reports](https://ottlinger.github.io/fotorenamer/).
+The project is built with Maven. The [project site](https://ottlinger.github.io/fotorenamer/)
+contains this introduction and usage guide as well as the generated project reports.
+
+Generate the site locally with:
+
+```sh
+./mvnw site
+```
+
+Open `target/site/index.html` to view it. The `pre-site` phase copies this README to
+the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instructions
+are maintained in one place. Use the `site` lifecycle rather than calling `site:site`
+directly, which skips that preparation. Run `./mvnw clean verify -Pcli` first if you
+also want current test and coverage results included in the reports.
+
+The maintainer script `./site.sh` rebuilds the site, copies it into `docs/`, commits
+it, and pushes it to GitHub for publication. It is not a local preview command.

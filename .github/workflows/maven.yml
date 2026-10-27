@@ -49,7 +49,7 @@ jobs:
         run: ./mvnw -e -B -V clean install 
 
       - name: Build site with Maven
-        run: ./mvnw -e -B -V site:site 
+        run: ./mvnw -e -B -V site
 
       - name: Code coverage with codecov
         uses: codecov/codecov-action@v7

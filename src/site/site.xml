@@ -33,6 +33,9 @@ under the License.
     <artifactId>maven-fluido-skin</artifactId>
   </skin>
   <body>
+    <menu name="FotoRenamer">
+      <item name="Overview and usage" href="index.html"/>
+    </menu>
     <menu ref="parent" inherit="top"/>
     <menu ref="reports" inherit="bottom"/>
     <menu ref="modules" inherit="bottom"/>
@@ -41,10 +44,10 @@ under the License.
     <fluidoSkin>
       <topBarEnabled>true</topBarEnabled>
       <topBarIcon>
-        <name>Project documentationn</name>
+        <name>Project documentation</name>
         <alt>Fotorenamer logo</alt>
-        <src>/img/logo.png</src>
-        <href>/index.html</href>
+        <src>img/logo.png</src>
+        <href>index.html</href>
       </topBarIcon>
       <gitHub>
         <projectId>ottlinger/fotorenamer</projectId>
