@@ -172,6 +172,17 @@ Relates to [issue #10](https://github.com/ottlinger/fotorenamer/issues/10)
 $ mvn -Plive-demo -Duser.language=en -Duser.country=US
 ```
 
+## Splashscreen image credit
+
+The GUI splashscreen uses the photograph
+["Vintage Canon film camera hanging against a sunlit white wall" by Marlon Medau](https://unsplash.com/photos/vintage-canon-film-camera-hanging-against-a-sunlit-white-wall-W77ExXvZHD4)
+from Unsplash, used under the [Unsplash License](https://unsplash.com/license).
+The bundled copy at `src/main/resources/image/splash-camera.jpg` is resized to
+400 × 600 pixels without cropping. This photograph is licensed separately from
+the project's Apache License 2.0 source code. It is included in the application,
+so displaying the splashscreen does not require an internet connection. The CLI
+does not show a splashscreen.
+
 ## Developer Documentation
 
 The project is built with Maven. The [project site](https://ottlinger.github.io/fotorenamer/)

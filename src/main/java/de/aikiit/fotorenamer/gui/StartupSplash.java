@@ -30,13 +30,13 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Uses the JVM splash when available, otherwise shows the existing camera image
+ * Uses the JVM splash when available, otherwise shows the bundled splash photograph
  * in a Swing window. Show and close on the Swing event dispatch thread.
  */
 public final class StartupSplash implements AutoCloseable {
 
     private static final Logger LOG = LogManager.getLogger(StartupSplash.class);
-    static final String IMAGE_LOCATION = "/html/camera.jpg";
+    static final String IMAGE_LOCATION = "/image/splash-camera.jpg";
 
     private final SplashScreen nativeSplash;
     private final JWindow window;

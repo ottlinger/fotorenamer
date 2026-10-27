@@ -462,7 +462,7 @@
                   <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                     <manifestEntries>
                       <Main-Class>de.aikiit.fotorenamer.ApplicationStarter</Main-Class>
-                      <SplashScreen-Image>html/camera.jpg</SplashScreen-Image>
+                      <SplashScreen-Image>image/splash-camera.jpg</SplashScreen-Image>
                       <Build-Number>${project.version}</Build-Number>
                       <Codebase>*</Codebase>
                       <Permissions>sandbox</Permissions>

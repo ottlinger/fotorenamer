@@ -17,6 +17,7 @@ package de.aikiit.fotorenamer.cli;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javax.imageio.ImageIO;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -40,7 +41,16 @@ class ConsoleJarIT {
             assertNull(cliAttributes.getValue("SplashScreen-Image"));
             var guiAttributes = gui.getManifest().getMainAttributes();
             assertEquals("de.aikiit.fotorenamer.ApplicationStarter", guiAttributes.getValue("Main-Class"));
-            assertEquals("html/camera.jpg", guiAttributes.getValue("SplashScreen-Image"));
+            String splashPath = guiAttributes.getValue("SplashScreen-Image");
+            assertEquals("image/splash-camera.jpg", splashPath);
+            var splashEntry = gui.getJarEntry(splashPath);
+            assertNotNull(splashEntry);
+            try (var input = gui.getInputStream(splashEntry)) {
+                var image = ImageIO.read(input);
+                assertNotNull(image);
+                assertEquals(400, image.getWidth());
+                assertEquals(600, image.getHeight());
+            }
         }
     }
 

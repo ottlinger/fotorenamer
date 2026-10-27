@@ -29,13 +29,13 @@ import static org.mockito.Mockito.*;
 class StartupSplashTest {
 
     @Test
-    void existingCameraImageCanBeDecoded() throws Exception {
+    void bundledSplashPhotographCanBeDecoded() throws Exception {
         var resource = StartupSplash.class.getResource(StartupSplash.IMAGE_LOCATION);
         assertNotNull(resource);
         var image = ImageIO.read(resource);
         assertNotNull(image);
-        assertEquals(105, image.getWidth());
-        assertEquals(69, image.getHeight());
+        assertEquals(400, image.getWidth());
+        assertEquals(600, image.getHeight());
     }
 
     @Test
