@@ -39,7 +39,7 @@ $ ./mvnw clean install -Plive-demo
   * run the executable GUI FatJAR (includes runtime dependencies)
 ```
 $ ./mvnw clean install
-$ java -jar target/fotorenamer-3.0.0-SNAPSHOT-executable.jar
+$ java -jar target/fotorenamer-4.0.0-SNAPSHOT-executable.jar
 ```  
 
 ## Running with JBang
@@ -69,7 +69,7 @@ jbang app install --name fotorenamer jbang/FotoRenamer.java
 fotorenamer
 ```
 
-The launcher uses `de.aikiit:fotorenamer:3.0.0-SNAPSHOT:executable` from your local
+The launcher uses `de.aikiit:fotorenamer:4.0.0-SNAPSHOT:executable` from your local
 Maven repository. It does **not** currently download a published FotoRenamer release;
 keep the version in `jbang/FotoRenamer.java` in sync with `pom.xml`. After changing
 application code, repeat `./mvnw clean install` and use `jbang run --fresh` to avoid
@@ -96,21 +96,21 @@ Build the additional CLI FatJAR, including its runtime dependencies:
 ```
 
 This also runs headless integration tests against the packaged CLI. The usual
-`fotorenamer-3.0.0-SNAPSHOT-executable.jar` still launches the GUI; the additional
-`fotorenamer-3.0.0-SNAPSHOT-cli.jar` launches only the console runner, without a
+`fotorenamer-4.0.0-SNAPSHOT-executable.jar` still launches the GUI; the additional
+`fotorenamer-4.0.0-SNAPSHOT-cli.jar` launches only the console runner, without a
 splashscreen. `./mvnw clean package -Pcli` builds both JARs without running the
 packaged-JAR integration tests.
 
 ```sh
 # Add the EXIF capture timestamp to image filenames
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar /home/myphotos
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar /home/myphotos
 
 # Remove one leading timestamp prefix (also accepts --reverse)
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar -r /home/myphotos
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar -r /home/myphotos
 
 # Show help or the application version without processing files
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --help
-java -jar target/fotorenamer-3.0.0-SNAPSHOT-cli.jar --version
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar --help
+java -jar target/fotorenamer-4.0.0-SNAPSHOT-cli.jar --version
 ```
 
 Quote directory paths containing spaces. Only images directly in the selected
@@ -199,6 +199,3 @@ the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instru
 are maintained in one place. Use the `site` lifecycle rather than calling `site:site`
 directly, which skips that preparation. Run `./mvnw clean verify -Pcli` first if you
 also want current test and coverage results included in the reports.
-
-The maintainer script `./site.sh` rebuilds the site, copies it into `docs/`, commits
-it, and pushes it to GitHub for publication. It is not a local preview command.
