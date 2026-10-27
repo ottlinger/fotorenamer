@@ -16,8 +16,6 @@
 package de.aikiit.fotorenamer.util;
 
 import com.google.common.base.Strings;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,8 +31,11 @@ import java.util.ResourceBundle;
  * @author hirsch
  * @version 23.08.11
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LocalizationHelper {
+
+    private LocalizationHelper() {
+        // Utility class.
+    }
 
     /**
      * Logger.

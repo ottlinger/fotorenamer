@@ -14,8 +14,6 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -30,8 +28,12 @@ import java.awt.Toolkit;
  * @author hirsch, 20.10.2003
  * @version 2003-10-22
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ComponentGaugeUtil {
+
+    private ComponentGaugeUtil() {
+        // Utility class.
+    }
+
     /**
      * Logger for this class.
      */

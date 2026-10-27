@@ -16,8 +16,6 @@ package de.aikiit.fotorenamer;
 
 import de.aikiit.fotorenamer.gui.MainUIWindow;
 import de.aikiit.fotorenamer.gui.StartupSplash;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,8 +27,12 @@ import javax.swing.*;
  * @author hirsch
  * @version 2011-03-21, 13:06
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ApplicationStarter {
+
+    private ApplicationStarter() {
+        // Static application entry point.
+    }
+
     /**
      * Logger for this class.
      */

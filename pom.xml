@@ -52,7 +52,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <assertj.version>3.27.7</assertj.version>
-    <lombok.version>1.18.48</lombok.version>
     <guava.version>33.7.2-jre</guava.version>
     <logger.version>2.26.1</logger.version>
     <mockito.version>5.24.0</mockito.version>
@@ -160,11 +159,6 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.21.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -619,15 +613,6 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.16.0</version>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>org.projectlombok</groupId>
-              <artifactId>lombok</artifactId>
-              <version>${lombok.version}</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
       </plugin>
       <!--  generate source and javadoc.jar -->
       <plugin>
