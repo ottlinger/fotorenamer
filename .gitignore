@@ -5,7 +5,11 @@ bild.zip
 *.ipr
 *.iws
 **20110130_131102_IMG_7559_mini.JPG
-.idea
+/.idea/*
+!/.idea/codeStyles/
+/.idea/codeStyles/*
+!/.idea/codeStyles/Project.xml
+!/.idea/codeStyles/codeStyleConfig.xml
 .settings
 .classpath
 .project

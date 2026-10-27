@@ -19,7 +19,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
-import static de.aikiit.fotorenamer.util.LocalizationHelper.*;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getLanguage;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getLocale;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.setLocale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**

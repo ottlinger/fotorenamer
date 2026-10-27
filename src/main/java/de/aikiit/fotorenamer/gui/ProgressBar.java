@@ -17,8 +17,11 @@ package de.aikiit.fotorenamer.gui;
 import de.aikiit.fotorenamer.image.RenameProgress;
 import de.aikiit.fotorenamer.util.ComponentGaugeUtil;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.nio.file.Path;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;

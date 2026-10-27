@@ -19,7 +19,8 @@ import de.aikiit.fotorenamer.gui.StartupSplash;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * Main class to start the application in standalone mode.

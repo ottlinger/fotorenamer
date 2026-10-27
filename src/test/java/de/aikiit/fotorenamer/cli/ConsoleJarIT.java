@@ -25,7 +25,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.jar.JarFile;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Tests the packaged artifact in a separate headless JVM with mvn -Pcli verify. */
 class ConsoleJarIT {

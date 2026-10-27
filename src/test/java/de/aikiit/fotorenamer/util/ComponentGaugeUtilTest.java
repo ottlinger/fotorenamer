@@ -17,12 +17,15 @@ package de.aikiit.fotorenamer.util;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import java.awt.Point;
 
 import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.createImageIcon;
 import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.makeCentered;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests util methods.

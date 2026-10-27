@@ -199,3 +199,22 @@ the generated site sources as the homepage, so GUI FatJAR, JBang, and CLI instru
 are maintained in one place. Use the `site` lifecycle rather than calling `site:site`
 directly, which skips that preparation. Run `./mvnw clean verify -Pcli` first if you
 also want current test and coverage results included in the reports.
+
+### IntelliJ IDEA import settings
+
+Use explicit imports for individual Java classes and static members, not wildcard
+imports. The shared project code style in `.idea/codeStyles/` preserves this when
+running **Optimize Imports**. Other local IntelliJ settings remain ignored by Git.
+
+To check or apply the settings manually, open **Settings / Preferences → Editor →
+Code Style → Java → Imports** and select the **Project** scheme:
+
+- Enable **Use single class import**.
+- Set **Class count to use import with '*'** to `2147483647`.
+- Set **Names count to use static import with '*'** to `2147483647`.
+- Empty **Packages to Use Import with '*'**, including the default `java.awt` and
+  `javax.swing` entries; these exceptions would otherwise still produce wildcards.
+
+These thresholds cover both normal and static imports. If the project is already
+open in IntelliJ, reload the project settings if the shared scheme is not picked
+up automatically.
