@@ -16,8 +16,6 @@
 package de.aikiit.fotorenamer.util;
 
 import com.google.common.base.Strings;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,61 +31,64 @@ import java.util.ResourceBundle;
  * @author hirsch
  * @version 23.08.11
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LocalizationHelper {
+
+    private LocalizationHelper() {
+        // Utility class.
+    }
 
     /**
      * Logger.
      */
-<span class="fc" id="L42">    private static final Logger LOG =</span>
-<span class="fc" id="L43">            LogManager.getLogger(LocalizationHelper.class);</span>
+<span class="fc" id="L43">    private static final Logger LOG =</span>
+<span class="fc" id="L44">            LogManager.getLogger(LocalizationHelper.class);</span>
 
     /**
      * ResourceBundle used for this application.
      */
     private static final String BASE_NAME = &quot;fotorenamer&quot;;
-<span class="fc" id="L49">    private static final Locale FALLBACK_LOCALE = Locale.GERMANY;</span>
+<span class="fc" id="L50">    private static final Locale FALLBACK_LOCALE = Locale.GERMANY;</span>
 
     private static ResourceBundle BUNDLE;
     private static Locale LOCALE;
     private static MessageFormat FORMAT;
 
     static {
-<span class="fc" id="L56">        setLocale();</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L57">        setLocale();</span>
+<span class="fc" id="L58">    }</span>
 
     /**
      * Set locale depending on system properties, in case of errors fallback is {@code Locale.GERMANY}.
      */
     public static void setLocale() {
-<span class="fc" id="L63">        String userLanguage = System.getProperty(&quot;user.language&quot;);</span>
-<span class="fc" id="L64">        String userCountry = System.getProperty(&quot;user.country&quot;);</span>
+<span class="fc" id="L64">        String userLanguage = System.getProperty(&quot;user.language&quot;);</span>
+<span class="fc" id="L65">        String userCountry = System.getProperty(&quot;user.country&quot;);</span>
 
-<span class="fc" id="L66">        LOG.info(&quot;Your system emits the following l10n-properties: language={}, country={}&quot;, userLanguage, userCountry);</span>
+<span class="fc" id="L67">        LOG.info(&quot;Your system emits the following l10n-properties: language={}, country={}&quot;, userLanguage, userCountry);</span>
 
-<span class="pc bpc" id="L68" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(userLanguage) || Strings.isNullOrEmpty(userCountry)) {</span>
-<span class="fc" id="L69">            LOCALE = FALLBACK_LOCALE;</span>
-<span class="fc" id="L70">            LOG.info(&quot;Falling back to locale {}&quot;, LOCALE);</span>
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(userLanguage) || Strings.isNullOrEmpty(userCountry)) {</span>
+<span class="fc" id="L70">            LOCALE = FALLBACK_LOCALE;</span>
+<span class="fc" id="L71">            LOG.info(&quot;Falling back to locale {}&quot;, LOCALE);</span>
         } else {
-<span class="fc" id="L72">            LOCALE = new Locale(userLanguage, userCountry);</span>
-<span class="fc" id="L73">            LOG.info(&quot;Setting locale to {}&quot;, LOCALE);</span>
+<span class="fc" id="L73">            LOCALE = new Locale(userLanguage, userCountry);</span>
+<span class="fc" id="L74">            LOG.info(&quot;Setting locale to {}&quot;, LOCALE);</span>
         }
 
-<span class="fc" id="L76">        BUNDLE = ResourceBundle.getBundle(BASE_NAME, LOCALE);</span>
-<span class="fc" id="L77">        FORMAT = new MessageFormat(&quot;&quot;);</span>
-<span class="fc" id="L78">        FORMAT.setLocale(LOCALE);</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L77">        BUNDLE = ResourceBundle.getBundle(BASE_NAME, LOCALE);</span>
+<span class="fc" id="L78">        FORMAT = new MessageFormat(&quot;&quot;);</span>
+<span class="fc" id="L79">        FORMAT.setLocale(LOCALE);</span>
+<span class="fc" id="L80">    }</span>
 
     /**
      * Returns the application's locale.
      * @return the currently set Locale of this application. Fallback is {@code Locale.GERMANY}.
      */
     public static Locale getLocale() {
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (LOCALE == null) {</span>
-<span class="nc" id="L87">            LOG.warn(&quot;Returning fallback Locale for Germany - please make sure you've configured your environment correctly via system properties 'user.country'/'user.language'.&quot;);</span>
-<span class="nc" id="L88">            return FALLBACK_LOCALE;</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (LOCALE == null) {</span>
+<span class="nc" id="L88">            LOG.warn(&quot;Returning fallback Locale for Germany - please make sure you've configured your environment correctly via system properties 'user.country'/'user.language'.&quot;);</span>
+<span class="nc" id="L89">            return FALLBACK_LOCALE;</span>
         }
-<span class="fc" id="L90">        return LOCALE;</span>
+<span class="fc" id="L91">        return LOCALE;</span>
     }
 
     /**
@@ -95,7 +96,7 @@ public final class LocalizationHelper {
      * @return the currently set language.
      */
     public static String getLanguage() {
-<span class="fc" id="L98">        return getLocale().getLanguage();</span>
+<span class="fc" id="L99">        return getLocale().getLanguage();</span>
     }
 
     /**
@@ -107,12 +108,12 @@ public final class LocalizationHelper {
      * @return the value from the bundle.
      */
     public static String getBundleString(final String key) {
-<span class="fc" id="L110">        LOG.debug(&quot;Retrieving key {}&quot;, key);</span>
+<span class="fc" id="L111">        LOG.debug(&quot;Retrieving key {}&quot;, key);</span>
         try {
-<span class="fc" id="L112">            return BUNDLE.getString(key);</span>
-<span class="fc" id="L113">        } catch (MissingResourceException mre) {</span>
-<span class="fc" id="L114">            LOG.error(&quot;Retrieving unknown key {}. Please fix your property files.&quot;, key);</span>
-<span class="fc" id="L115">            return key;</span>
+<span class="fc" id="L113">            return BUNDLE.getString(key);</span>
+<span class="fc" id="L114">        } catch (MissingResourceException mre) {</span>
+<span class="fc" id="L115">            LOG.error(&quot;Retrieving unknown key {}. Please fix your property files.&quot;, key);</span>
+<span class="fc" id="L116">            return key;</span>
         }
         // l18n basics:
         // http://www.kodejava.org/examples/220.html
@@ -139,10 +140,10 @@ public final class LocalizationHelper {
      * I18N-tutorial&lt;/a&gt;
      */
     public static String getParameterizedBundleString(final String key, final Object... parameters) {
-<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        LOG.debug(&quot;Applying {} parameters to {}&quot;, (parameters == null) ? null : parameters</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        LOG.debug(&quot;Applying {} parameters to {}&quot;, (parameters == null) ? null : parameters</span>
                 .length, key);
-<span class="fc" id="L144">        FORMAT.applyPattern(getBundleString(key));</span>
-<span class="fc" id="L145">        return FORMAT.format(parameters);</span>
+<span class="fc" id="L145">        FORMAT.applyPattern(getBundleString(key));</span>
+<span class="fc" id="L146">        return FORMAT.format(parameters);</span>
     }
 
     /**
@@ -152,10 +153,10 @@ public final class LocalizationHelper {
      * @return input without CRLF.
      */
     public static String removeCrLf(final String input) {
-<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (!Strings.isNullOrEmpty(input)) {</span>
-<span class="nc" id="L156">            return input.replaceAll(&quot;[\r\n]&quot;, &quot;&quot;);</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        if (!Strings.isNullOrEmpty(input)) {</span>
+<span class="nc" id="L157">            return input.replaceAll(&quot;[\r\n]&quot;, &quot;&quot;);</span>
         }
-<span class="nc" id="L158">        return input;</span>
+<span class="nc" id="L159">        return input;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

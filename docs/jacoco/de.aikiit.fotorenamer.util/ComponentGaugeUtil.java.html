@@ -14,8 +14,6 @@ limitations under the License.
 */
 package de.aikiit.fotorenamer.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -30,13 +28,17 @@ import java.awt.Toolkit;
  * @author hirsch, 20.10.2003
  * @version 2003-10-22
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ComponentGaugeUtil {
+
+    private ComponentGaugeUtil() {
+        // Utility class.
+    }
+
     /**
      * Logger for this class.
      */
-<span class="nc" id="L38">    private static final Logger LOG =</span>
-<span class="nc" id="L39">            LogManager.getLogger(ComponentGaugeUtil.class);</span>
+<span class="nc" id="L40">    private static final Logger LOG =</span>
+<span class="nc" id="L41">            LogManager.getLogger(ComponentGaugeUtil.class);</span>
 
     /**
      * Gauge the given component on screen.
@@ -44,13 +46,13 @@ public final class ComponentGaugeUtil {
      * @param component Swing-component to gauge.
      */
     public static void makeCentered(final Component component) {
-<span class="nc" id="L47">        Toolkit toolkit = Toolkit.getDefaultToolkit();</span>
-<span class="nc" id="L48">        Dimension dim = toolkit.getScreenSize();</span>
-<span class="nc" id="L49">        int screenWidth = dim.width;</span>
-<span class="nc" id="L50">        int screenHeight = dim.height;</span>
-<span class="nc" id="L51">        component.setLocation((screenWidth - component.getSize().width) / 2,</span>
-<span class="nc" id="L52">                (screenHeight - component.getSize().height) / 2);</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L49">        Toolkit toolkit = Toolkit.getDefaultToolkit();</span>
+<span class="nc" id="L50">        Dimension dim = toolkit.getScreenSize();</span>
+<span class="nc" id="L51">        int screenWidth = dim.width;</span>
+<span class="nc" id="L52">        int screenHeight = dim.height;</span>
+<span class="nc" id="L53">        component.setLocation((screenWidth - component.getSize().width) / 2,</span>
+<span class="nc" id="L54">                (screenHeight - component.getSize().height) / 2);</span>
+<span class="nc" id="L55">    }</span>
 
     /**
      * Helper that transforms a given path into an ImageIcon. In case of errors
@@ -60,16 +62,16 @@ public final class ComponentGaugeUtil {
      * @return ImageIcon, located at the given path.
      */
     public static ImageIcon createImageIcon(final String path) {
-<span class="nc bnc" id="L63" title="All 2 branches missed.">        assert path != null : &quot;Path for image icon needs to be set.&quot;;</span>
-<span class="nc" id="L64">        LOG.debug(&quot;Creating image icon from path {}&quot;, path);</span>
-<span class="nc" id="L65">        java.net.URL imgURL = ComponentGaugeUtil.class.getResource(path);</span>
-<span class="nc" id="L66">        LOG.debug(&quot;extracted URL is: {}&quot;, imgURL);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        assert path != null : &quot;Path for image icon needs to be set.&quot;;</span>
+<span class="nc" id="L66">        LOG.debug(&quot;Creating image icon from path {}&quot;, path);</span>
+<span class="nc" id="L67">        java.net.URL imgURL = ComponentGaugeUtil.class.getResource(path);</span>
+<span class="nc" id="L68">        LOG.debug(&quot;extracted URL is: {}&quot;, imgURL);</span>
 
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (imgURL != null) {</span>
-<span class="nc" id="L69">            return new ImageIcon(imgURL);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (imgURL != null) {</span>
+<span class="nc" id="L71">            return new ImageIcon(imgURL);</span>
         } else {
-<span class="nc" id="L71">            LOG.error(&quot;Could not generate a valid URL from the given path: {}&quot;, path);</span>
-<span class="nc" id="L72">            return null;</span>
+<span class="nc" id="L73">            LOG.error(&quot;Could not generate a valid URL from the given path: {}&quot;, path);</span>
+<span class="nc" id="L74">            return null;</span>
         }
     }
 }
