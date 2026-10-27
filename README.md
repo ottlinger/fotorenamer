@@ -7,7 +7,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d9d0476d0f3c40bcbb1c2b4dc09099b1)](https://app.codacy.com/gh/ottlinger/fotorenamer/dashboard)
 
 # ABSTRACT
-Helper to change image filenames from **IMG\_number** to **YYYYMMDD\_IMG\_number** in order to allow an easier photo sorting. YYYMMDD itself is extracted from the photograph's EXIF metadata.
+Helper to change image filenames from **IMG\_number** to **YYYYMMDD_HHMMSS\_IMG\_number** in order to allow an easier photo sorting. YYYMMDD_HHMMSS itself is extracted from the photograph's EXIF metadata.
 
 Do not forget to do backups of your photos before using this tool!
 
