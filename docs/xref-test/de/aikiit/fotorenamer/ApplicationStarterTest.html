@@ -31,7 +31,7 @@
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> javax.swing.UIManager;
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> javax.swing.UnsupportedLookAndFeelException;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.assertj.core.api.Assertions.assertThatCode;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.any;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.mock;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.mockito.Mockito.mockStatic;
@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>               <strong class="jxr_keyword">var</strong> lookAndFeel = mockStatic(UIManager.<strong class="jxr_keyword">class</strong>)) {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>              splashes.when(StartupSplash::show).thenReturn(splash);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>              ui.when(MainUIWindow::build).thenThrow(<strong class="jxr_keyword">new</strong> IllegalStateException(<span class="jxr_string">"Main window startup failed"</span>));
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>              assertDoesNotThrow(ApplicationStarter::start);
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>              assertThatCode(ApplicationStarter::start).doesNotThrowAnyException();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>              verify(splash).close();
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          }
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>              lookAndFeel.when(UIManager::getCrossPlatformLookAndFeelClassName).thenReturn(<span class="jxr_string">"unavailable"</span>);
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>              lookAndFeel.when(() -&gt; UIManager.setLookAndFeel(<span class="jxr_string">"unavailable"</span>))
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>                      .thenThrow(<strong class="jxr_keyword">new</strong> UnsupportedLookAndFeelException(<span class="jxr_string">"Unavailable"</span>));
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>              assertDoesNotThrow(ApplicationStarter::start);
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>              assertThatCode(ApplicationStarter::start).doesNotThrowAnyException();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>              ui.verify(MainUIWindow::build);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>              verify(splash).close();
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          }
