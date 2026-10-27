@@ -24,8 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.regex.Matcher;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 
 /**
  * Read properties from test images and verify exif-metadata extraction.
@@ -38,7 +39,7 @@ class MetaDataExtractorTest {
     @Test
     void makeSurePatternMatchesMultipleRenamedFiles() {
         Matcher matcher = TestConstants.IS_TEST_FILE.matcher("123123123123_20110130_131102_IMG_7559_mini.JpG");
-        assertTrue(matcher.find());
+        assertThat(matcher.find()).isTrue();
     }
 
     @Test
@@ -58,8 +59,7 @@ class MetaDataExtractorTest {
         String renamedFile =
                 MetaDataExtractor
                         .generateCreationDateInCorrectFormat(f);
-        assertTrue(renamedFile.endsWith(TestConstants.PLAIN_FILE_NAME));
-        assertTrue(renamedFile.length() >= minLength);
+        assertThat(renamedFile).endsWith(TestConstants.PLAIN_FILE_NAME).hasSizeGreaterThanOrEqualTo(minLength);
     }
 
     /**
@@ -67,7 +67,7 @@ class MetaDataExtractorTest {
      */
     @Test
     void checkAssertionErrors() {
-        assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS));
+        assertThatThrownBy(() -> MetaDataExtractor.getExifMetadata(null, ExifTagConstants.EXIF_TAG_BRIGHTNESS)).isInstanceOf(AssertionError.class);
     }
 
     /**
@@ -75,7 +75,7 @@ class MetaDataExtractorTest {
      */
     @Test
     void checkAssertionErrorTag() {
-        assertThrows(AssertionError.class, () -> MetaDataExtractor.getExifMetadata(Path.of(TestConstants.FULLPATH_TEST_IMG), null));
+        assertThatThrownBy(() -> MetaDataExtractor.getExifMetadata(Path.of(TestConstants.FULLPATH_TEST_IMG), null)).isInstanceOf(AssertionError.class);
     }
 
 }

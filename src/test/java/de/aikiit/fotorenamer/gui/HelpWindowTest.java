@@ -22,9 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Call help window.
@@ -39,24 +37,24 @@ public class HelpWindowTest {
                 Pattern.CASE_INSENSITIVE);
         for (String filename : List.of("hilfe.html", "help.html")) {
             URL page = HelpWindow.class.getResource(HelpWindow.HTML_HELP_LOCATION + filename);
-            assertNotNull(page, filename);
+            assertThat(page).as(filename).isNotNull();
             String html;
             try (var input = page.openStream()) {
                 html = new String(input.readAllBytes(), StandardCharsets.UTF_8);
             }
-            assertTrue(html.contains("<html"), filename);
+            assertThat(html).as(filename).contains("<html");
             var imageLink = imageSource.matcher(html);
-            assertTrue(imageLink.find(), "Missing camera image in " + filename);
-            assertEquals("camera.jpg", imageLink.group(1));
+            assertThat(imageLink.find()).as("Missing camera image in " + filename).isTrue();
+            assertThat(imageLink.group(1)).isEqualTo("camera.jpg");
 
             // Resolve relative to the HTML URL, just as JEditorPane does. This
             // works for both classpath directories and jar: URLs on every OS.
             URL camera = new URL(page, imageLink.group(1));
             try (var input = camera.openStream()) {
                 var image = ImageIO.read(input);
-                assertNotNull(image, "Cannot decode camera image linked from " + filename);
-                assertTrue(image.getWidth() > 0);
-                assertTrue(image.getHeight() > 0);
+                assertThat(image).as("Cannot decode camera image linked from " + filename).isNotNull();
+                assertThat(image.getWidth()).isPositive();
+                assertThat(image.getHeight()).isPositive();
             }
         }
     }

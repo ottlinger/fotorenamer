@@ -19,37 +19,34 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class FotorenamerExceptionTest {
     @Test
     void planConstructors() {
         RenamingErrorException e = new RenamingErrorException("woo");
-        assertTrue(e.getMessage().contains("woo"));
+        assertThat(e).hasMessageContaining("woo");
 
         NoFilesFoundException e2 = new NoFilesFoundException(Path.of("woo"));
-        assertNotNull(e2);
+        assertThat(e2).isNotNull();
     }
 
     @Test
     void invalidDirectories() {
         InvalidDirectoryException e1 = new InvalidDirectoryException(Path.of("woo"));
-        assertNotNull(e1);
+        assertThat(e1).isNotNull();
 
         e1 = new InvalidDirectoryException("woo");
-        assertNotNull(e1);
-        assertEquals("woo", e1.getMessage());
+        assertThat(e1).isNotNull();
+        assertThat(e1.getMessage()).isEqualTo("woo");
     }
 
     @Test
     void directoryAccessFailureRetainsItsCause() {
         IOException cause = new IOException("access denied");
         InvalidDirectoryException exception = new InvalidDirectoryException("photos", cause);
-        assertEquals("photos", exception.getMessage());
-        assertSame(cause, exception.getCause());
+        assertThat(exception.getMessage()).isEqualTo("photos");
+        assertThat(exception.getCause()).isSameAs(cause);
     }
 
 }

@@ -18,7 +18,7 @@ package de.aikiit.fotorenamer.gui;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test directory selector.
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class ImageDirectorySelectorTest {
     @Test
     void performInit() {
-        assertNotNull(new ImageDirectorySelector(null));
+        assertThat(new ImageDirectorySelector(null)).isNotNull();
     }
 
 }

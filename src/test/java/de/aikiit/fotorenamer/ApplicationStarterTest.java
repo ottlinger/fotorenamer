@@ -23,7 +23,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -65,7 +65,7 @@ class ApplicationStarterTest {
              var lookAndFeel = mockStatic(UIManager.class)) {
             splashes.when(StartupSplash::show).thenReturn(splash);
             ui.when(MainUIWindow::build).thenThrow(new IllegalStateException("Main window startup failed"));
-            assertDoesNotThrow(ApplicationStarter::start);
+            assertThatCode(ApplicationStarter::start).doesNotThrowAnyException();
             verify(splash).close();
         }
     }
@@ -80,7 +80,7 @@ class ApplicationStarterTest {
             lookAndFeel.when(UIManager::getCrossPlatformLookAndFeelClassName).thenReturn("unavailable");
             lookAndFeel.when(() -> UIManager.setLookAndFeel("unavailable"))
                     .thenThrow(new UnsupportedLookAndFeelException("Unavailable"));
-            assertDoesNotThrow(ApplicationStarter::start);
+            assertThatCode(ApplicationStarter::start).doesNotThrowAnyException();
             ui.verify(MainUIWindow::build);
             verify(splash).close();
         }

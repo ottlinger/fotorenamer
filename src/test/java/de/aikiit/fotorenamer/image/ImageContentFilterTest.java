@@ -32,9 +32,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ImageContentFilterTest {
 
@@ -45,7 +43,7 @@ class ImageContentFilterTest {
 
     @Test
     void nullArgumentIsSafe() {
-        assertFalse(filter.test(null));
+        assertThat(filter.test(null)).isFalse();
     }
 
     @Test
@@ -53,28 +51,28 @@ class ImageContentFilterTest {
         for (String name : List.of("photo", "photo.dat", "photo.png", "photo.JpG")) {
             Path image = directory.resolve(name);
             try (var input = getClass().getResourceAsStream("/data/IMG_7559_mini.JPG")) {
-                assertNotNull(input);
+                assertThat(input).isNotNull();
                 Files.copy(input, image);
             }
-            assertTrue(filter.test(image), name);
+            assertThat(filter.test(image)).as(name).isTrue();
         }
     }
 
     @Test
     void detectsPngWithoutAnImageExtension() throws Exception {
         Path image = directory.resolve("image.bin");
-        assertTrue(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), "png", image.toFile()));
-        assertTrue(filter.test(image));
+        assertThat(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), "png", image.toFile())).isTrue();
+        assertThat(filter.test(image)).isTrue();
     }
 
     @Test
     void rejectsNonImagesEvenWithImageExtensions() throws Exception {
         for (String name : List.of("notes.jpg", "notes.png", "notes")) {
             Files.writeString(directory.resolve(name), "This is plain text, not an image.");
-            assertFalse(filter.test(directory.resolve(name)), name);
+            assertThat(filter.test(directory.resolve(name))).as(name).isFalse();
         }
         Files.createFile(directory.resolve("empty.jpg"));
-        assertFalse(filter.test(directory.resolve("empty.jpg")));
+        assertThat(filter.test(directory.resolve("empty.jpg"))).isFalse();
     }
 
     @Test
@@ -92,10 +90,10 @@ class ImageContentFilterTest {
         appender.start();
         logger.addAppender(appender);
         try {
-            assertFalse(filter.test(missing));
-            assertTrue(events.stream().anyMatch(event -> event.getLevel() == Level.ERROR
+            assertThat(filter.test(missing)).isFalse();
+            assertThat(events.stream().anyMatch(event -> event.getLevel() == Level.ERROR
                     && event.getThrown() instanceof IOException
-                    && event.getMessage().getFormattedMessage().contains(missing.toAbsolutePath().toString())));
+                    && event.getMessage().getFormattedMessage().contains(missing.toAbsolutePath().toString()))).isTrue();
         } finally {
             logger.removeAppender(appender);
             appender.stop();
@@ -105,7 +103,7 @@ class ImageContentFilterTest {
     @Test
     void rejectsDirectoriesAndMissingFiles() throws Exception {
         Files.createDirectory(directory.resolve("folder.jpg"));
-        assertFalse(filter.test(directory.resolve("folder.jpg")));
-        assertFalse(filter.test(directory.resolve("missing.jpg")));
+        assertThat(filter.test(directory.resolve("folder.jpg"))).isFalse();
+        assertThat(filter.test(directory.resolve("missing.jpg"))).isFalse();
     }
 }

@@ -23,10 +23,9 @@ import javax.swing.SwingUtilities;
 import java.awt.GraphicsEnvironment;
 import java.awt.SplashScreen;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -39,11 +38,11 @@ class StartupSplashTest {
     @Test
     void bundledSplashPhotographCanBeDecoded() throws Exception {
         var resource = StartupSplash.class.getResource(StartupSplash.IMAGE_LOCATION);
-        assertNotNull(resource);
+        assertThat(resource).isNotNull();
         var image = ImageIO.read(resource);
-        assertNotNull(image);
-        assertEquals(400, image.getWidth());
-        assertEquals(600, image.getHeight());
+        assertThat(image).isNotNull();
+        assertThat(image.getWidth()).isEqualTo(400);
+        assertThat(image.getHeight()).isEqualTo(600);
     }
 
     @Test
@@ -52,8 +51,8 @@ class StartupSplashTest {
              var nativeApi = mockStatic(SplashScreen.class)) {
             graphics.when(GraphicsEnvironment::isHeadless).thenReturn(true);
             try (StartupSplash splash = StartupSplash.show()) {
-                assertDoesNotThrow(splash::close);
-                assertDoesNotThrow(splash::close);
+                assertThatCode(splash::close).doesNotThrowAnyException();
+                assertThatCode(splash::close).doesNotThrowAnyException();
             }
             nativeApi.verifyNoInteractions();
         }
@@ -69,12 +68,12 @@ class StartupSplashTest {
             graphics.when(GraphicsEnvironment::isHeadless).thenReturn(false);
             swing.when(SwingUtilities::isEventDispatchThread).thenReturn(true);
             nativeApi.when(SplashScreen::getSplashScreen).thenReturn(nativeSplash);
-            assertThrows(IllegalStateException.class, () -> {
+            assertThatThrownBy(() -> {
                 try (StartupSplash splash = StartupSplash.show()) {
                     verify(nativeSplash, never()).close();
                     throw new IllegalStateException("Main window startup failed");
                 }
-            });
+            }).isInstanceOf(IllegalStateException.class);
             verify(nativeSplash).close();
         }
     }
@@ -106,7 +105,7 @@ class StartupSplashTest {
             graphics.when(GraphicsEnvironment::isHeadless).thenReturn(false);
             swing.when(SwingUtilities::isEventDispatchThread).thenReturn(true);
             nativeApi.when(SplashScreen::getSplashScreen).thenThrow(new IllegalStateException("Splash unavailable"));
-            assertDoesNotThrow(() -> StartupSplash.show().close());
+            assertThatCode(() -> StartupSplash.show().close()).doesNotThrowAnyException();
         }
     }
 
@@ -116,6 +115,6 @@ class StartupSplashTest {
         when(nativeSplash.isVisible()).thenReturn(true);
         doThrow(new IllegalStateException("Already closed")).when(nativeSplash).close();
         StartupSplash splash = new StartupSplash(nativeSplash, null);
-        assertDoesNotThrow(splash::close);
+        assertThatCode(splash::close).doesNotThrowAnyException();
     }
 }

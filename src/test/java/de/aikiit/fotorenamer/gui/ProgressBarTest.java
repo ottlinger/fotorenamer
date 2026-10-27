@@ -21,8 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author hirsch
@@ -38,9 +37,9 @@ class ProgressBarTest {
     @Test
     void checkInitAndDefaults() {
         ProgressBar bar = new ProgressBar(0);
-        assertNotNull(bar);
-        assertNotNull(bar.getText());
-        assertEquals(0, bar.getProgress());
+        assertThat(bar).isNotNull();
+        assertThat(bar.getText()).isNotNull();
+        assertThat(bar.getProgress()).isEqualTo(0);
     }
 
     /**
@@ -49,10 +48,10 @@ class ProgressBarTest {
     @Test
     void checkSetterGetter() {
         ProgressBar bar = new ProgressBar(10);
-        assertNotNull(bar);
+        assertThat(bar).isNotNull();
         bar.updateProgress(new RenameProgress(Path.of(TEXT), new RenameResult(10, 5, 5, 0, 0, false)));
-        assertEquals(5, bar.getProgress());
-        assertEquals(TEXT, bar.getText());
+        assertThat(bar.getProgress()).isEqualTo(5);
+        assertThat(bar.getText()).isEqualTo(TEXT);
         bar.dispose();
     }
 }

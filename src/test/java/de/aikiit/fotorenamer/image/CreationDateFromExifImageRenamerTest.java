@@ -37,12 +37,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CreationDateFromExifImageRenamerTest {
 
@@ -51,15 +47,14 @@ class CreationDateFromExifImageRenamerTest {
 
     @Test
     void checkNPECorrectnessInConstructor() {
-        assertThrows(InvalidDirectoryException.class, () -> new CreationDateFromExifImageRenamer(null));
+        assertThatThrownBy(() -> new CreationDateFromExifImageRenamer(null)).isInstanceOf(InvalidDirectoryException.class);
     }
 
     @Test
     void rejectsDirectoryContainingOnlyNonImages() throws Exception {
         Files.writeString(directory.resolve("notes.jpg"), "not an image");
-        assertThrows(NoFilesFoundException.class,
-                () -> new CreationDateFromExifImageRenamer(directory.toString()));
-        assertEquals("not an image", Files.readString(directory.resolve("notes.jpg")));
+        assertThatThrownBy(() -> new CreationDateFromExifImageRenamer(directory.toString())).isInstanceOf(NoFilesFoundException.class);
+        assertThat(Files.readString(directory.resolve("notes.jpg"))).isEqualTo("not an image");
     }
 
     @Test
@@ -73,17 +68,17 @@ class CreationDateFromExifImageRenamerTest {
         Path text = Files.writeString(directory.resolve("notes.jpg"), "not an image");
 
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals("no-exif.bin", renamer.renameImage(png));
-        assertEquals("no-exif", renamer.renameImage(jpeg));
-        assertEquals(new RenameResult(3, 3, 1, 2, 0, false), renamer.renameFiles());
+        assertThat(renamer.renameImage(png)).isEqualTo("no-exif.bin");
+        assertThat(renamer.renameImage(jpeg)).isEqualTo("no-exif");
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(3, 3, 1, 2, 0, false));
 
-        assertFalse(Files.exists(image));
-        assertArrayEquals(originalImage, Files.readAllBytes(directory.resolve("20110130_131102_holiday.dat")));
-        assertArrayEquals(originalPng, Files.readAllBytes(png));
-        assertArrayEquals(originalJpeg, Files.readAllBytes(jpeg));
-        assertEquals("not an image", Files.readString(text));
+        assertThat(Files.exists(image)).isFalse();
+        assertThat(Files.readAllBytes(directory.resolve("20110130_131102_holiday.dat"))).containsExactly(originalImage);
+        assertThat(Files.readAllBytes(png)).containsExactly(originalPng);
+        assertThat(Files.readAllBytes(jpeg)).containsExactly(originalJpeg);
+        assertThat(Files.readString(text)).isEqualTo("not an image");
         try (var files = Files.list(directory)) {
-            assertEquals(4, files.count());
+            assertThat(files.count()).isEqualTo(4);
         }
     }
 
@@ -95,15 +90,15 @@ class CreationDateFromExifImageRenamerTest {
         List<RenameProgress> progress = new CopyOnWriteArrayList<>();
         var renamer = new CreationDateFromExifImageRenamer(directory.toString());
 
-        assertEquals(prefixed.getFileName().toString(), renamer.renameImage(prefixed));
+        assertThat(renamer.renameImage(prefixed)).isEqualTo(prefixed.getFileName().toString());
         RenameResult result = renamer.renameFiles(progress::add);
 
-        assertEquals(new RenameResult(2, 2, 1, 1, 0, false), result);
-        assertEquals(2, progress.size());
-        assertEquals(result, progress.get(progress.size() - 1).result());
-        assertArrayEquals(original, Files.readAllBytes(prefixed));
-        assertArrayEquals(original, Files.readAllBytes(directory.resolve("20110130_131102_new.dat")));
-        assertFalse(Files.exists(directory.resolve("20110130_131102_20110130_131102_holiday.JPG")));
+        assertThat(result).isEqualTo(new RenameResult(2, 2, 1, 1, 0, false));
+        assertThat(progress).hasSize(2);
+        assertThat(progress.get(progress.size() - 1).result()).isEqualTo(result);
+        assertThat(Files.readAllBytes(prefixed)).containsExactly(original);
+        assertThat(Files.readAllBytes(directory.resolve("20110130_131102_new.dat"))).containsExactly(original);
+        assertThat(Files.exists(directory.resolve("20110130_131102_20110130_131102_holiday.JPG"))).isFalse();
     }
 
     @Test
@@ -111,13 +106,13 @@ class CreationDateFromExifImageRenamerTest {
         Path image = copyExifImage("holiday");
         byte[] original = Files.readAllBytes(image);
         var firstRun = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(new RenameResult(1, 1, 1, 0, 0, false), firstRun.renameFiles());
+        assertThat(firstRun.renameFiles()).isEqualTo(new RenameResult(1, 1, 1, 0, 0, false));
 
         var secondRun = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(new RenameResult(1, 1, 0, 1, 0, false), secondRun.renameFiles());
-        assertArrayEquals(original, Files.readAllBytes(directory.resolve("20110130_131102_holiday")));
+        assertThat(secondRun.renameFiles()).isEqualTo(new RenameResult(1, 1, 0, 1, 0, false));
+        assertThat(Files.readAllBytes(directory.resolve("20110130_131102_holiday"))).containsExactly(original);
         try (var files = Files.list(directory)) {
-            assertEquals(1, files.count());
+            assertThat(files.count()).isEqualTo(1);
         }
     }
 
@@ -136,10 +131,10 @@ class CreationDateFromExifImageRenamerTest {
             String expected = "20110130_131102_" + filename;
             var renamer = new CreationDateFromExifImageRenamer(caseDirectory.toString());
 
-            assertEquals(expected, renamer.renameImage(image), filename);
-            assertEquals(new RenameResult(1, 1, 1, 0, 0, false), renamer.renameFiles(), filename);
-            assertFalse(Files.exists(image), filename);
-            assertArrayEquals(original, Files.readAllBytes(caseDirectory.resolve(expected)), filename);
+            assertThat(renamer.renameImage(image)).as(filename).isEqualTo(expected);
+            assertThat(renamer.renameFiles()).as(filename).isEqualTo(new RenameResult(1, 1, 1, 0, 0, false));
+            assertThat(Files.exists(image)).as(filename).isFalse();
+            assertThat(Files.readAllBytes(caseDirectory.resolve(expected))).as(filename).containsExactly(original);
         }
     }
 
@@ -148,8 +143,8 @@ class CreationDateFromExifImageRenamerTest {
         Path image = copyExifImage("holiday");
         byte[] original = Files.readAllBytes(image);
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(1, renamer.renameFiles().renamed());
-        assertArrayEquals(original, Files.readAllBytes(directory.resolve("20110130_131102_holiday")));
+        assertThat(renamer.renameFiles().renamed()).isEqualTo(1);
+        assertThat(Files.readAllBytes(directory.resolve("20110130_131102_holiday"))).containsExactly(original);
     }
 
     @Test
@@ -157,9 +152,9 @@ class CreationDateFromExifImageRenamerTest {
         Path image = writeExifTiff("scan.bin", "2026:10:26 14:30:12");
         byte[] original = Files.readAllBytes(image);
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(1, renamer.renameFiles().renamed());
-        assertFalse(Files.exists(image));
-        assertArrayEquals(original, Files.readAllBytes(directory.resolve("20261026_143012_scan.bin")));
+        assertThat(renamer.renameFiles().renamed()).isEqualTo(1);
+        assertThat(Files.exists(image)).isFalse();
+        assertThat(Files.readAllBytes(directory.resolve("20261026_143012_scan.bin"))).containsExactly(original);
     }
 
     @Test
@@ -167,9 +162,9 @@ class CreationDateFromExifImageRenamerTest {
         Path image = writeExifTiff("scan", "0000:00:00 00:00:00");
         byte[] original = Files.readAllBytes(image);
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals("scan", renamer.renameImage(image));
-        assertEquals(new RenameResult(1, 1, 0, 1, 0, false), renamer.renameFiles());
-        assertArrayEquals(original, Files.readAllBytes(image));
+        assertThat(renamer.renameImage(image)).isEqualTo("scan");
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(1, 1, 0, 1, 0, false));
+        assertThat(Files.readAllBytes(image)).containsExactly(original);
     }
 
     @Test
@@ -177,24 +172,24 @@ class CreationDateFromExifImageRenamerTest {
         Path valid = copyExifImage("valid");
         byte[] truncated = Arrays.copyOf(Files.readAllBytes(valid), 20);
         Path broken = Files.write(directory.resolve("broken.jpg"), truncated);
-        assertTrue(new ImageContentFilter().test(broken));
+        assertThat(new ImageContentFilter().test(broken)).isTrue();
 
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(new RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
-        assertArrayEquals(truncated, Files.readAllBytes(broken));
-        assertTrue(Files.exists(directory.resolve("20110130_131102_valid")));
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(2, 2, 1, 0, 1, false));
+        assertThat(Files.readAllBytes(broken)).containsExactly(truncated);
+        assertThat(Files.exists(directory.resolve("20110130_131102_valid"))).isTrue();
     }
 
     @Test
     void skipsUnsupportedImageFormatsAndContinuesWithOtherImages() throws Exception {
         String svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1\" height=\"1\"></svg>";
         Path image = Files.writeString(directory.resolve("drawing"), svg);
-        assertTrue(new ImageContentFilter().test(image));
+        assertThat(new ImageContentFilter().test(image)).isTrue();
         copyExifImage("valid");
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
-        assertEquals(new RenameResult(2, 2, 1, 0, 1, false), renamer.renameFiles());
-        assertEquals(svg, Files.readString(image));
-        assertTrue(Files.exists(directory.resolve("20110130_131102_valid")));
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(2, 2, 1, 0, 1, false));
+        assertThat(Files.readString(image)).isEqualTo(svg);
+        assertThat(Files.exists(directory.resolve("20110130_131102_valid"))).isTrue();
     }
 
     @Test
@@ -214,22 +209,22 @@ class CreationDateFromExifImageRenamerTest {
         appender.start();
         logger.addAppender(appender);
         try {
-            assertEquals(new RenameResult(1, 1, 0, 0, 1, false), renamer.renameFiles());
-            assertTrue(events.stream().anyMatch(event -> event.getLevel() == Level.ERROR
+            assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(1, 1, 0, 0, 1, false));
+            assertThat(events.stream().anyMatch(event -> event.getLevel() == Level.ERROR
                     && event.getThrown() != null
-                    && event.getMessage().getFormattedMessage().contains(image.toAbsolutePath().toString())));
+                    && event.getMessage().getFormattedMessage().contains(image.toAbsolutePath().toString()))).isTrue();
         } finally {
             logger.removeAppender(appender);
             appender.stop();
         }
-        assertArrayEquals(original, Files.readAllBytes(image));
-        assertEquals("keep this file", Files.readString(target));
+        assertThat(Files.readAllBytes(image)).containsExactly(original);
+        assertThat(Files.readString(target)).isEqualTo("keep this file");
     }
 
     private Path copyExifImage(String name) throws Exception {
         Path target = directory.resolve(name);
         try (var input = getClass().getResourceAsStream("/data/IMG_7559_mini.JPG")) {
-            assertNotNull(input);
+            assertThat(input).isNotNull();
             Files.copy(input, target);
         }
         return target;
@@ -248,7 +243,7 @@ class CreationDateFromExifImageRenamerTest {
 
     private Path writeImageWithoutExif(String name, String format) throws Exception {
         Path image = directory.resolve(name);
-        assertTrue(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), format, image.toFile()));
+        assertThat(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), format, image.toFile())).isTrue();
         return image;
     }
 }

@@ -24,7 +24,7 @@ import static de.aikiit.fotorenamer.util.LocalizationHelper.getLanguage;
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getLocale;
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 import static de.aikiit.fotorenamer.util.LocalizationHelper.setLocale;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Testing resource bundling.
@@ -39,7 +39,7 @@ class LocalizationHelperTest {
      */
     @Test
     void checkValueRetrievingFromBundle() {
-        assertEquals("Fortschritt", getBundleString("fotorenamer.ui.progress"));
+        assertThat(getBundleString("fotorenamer.ui.progress")).isEqualTo("Fortschritt");
     }
 
     /**
@@ -48,11 +48,11 @@ class LocalizationHelperTest {
     @SuppressWarnings("RedundantArrayCreation")
     @Test
     void checkParametrizedValueExtraction() {
-        assertEquals("Erfolg und dann folgt noch die 7", getParameterizedBundleString("fotorenamer.test.param",
-                "Erfolg", 7));
+        assertThat(getParameterizedBundleString("fotorenamer.test.param",
+                "Erfolg", 7)).isEqualTo("Erfolg und dann folgt noch die 7");
         // ignore warning, we want to test what happens here! An empty String or null changes the output.
-        assertEquals("{0} und dann folgt noch die {1}", getParameterizedBundleString("fotorenamer.test.param",
-                new Object[]{}));
+        assertThat(getParameterizedBundleString("fotorenamer.test.param",
+                new Object[]{})).isEqualTo("{0} und dann folgt noch die {1}");
     }
 
     @Test
@@ -62,8 +62,8 @@ class LocalizationHelperTest {
         System.setProperty("user.country", "");
         setLocale();
 
-        assertEquals(Locale.GERMANY, getLocale());
-        assertEquals("de", getLanguage());
+        assertThat(getLocale()).isEqualTo(Locale.GERMANY);
+        assertThat(getLanguage()).isEqualTo("de");
     }
 
     @Test
@@ -74,18 +74,18 @@ class LocalizationHelperTest {
         System.setProperty("user.country", "CA");
         setLocale();
 
-        assertEquals(Locale.CANADA_FRENCH, getLocale());
-        assertEquals(french, getLanguage());
+        assertThat(getLocale()).isEqualTo(Locale.CANADA_FRENCH);
+        assertThat(getLanguage()).isEqualTo(french);
     }
 
     @Test
     void umlautEncodingWorksCorrectly() {
-        assertEquals("ßäü", getBundleString("fotorenamer.test.umlauts"));
+        assertThat(getBundleString("fotorenamer.test.umlauts")).isEqualTo("ßäü");
     }
 
     @Test
     void unknownKey() {
         String unknown = "abcde.unknown";
-        assertEquals(unknown, getBundleString(unknown));
+        assertThat(getBundleString(unknown)).isEqualTo(unknown);
     }
 }

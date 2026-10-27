@@ -33,13 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /** Tests real SwingWorker scheduling with plain callbacks, never a JFrame or dialog. */
 @Timeout(30)
@@ -53,14 +47,14 @@ class RenameWorkerTest {
         AtomicReference<Thread> processingThread = new AtomicReference<>();
         RenameResult expected = new RenameResult(1, 1, 1, 0, 0, false);
         RenameWorker worker = new RenameWorker(() -> {
-            assertFalse(SwingUtilities.isEventDispatchThread());
+            assertThat(SwingUtilities.isEventDispatchThread()).isFalse();
             factoryThread.set(Thread.currentThread());
             return (progress, cancelled) -> {
-                assertFalse(SwingUtilities.isEventDispatchThread());
+                assertThat(SwingUtilities.isEventDispatchThread()).isFalse();
                 processingThread.set(Thread.currentThread());
                 progress.accept(new RenameProgress(Path.of("photo"), expected));
                 try {
-                    assertTrue(release.await(15, TimeUnit.SECONDS));
+                    assertThat(release.await(15, TimeUnit.SECONDS)).isTrue();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new IllegalStateException(e);
@@ -70,19 +64,19 @@ class RenameWorkerTest {
         }, view);
         try {
             SwingUtilities.invokeAndWait(worker::execute);
-            assertNotNull(view.progress.poll(15, TimeUnit.SECONDS));
-            assertFalse(worker.isDone());
-            assertEquals(0, view.cleanups.get());
+            assertThat(view.progress.poll(15, TimeUnit.SECONDS)).isNotNull();
+            assertThat(worker.isDone()).isFalse();
+            assertThat(view.cleanups.get()).isEqualTo(0);
         } finally {
             release.countDown();
         }
         view.awaitDelivery();
-        assertSame(factoryThread.get(), processingThread.get());
-        assertEquals(expected, view.result.get());
-        assertNull(view.failure.get());
-        assertTrue(view.onlyEdt.get());
-        assertEquals(1, view.cleanups.get());
-        assertEquals(List.of("progress", "finished", "result"), view.events);
+        assertThat(processingThread.get()).isSameAs(factoryThread.get());
+        assertThat(view.result.get()).isEqualTo(expected);
+        assertThat(view.failure.get()).isNull();
+        assertThat(view.onlyEdt.get()).isTrue();
+        assertThat(view.cleanups.get()).isEqualTo(1);
+        assertThat(view.events).containsExactly("progress", "finished", "result");
     }
 
     @Test
@@ -92,11 +86,11 @@ class RenameWorkerTest {
         RenameWorker worker = new RenameWorker(() -> { throw cause; }, view);
         SwingUtilities.invokeAndWait(worker::execute);
         view.awaitDelivery();
-        assertSame(cause, view.failure.get());
-        assertNull(view.result.get());
-        assertEquals(List.of("finished", "failure"), view.events);
-        assertEquals(1, view.cleanups.get());
-        assertTrue(view.onlyEdt.get());
+        assertThat(view.failure.get()).isSameAs(cause);
+        assertThat(view.result.get()).isNull();
+        assertThat(view.events).containsExactly("finished", "failure");
+        assertThat(view.cleanups.get()).isEqualTo(1);
+        assertThat(view.onlyEdt.get()).isTrue();
     }
 
     @Test
@@ -106,9 +100,9 @@ class RenameWorkerTest {
         RenameWorker worker = new RenameWorker(() -> (progress, cancelled) -> { throw cause; }, view);
         SwingUtilities.invokeAndWait(worker::execute);
         view.awaitDelivery();
-        assertSame(cause, view.failure.get());
-        assertEquals(List.of("finished", "failure"), view.events);
-        assertTrue(view.onlyEdt.get());
+        assertThat(view.failure.get()).isSameAs(cause);
+        assertThat(view.events).containsExactly("finished", "failure");
+        assertThat(view.onlyEdt.get()).isTrue();
     }
 
     @Test
@@ -120,29 +114,29 @@ class RenameWorkerTest {
         RenameWorker worker = new RenameWorker(() -> (progress, cancelled) -> {
             started.countDown();
             try {
-                assertTrue(release.await(15, TimeUnit.SECONDS));
+                assertThat(release.await(15, TimeUnit.SECONDS)).isTrue();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new IllegalStateException(e);
             }
-            assertTrue(cancelled.getAsBoolean());
+            assertThat(cancelled.getAsBoolean()).isTrue();
             return partial;
         }, view);
         try {
             SwingUtilities.invokeAndWait(worker::execute);
-            assertTrue(started.await(15, TimeUnit.SECONDS));
+            assertThat(started.await(15, TimeUnit.SECONDS)).isTrue();
             worker.requestCancellation();
-            assertFalse(worker.isDone());
-            assertEquals(0, view.cleanups.get());
-            assertTrue(view.events.isEmpty());
+            assertThat(worker.isDone()).isFalse();
+            assertThat(view.cleanups.get()).isEqualTo(0);
+            assertThat(view.events).isEmpty();
         } finally {
             release.countDown();
         }
         view.awaitDelivery();
-        assertEquals(partial, view.result.get());
-        assertNull(view.failure.get());
-        assertEquals(List.of("finished", "result"), view.events);
-        assertTrue(view.onlyEdt.get());
+        assertThat(view.result.get()).isEqualTo(partial);
+        assertThat(view.failure.get()).isNull();
+        assertThat(view.events).containsExactly("finished", "result");
+        assertThat(view.onlyEdt.get()).isTrue();
     }
 
     @Test
@@ -156,10 +150,10 @@ class RenameWorkerTest {
         worker.requestCancellation();
         SwingUtilities.invokeAndWait(worker::execute);
         view.awaitDelivery();
-        assertEquals(0, discoveries.get());
-        assertInstanceOf(CancellationException.class, view.failure.get());
-        assertEquals(1, view.cleanups.get());
-        assertTrue(view.onlyEdt.get());
+        assertThat(discoveries.get()).isEqualTo(0);
+        assertThat(view.failure.get()).isInstanceOf(CancellationException.class);
+        assertThat(view.cleanups.get()).isEqualTo(1);
+        assertThat(view.onlyEdt.get()).isTrue();
     }
 
     @Test
@@ -170,9 +164,9 @@ class RenameWorkerTest {
         RenameProgress first = new RenameProgress(Path.of("one"), new RenameResult(3, 1, 1, 0, 0, false));
         RenameProgress last = new RenameProgress(Path.of("three"), new RenameResult(3, 3, 2, 1, 0, false));
         SwingUtilities.invokeAndWait(() -> worker.process(List.of(first, last)));
-        assertEquals(last, view.progress.poll());
-        assertTrue(view.progress.isEmpty());
-        assertTrue(view.onlyEdt.get());
+        assertThat(view.progress.poll()).isEqualTo(last);
+        assertThat(view.progress).isEmpty();
+        assertThat(view.onlyEdt.get()).isTrue();
     }
 
     @Test
@@ -184,8 +178,8 @@ class RenameWorkerTest {
         view.awaitDelivery();
         SwingUtilities.invokeAndWait(() -> worker.process(List.of(
                 new RenameProgress(Path.of("late"), new RenameResult(1, 1, 1, 0, 0, false)))));
-        assertTrue(view.progress.isEmpty());
-        assertEquals(List.of("finished", "result"), view.events);
+        assertThat(view.progress).isEmpty();
+        assertThat(view.events).containsExactly("finished", "result");
     }
 
     private static final class RecordingView implements RenameWorker.View {
@@ -231,7 +225,7 @@ class RenameWorkerTest {
         }
 
         private void awaitDelivery() throws InterruptedException {
-            assertTrue(delivered.await(15, TimeUnit.SECONDS), "Worker callbacks did not finish");
+            assertThat(delivered.await(15, TimeUnit.SECONDS)).as("Worker callbacks did not finish").isTrue();
         }
     }
 }

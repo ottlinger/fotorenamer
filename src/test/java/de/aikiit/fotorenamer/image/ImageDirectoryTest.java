@@ -32,12 +32,8 @@ import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mockStatic;
 
 class ImageDirectoryTest {
@@ -47,44 +43,44 @@ class ImageDirectoryTest {
 
     @Test
     void emptyDirectoriesAreNotReportedAsAccessErrors() {
-        assertThrows(NoFilesFoundException.class, () -> new CreationDateFromExifImageRenamer(directory.toString()));
-        assertThrows(NoFilesFoundException.class, () -> new RemoveExifPrefixRenamer(directory.toString()));
+        assertThatThrownBy(() -> new CreationDateFromExifImageRenamer(directory.toString())).isInstanceOf(NoFilesFoundException.class);
+        assertThatThrownBy(() -> new RemoveExifPrefixRenamer(directory.toString())).isInstanceOf(NoFilesFoundException.class);
     }
 
     @Test
     void missingDirectoriesPreserveTheFilesystemCause() {
         String missing = directory.resolve("missing").toString();
-        var forward = assertThrows(InvalidDirectoryException.class,
-                () -> new CreationDateFromExifImageRenamer(missing));
-        var reverse = assertThrows(InvalidDirectoryException.class,
-                () -> new RemoveExifPrefixRenamer(missing));
-        assertInstanceOf(NoSuchFileException.class, forward.getCause());
-        assertInstanceOf(NoSuchFileException.class, reverse.getCause());
+        assertThatThrownBy(() -> new CreationDateFromExifImageRenamer(missing))
+                .isInstanceOf(InvalidDirectoryException.class)
+                .hasCauseInstanceOf(NoSuchFileException.class);
+        assertThatThrownBy(() -> new RemoveExifPrefixRenamer(missing))
+                .isInstanceOf(InvalidDirectoryException.class)
+                .hasCauseInstanceOf(NoSuchFileException.class);
     }
 
     @Test
     void regularFilesAreNotAcceptedAsDirectories() throws Exception {
         Path file = Files.writeString(directory.resolve("file"), "not a directory");
-        var exception = assertThrows(InvalidDirectoryException.class,
-                () -> new RemoveExifPrefixRenamer(file.toString()));
-        assertInstanceOf(IOException.class, exception.getCause());
+        assertThatThrownBy(() -> new RemoveExifPrefixRenamer(file.toString()))
+                .isInstanceOf(InvalidDirectoryException.class)
+                .hasCauseInstanceOf(IOException.class);
     }
 
     @Test
     void nullAndInvalidPathsAreReportedAsInvalidDirectories() {
-        assertThrows(InvalidDirectoryException.class, () -> new RemoveExifPrefixRenamer(null));
-        var exception = assertThrows(InvalidDirectoryException.class,
-                () -> new RemoveExifPrefixRenamer("invalid\0path"));
-        assertInstanceOf(InvalidPathException.class, exception.getCause());
+        assertThatThrownBy(() -> new RemoveExifPrefixRenamer(null)).isInstanceOf(InvalidDirectoryException.class);
+        assertThatThrownBy(() -> new RemoveExifPrefixRenamer("invalid\0path"))
+                .isInstanceOf(InvalidDirectoryException.class)
+                .hasCauseInstanceOf(InvalidPathException.class);
     }
 
     @Test
     void accessDeniedIsNotMisreportedAsAnEmptyDirectory() {
         AccessDeniedException cause = new AccessDeniedException(directory.toString());
         try (var files = mockDirectoryListing(invocation -> { throw cause; })) {
-            var exception = assertThrows(InvalidDirectoryException.class,
-                    () -> new RemoveExifPrefixRenamer(directory.toString()));
-            assertSame(cause, exception.getCause());
+            assertThatThrownBy(() -> new RemoveExifPrefixRenamer(directory.toString()))
+                    .isInstanceOf(InvalidDirectoryException.class)
+                    .hasCause(cause);
         }
     }
 
@@ -96,11 +92,11 @@ class ImageDirectoryTest {
             throw new UncheckedIOException(cause);
         }).limit(1).onClose(() -> closed.set(true));
         try (var files = mockDirectoryListing(invocation -> entries)) {
-            var exception = assertThrows(InvalidDirectoryException.class,
-                    () -> new CreationDateFromExifImageRenamer(directory.toString()));
-            assertInstanceOf(UncheckedIOException.class, exception.getCause());
-            assertSame(cause, exception.getCause().getCause());
-            assertTrue(closed.get());
+            assertThatThrownBy(() -> new CreationDateFromExifImageRenamer(directory.toString()))
+                    .isInstanceOf(InvalidDirectoryException.class)
+                    .hasCauseInstanceOf(UncheckedIOException.class)
+                    .rootCause().isSameAs(cause);
+            assertThat(closed.get()).isTrue();
         }
     }
 
@@ -109,9 +105,8 @@ class ImageDirectoryTest {
         AtomicBoolean closed = new AtomicBoolean();
         Stream<Path> entries = Stream.<Path>empty().onClose(() -> closed.set(true));
         try (var files = mockDirectoryListing(invocation -> entries)) {
-            assertThrows(NoFilesFoundException.class,
-                    () -> new RemoveExifPrefixRenamer(directory.toString()));
-            assertTrue(closed.get());
+            assertThatThrownBy(() -> new RemoveExifPrefixRenamer(directory.toString())).isInstanceOf(NoFilesFoundException.class);
+            assertThat(closed.get()).isTrue();
         }
     }
 
@@ -130,7 +125,7 @@ class ImageDirectoryTest {
     @Test
     void rootPathHasANonNullDisplayName() {
         Path root = directory.toAbsolutePath().getRoot();
-        assertNotNull(root);
-        assertEquals(root.toString(), AbstractImageRenamer.fileName(root));
+        assertThat(root).isNotNull();
+        assertThat(AbstractImageRenamer.fileName(root)).isEqualTo(root.toString());
     }
 }

@@ -25,12 +25,10 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.fail;
+
 
 class RenameProcessingTest {
 
@@ -46,17 +44,17 @@ class RenameProcessingTest {
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
         List<RenameProgress> events = new ArrayList<>();
         RenameResult result = renamer.renameFiles(events::add);
-        assertEquals(new RenameResult(3, 3, 1, 1, 1, false), result);
-        assertEquals(3, events.size());
+        assertThat(result).isEqualTo(new RenameResult(3, 3, 1, 1, 1, false));
+        assertThat(events).hasSize(3);
         for (int i = 0; i < events.size(); i++) {
             RenameResult snapshot = events.get(i).result();
-            assertEquals(3, snapshot.total());
-            assertEquals(i + 1, snapshot.processed());
-            assertEquals(snapshot.processed(), snapshot.renamed() + snapshot.skipped() + snapshot.failed());
+            assertThat(snapshot.total()).isEqualTo(3);
+            assertThat(snapshot.processed()).isEqualTo(i + 1);
+            assertThat(snapshot.renamed() + snapshot.skipped() + snapshot.failed()).isEqualTo(snapshot.processed());
         }
-        assertEquals(1, events.get(0).result().processed());
-        assertEquals(result, events.get(2).result());
-        assertEquals("keep this", Files.readString(directory.resolve("conflict")));
+        assertThat(events.get(0).result().processed()).isEqualTo(1);
+        assertThat(events.get(2).result()).isEqualTo(result);
+        assertThat(Files.readString(directory.resolve("conflict"))).isEqualTo("keep this");
     }
 
     @Test
@@ -64,9 +62,9 @@ class RenameProcessingTest {
         Path image = copyImage("20110130_131102_photo");
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
         RenameResult result = renamer.renameFiles(progress -> fail("Unexpected progress"), () -> true);
-        assertEquals(new RenameResult(1, 0, 0, 0, 0, true), result);
-        assertTrue(Files.exists(image));
-        assertFalse(Files.exists(directory.resolve("photo")));
+        assertThat(result).isEqualTo(new RenameResult(1, 0, 0, 0, 0, true));
+        assertThat(Files.exists(image)).isTrue();
+        assertThat(Files.exists(directory.resolve("photo"))).isFalse();
     }
 
     @Test
@@ -81,13 +79,13 @@ class RenameProcessingTest {
             events.add(progress);
             cancel.set(true);
         }, cancel::get);
-        assertEquals(new RenameResult(3, 1, 1, 0, 0, true), result);
-        assertEquals(1, events.size());
+        assertThat(result).isEqualTo(new RenameResult(3, 1, 1, 0, 0, true));
+        assertThat(events).hasSize(1);
         Path moved = events.get(0).file();
-        assertFalse(Files.exists(moved));
-        assertTrue(Files.exists(moved.resolveSibling(moved.getFileName().toString().substring(16))));
+        assertThat(Files.exists(moved)).isFalse();
+        assertThat(Files.exists(moved.resolveSibling(moved.getFileName().toString().substring(16)))).isTrue();
         try (var files = Files.list(directory)) {
-            assertEquals(3, files.count());
+            assertThat(files.count()).isEqualTo(3);
         }
     }
 
@@ -97,12 +95,12 @@ class RenameProcessingTest {
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
         try {
             Thread.currentThread().interrupt();
-            assertEquals(new RenameResult(1, 0, 0, 0, 0, true), renamer.renameFiles());
-            assertTrue(Thread.currentThread().isInterrupted());
+            assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(1, 0, 0, 0, 0, true));
+            assertThat(Thread.currentThread().isInterrupted()).isTrue();
         } finally {
             Thread.interrupted();
         }
-        assertTrue(Files.exists(image));
+        assertThat(Files.exists(image)).isTrue();
     }
 
     @Test
@@ -110,13 +108,12 @@ class RenameProcessingTest {
         Path image = copyImage("photo");
         try {
             Thread.currentThread().interrupt();
-            assertThrows(CancellationException.class,
-                    () -> new CreationDateFromExifImageRenamer(directory.toString()));
-            assertTrue(Thread.currentThread().isInterrupted());
+            assertThatThrownBy(() -> new CreationDateFromExifImageRenamer(directory.toString())).isInstanceOf(CancellationException.class);
+            assertThat(Thread.currentThread().isInterrupted()).isTrue();
         } finally {
             Thread.interrupted();
         }
-        assertTrue(Files.exists(image));
+        assertThat(Files.exists(image)).isTrue();
     }
 
     @Test
@@ -129,10 +126,10 @@ class RenameProcessingTest {
             callbacks.incrementAndGet();
             throw new IllegalStateException("observer failed");
         });
-        assertEquals(new RenameResult(2, 2, 2, 0, 0, false), result);
-        assertEquals(2, callbacks.get());
-        assertTrue(Files.exists(directory.resolve("one")));
-        assertTrue(Files.exists(directory.resolve("two")));
+        assertThat(result).isEqualTo(new RenameResult(2, 2, 2, 0, 0, false));
+        assertThat(callbacks.get()).isEqualTo(2);
+        assertThat(Files.exists(directory.resolve("one"))).isTrue();
+        assertThat(Files.exists(directory.resolve("two"))).isTrue();
     }
 
     @Test
@@ -148,34 +145,33 @@ class RenameProcessingTest {
                 return fileName(imageFile);
             }
         };
-        assertEquals(new RenameResult(2, 2, 0, 1, 1, false), renamer.renameFiles());
-        assertTrue(Files.exists(directory.resolve("bad")));
-        assertTrue(Files.exists(directory.resolve("good")));
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(2, 2, 0, 1, 1, false));
+        assertThat(Files.exists(directory.resolve("bad"))).isTrue();
+        assertThat(Files.exists(directory.resolve("good"))).isTrue();
     }
 
     @Test
     void nullCallbacksAreRejectedBeforeAnyFileIsMoved() throws Exception {
         Path image = copyImage("20110130_131102_photo");
         var renamer = new RemoveExifPrefixRenamer(directory.toString());
-        assertThrows(NullPointerException.class, () -> renamer.renameFiles(null, () -> false));
-        assertThrows(NullPointerException.class, () -> renamer.renameFiles(progress -> { }, null));
-        assertTrue(Files.exists(image));
+        assertThatThrownBy(() -> renamer.renameFiles(null, () -> false)).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> renamer.renameFiles(progress -> { }, null)).isInstanceOf(NullPointerException.class);
+        assertThat(Files.exists(image)).isTrue();
     }
 
     @Test
     void rejectsInconsistentResultCountsAndNullProgressData() {
-        assertThrows(IllegalArgumentException.class, () -> new RenameResult(1, 2, 2, 0, 0, false));
-        assertThrows(IllegalArgumentException.class, () -> new RenameResult(1, 1, 0, 0, 0, false));
-        assertThrows(IllegalArgumentException.class, () -> new RenameResult(1, 0, -1, 1, 0, false));
-        assertThrows(NullPointerException.class,
-                () -> new RenameProgress(null, new RenameResult(0, 0, 0, 0, 0, false)));
-        assertThrows(NullPointerException.class, () -> new RenameProgress(directory, null));
+        assertThatThrownBy(() -> new RenameResult(1, 2, 2, 0, 0, false)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new RenameResult(1, 1, 0, 0, 0, false)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new RenameResult(1, 0, -1, 1, 0, false)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new RenameProgress(null, new RenameResult(0, 0, 0, 0, 0, false))).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new RenameProgress(directory, null)).isInstanceOf(NullPointerException.class);
     }
 
     private Path copyImage(String name) throws Exception {
         Path target = directory.resolve(name);
         try (var input = getClass().getResourceAsStream("/data/IMG_7559_mini.JPG")) {
-            assertNotNull(input);
+            assertThat(input).isNotNull();
             Files.copy(input, target);
         }
         return target;

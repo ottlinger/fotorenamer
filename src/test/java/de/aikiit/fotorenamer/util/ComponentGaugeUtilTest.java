@@ -22,10 +22,8 @@ import java.awt.Point;
 
 import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.createImageIcon;
 import static de.aikiit.fotorenamer.util.ComponentGaugeUtil.makeCentered;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests util methods.
@@ -41,8 +39,8 @@ class ComponentGaugeUtilTest {
     @Test
     void createIconFromStringPath() {
         // FIXME not really clear why this location (valid with File-separators) cannot be parsed into an URL
-        // assertNotNull(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.FULLPATH_TEST_IMG));
-        assertNull(createImageIcon("wuumansho"));
+        // assertThat(ComponentGaugeUtil.createImageIcon(MetaDataExtractorTest.FULLPATH_TEST_IMG)).isNotNull();
+        assertThat(createImageIcon("wuumansho")).isNull();
     }
 
     /**
@@ -50,9 +48,7 @@ class ComponentGaugeUtilTest {
      */
     @Test
     void createIconFromStringPathWithAssertionFailure() {
-        assertThrows(AssertionError.class, () ->
-                assertNull(createImageIcon(null))
-        );
+        assertThatThrownBy(() -> createImageIcon(null)).isInstanceOf(AssertionError.class);
     }
 
     /**
@@ -63,9 +59,9 @@ class ComponentGaugeUtilTest {
     void gaugeSwingComponent() {
         JButton button = new JButton("Test");
         Point buttonSize = button.getLocation();
-        assertEquals(new Point(0, 0), buttonSize);
+        assertThat(buttonSize).isEqualTo(new Point(0, 0));
         makeCentered(button);
-        assertNotSame(new Point(0, 0), button.getLocation());
+        assertThat(button.getLocation()).isNotSameAs(new Point(0, 0));
     }
 
 }

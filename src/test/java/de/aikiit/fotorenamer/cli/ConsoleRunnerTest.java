@@ -26,11 +26,7 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ConsoleRunnerTest {
     @TempDir
@@ -49,37 +45,36 @@ class ConsoleRunnerTest {
     @Test
     void helpAndVersionDoNotRequireDirectoryOrProcessImages() throws Exception {
         Path image = copyImage("holiday.jpg");
-        assertEquals(0, execute("--help"));
-        assertTrue(out.toString().contains("DIRECTORY"));
-        assertTrue(out.toString().contains("--reverse"));
-        assertEquals(0, execute("--version"));
-        assertTrue(out.toString().contains(Version.VERSION));
-        assertTrue(Files.exists(image));
-        assertEquals("", err.toString());
+        assertThat(execute("--help")).isEqualTo(0);
+        assertThat(out.toString()).contains("DIRECTORY", "--reverse");
+        assertThat(execute("--version")).isEqualTo(0);
+        assertThat(out.toString()).contains(Version.VERSION);
+        assertThat(Files.exists(image)).isTrue();
+        assertThat(err.toString()).isEmpty();
     }
 
     @Test
     void rejectsMissingDirectoryAndUnknownOptions() {
-        assertEquals(2, execute());
-        assertTrue(err.toString().contains("DIRECTORY"));
-        assertEquals(2, execute("--unknown", directory.toString()));
-        assertTrue(err.toString().contains("Unknown option"));
-        assertEquals(2, execute(directory.toString(), "extra"));
+        assertThat(execute()).isEqualTo(2);
+        assertThat(err.toString()).contains("DIRECTORY");
+        assertThat(execute("--unknown", directory.toString())).isEqualTo(2);
+        assertThat(err.toString()).contains("Unknown option");
+        assertThat(execute(directory.toString(), "extra")).isEqualTo(2);
     }
 
     @Test
     void rejectsNonDirectoriesWithoutProcessingImages() throws Exception {
         Path image = copyImage("holiday.jpg");
-        assertEquals(2, execute(directory.resolve("missing").toString()));
-        assertEquals(2, execute(image.toString()));
-        assertTrue(err.toString().contains("Not a directory"));
-        assertTrue(Files.exists(image));
+        assertThat(execute(directory.resolve("missing").toString())).isEqualTo(2);
+        assertThat(execute(image.toString())).isEqualTo(2);
+        assertThat(err.toString()).contains("Not a directory");
+        assertThat(Files.exists(image)).isTrue();
     }
 
     @Test
     void reportsEmptyDirectoryAsFailure() {
-        assertEquals(1, execute(directory.toString()));
-        assertTrue(err.toString().contains("No images found"));
+        assertThat(execute(directory.toString())).isEqualTo(1);
+        assertThat(err.toString()).contains("No images found");
     }
 
     @Test
@@ -88,14 +83,11 @@ class ConsoleRunnerTest {
         byte[] content = Files.readAllBytes(source);
         Path prefixed = copyImage("20110130_131102_existing.jpg");
 
-        assertEquals(0, execute(directory.toString()));
-        assertTrue(out.toString().contains("Processed: 2 / 2"));
-        assertTrue(out.toString().contains("Renamed: 1"));
-        assertTrue(out.toString().contains("Skipped: 1"));
-        assertTrue(out.toString().contains("Failed: 0"));
-        assertFalse(Files.exists(source));
-        assertArrayEquals(content, Files.readAllBytes(directory.resolve("20110130_131102_holiday.dat")));
-        assertArrayEquals(content, Files.readAllBytes(prefixed));
+        assertThat(execute(directory.toString())).isEqualTo(0);
+        assertThat(out.toString()).contains("Processed: 2 / 2", "Renamed: 1", "Skipped: 1", "Failed: 0");
+        assertThat(Files.exists(source)).isFalse();
+        assertThat(Files.readAllBytes(directory.resolve("20110130_131102_holiday.dat"))).containsExactly(content);
+        assertThat(Files.readAllBytes(prefixed)).containsExactly(content);
     }
 
     @Test
@@ -103,9 +95,9 @@ class ConsoleRunnerTest {
         for (String option : new String[]{"-r", "--reverse"}) {
             Path source = copyImage("20110130_1311_holiday.jpg");
             byte[] content = Files.readAllBytes(source);
-            assertEquals(0, execute(option, directory.toString()));
-            assertFalse(Files.exists(source));
-            assertArrayEquals(content, Files.readAllBytes(directory.resolve("holiday.jpg")));
+            assertThat(execute(option, directory.toString())).isEqualTo(0);
+            assertThat(Files.exists(source)).isFalse();
+            assertThat(Files.readAllBytes(directory.resolve("holiday.jpg"))).containsExactly(content);
             Files.delete(directory.resolve("holiday.jpg"));
         }
     }
@@ -113,11 +105,11 @@ class ConsoleRunnerTest {
     @Test
     void countsImagesWithoutExifAsSkipped() throws Exception {
         Path image = directory.resolve("plain.png");
-        assertTrue(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), "png", image.toFile()));
+        assertThat(ImageIO.write(new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB), "png", image.toFile())).isTrue();
         byte[] content = Files.readAllBytes(image);
-        assertEquals(0, execute(directory.toString()));
-        assertTrue(out.toString().contains("Skipped: 1"));
-        assertArrayEquals(content, Files.readAllBytes(image));
+        assertThat(execute(directory.toString())).isEqualTo(0);
+        assertThat(out.toString()).contains("Skipped: 1");
+        assertThat(Files.readAllBytes(image)).containsExactly(content);
     }
 
     @Test
@@ -126,18 +118,17 @@ class ConsoleRunnerTest {
         byte[] content = Files.readAllBytes(source);
         Path target = Files.writeString(directory.resolve("20110130_131102_holiday.jpg"), "keep this");
         copyImage("other.jpg");
-        assertEquals(1, execute(directory.toString()));
-        assertTrue(out.toString().contains("Renamed: 1"));
-        assertTrue(out.toString().contains("Failed: 1"));
-        assertArrayEquals(content, Files.readAllBytes(source));
-        assertEquals("keep this", Files.readString(target));
-        assertTrue(Files.exists(directory.resolve("20110130_131102_other.jpg")));
+        assertThat(execute(directory.toString())).isEqualTo(1);
+        assertThat(out.toString()).contains("Renamed: 1", "Failed: 1");
+        assertThat(Files.readAllBytes(source)).containsExactly(content);
+        assertThat(Files.readString(target)).isEqualTo("keep this");
+        assertThat(Files.exists(directory.resolve("20110130_131102_other.jpg"))).isTrue();
     }
 
     private Path copyImage(String name) throws Exception {
         Path target = directory.resolve(name);
         try (var input = getClass().getResourceAsStream("/data/IMG_7559_mini.JPG")) {
-            assertNotNull(input);
+            assertThat(input).isNotNull();
             Files.copy(input, target);
         }
         return target;

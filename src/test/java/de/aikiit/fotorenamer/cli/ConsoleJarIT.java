@@ -25,12 +25,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.jar.JarFile;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /** Tests the packaged artifact in a separate headless JVM with mvn -Pcli verify. */
 class ConsoleJarIT {
@@ -42,45 +37,45 @@ class ConsoleJarIT {
         try (JarFile cli = new JarFile(System.getProperty("cli.jar"));
              JarFile gui = new JarFile(System.getProperty("gui.jar"))) {
             var cliAttributes = cli.getManifest().getMainAttributes();
-            assertEquals(ConsoleRunner.class.getName(), cliAttributes.getValue("Main-Class"));
-            assertNull(cliAttributes.getValue("SplashScreen-Image"));
+            assertThat(cliAttributes.getValue("Main-Class")).isEqualTo(ConsoleRunner.class.getName());
+            assertThat(cliAttributes.getValue("SplashScreen-Image")).isNull();
             var guiAttributes = gui.getManifest().getMainAttributes();
-            assertEquals("de.aikiit.fotorenamer.ApplicationStarter", guiAttributes.getValue("Main-Class"));
+            assertThat(guiAttributes.getValue("Main-Class")).isEqualTo("de.aikiit.fotorenamer.ApplicationStarter");
             String splashPath = guiAttributes.getValue("SplashScreen-Image");
-            assertEquals("image/splash-camera.jpg", splashPath);
+            assertThat(splashPath).isEqualTo("image/splash-camera.jpg");
             var splashEntry = gui.getJarEntry(splashPath);
-            assertNotNull(splashEntry);
+            assertThat(splashEntry).isNotNull();
             try (var input = gui.getInputStream(splashEntry)) {
                 var image = ImageIO.read(input);
-                assertNotNull(image);
-                assertEquals(400, image.getWidth());
-                assertEquals(600, image.getHeight());
+                assertThat(image).isNotNull();
+                assertThat(image.getWidth()).isEqualTo(400);
+                assertThat(image.getHeight()).isEqualTo(600);
             }
         }
     }
 
     @Test
     void supportsHelpAndUsageErrorsHeadlessly() throws Exception {
-        assertTrue(run(0, "--help").contains("Usage: fotorenamer"));
-        assertTrue(run(2).contains("DIRECTORY"));
-        assertTrue(run(1, directory.toString()).contains("No images found"));
+        assertThat(run(0, "--help")).contains("Usage: fotorenamer");
+        assertThat(run(2)).contains("DIRECTORY");
+        assertThat(run(1, directory.toString())).contains("No images found");
     }
 
     @Test
     void renamesSkipsAndReversesInHeadlessJvm() throws Exception {
         Path image = directory.resolve("holiday.dat");
         try (var input = getClass().getResourceAsStream("/data/IMG_7559_mini.JPG")) {
-            assertNotNull(input);
+            assertThat(input).isNotNull();
             Files.copy(input, image);
         }
         byte[] content = Files.readAllBytes(image);
-        assertTrue(run(0, directory.toString()).contains("Renamed: 1"));
+        assertThat(run(0, directory.toString())).contains("Renamed: 1");
         Path target = directory.resolve("20110130_131102_holiday.dat");
-        assertArrayEquals(content, Files.readAllBytes(target));
-        assertTrue(run(0, directory.toString()).contains("Skipped: 1"));
-        assertTrue(run(0, "-r", directory.toString()).contains("Renamed: 1"));
-        assertArrayEquals(content, Files.readAllBytes(image));
-        assertFalse(Files.exists(target));
+        assertThat(Files.readAllBytes(target)).containsExactly(content);
+        assertThat(run(0, directory.toString())).contains("Skipped: 1");
+        assertThat(run(0, "-r", directory.toString())).contains("Renamed: 1");
+        assertThat(Files.readAllBytes(image)).containsExactly(content);
+        assertThat(target).doesNotExist();
     }
 
     private String run(int expectedExitCode, String... args) throws Exception {
@@ -92,9 +87,9 @@ class ConsoleJarIT {
         Path output = Files.createTempFile(directory, "cli-output-", ".txt");
         Process process = new ProcessBuilder(command).redirectErrorStream(true).redirectOutput(output.toFile()).start();
         try {
-            assertTrue(process.waitFor(30, TimeUnit.SECONDS), "CLI process timed out");
+            assertThat(process.waitFor(30, TimeUnit.SECONDS)).as("CLI process timed out").isTrue();
             String text = Files.readString(output);
-            assertEquals(expectedExitCode, process.exitValue(), text);
+            assertThat(process.exitValue()).as(text).isEqualTo(expectedExitCode);
             return text;
         } finally {
             process.destroyForcibly();
