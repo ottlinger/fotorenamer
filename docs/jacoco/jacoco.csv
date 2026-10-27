@@ -19,7 +19,7 @@ FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,MainUIW
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,MainUIWindow.new WindowAdapter() {...},21,0,0,0,4,0,2,0,2,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector,269,0,14,0,79,0,21,0,14,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ImageDirectorySelector.new DropTarget() {...},67,0,10,0,21,0,7,0,2,0
-FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,RenameWorker,8,111,1,7,5,25,1,9,0,6
+FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,RenameWorker,8,109,1,7,5,25,1,9,0,6
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,StartupSplash,67,81,6,12,15,28,4,9,0,4
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,HelpWindow,189,0,4,0,46,0,8,0,6,0
 FotoRenamer - rename your photos automatically,de.aikiit.fotorenamer.gui,ProgressBar,136,0,4,0,27,0,6,0,4,0
