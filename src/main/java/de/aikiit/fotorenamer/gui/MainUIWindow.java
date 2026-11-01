@@ -284,7 +284,8 @@ public final class MainUIWindow extends JFrame implements ActionListener {
                 : result.failed() > 0 ? "fotorenamer.ui.rename.result.warning"
                 : reverse ? "fotorenamer.ui.rerename.success.title" : "fotorenamer.ui.rename.success.title";
         String message = getParameterizedBundleString("fotorenamer.ui.rename.result.summary", directory,
-                result.processed(), result.total(), result.renamed(), result.skipped(), result.failed());
+                result.processed(), result.total(), result.renamed(), result.skipped(), result.failed(),
+                result.withoutExifDate());
         JOptionPane.showMessageDialog(this, message, getBundleString(titleKey),
                 result.cancelled() || result.failed() > 0 ? JOptionPane.WARNING_MESSAGE : JOptionPane.INFORMATION_MESSAGE);
     }

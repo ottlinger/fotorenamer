@@ -25,12 +25,15 @@ import java.awt.GridLayout;
 import java.nio.file.Path;
 
 import static de.aikiit.fotorenamer.util.LocalizationHelper.getBundleString;
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
 
 /** EDT-only progress view; no processing, sleeps, or artificial delays. */
 public class ProgressBar extends JFrame {
 
     private final JLabel textInfo = new JLabel(" ");
     private final JProgressBar progressBar;
+    private final JLabel exifInfo = new JLabel(getParameterizedBundleString(
+            "fotorenamer.ui.progress.withoutExifDate", 0));
 
     /** Shows indeterminate progress during discovery when maxCapacity is zero. */
     public ProgressBar(final int maxCapacity) {
@@ -42,9 +45,10 @@ public class ProgressBar extends JFrame {
         progressBar.setStringPainted(true);
         textInfo.setText(getBundleString("fotorenamer.ui.progress.scanning"));
         textInfo.setPreferredSize(new Dimension(450, textInfo.getPreferredSize().height));
-        getContentPane().setLayout(new GridLayout(3, 1));
+        getContentPane().setLayout(new GridLayout(4, 1));
         getContentPane().add(new JLabel(getBundleString("fotorenamer.ui.progress.title")));
         getContentPane().add(textInfo);
+        getContentPane().add(exifInfo);
         getContentPane().add(progressBar);
         pack();
         ComponentGaugeUtil.makeCentered(this);
@@ -56,6 +60,8 @@ public class ProgressBar extends JFrame {
         progressBar.setIndeterminate(false);
         progressBar.setMaximum(progress.result().total());
         progressBar.setValue(progress.result().processed());
+        exifInfo.setText(getParameterizedBundleString("fotorenamer.ui.progress.withoutExifDate",
+                progress.result().withoutExifDate()));
         Path name = progress.file().getFileName();
         textInfo.setText(name == null ? progress.file().toString() : name.toString());
         textInfo.setToolTipText(progress.file().toString());
@@ -63,6 +69,10 @@ public class ProgressBar extends JFrame {
 
     public final String getText() {
         return textInfo.getText();
+    }
+
+    public final String getExifText() {
+        return exifInfo.getText();
     }
 
     public final int getProgress() {

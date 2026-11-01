@@ -56,6 +56,16 @@ class LocalizationHelperTest {
     }
 
     @Test
+    void formatsMissingExifDateCountsInProgressAndResult() {
+        assertThat(getParameterizedBundleString("fotorenamer.ui.progress.withoutExifDate", 2))
+                .isEqualTo("Ohne gültiges EXIF-Datum: 2");
+        assertThat(getParameterizedBundleString("fotorenamer.ui.rename.result.summary",
+                "photos", 5, 5, 2, 3, 0, 2))
+                .contains("Übersprungen: 3\n  Davon ohne gültiges EXIF-Datum: 2", "Fehlgeschlagen: 0")
+                .doesNotContain("{6}");
+    }
+
+    @Test
     void fallbackLocale() {
         // WHEN: reset system properties
         System.setProperty("user.language", "");

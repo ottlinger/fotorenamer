@@ -144,11 +144,18 @@ final class MetaDataExtractor {
         String dateValue =
                 getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);
 
-        LOG.info("EXIF date value is: " + dateValue);
+        if (Strings.isNullOrEmpty(dateValue) || dateValue.replace(APOSTROPHE, EMPTY_STRING).isBlank()) {
+            LOG.info("No EXIF creation date found in '" + image.toAbsolutePath()
+                    + "'; filename remains unchanged.");
+            return EMPTY_STRING;
+        }
+
+        LOG.info("EXIF date value for '" + image.toAbsolutePath() + "' is: " + dateValue);
 
         // Invalid length of EXIF metadata, not complying to the standard.
-        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {
-            LOG.info("No valid creation date extracted from file " + image);
+        if (dateValue.length() != VALID_EXIF_DATE_LENGTH) {
+            LOG.info("No valid EXIF creation date extracted from '" + image.toAbsolutePath()
+                    + "'; filename remains unchanged.");
             return EMPTY_STRING;
         }
 
@@ -159,7 +166,8 @@ final class MetaDataExtractor {
             String filename = Objects.requireNonNull(image.getFileName(), "Image must have a filename").toString();
             dateValue = filename.startsWith(prefix) ? filename : prefix + filename;
         } catch (DateTimeParseException e) {
-            LOG.warn("Invalid EXIF creation date in " + image.toAbsolutePath(), e);
+            LOG.warn("Invalid EXIF creation date in '" + image.toAbsolutePath()
+                    + "'; filename remains unchanged.", e);
             return EMPTY_STRING;
         }
 

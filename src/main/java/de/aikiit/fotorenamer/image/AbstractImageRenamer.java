@@ -79,10 +79,11 @@ abstract class AbstractImageRenamer implements ImageRenamer {
         int renamed = 0;
         int skipped = 0;
         int failed = 0;
+        int withoutExifDate = 0;
         LOG.info("Starting to process {} image files.", total);
         for (Path source : this.imageList) {
             if (Thread.currentThread().isInterrupted() || cancellationRequested.getAsBoolean()) {
-                return new RenameResult(total, processed, renamed, skipped, failed, true);
+                return new RenameResult(total, processed, renamed, skipped, failed, withoutExifDate, true);
             }
             Path target = source;
             try {
@@ -90,10 +91,14 @@ abstract class AbstractImageRenamer implements ImageRenamer {
                     LOG.info("Skipping '{}': no longer a regular file", source);
                     skipped++;
                 } else {
-                    String targetFilename = renameImage(source);
+                    RenameDecision decision = determineRename(source);
+                    String targetFilename = decision.filename();
                     if (targetFilename == null || targetFilename.isEmpty()
                             || targetFilename.equals(fileName(source))) {
                         skipped++;
+                        if (decision.withoutExifDate()) {
+                            withoutExifDate++;
+                        }
                     } else {
                         target = source.resolveSibling(targetFilename);
                         // No REPLACE_EXISTING or ATOMIC_MOVE: preserve existing targets.
@@ -103,24 +108,32 @@ abstract class AbstractImageRenamer implements ImageRenamer {
                 }
             } catch (CancellationException e) {
                 LOG.info("Processing cancelled at '{}'", source, e);
-                return new RenameResult(total, processed, renamed, skipped, failed, true);
+                return new RenameResult(total, processed, renamed, skipped, failed, withoutExifDate, true);
             } catch (IOException | RuntimeException e) {
                 LOG.error("Unable to process '{}' with target '{}'", source, target, e);
                 if (Thread.currentThread().isInterrupted()) {
-                    return new RenameResult(total, processed, renamed, skipped, failed, true);
+                    return new RenameResult(total, processed, renamed, skipped, failed, withoutExifDate, true);
                 }
                 failed++;
             }
             processed++;
-            RenameResult snapshot = new RenameResult(total, processed, renamed, skipped, failed, false);
+            RenameResult snapshot = new RenameResult(total, processed, renamed, skipped, failed, withoutExifDate, false);
             try {
                 onProgress.accept(new RenameProgress(source, snapshot));
             } catch (RuntimeException e) {
                 LOG.warn("Progress observer failed for '{}'", source, e);
             }
         }
-        return new RenameResult(total, processed, renamed, skipped, failed, false);
+        return new RenameResult(total, processed, renamed, skipped, failed, withoutExifDate, false);
     }
+
+    /** Determines the filename and, where applicable, the EXIF skip reason. */
+    protected RenameDecision determineRename(final Path imageFile) throws IOException {
+        return new RenameDecision(renameImage(imageFile), false);
+    }
+
+    /** A per-file decision, avoiding mutable state between files or batch runs. */
+    protected record RenameDecision(String filename, boolean withoutExifDate) { }
 
     /** Determines a filename; return the original name or an empty name to skip. */
     protected abstract String renameImage(Path imageFile) throws IOException;

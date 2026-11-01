@@ -62,7 +62,13 @@ public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer
      */
     @Override
     public String renameImage(final Path imageFile) throws IOException {
+        return determineRename(imageFile).filename();
+    }
+
+    @Override
+    protected RenameDecision determineRename(final Path imageFile) throws IOException {
         String newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);
-        return newImageName == null || newImageName.isEmpty() ? fileName(imageFile) : newImageName;
+        boolean withoutExifDate = newImageName == null || newImageName.isEmpty();
+        return new RenameDecision(withoutExifDate ? fileName(imageFile) : newImageName, withoutExifDate);
     }
 }

@@ -73,9 +73,10 @@ public final class ConsoleRunner implements Callable<Integer> {
         }
         RenameResult result = renamer.renameFiles();
         spec.commandLine().getOut().printf(
-                "Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%nFailed: %d%n",
+                "Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%n"
+                        + "  Without valid EXIF date: %d%nFailed: %d%n",
                 directory.toAbsolutePath(), result.processed(), result.total(),
-                result.renamed(), result.skipped(), result.failed());
+                result.renamed(), result.skipped(), result.withoutExifDate(), result.failed());
         return result.failed() == 0 && !result.cancelled() ? 0 : 1;
     }
 }

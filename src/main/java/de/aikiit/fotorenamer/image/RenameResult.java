@@ -17,11 +17,19 @@ package de.aikiit.fotorenamer.image;
 /**
  * Immutable batch result (or progress snapshot), without localized UI text.
  * Total counts detected image candidates; processed is renamed + skipped + failed.
+ * withoutExifDate is a subset of skipped: images without a usable EXIF capture date.
  * Cancelled batches can have unprocessed candidates. Completed moves are not rolled back.
  */
-public record RenameResult(int total, int processed, int renamed, int skipped, int failed, boolean cancelled) {
+public record RenameResult(int total, int processed, int renamed, int skipped, int failed,
+                           int withoutExifDate, boolean cancelled) {
+    /** Creates a result for processing that does not inspect EXIF dates. */
+    public RenameResult(int total, int processed, int renamed, int skipped, int failed, boolean cancelled) {
+        this(total, processed, renamed, skipped, failed, 0, cancelled);
+    }
+
     public RenameResult {
         if (total < 0 || processed < 0 || renamed < 0 || skipped < 0 || failed < 0
+                || withoutExifDate < 0 || withoutExifDate > skipped
                 || processed > total || (long) renamed + skipped + failed != processed) {
             throw new IllegalArgumentException("Inconsistent rename counts");
         }

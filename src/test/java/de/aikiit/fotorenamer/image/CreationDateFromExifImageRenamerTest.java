@@ -70,7 +70,15 @@ class CreationDateFromExifImageRenamerTest {
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
         assertThat(renamer.renameImage(png)).isEqualTo("no-exif.bin");
         assertThat(renamer.renameImage(jpeg)).isEqualTo("no-exif");
-        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(3, 3, 1, 2, 0, false));
+        List<RenameProgress> progress = new CopyOnWriteArrayList<>();
+        RenameResult result = renamer.renameFiles(progress::add);
+        assertThat(result).isEqualTo(new RenameResult(3, 3, 1, 2, 0, 2, false));
+        assertThat(progress).hasSize(3);
+        assertThat(progress.get(2).result()).isEqualTo(result);
+        assertThat(progress).allSatisfy(event ->
+                assertThat(event.result().withoutExifDate()).isBetween(0, event.result().skipped()));
+        var secondRun = new CreationDateFromExifImageRenamer(directory.toString());
+        assertThat(secondRun.renameFiles()).isEqualTo(new RenameResult(3, 3, 0, 3, 0, 2, false));
 
         assertThat(Files.exists(image)).isFalse();
         assertThat(Files.readAllBytes(directory.resolve("20110130_131102_holiday.dat"))).containsExactly(originalImage);
@@ -163,8 +171,51 @@ class CreationDateFromExifImageRenamerTest {
         byte[] original = Files.readAllBytes(image);
         CreationDateFromExifImageRenamer renamer = new CreationDateFromExifImageRenamer(directory.toString());
         assertThat(renamer.renameImage(image)).isEqualTo("scan");
-        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(1, 1, 0, 1, 0, false));
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(1, 1, 0, 1, 0, 1, false));
         assertThat(Files.readAllBytes(image)).containsExactly(original);
+    }
+
+    @Test
+    void countsMalformedExifDatesAsUnusable() throws Exception {
+        int index = 0;
+        for (String date : List.of("xxxx:xx:xx xx:xx:xx", "2026:02:30 12:00:00", "2026:01:01 25:00:00")) {
+            Path image = writeExifTiff("scan-" + index++, date);
+            assertThat(MetaDataExtractor.generateCreationDateInCorrectFormat(image)).isEmpty();
+        }
+        var renamer = new CreationDateFromExifImageRenamer(directory.toString());
+        assertThat(renamer.renameFiles()).isEqualTo(new RenameResult(3, 3, 0, 3, 0, 3, false));
+    }
+
+    @Test
+    void missingExifDateIsExplicitlyLoggedAndRetainedOnCancellation() throws Exception {
+        Path image = writeImageWithoutExif("no-exif.png", "png");
+        writeImageWithoutExif("another.png", "png");
+        var renamer = new CreationDateFromExifImageRenamer(directory.toString());
+        Logger logger = (Logger) LogManager.getLogger(MetaDataExtractor.class);
+        List<LogEvent> events = new CopyOnWriteArrayList<>();
+        List<RenameProgress> progress = new CopyOnWriteArrayList<>();
+        AbstractAppender appender = new AbstractAppender("missing-exif", null, null, false, Property.EMPTY_ARRAY) {
+            @Override
+            public void append(LogEvent event) {
+                events.add(event.toImmutable());
+            }
+        };
+        appender.start();
+        logger.addAppender(appender);
+        try {
+            assertThat(renamer.renameImage(image)).isEqualTo("no-exif.png");
+            RenameResult result = renamer.renameFiles(progress::add, () -> !progress.isEmpty());
+            assertThat(result).isEqualTo(new RenameResult(2, 1, 0, 1, 0, 1, true));
+            assertThat(progress.get(0).result().withoutExifDate()).isEqualTo(1);
+            assertThat(events).anySatisfy(event -> assertThat(event.getMessage().getFormattedMessage())
+                    .contains("No EXIF creation date found", image.toAbsolutePath().toString(),
+                            "filename remains unchanged"));
+            assertThat(events).noneSatisfy(event -> assertThat(event.getMessage().getFormattedMessage())
+                    .contains("EXIF date value"));
+        } finally {
+            logger.removeAppender(appender);
+            appender.stop();
+        }
     }
 
     @Test

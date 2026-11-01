@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
+import static de.aikiit.fotorenamer.util.LocalizationHelper.getParameterizedBundleString;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -49,9 +51,11 @@ class ProgressBarTest {
     void checkSetterGetter() {
         ProgressBar bar = new ProgressBar(10);
         assertThat(bar).isNotNull();
-        bar.updateProgress(new RenameProgress(Path.of(TEXT), new RenameResult(10, 5, 5, 0, 0, false)));
+        bar.updateProgress(new RenameProgress(Path.of(TEXT), new RenameResult(10, 5, 3, 2, 0, 2, false)));
         assertThat(bar.getProgress()).isEqualTo(5);
         assertThat(bar.getText()).isEqualTo(TEXT);
+        assertThat(bar.getExifText()).isEqualTo(getParameterizedBundleString(
+                "fotorenamer.ui.progress.withoutExifDate", 2));
         bar.dispose();
     }
 }

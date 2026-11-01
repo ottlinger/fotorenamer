@@ -166,6 +166,8 @@ class RenameProcessingTest {
         assertThatThrownBy(() -> new RenameResult(1, 0, -1, 1, 0, false)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new RenameProgress(null, new RenameResult(0, 0, 0, 0, 0, false))).isInstanceOf(NullPointerException.class);
         assertThatThrownBy(() -> new RenameProgress(directory, null)).isInstanceOf(NullPointerException.class);
+        assertThatThrownBy(() -> new RenameResult(1, 1, 0, 1, 0, -1, false)).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new RenameResult(1, 1, 1, 0, 0, 1, false)).isInstanceOf(IllegalArgumentException.class);
     }
 
     private Path copyImage(String name) throws Exception {
