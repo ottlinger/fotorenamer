@@ -73,10 +73,11 @@ import java.util.concurrent.Callable;
 <span class="fc" id="L73">        }</span>
 <span class="fc" id="L74">        RenameResult result = renamer.renameFiles();</span>
 <span class="fc" id="L75">        spec.commandLine().getOut().printf(</span>
-                &quot;Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%nFailed: %d%n&quot;,
-<span class="fc" id="L77">                directory.toAbsolutePath(), result.processed(), result.total(),</span>
-<span class="fc" id="L78">                result.renamed(), result.skipped(), result.failed());</span>
-<span class="pc bpc" id="L79" title="1 of 4 branches missed.">        return result.failed() == 0 &amp;&amp; !result.cancelled() ? 0 : 1;</span>
+                &quot;Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%n&quot;
+                        + &quot;  Without valid EXIF date: %d%nFailed: %d%n&quot;,
+<span class="fc" id="L78">                directory.toAbsolutePath(), result.processed(), result.total(),</span>
+<span class="fc" id="L79">                result.renamed(), result.skipped(), result.withoutExifDate(), result.failed());</span>
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">        return result.failed() == 0 &amp;&amp; !result.cancelled() ? 0 : 1;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

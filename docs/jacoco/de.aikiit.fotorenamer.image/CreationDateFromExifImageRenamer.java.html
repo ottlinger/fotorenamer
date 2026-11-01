@@ -62,8 +62,14 @@ public final class CreationDateFromExifImageRenamer extends AbstractImageRenamer
      */
     @Override
     public String renameImage(final Path imageFile) throws IOException {
-<span class="fc" id="L65">        String newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);</span>
-<span class="pc bpc" id="L66" title="1 of 4 branches missed.">        return newImageName == null || newImageName.isEmpty() ? fileName(imageFile) : newImageName;</span>
+<span class="fc" id="L65">        return determineRename(imageFile).filename();</span>
+    }
+
+    @Override
+    protected RenameDecision determineRename(final Path imageFile) throws IOException {
+<span class="fc" id="L70">        String newImageName = MetaDataExtractor.generateCreationDateInCorrectFormat(imageFile);</span>
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        boolean withoutExifDate = newImageName == null || newImageName.isEmpty();</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        return new RenameDecision(withoutExifDate ? fileName(imageFile) : newImageName, withoutExifDate);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

@@ -284,27 +284,28 @@ public final class MainUIWindow extends JFrame implements ActionListener {
 <span class="nc bnc" id="L284" title="All 2 branches missed.">                : result.failed() &gt; 0 ? &quot;fotorenamer.ui.rename.result.warning&quot;</span>
 <span class="nc bnc" id="L285" title="All 2 branches missed.">                : reverse ? &quot;fotorenamer.ui.rerename.success.title&quot; : &quot;fotorenamer.ui.rename.success.title&quot;;</span>
 <span class="nc" id="L286">        String message = getParameterizedBundleString(&quot;fotorenamer.ui.rename.result.summary&quot;, directory,</span>
-<span class="nc" id="L287">                result.processed(), result.total(), result.renamed(), result.skipped(), result.failed());</span>
-<span class="nc" id="L288">        JOptionPane.showMessageDialog(this, message, getBundleString(titleKey),</span>
-<span class="nc bnc" id="L289" title="All 4 branches missed.">                result.cancelled() || result.failed() &gt; 0 ? JOptionPane.WARNING_MESSAGE : JOptionPane.INFORMATION_MESSAGE);</span>
-<span class="nc" id="L290">    }</span>
+<span class="nc" id="L287">                result.processed(), result.total(), result.renamed(), result.skipped(), result.failed(),</span>
+<span class="nc" id="L288">                result.withoutExifDate());</span>
+<span class="nc" id="L289">        JOptionPane.showMessageDialog(this, message, getBundleString(titleKey),</span>
+<span class="nc bnc" id="L290" title="All 4 branches missed.">                result.cancelled() || result.failed() &gt; 0 ? JOptionPane.WARNING_MESSAGE : JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L291">    }</span>
 
     private void showFailure(final String directory, final Throwable cause) {
-<span class="nc bnc" id="L293" title="All 2 branches missed.">        if (cause instanceof CancellationException) {</span>
-<span class="nc" id="L294">            LOG.info(&quot;Processing cancelled for '{}'&quot;, directory);</span>
-<span class="nc" id="L295">            JOptionPane.showMessageDialog(this, getBundleString(&quot;fotorenamer.ui.rename.cancelled&quot;),</span>
-<span class="nc" id="L296">                    getBundleString(&quot;fotorenamer.ui.rename.cancelled&quot;), JOptionPane.INFORMATION_MESSAGE);</span>
-<span class="nc" id="L297">            return;</span>
+<span class="nc bnc" id="L294" title="All 2 branches missed.">        if (cause instanceof CancellationException) {</span>
+<span class="nc" id="L295">            LOG.info(&quot;Processing cancelled for '{}'&quot;, directory);</span>
+<span class="nc" id="L296">            JOptionPane.showMessageDialog(this, getBundleString(&quot;fotorenamer.ui.rename.cancelled&quot;),</span>
+<span class="nc" id="L297">                    getBundleString(&quot;fotorenamer.ui.rename.cancelled&quot;), JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L298">            return;</span>
         }
-<span class="nc" id="L299">        LOG.error(&quot;Unable to process images in '{}'&quot;, directory, cause);</span>
-<span class="nc bnc" id="L300" title="All 2 branches missed.">        String messageKey = cause instanceof InvalidDirectoryException ? &quot;fotorenamer.ui.error.invaliddirectory&quot;</span>
-<span class="nc bnc" id="L301" title="All 2 branches missed.">                : cause instanceof NoFilesFoundException ? &quot;fotorenamer.ui.error.nofiles&quot; : &quot;fotorenamer.ui.rename.error&quot;;</span>
-<span class="nc bnc" id="L302" title="All 2 branches missed.">        String titleKey = cause instanceof InvalidDirectoryException ? &quot;fotorenamer.ui.error.invaliddirectory.title&quot;</span>
-<span class="nc bnc" id="L303" title="All 2 branches missed.">                : cause instanceof NoFilesFoundException ? &quot;fotorenamer.ui.error.nofiles.title&quot; : &quot;fotorenamer.ui.rename.error.title&quot;;</span>
-<span class="nc bnc" id="L304" title="All 2 branches missed.">        String detail = cause.getMessage() == null ? cause.getClass().getSimpleName() : cause.getMessage();</span>
-<span class="nc" id="L305">        JOptionPane.showMessageDialog(this, getParameterizedBundleString(messageKey, detail),</span>
-<span class="nc" id="L306">                getBundleString(titleKey), JOptionPane.ERROR_MESSAGE);</span>
-<span class="nc" id="L307">    }</span>
+<span class="nc" id="L300">        LOG.error(&quot;Unable to process images in '{}'&quot;, directory, cause);</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">        String messageKey = cause instanceof InvalidDirectoryException ? &quot;fotorenamer.ui.error.invaliddirectory&quot;</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">                : cause instanceof NoFilesFoundException ? &quot;fotorenamer.ui.error.nofiles&quot; : &quot;fotorenamer.ui.rename.error&quot;;</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">        String titleKey = cause instanceof InvalidDirectoryException ? &quot;fotorenamer.ui.error.invaliddirectory.title&quot;</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">                : cause instanceof NoFilesFoundException ? &quot;fotorenamer.ui.error.nofiles.title&quot; : &quot;fotorenamer.ui.rename.error.title&quot;;</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">        String detail = cause.getMessage() == null ? cause.getClass().getSimpleName() : cause.getMessage();</span>
+<span class="nc" id="L306">        JOptionPane.showMessageDialog(this, getParameterizedBundleString(messageKey, detail),</span>
+<span class="nc" id="L307">                getBundleString(titleKey), JOptionPane.ERROR_MESSAGE);</span>
+<span class="nc" id="L308">    }</span>
 
     /**
      * Helper to enable visibility of help window.
@@ -312,7 +313,7 @@ public final class MainUIWindow extends JFrame implements ActionListener {
      * @see HelpWindow
      */
     private void showHelpWindow() {
-<span class="nc" id="L315">        helpWindow.setVisible(true);</span>
-<span class="nc" id="L316">    }</span>
+<span class="nc" id="L316">        helpWindow.setVisible(true);</span>
+<span class="nc" id="L317">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

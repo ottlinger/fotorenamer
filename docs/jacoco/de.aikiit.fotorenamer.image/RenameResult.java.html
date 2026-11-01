@@ -17,14 +17,22 @@ package de.aikiit.fotorenamer.image;
 /**
  * Immutable batch result (or progress snapshot), without localized UI text.
  * Total counts detected image candidates; processed is renamed + skipped + failed.
+ * withoutExifDate is a subset of skipped: images without a usable EXIF capture date.
  * Cancelled batches can have unprocessed candidates. Completed moves are not rolled back.
  */
-public record RenameResult(int total, int processed, int renamed, int skipped, int failed, boolean cancelled) {
-<span class="fc" id="L23">    public RenameResult {</span>
-<span class="pc bpc" id="L24" title="4 of 14 branches missed.">        if (total &lt; 0 || processed &lt; 0 || renamed &lt; 0 || skipped &lt; 0 || failed &lt; 0</span>
-                || processed &gt; total || (long) renamed + skipped + failed != processed) {
-<span class="fc" id="L26">            throw new IllegalArgumentException(&quot;Inconsistent rename counts&quot;);</span>
-        }
+public record RenameResult(int total, int processed, int renamed, int skipped, int failed,
+                           int withoutExifDate, boolean cancelled) {
+    /** Creates a result for processing that does not inspect EXIF dates. */
+    public RenameResult(int total, int processed, int renamed, int skipped, int failed, boolean cancelled) {
+<span class="fc" id="L27">        this(total, processed, renamed, skipped, failed, 0, cancelled);</span>
 <span class="fc" id="L28">    }</span>
+
+<span class="fc" id="L30">    public RenameResult {</span>
+<span class="pc bpc" id="L31" title="4 of 18 branches missed.">        if (total &lt; 0 || processed &lt; 0 || renamed &lt; 0 || skipped &lt; 0 || failed &lt; 0</span>
+                || withoutExifDate &lt; 0 || withoutExifDate &gt; skipped
+                || processed &gt; total || (long) renamed + skipped + failed != processed) {
+<span class="fc" id="L34">            throw new IllegalArgumentException(&quot;Inconsistent rename counts&quot;);</span>
+        }
+<span class="fc" id="L36">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

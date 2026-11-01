@@ -25,16 +25,24 @@
 <a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * Immutable batch result (or progress snapshot), without localized UI text.</em>
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * Total counts detected image candidates; processed is renamed + skipped + failed.</em>
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * Cancelled batches can have unprocessed candidates. Completed moves are not rolled back.</em>
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">public</strong> record <a name="RenameResult" href="../../../../de/aikiit/fotorenamer/image/RenameResult.html#RenameResult">RenameResult</a>(<strong class="jxr_keyword">int</strong> total, <strong class="jxr_keyword">int</strong> processed, <strong class="jxr_keyword">int</strong> renamed, <strong class="jxr_keyword">int</strong> skipped, <strong class="jxr_keyword">int</strong> failed, <strong class="jxr_keyword">boolean</strong> cancelled) {
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">public</strong> <a name="RenameResult" href="../../../../de/aikiit/fotorenamer/image/RenameResult.html#RenameResult">RenameResult</a> {
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          <strong class="jxr_keyword">if</strong> (total &lt; 0 || processed &lt; 0 || renamed &lt; 0 || skipped &lt; 0 || failed &lt; 0
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>                  || processed &gt; total || (<strong class="jxr_keyword">long</strong>) renamed + skipped + failed != processed) {
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Inconsistent rename counts"</span>);
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          }
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> * withoutExifDate is a subset of skipped: images without a usable EXIF capture date.</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * Cancelled batches can have unprocessed candidates. Completed moves are not rolled back.</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">public</strong> record <a name="RenameResult" href="../../../../de/aikiit/fotorenamer/image/RenameResult.html#RenameResult">RenameResult</a>(<strong class="jxr_keyword">int</strong> total, <strong class="jxr_keyword">int</strong> processed, <strong class="jxr_keyword">int</strong> renamed, <strong class="jxr_keyword">int</strong> skipped, <strong class="jxr_keyword">int</strong> failed,
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>                             <strong class="jxr_keyword">int</strong> withoutExifDate, <strong class="jxr_keyword">boolean</strong> cancelled) {
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <em class="jxr_javadoccomment">/** Creates a result for processing that does not inspect EXIF dates. */</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>      <strong class="jxr_keyword">public</strong> <a name="RenameResult" href="../../../../de/aikiit/fotorenamer/image/RenameResult.html#RenameResult">RenameResult</a>(<strong class="jxr_keyword">int</strong> total, <strong class="jxr_keyword">int</strong> processed, <strong class="jxr_keyword">int</strong> renamed, <strong class="jxr_keyword">int</strong> skipped, <strong class="jxr_keyword">int</strong> failed, <strong class="jxr_keyword">boolean</strong> cancelled) {
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          <strong class="jxr_keyword">this</strong>(total, processed, renamed, skipped, failed, 0, cancelled);
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      }
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  }
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      <strong class="jxr_keyword">public</strong> <a name="RenameResult" href="../../../../de/aikiit/fotorenamer/image/RenameResult.html#RenameResult">RenameResult</a> {
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">if</strong> (total &lt; 0 || processed &lt; 0 || renamed &lt; 0 || skipped &lt; 0 || failed &lt; 0
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>                  || withoutExifDate &lt; 0 || withoutExifDate &gt; skipped
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>                  || processed &gt; total || (<strong class="jxr_keyword">long</strong>) renamed + skipped + failed != processed) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(<span class="jxr_string">"Inconsistent rename counts"</span>);
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          }
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2026 <a href="https://www.aiki-it.de">Aiki IT</a></div>

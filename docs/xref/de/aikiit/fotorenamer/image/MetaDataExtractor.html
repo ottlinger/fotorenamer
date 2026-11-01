@@ -152,29 +152,37 @@
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         String dateValue =
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>                 getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);
 <a class="jxr_linenumber" name="L146" href="#L146">146</a> 
-<a class="jxr_linenumber" name="L147" href="#L147">147</a>         LOG.info(<span class="jxr_string">"EXIF date value is: "</span> + dateValue);
-<a class="jxr_linenumber" name="L148" href="#L148">148</a> 
-<a class="jxr_linenumber" name="L149" href="#L149">149</a>         <em class="jxr_comment">// Invalid length of EXIF metadata, not complying to the standard.</em>
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>         <strong class="jxr_keyword">if</strong> (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>             LOG.info(<span class="jxr_string">"No valid creation date extracted from file "</span> + image);
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>             <strong class="jxr_keyword">return</strong> EMPTY_STRING;
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>         }
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>         <strong class="jxr_keyword">if</strong> (Strings.isNullOrEmpty(dateValue) || dateValue.replace(APOSTROPHE, EMPTY_STRING).isBlank()) {
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>             LOG.info(<span class="jxr_string">"No EXIF creation date found in '"</span> + image.toAbsolutePath()
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>                     + <span class="jxr_string">"'; filename remains unchanged."</span>);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>             <strong class="jxr_keyword">return</strong> EMPTY_STRING;
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         }
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> 
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>         LOG.info(<span class="jxr_string">"EXIF date value for '"</span> + image.toAbsolutePath() + <span class="jxr_string">"' is: "</span> + dateValue);
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L156" href="#L156">156</a>             LocalDateTime captureDate = LocalDateTime.parse(
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>                     dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>             String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>             String filename = Objects.requireNonNull(image.getFileName(), <span class="jxr_string">"Image must have a filename"</span>).toString();
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>             dateValue = filename.startsWith(prefix) ? filename : prefix + filename;
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         } <strong class="jxr_keyword">catch</strong> (DateTimeParseException e) {
-<a class="jxr_linenumber" name="L162" href="#L162">162</a>             LOG.warn(<span class="jxr_string">"Invalid EXIF creation date in "</span> + image.toAbsolutePath(), e);
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>             <strong class="jxr_keyword">return</strong> EMPTY_STRING;
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>         }
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> 
-<a class="jxr_linenumber" name="L166" href="#L166">166</a>         LOG.info(<span class="jxr_string">"Target filename is: "</span> + dateValue);
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <strong class="jxr_keyword">return</strong> dateValue;
-<a class="jxr_linenumber" name="L168" href="#L168">168</a>     }
-<a class="jxr_linenumber" name="L169" href="#L169">169</a> }
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>         <em class="jxr_comment">// Invalid length of EXIF metadata, not complying to the standard.</em>
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">if</strong> (dateValue.length() != VALID_EXIF_DATE_LENGTH) {
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>             LOG.info(<span class="jxr_string">"No valid EXIF creation date extracted from '"</span> + image.toAbsolutePath()
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>                     + <span class="jxr_string">"'; filename remains unchanged."</span>);
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>             <strong class="jxr_keyword">return</strong> EMPTY_STRING;
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>         }
+<a class="jxr_linenumber" name="L161" href="#L161">161</a> 
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>             LocalDateTime captureDate = LocalDateTime.parse(
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>                     dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>             String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>             String filename = Objects.requireNonNull(image.getFileName(), <span class="jxr_string">"Image must have a filename"</span>).toString();
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>             dateValue = filename.startsWith(prefix) ? filename : prefix + filename;
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         } <strong class="jxr_keyword">catch</strong> (DateTimeParseException e) {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             LOG.warn(<span class="jxr_string">"Invalid EXIF creation date in '"</span> + image.toAbsolutePath()
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>                     + <span class="jxr_string">"'; filename remains unchanged."</span>, e);
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>             <strong class="jxr_keyword">return</strong> EMPTY_STRING;
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>         }
+<a class="jxr_linenumber" name="L173" href="#L173">173</a> 
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>         LOG.info(<span class="jxr_string">"Target filename is: "</span> + dateValue);
+<a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">return</strong> dateValue;
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     }
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> }
 </pre>
 <hr/>
 <div id="footer">© 2026 <a href="https://www.aiki-it.de">Aiki IT</a></div>

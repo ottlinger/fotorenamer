@@ -59,6 +59,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#constructor-detail" tabindex="0">Constructor Details</a>
 <ol class="toc-list">
 <li><a href="#%3Cinit%3E(int,int,int,int,int,boolean)" tabindex="0">RenameResult(int, int, int, int, int, boolean)</a></li>
+<li><a href="#%3Cinit%3E(int,int,int,int,int,int,boolean)" tabindex="0">RenameResult(int, int, int, int, int, int, boolean)</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
@@ -71,6 +72,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#renamed()" tabindex="0">renamed()</a></li>
 <li><a href="#skipped()" tabindex="0">skipped()</a></li>
 <li><a href="#failed()" tabindex="0">failed()</a></li>
+<li><a href="#withoutExifDate()" tabindex="0">withoutExifDate()</a></li>
 <li><a href="#cancelled()" tabindex="0">cancelled()</a></li>
 </ol>
 </li>
@@ -89,10 +91,11 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">RenameResult</span>(int&nbsp;total, int&nbsp;processed, int&nbsp;renamed, int&nbsp;skipped, int&nbsp;failed, boolean&nbsp;cancelled)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">RenameResult</span>(int&nbsp;total, int&nbsp;processed, int&nbsp;renamed, int&nbsp;skipped, int&nbsp;failed, int&nbsp;withoutExifDate, boolean&nbsp;cancelled)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">Immutable batch result (or progress snapshot), without localized UI text.
 Total counts detected image candidates; processed is renamed + skipped + failed.
+withoutExifDate is a subset of skipped: images without a usable EXIF capture date.
 Cancelled batches can have unprocessed candidates. Completed moves are not rolled back.</div>
 </div>
 </section>
@@ -113,6 +116,16 @@ Cancelled batches can have unprocessed candidates. Completed moves are not rolle
  int&nbsp;failed,
  boolean&nbsp;cancelled)</code></div>
 <div class="col-last even-row-color">
+<div class="block">Creates a result for processing that does not inspect EXIF dates.</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(int,int,int,int,int,int,boolean)" class="member-name-link">RenameResult</a><wbr>(int&nbsp;total,
+ int&nbsp;processed,
+ int&nbsp;renamed,
+ int&nbsp;skipped,
+ int&nbsp;failed,
+ int&nbsp;withoutExifDate,
+ boolean&nbsp;cancelled)</code></div>
+<div class="col-last odd-row-color">
 <div class="block">Creates an instance of a <code>RenameResult</code> record class.</div>
 </div>
 </div>
@@ -174,6 +187,11 @@ Cancelled batches can have unprocessed candidates. Completed moves are not rolle
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>total</code> record component.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withoutExifDate()" class="member-name-link">withoutExifDate</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>withoutExifDate</code> record component.</div>
+</div>
 </div>
 </div>
 </div>
@@ -201,6 +219,21 @@ Cancelled batches can have unprocessed candidates. Completed moves are not rolle
  int&nbsp;skipped,
  int&nbsp;failed,
  boolean&nbsp;cancelled)</span></div>
+<div class="block">Creates a result for processing that does not inspect EXIF dates.</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(int,int,int,int,int,int,boolean)">
+<h3>RenameResult</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RenameResult</span><wbr><span class="parameters">(int&nbsp;total,
+ int&nbsp;processed,
+ int&nbsp;renamed,
+ int&nbsp;skipped,
+ int&nbsp;failed,
+ int&nbsp;withoutExifDate,
+ boolean&nbsp;cancelled)</span></div>
 <div class="block">Creates an instance of a <code>RenameResult</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -209,6 +242,7 @@ Cancelled batches can have unprocessed candidates. Completed moves are not rolle
 <dd><code>renamed</code> - the value for the <code>renamed</code> record component</dd>
 <dd><code>skipped</code> - the value for the <code>skipped</code> record component</dd>
 <dd><code>failed</code> - the value for the <code>failed</code> record component</dd>
+<dd><code>withoutExifDate</code> - the value for the <code>withoutExifDate</code> record component</dd>
 <dd><code>cancelled</code> - the value for the <code>cancelled</code> record component</dd>
 </dl>
 </div>
@@ -330,6 +364,19 @@ Cancelled batches can have unprocessed candidates. Completed moves are not rolle
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the value of the <code>failed</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="withoutExifDate()">
+<h3>withoutExifDate</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">withoutExifDate</span>()</div>
+<div class="block">Returns the value of the <code>withoutExifDate</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>withoutExifDate</code> record component</dd>
 </dl>
 </div>
 </section>

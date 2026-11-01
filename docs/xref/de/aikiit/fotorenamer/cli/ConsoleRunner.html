@@ -81,12 +81,13 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          }
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          <a name="RenameResult" href="../../../../de/aikiit/fotorenamer/image/RenameResult.html#RenameResult">RenameResult</a> result = renamer.renameFiles();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          spec.commandLine().getOut().printf(
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>                  <span class="jxr_string">"Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%nFailed: %d%n"</span>,
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>                  directory.toAbsolutePath(), result.processed(), result.total(),
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>                  result.renamed(), result.skipped(), result.failed());
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">return</strong> result.failed() == 0 &amp;&amp; !result.cancelled() ? 0 : 1;
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      }
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  }
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>                  <span class="jxr_string">"Directory: %s%nProcessed: %d / %d%nRenamed: %d%nSkipped: %d%n"</span>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>                          + <span class="jxr_string">"  Without valid EXIF date: %d%nFailed: %d%n"</span>,
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>                  directory.toAbsolutePath(), result.processed(), result.total(),
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>                  result.renamed(), result.skipped(), result.withoutExifDate(), result.failed());
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">return</strong> result.failed() == 0 &amp;&amp; !result.cancelled() ? 0 : 1;
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  }
 </pre>
 <hr/>
 <div id="footer">© 2026 <a href="https://www.aiki-it.de">Aiki IT</a></div>

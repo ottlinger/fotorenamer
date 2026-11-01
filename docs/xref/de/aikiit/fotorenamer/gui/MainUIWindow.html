@@ -292,37 +292,38 @@
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>                 : result.failed() &gt; 0 ? <span class="jxr_string">"fotorenamer.ui.rename.result.warning"</span>
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>                 : reverse ? <span class="jxr_string">"fotorenamer.ui.rerename.success.title"</span> : <span class="jxr_string">"fotorenamer.ui.rename.success.title"</span>;
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         String message = getParameterizedBundleString(<span class="jxr_string">"fotorenamer.ui.rename.result.summary"</span>, directory,
-<a class="jxr_linenumber" name="L287" href="#L287">287</a>                 result.processed(), result.total(), result.renamed(), result.skipped(), result.failed());
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>         JOptionPane.showMessageDialog(<strong class="jxr_keyword">this</strong>, message, getBundleString(titleKey),
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 result.cancelled() || result.failed() &gt; 0 ? JOptionPane.WARNING_MESSAGE : JOptionPane.INFORMATION_MESSAGE);
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>     }
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> 
-<a class="jxr_linenumber" name="L292" href="#L292">292</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> showFailure(<strong class="jxr_keyword">final</strong> String directory, <strong class="jxr_keyword">final</strong> Throwable cause) {
-<a class="jxr_linenumber" name="L293" href="#L293">293</a>         <strong class="jxr_keyword">if</strong> (cause instanceof CancellationException) {
-<a class="jxr_linenumber" name="L294" href="#L294">294</a>             LOG.info(<span class="jxr_string">"Processing cancelled for '{}'"</span>, directory);
-<a class="jxr_linenumber" name="L295" href="#L295">295</a>             JOptionPane.showMessageDialog(<strong class="jxr_keyword">this</strong>, getBundleString(<span class="jxr_string">"fotorenamer.ui.rename.cancelled"</span>),
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>                     getBundleString(<span class="jxr_string">"fotorenamer.ui.rename.cancelled"</span>), JOptionPane.INFORMATION_MESSAGE);
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>             <strong class="jxr_keyword">return</strong>;
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>         }
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         LOG.error(<span class="jxr_string">"Unable to process images in '{}'"</span>, directory, cause);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         String messageKey = cause instanceof <a name="InvalidDirectoryException" href="../../../../de/aikiit/fotorenamer/exception/InvalidDirectoryException.html#InvalidDirectoryException">InvalidDirectoryException</a> ? <span class="jxr_string">"fotorenamer.ui.error.invaliddirectory"</span>
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>                 : cause instanceof <a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a> ? <span class="jxr_string">"fotorenamer.ui.error.nofiles"</span> : <span class="jxr_string">"fotorenamer.ui.rename.error"</span>;
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>         String titleKey = cause instanceof <a name="InvalidDirectoryException" href="../../../../de/aikiit/fotorenamer/exception/InvalidDirectoryException.html#InvalidDirectoryException">InvalidDirectoryException</a> ? <span class="jxr_string">"fotorenamer.ui.error.invaliddirectory.title"</span>
-<a class="jxr_linenumber" name="L303" href="#L303">303</a>                 : cause instanceof <a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a> ? <span class="jxr_string">"fotorenamer.ui.error.nofiles.title"</span> : <span class="jxr_string">"fotorenamer.ui.rename.error.title"</span>;
-<a class="jxr_linenumber" name="L304" href="#L304">304</a>         String detail = cause.getMessage() == <strong class="jxr_keyword">null</strong> ? cause.getClass().getSimpleName() : cause.getMessage();
-<a class="jxr_linenumber" name="L305" href="#L305">305</a>         JOptionPane.showMessageDialog(<strong class="jxr_keyword">this</strong>, getParameterizedBundleString(messageKey, detail),
-<a class="jxr_linenumber" name="L306" href="#L306">306</a>                 getBundleString(titleKey), JOptionPane.ERROR_MESSAGE);
-<a class="jxr_linenumber" name="L307" href="#L307">307</a>     }
-<a class="jxr_linenumber" name="L308" href="#L308">308</a> 
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L310" href="#L310">310</a> <em class="jxr_javadoccomment">     * Helper to enable visibility of help window.</em>
-<a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L312" href="#L312">312</a> <em class="jxr_javadoccomment">     * @see HelpWindow</em>
-<a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L314" href="#L314">314</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> showHelpWindow() {
-<a class="jxr_linenumber" name="L315" href="#L315">315</a>         helpWindow.setVisible(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>     }
-<a class="jxr_linenumber" name="L317" href="#L317">317</a> }
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>                 result.processed(), result.total(), result.renamed(), result.skipped(), result.failed(),
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>                 result.withoutExifDate());
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>         JOptionPane.showMessageDialog(<strong class="jxr_keyword">this</strong>, message, getBundleString(titleKey),
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 result.cancelled() || result.failed() &gt; 0 ? JOptionPane.WARNING_MESSAGE : JOptionPane.INFORMATION_MESSAGE);
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     }
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> 
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> showFailure(<strong class="jxr_keyword">final</strong> String directory, <strong class="jxr_keyword">final</strong> Throwable cause) {
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>         <strong class="jxr_keyword">if</strong> (cause instanceof CancellationException) {
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>             LOG.info(<span class="jxr_string">"Processing cancelled for '{}'"</span>, directory);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>             JOptionPane.showMessageDialog(<strong class="jxr_keyword">this</strong>, getBundleString(<span class="jxr_string">"fotorenamer.ui.rename.cancelled"</span>),
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>                     getBundleString(<span class="jxr_string">"fotorenamer.ui.rename.cancelled"</span>), JOptionPane.INFORMATION_MESSAGE);
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>             <strong class="jxr_keyword">return</strong>;
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         }
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         LOG.error(<span class="jxr_string">"Unable to process images in '{}'"</span>, directory, cause);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>         String messageKey = cause instanceof <a name="InvalidDirectoryException" href="../../../../de/aikiit/fotorenamer/exception/InvalidDirectoryException.html#InvalidDirectoryException">InvalidDirectoryException</a> ? <span class="jxr_string">"fotorenamer.ui.error.invaliddirectory"</span>
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>                 : cause instanceof <a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a> ? <span class="jxr_string">"fotorenamer.ui.error.nofiles"</span> : <span class="jxr_string">"fotorenamer.ui.rename.error"</span>;
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>         String titleKey = cause instanceof <a name="InvalidDirectoryException" href="../../../../de/aikiit/fotorenamer/exception/InvalidDirectoryException.html#InvalidDirectoryException">InvalidDirectoryException</a> ? <span class="jxr_string">"fotorenamer.ui.error.invaliddirectory.title"</span>
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>                 : cause instanceof <a name="NoFilesFoundException" href="../../../../de/aikiit/fotorenamer/exception/NoFilesFoundException.html#NoFilesFoundException">NoFilesFoundException</a> ? <span class="jxr_string">"fotorenamer.ui.error.nofiles.title"</span> : <span class="jxr_string">"fotorenamer.ui.rename.error.title"</span>;
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>         String detail = cause.getMessage() == <strong class="jxr_keyword">null</strong> ? cause.getClass().getSimpleName() : cause.getMessage();
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>         JOptionPane.showMessageDialog(<strong class="jxr_keyword">this</strong>, getParameterizedBundleString(messageKey, detail),
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>                 getBundleString(titleKey), JOptionPane.ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>     }
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> 
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">     * Helper to enable visibility of help window.</em>
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">     * @see HelpWindow</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> showHelpWindow() {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>         helpWindow.setVisible(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>     }
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> }
 </pre>
 <hr/>
 <div id="footer">© 2026 <a href="https://www.aiki-it.de">Aiki IT</a></div>

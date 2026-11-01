@@ -144,27 +144,35 @@ final class MetaDataExtractor {
 <span class="fc" id="L144">        String dateValue =</span>
 <span class="fc" id="L145">                getExifMetadata(image, ExifTagConstants.EXIF_TAG_DATE_TIME_ORIGINAL);</span>
 
-<span class="fc" id="L147">        LOG.info(&quot;EXIF date value is: &quot; + dateValue);</span>
+<span class="pc bpc" id="L147" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.replace(APOSTROPHE, EMPTY_STRING).isBlank()) {</span>
+<span class="fc" id="L148">            LOG.info(&quot;No EXIF creation date found in '&quot; + image.toAbsolutePath()</span>
+                    + &quot;'; filename remains unchanged.&quot;);
+<span class="fc" id="L150">            return EMPTY_STRING;</span>
+        }
+
+<span class="fc" id="L153">        LOG.info(&quot;EXIF date value for '&quot; + image.toAbsolutePath() + &quot;' is: &quot; + dateValue);</span>
 
         // Invalid length of EXIF metadata, not complying to the standard.
-<span class="pc bpc" id="L150" title="1 of 4 branches missed.">        if (Strings.isNullOrEmpty(dateValue) || dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
-<span class="fc" id="L151">            LOG.info(&quot;No valid creation date extracted from file &quot; + image);</span>
-<span class="fc" id="L152">            return EMPTY_STRING;</span>
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">        if (dateValue.length() != VALID_EXIF_DATE_LENGTH) {</span>
+<span class="nc" id="L157">            LOG.info(&quot;No valid EXIF creation date extracted from '&quot; + image.toAbsolutePath()</span>
+                    + &quot;'; filename remains unchanged.&quot;);
+<span class="nc" id="L159">            return EMPTY_STRING;</span>
         }
 
         try {
-<span class="fc" id="L156">            LocalDateTime captureDate = LocalDateTime.parse(</span>
-<span class="fc" id="L157">                    dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);</span>
-<span class="fc" id="L158">            String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;</span>
-<span class="fc" id="L159">            String filename = Objects.requireNonNull(image.getFileName(), &quot;Image must have a filename&quot;).toString();</span>
-<span class="fc bfc" id="L160" title="All 2 branches covered.">            dateValue = filename.startsWith(prefix) ? filename : prefix + filename;</span>
-<span class="fc" id="L161">        } catch (DateTimeParseException e) {</span>
-<span class="fc" id="L162">            LOG.warn(&quot;Invalid EXIF creation date in &quot; + image.toAbsolutePath(), e);</span>
-<span class="fc" id="L163">            return EMPTY_STRING;</span>
-<span class="fc" id="L164">        }</span>
+<span class="fc" id="L163">            LocalDateTime captureDate = LocalDateTime.parse(</span>
+<span class="fc" id="L164">                    dateValue.replace(APOSTROPHE, EMPTY_STRING), EXIF_DATE_FORMAT);</span>
+<span class="fc" id="L165">            String prefix = captureDate.format(FILENAME_DATE_FORMAT) + UNDERSCORE;</span>
+<span class="fc" id="L166">            String filename = Objects.requireNonNull(image.getFileName(), &quot;Image must have a filename&quot;).toString();</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">            dateValue = filename.startsWith(prefix) ? filename : prefix + filename;</span>
+<span class="fc" id="L168">        } catch (DateTimeParseException e) {</span>
+<span class="fc" id="L169">            LOG.warn(&quot;Invalid EXIF creation date in '&quot; + image.toAbsolutePath()</span>
+                    + &quot;'; filename remains unchanged.&quot;, e);
+<span class="fc" id="L171">            return EMPTY_STRING;</span>
+<span class="fc" id="L172">        }</span>
 
-<span class="fc" id="L166">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
-<span class="fc" id="L167">        return dateValue;</span>
+<span class="fc" id="L174">        LOG.info(&quot;Target filename is: &quot; + dateValue);</span>
+<span class="fc" id="L175">        return dateValue;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>
